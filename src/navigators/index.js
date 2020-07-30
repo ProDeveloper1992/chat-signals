@@ -8,7 +8,7 @@ import {AuthContext} from '../contexts/AuthContext';
 import {MainStackNavigator} from '../navigators/MainStackNavigator';
 import {useAuth} from '../hooks/useAuth';
 import {UserContext} from '../contexts/UserContext';
-import {SplashScreen} from '../screens/SplashScreen';
+import {Splash} from '../screens/Splash';
 import {darkTheme} from '../themes/dark';
 import {ThemeContext} from '../contexts/ThemeContext';
 import {StatusBar} from 'react-native';
@@ -25,7 +25,7 @@ export default function () {
 
   function renderScreens() {
     if (state.loading) {
-      return <RootStack.Screen name={'Splash'} component={SplashScreen} />;
+      return <RootStack.Screen name={'Splash'} component={Splash} />;
     }
     return state.user ? (
       <RootStack.Screen name={'MainStack'}>

@@ -3,7 +3,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import {createAction} from '../utils/createAction';
-import {sleep} from '../utils/sleep';
+import {wait} from '../utils/wait';
 
 export function useAuth() {
   const [state, dispatch] = React.useReducer(
@@ -47,7 +47,7 @@ export function useAuth() {
         dispatch(createAction('REMOVE_USER'));
       },
       register: async (email, password) => {
-        await sleep(2000);
+        await wait(2000);
         const user = {
           token: 'userToken',
         };
@@ -58,7 +58,7 @@ export function useAuth() {
     [],
   );
   React.useEffect(() => {
-    sleep(2000).then(() => {
+    wait(2000).then(() => {
       AsyncStorage.getItem('user').then((user) => {
         if (user) {
           dispatch(createAction('SET_USER', JSON.parse(user)));
