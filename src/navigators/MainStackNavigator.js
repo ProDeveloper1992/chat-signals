@@ -1,6 +1,6 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import {ProductsListScreen} from '../screens/ProductsListScreen';
+import {Home} from '../screens/Home';
 
 const MainStack = createStackNavigator();
 
@@ -9,7 +9,7 @@ export function MainStackNavigator() {
     <MainStack.Navigator>
       <MainStack.Screen
         name={'ProductsList'}
-        component={ProductsListScreen}
+        component={Home}
         options={{
           title: 'Products List',
         }}

@@ -1,13 +1,13 @@
 import React from 'react';
 import {FlatList, StyleSheet} from 'react-native';
 
-import {HeaderIconButton} from '../components/HeaderIconButton';
-import {AuthContext} from '../contexts/AuthContext';
-import {Product} from '../components/Product';
-import {HeaderIconsContainer} from '../components/HeaderIconsContainer';
-import {ThemeContext} from '../contexts/ThemeContext';
+import {HeaderIconButton} from '../../components/HeaderIconButton';
+import {AuthContext} from '../../contexts/AuthContext';
+import {Product} from '../../components/Product';
+import {HeaderIconsContainer} from '../../components/HeaderIconsContainer';
+import {ThemeContext} from '../../contexts/ThemeContext';
 
-export function ProductsListScreen({navigation}) {
+export function Home({navigation}) {
   const {logout} = React.useContext(AuthContext);
   const switchTheme = React.useContext(ThemeContext);
   React.useLayoutEffect(() => {
@@ -30,8 +30,10 @@ export function ProductsListScreen({navigation}) {
       ),
     });
   }, [navigation, logout, switchTheme]);
-  
-  const products = [{name:"test",price:"price test",description:"description test"}]
+
+  const products = [
+    {name: 'test', price: 'price test', description: 'description test'},
+  ];
 
   function renderProduct({item: product}) {
     return <Product product={product} />;
@@ -42,7 +44,7 @@ export function ProductsListScreen({navigation}) {
       contentContainerStyle={styles.productsListContainer}
       data={products}
       renderItem={renderProduct}
-      keyExtractor={product => `${product.id}`}
+      keyExtractor={(product) => `${product.id}`}
     />
   );
 }

@@ -1,16 +1,16 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 
-import {Heading} from '../components/Heading';
-import {Input} from '../components/Input';
-import {Button} from '../components/Button';
-import {Error} from '../components/Error';
-import {IconButton} from '../components/IconButton';
-import {AuthContainer} from '../components/AuthContainer';
-import {AuthContext} from '../contexts/AuthContext';
-import {Loading} from '../components/Loading';
+import {Heading} from '../../components/Heading';
+import {Input} from '../../components/Input';
+import {Button} from '../../components/Button';
+import {Error} from '../../components/Error';
+import {IconButton} from '../../components/IconButton';
+import {AuthContainer} from '../../components/AuthContainer';
+import {AuthContext} from '../../contexts/AuthContext';
+import {Loading} from '../../components/Loading';
 
-export function RegistrationScreen({navigation}) {
+export function Register({navigation}) {
   const {register} = React.useContext(AuthContext);
   const [userName, setUserName] = React.useState('');
   const [email, setEmail] = React.useState('');
@@ -33,7 +33,7 @@ export function RegistrationScreen({navigation}) {
       <Input
         style={styles.input}
         placeholder={'User name'}
-        keyboardType={'userName'}
+        keyboardType={'email-address'}
         value={userName}
         onChangeText={setUserName}
       />

@@ -8,10 +8,10 @@ import {
   Error,
   AuthContainer,
   Loading,
-} from '../components';
-import {AuthContext} from '../contexts/AuthContext';
+} from '../../components';
+import {AuthContext} from '../../contexts/AuthContext';
 
-export function LoginScreen({navigation}) {
+export function Login({navigation}) {
   const {login} = React.useContext(AuthContext);
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');

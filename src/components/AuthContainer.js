@@ -1,12 +1,10 @@
 import React from 'react';
 import {View, StyleSheet, ImageBackground} from 'react-native';
-import {Colors} from '../constants';
+import {Colors, Images} from '../constants';
 
 export function AuthContainer({children}) {
   return (
-    <ImageBackground
-      style={styles.container}
-      source={require('../assets/images/login_bg1.jpg')}>
+    <ImageBackground style={styles.container} source={Images.login_bg_1}>
       <View style={styles.container}>{children}</View>
     </ImageBackground>
   );
