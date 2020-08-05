@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
-import {AuthContainer, Input} from '../../components';
+import {View, Text, StyleSheet, ImageBackground} from 'react-native';
 import {GradientButton} from '../../components/Buttons';
+import {Input} from '../../components/Input';
+import {Images} from '../../constants';
 
 export default class ForgotPassword extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ export default class ForgotPassword extends Component {
   render() {
     const {email} = this.state;
     return (
-      <AuthContainer style={{justifyContent: 'center'}}>
+      <ImageBackground style={styles.container} source={Images.login_bg_2}>
         <Input
           placeholder={'Email'}
           keyboardType={'email-address'}
@@ -27,7 +28,15 @@ export default class ForgotPassword extends Component {
           style={{marginTop: 20}}
           // onPress={this.onLogin.bind(this)}
         />
-      </AuthContainer>
+      </ImageBackground>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 25,
+  },
+});

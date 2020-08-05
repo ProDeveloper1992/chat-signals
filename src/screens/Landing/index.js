@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
-import {AuthContainer} from '../../components';
+import {View, Text, StyleSheet, Image, ImageBackground} from 'react-native';
 import {GradientButton} from '../../components/Buttons/GradientButton';
 import {Images} from '../../constants';
 
@@ -20,34 +19,27 @@ export default class Landing extends Component {
 
   render() {
     return (
-      <AuthContainer>
-        <View style={styles.container}>
-          <Image
-            style={styles.logo}
-            source={{
-              uri: Images.app_logo,
-            }}
-          />
-          <View style={styles.bottomView}>
-            <View style={[styles.container, {marginEnd: 8}]}>
-              <GradientButton
-                type={'light'}
-                title={'Register'}
-                style={{paddingVertical: 18}}
-                onPress={this.onRegister.bind(this)}
-              />
-            </View>
-            <View style={[styles.container, {marginStart: 8}]}>
-              <GradientButton
-                type={'primary'}
-                title={'Login'}
-                style={{paddingVertical: 18}}
-                onPress={this.onLogin.bind(this)}
-              />
-            </View>
+      <ImageBackground style={styles.container} source={Images.login_bg_2}>
+        <Image style={styles.logo} source={Images.app_logo} />
+        <View style={styles.bottomView}>
+          <View style={{marginEnd: 8, flex: 1}}>
+            <GradientButton
+              type={'light'}
+              title={'Register'}
+              style={{paddingVertical: 18}}
+              onPress={this.onRegister.bind(this)}
+            />
+          </View>
+          <View style={{marginStart: 8, flex: 1}}>
+            <GradientButton
+              type={'primary'}
+              title={'Login'}
+              style={{paddingVertical: 18}}
+              onPress={this.onLogin.bind(this)}
+            />
           </View>
         </View>
-      </AuthContainer>
+      </ImageBackground>
     );
   }
 }
@@ -55,12 +47,13 @@ export default class Landing extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 25,
   },
   bottomView: {
-    bottom: 0,
+    bottom: 25,
     position: 'absolute',
     flexDirection: 'row',
-    alignItems: 'center',
+    alignSelf: 'center',
   },
   logo: {
     width: 200,

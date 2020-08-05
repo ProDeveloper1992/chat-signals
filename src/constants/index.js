@@ -6,7 +6,7 @@ export const Colors = {
 
 export const Images = {
   login_bg_1: require('../assets/images/login_bg1.jpg'),
-  splash: require('../assets/images/splash1.jpg'),
-  app_logo:
-    'https://haptik.ai/tech/wp-content/uploads/2020/03/Logo-Horizontal-copy.png',
+  login_bg_2: require('../assets/images/login_bg2.jpg'),
+  splash: require('../assets/images/splash.jpg'),
+  app_logo: require('../assets/images/app_logo.png'),
 };

@@ -24,9 +24,7 @@ export function Login({navigation}) {
     <AuthContainer>
       <Image
         style={styles.logo}
-        source={{
-          uri: Images.app_logo,
-        }}
+        source={Images.app_logo}
       />
       <View style={{flex: 1, justifyContent: 'center'}}>
         <Error error={error} />
