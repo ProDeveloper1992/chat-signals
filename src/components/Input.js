@@ -15,10 +15,9 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: '#e8e8e8',
     width: '100%',
-    // padding: 10,
     paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 30,
+    paddingVertical: 15,
+    borderRadius: 15,
     color: 'black',
   },
 });
