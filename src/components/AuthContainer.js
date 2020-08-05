@@ -1,11 +1,11 @@
 import React from 'react';
-import {View, StyleSheet, ImageBackground} from 'react-native';
+import {StyleSheet, ImageBackground, SafeAreaView} from 'react-native';
 import {Colors, Images} from '../constants';
 
-export function AuthContainer({children}) {
+export function AuthContainer({children, style}) {
   return (
     <ImageBackground style={styles.container} source={Images.login_bg_1}>
-      <View style={styles.container}>{children}</View>
+      <SafeAreaView style={[style, {flex: 1}]}>{children}</SafeAreaView>
     </ImageBackground>
   );
 }
@@ -13,9 +13,6 @@ export function AuthContainer({children}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    justifyContent: 'center',
-    // alignItems: 'center',
-    // backgroundColor:Colors.ui_primary_dark
+    padding: 25,
   },
 });
