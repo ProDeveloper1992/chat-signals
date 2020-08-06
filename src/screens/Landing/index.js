@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Image, ImageBackground} from 'react-native';
-import {GradientButton} from '../../components/Buttons/GradientButton';
+import {GradientButton} from '../../components';
 import {Images} from '../../constants';
 
 export default class Landing extends Component {

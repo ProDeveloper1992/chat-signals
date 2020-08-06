@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, ImageBackground} from 'react-native';
-import {GradientButton} from '../../components/Buttons';
-import {Input} from '../../components/Input';
+import {GradientButton, AuthInput} from '../../components';
 import {Images} from '../../constants';
 
 export default class ForgotPassword extends Component {
@@ -16,7 +15,7 @@ export default class ForgotPassword extends Component {
     const {email} = this.state;
     return (
       <ImageBackground style={styles.container} source={Images.login_bg_2}>
-        <Input
+        <AuthInput
           placeholder={'Email'}
           keyboardType={'email-address'}
           value={email}
