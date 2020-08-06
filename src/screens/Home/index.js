@@ -1,11 +1,9 @@
 import React from 'react';
-import {FlatList, StyleSheet} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 
-import {HeaderIconButton} from '../../components/HeaderIconButton';
 import {AuthContext} from '../../contexts/AuthContext';
-import {Product} from '../../components/Product';
-import {HeaderIconsContainer} from '../../components/HeaderIconsContainer';
 import {ThemeContext} from '../../contexts/ThemeContext';
+import {IconButton} from '../../components';
 
 export function Home({navigation}) {
   const {logout} = React.useContext(AuthContext);
@@ -13,20 +11,20 @@ export function Home({navigation}) {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <HeaderIconsContainer>
-          <HeaderIconButton
+        <View style={{flexDirection: 'row'}}>
+          <IconButton
             name={'color-palette'}
             onPress={() => {
               switchTheme();
             }}
           />
-          <HeaderIconButton
+          <IconButton
             name={'log-out'}
             onPress={() => {
               logout();
             }}
           />
-        </HeaderIconsContainer>
+        </View>
       ),
     });
   }, [navigation, logout, switchTheme]);
@@ -35,23 +33,11 @@ export function Home({navigation}) {
     {name: 'test', price: 'price test', description: 'description test'},
   ];
 
-  function renderProduct({item: product}) {
-    return <Product product={product} />;
-  }
-
-  return (
-    <FlatList
-      contentContainerStyle={styles.productsListContainer}
-      data={products}
-      renderItem={renderProduct}
-      keyExtractor={(product) => `${product.id}`}
-    />
-  );
+  return <View style={styles.container}></View>;
 }
 
 const styles = StyleSheet.create({
-  productsListContainer: {
-    paddingVertical: 8,
-    marginHorizontal: 8,
+  container: {
+    flex: 1,
   },
 });
