@@ -13,13 +13,13 @@ export function Home({navigation}) {
       headerRight: () => (
         <View style={{flexDirection: 'row'}}>
           <IconButton
-            name={'color-palette'}
+            iconName={'color-palette'}
             onPress={() => {
               switchTheme();
             }}
           />
           <IconButton
-            name={'log-out'}
+            iconName={'log-out'}
             onPress={() => {
               logout();
             }}

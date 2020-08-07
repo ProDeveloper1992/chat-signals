@@ -1,20 +1,21 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image, ScrollView} from 'react-native';
+import {StyleSheet, Image, View, ScrollView} from 'react-native';
 import {useTheme} from '@react-navigation/native';
+
+import {AuthContext} from '../../contexts/AuthContext';
 import {
-  TextButton,
-  AuthContainer,
-  Loading,
+  GradientButton,
   AuthInput,
+  Loading,
+  AuthContainer,
   BackHeader,
 } from '../../components';
-import {AuthContext} from '../../contexts/AuthContext';
-import {GradientButton} from '../../components';
 import {Images} from '../../constants';
 import {isIphoneX} from '../../utils/globalFunctions';
 
-export function Login({navigation}) {
-  const {login} = React.useContext(AuthContext);
+export function RegisterWithEmail({navigation}) {
+  const {register} = React.useContext(AuthContext);
+  const [userName, setUserName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [loading, setLoading] = React.useState(false);
@@ -28,45 +29,38 @@ export function Login({navigation}) {
         <View style={{flex: 1, justifyContent: 'center'}}>
           <AuthInput
             style={styles.input}
-            placeholder={'Email'}
+            placeholder={'User name'}
+            keyboardType={'email-address'}
+            value={userName}
+            onChangeText={setUserName}
+          />
+
+          <AuthInput
+            style={styles.input}
+            placeholder={'E-mail address'}
             keyboardType={'email-address'}
             value={email}
             onChangeText={setEmail}
           />
+
           <AuthInput
             style={styles.input}
-            placeholder={'Password'}
+            placeholder={'password'}
             secureTextEntry
             value={password}
             onChangeText={setPassword}
           />
-
-          <View style={{alignSelf: 'flex-end'}}>
-            <TextButton
-              title={'Forgot Password?'}
-              onPress={() => {
-                navigation.navigate('ForgotPassword');
-              }}
-            />
-          </View>
-
           <GradientButton
-            type={'primary'}
-            title={'Login'}
-            style={styles.loginButton}
+            title={'Register'}
+            style={styles.registerButtom}
             onPress={async () => {
               try {
                 setLoading(true);
-                await login(email, password);
+                await register(email, password);
+                navigation.pop();
               } catch (e) {
                 setLoading(false);
               }
-            }}
-          />
-          <TextButton
-            title={"Don't you have an account? Create one"}
-            onPress={() => {
-              navigation.navigate('Register');
             }}
           />
           <Loading loading={loading} />
@@ -78,10 +72,15 @@ export function Login({navigation}) {
 
 const styles = StyleSheet.create({
   input: {
-    marginVertical: 5,
+    marginVertical: 8,
   },
-  loginButton: {
-    marginVertical: 20,
+  registerButtom: {
+    marginVertical: 32,
+  },
+  closeIcon: {
+    position: 'absolute',
+    top: 60,
+    right: 16,
   },
   logo: {
     width: 200,

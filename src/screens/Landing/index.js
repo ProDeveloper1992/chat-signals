@@ -1,7 +1,15 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Image, ImageBackground} from 'react-native';
-import {GradientButton} from '../../components';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ImageBackground,
+  Platform,
+} from 'react-native';
+import {GradientButton, AuthContainer} from '../../components';
 import {Images} from '../../constants';
+import {isIphoneX} from '../../utils/globalFunctions';
 
 export default class Landing extends Component {
   constructor(props) {
@@ -10,7 +18,7 @@ export default class Landing extends Component {
   }
 
   onRegister = () => {
-    this.props.navigation.navigate('Register');
+    this.props.navigation.navigate('RegisterLanding');
   };
 
   onLogin = () => {
@@ -19,14 +27,14 @@ export default class Landing extends Component {
 
   render() {
     return (
-      <ImageBackground style={styles.container} source={Images.login_bg_2}>
+      <AuthContainer>
         <Image style={styles.logo} source={Images.app_logo} />
         <View style={styles.bottomView}>
           <View style={{marginEnd: 8, flex: 1}}>
             <GradientButton
               type={'light'}
               title={'Register'}
-              style={{paddingVertical: 18}}
+              style={{paddingVertical: Platform.OS === 'ios' ? 18 : 15}}
               onPress={this.onRegister.bind(this)}
             />
           </View>
@@ -34,12 +42,12 @@ export default class Landing extends Component {
             <GradientButton
               type={'primary'}
               title={'Login'}
-              style={{paddingVertical: 18}}
+              style={{paddingVertical: Platform.OS === 'ios' ? 18 : 15}}
               onPress={this.onLogin.bind(this)}
             />
           </View>
         </View>
-      </ImageBackground>
+      </AuthContainer>
     );
   }
 }
@@ -60,6 +68,6 @@ const styles = StyleSheet.create({
     height: 150,
     resizeMode: 'contain',
     alignSelf: 'center',
-    marginTop: 50,
+    marginTop: isIphoneX() ? 50 : 40,
   },
 });
