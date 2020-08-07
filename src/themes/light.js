@@ -10,6 +10,8 @@ export const lightTheme = {
     positive: '#98ff67',
     white: '#ffffff',
     black: '#1f191b',
+    google: '#db4a39',
+    facebook: '#3b5998',
     greydark: '#4E586E',
     gradient_1: '#6debef',
     gradient_2: '#52b8bc',

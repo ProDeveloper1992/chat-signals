@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, TextInput} from 'react-native';
+import {StyleSheet, TextInput, Platform} from 'react-native';
 
 export function AuthInput({style, ...props}) {
   return (
@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#e8e8e8',
     width: '100%',
     paddingHorizontal: 20,
-    paddingVertical: 15,
+    paddingVertical: Platform.OS === 'ios' ? 15 : 10,
     borderRadius: 15,
     color: 'black',
   },

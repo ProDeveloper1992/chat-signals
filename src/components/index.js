@@ -3,6 +3,7 @@ import {AuthContainer} from './Containers';
 import {Loading} from './Loaders';
 import {GradientButton, IconButton} from './Buttons';
 import {AuthInput} from './Inputs';
+import {BackHeader} from './Headers';
 
 export {
   TextButton,
@@ -11,4 +12,5 @@ export {
   GradientButton,
   IconButton,
   AuthInput,
+  BackHeader,
 };

@@ -13,6 +13,6 @@ export function AuthContainer({children, style}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 25,
+    paddingHorizontal: 25,
   },
 });
