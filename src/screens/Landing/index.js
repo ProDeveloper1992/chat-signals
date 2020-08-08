@@ -10,6 +10,7 @@ import {
 import {GradientButton, AuthContainer} from '../../components';
 import {Images} from '../../constants';
 import {isIphoneX} from '../../utils/globalFunctions';
+import {globalStyle} from '../../styles/globalStyle';
 
 export default class Landing extends Component {
   constructor(props) {
@@ -28,7 +29,10 @@ export default class Landing extends Component {
   render() {
     return (
       <AuthContainer>
-        <Image style={styles.logo} source={Images.app_logo} />
+        <Image
+          style={[globalStyle.logo, {marginTop: isIphoneX() ? 60 : 50}]}
+          source={Images.app_logo}
+        />
         <View style={styles.bottomView}>
           <View style={{marginEnd: 8, flex: 1}}>
             <GradientButton
@@ -62,12 +66,5 @@ const styles = StyleSheet.create({
     position: 'absolute',
     flexDirection: 'row',
     alignSelf: 'center',
-  },
-  logo: {
-    width: 200,
-    height: 150,
-    resizeMode: 'contain',
-    alignSelf: 'center',
-    marginTop: isIphoneX() ? 50 : 40,
   },
 });
