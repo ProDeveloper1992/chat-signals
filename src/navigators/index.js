@@ -8,7 +8,7 @@ import {AuthContext} from '../contexts/AuthContext';
 import {MainStackNavigator} from '../navigators/MainStackNavigator';
 import {useAuth} from '../hooks/useAuth';
 import {UserContext} from '../contexts/UserContext';
-import {Splash} from '../screens/Splash';
+import Splash from '../screens/Splash';
 import {darkTheme} from '../themes/dark';
 import {ThemeContext} from '../contexts/ThemeContext';
 import {StatusBar} from 'react-native';
