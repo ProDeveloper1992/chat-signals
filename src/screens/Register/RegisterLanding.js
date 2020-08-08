@@ -1,54 +1,44 @@
 import React from 'react';
-import {StyleSheet, Image, View, ScrollView} from 'react-native';
+import {StyleSheet, Image, View, ScrollView, Platform} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
-import {AuthContext} from '../../contexts/AuthContext';
-import {
-  GradientButton,
-  AuthInput,
-  Loading,
-  AuthContainer,
-  BackHeader,
-  IconButton,
-} from '../../components';
+import {GradientButton, AuthContainer, BackHeader} from '../../components';
 import {Images} from '../../constants';
-import {isIphoneX} from '../../utils/globalFunctions';
+import {globalStyle} from '../../styles/globalStyle';
 
 export function RegisterLanding({navigation}) {
   const {colors} = useTheme();
 
   return (
-    <AuthContainer>
+    <AuthContainer blur>
       <BackHeader onBackPress={() => navigation.goBack()} />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Image style={styles.logo} source={Images.app_logo} />
-        <View style={{flex: 1, justifyContent: 'center'}}>
-          <GradientButton
-            type={'primary'}
-            title={'Register With Email'}
-            icon={'mail'}
-            iconColor={colors.white}
-            style={styles.registerButtom}
-            onPress={() => navigation.navigate('RegisterWithEmail')}
-          />
-          <GradientButton
-            type={'google'}
-            title={'Register With Google'}
-            icon={'mail'}
-            iconColor={colors.white}
-            style={styles.registerButtom}
-            onPress={() => {}}
-          />
-          <GradientButton
-            type={'facebook'}
-            title={'Register With Facebook'}
-            icon={'mail'}
-            iconColor={colors.white}
-            style={styles.registerButtom}
-            onPress={() => {}}
-          />
-        </View>
-      </ScrollView>
+      <Image style={globalStyle.logo} source={Images.app_logo} />
+      <View style={{flex: 1, justifyContent: 'flex-end'}}>
+        <GradientButton
+          type={'primary'}
+          title={'Register With Email'}
+          icon={'mail'}
+          iconColor={colors.white}
+          style={styles.registerButtom}
+          onPress={() => navigation.navigate('RegisterWithEmail')}
+        />
+        <GradientButton
+          type={'google'}
+          title={'Register With Google'}
+          icon={'mail'}
+          iconColor={colors.white}
+          style={styles.registerButtom}
+          onPress={() => navigation.navigate('RegisterWithGoogle')}
+        />
+        <GradientButton
+          type={'facebook'}
+          title={'Register With Facebook'}
+          icon={'mail'}
+          iconColor={colors.white}
+          style={styles.registerButtom}
+          onPress={() => navigation.navigate('RegisterWithFacebook')}
+        />
+      </View>
     </AuthContainer>
   );
 }
@@ -58,19 +48,12 @@ const styles = StyleSheet.create({
     marginVertical: 8,
   },
   registerButtom: {
-    paddingVertical: 10,
-    marginVertical: 10,
+    paddingVertical: 12,
+    marginVertical: 8,
   },
   closeIcon: {
     position: 'absolute',
     top: 60,
     right: 16,
-  },
-  logo: {
-    width: 200,
-    height: 150,
-    resizeMode: 'contain',
-    alignSelf: 'center',
-    marginTop: isIphoneX() ? 50 : 0,
   },
 });

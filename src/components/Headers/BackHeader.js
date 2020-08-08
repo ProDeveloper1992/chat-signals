@@ -16,7 +16,7 @@ export function BackHeader({title, color, size, style, onBackPress}) {
 }
 
 const styles = StyleSheet.create({
-  container: {flexDirection: 'row', alignItems: 'center', paddingVertical: 20},
+  container: {flexDirection: 'row', alignItems: 'center', paddingVertical: 12},
   titleContainer: {
     flex: 1,
     alignItems: 'center',

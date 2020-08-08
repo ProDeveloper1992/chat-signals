@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, Platform} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import Icon from 'react-native-ionicons';
+import PropTypes from 'prop-types';
 
 export function GradientButton({type, title, icon, iconColor, style, onPress}) {
   const {colors} = useTheme();
@@ -72,8 +73,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     alignItems: 'center',
-    padding: Platform.OS === 'ios' ? 15 : 12,
-    borderRadius: 15,
+    padding: Platform.OS === 'ios' ? 15 : 15,
+    borderRadius: 8,
   },
   text: {
     flex: 1,
@@ -82,3 +83,27 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+
+GradientButton.propTypes = {
+  title: PropTypes.string,
+  icon: PropTypes.any,
+
+  type: PropTypes.oneOf([
+    'primary',
+    'positive',
+    'transparent',
+    'light',
+    'google',
+    'facebook',
+  ]),
+
+  iconColor: PropTypes.string,
+  style: PropTypes.any,
+  onPress: PropTypes.func,
+};
+
+GradientButton.defaultProps = {
+  type: 'primary',
+  title: 'Submit',
+  onPress: () => {},
+};

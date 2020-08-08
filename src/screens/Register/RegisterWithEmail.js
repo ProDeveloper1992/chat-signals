@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Image, View, ScrollView} from 'react-native';
+import {StyleSheet, Image, View, ScrollView, Platform} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
 import {AuthContext} from '../../contexts/AuthContext';
@@ -11,7 +11,7 @@ import {
   BackHeader,
 } from '../../components';
 import {Images} from '../../constants';
-import {isIphoneX} from '../../utils/globalFunctions';
+import {globalStyle} from '../../styles/globalStyle';
 
 export function RegisterWithEmail({navigation}) {
   const {register} = React.useContext(AuthContext);
@@ -22,11 +22,11 @@ export function RegisterWithEmail({navigation}) {
   const {colors} = useTheme();
 
   return (
-    <AuthContainer>
+    <AuthContainer blur>
       <BackHeader onBackPress={() => navigation.goBack()} />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Image style={styles.logo} source={Images.app_logo} />
-        <View style={{flex: 1, justifyContent: 'center'}}>
+        <Image style={globalStyle.logo} source={Images.app_logo} />
+        <View style={{marginTop: '50%'}}>
           <AuthInput
             style={styles.input}
             placeholder={'User name'}
@@ -81,12 +81,5 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 60,
     right: 16,
-  },
-  logo: {
-    width: 200,
-    height: 150,
-    resizeMode: 'contain',
-    alignSelf: 'center',
-    marginTop: isIphoneX() ? 50 : 0,
   },
 });

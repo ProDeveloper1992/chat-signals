@@ -12,6 +12,7 @@ import {AuthContext} from '../../contexts/AuthContext';
 import {GradientButton} from '../../components';
 import {Images} from '../../constants';
 import {isIphoneX} from '../../utils/globalFunctions';
+import {globalStyle} from '../../styles/globalStyle';
 
 export function Login({navigation}) {
   const {login} = React.useContext(AuthContext);
@@ -21,10 +22,10 @@ export function Login({navigation}) {
   const {colors} = useTheme();
 
   return (
-    <AuthContainer>
+    <AuthContainer blur>
       <BackHeader onBackPress={() => navigation.goBack()} />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Image style={styles.logo} source={Images.app_logo} />
+        <Image style={globalStyle.logo} source={Images.app_logo} />
         <View style={{flex: 1, justifyContent: 'center'}}>
           <AuthInput
             style={styles.input}
@@ -82,12 +83,5 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     marginVertical: 20,
-  },
-  logo: {
-    width: 200,
-    height: 150,
-    resizeMode: 'contain',
-    alignSelf: 'center',
-    marginTop: isIphoneX() ? 50 : 0,
   },
 });

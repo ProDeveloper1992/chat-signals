@@ -7,6 +7,8 @@ import {
   RegisterWithEmail,
   Landing,
   ForgotPassword,
+  RegisterWithGoogle,
+  RegisterWithFacebook,
 } from '../screens';
 
 const AuthStack = createStackNavigator();
@@ -26,6 +28,14 @@ export function AuthStackNavigator() {
       <AuthStack.Screen
         name={'RegisterWithEmail'}
         component={RegisterWithEmail}
+      />
+      <AuthStack.Screen
+        name={'RegisterWithGoogle'}
+        component={RegisterWithGoogle}
+      />
+      <AuthStack.Screen
+        name={'RegisterWithFacebook'}
+        component={RegisterWithFacebook}
       />
       <AuthStack.Screen name={'ForgotPassword'} component={ForgotPassword} />
     </AuthStack.Navigator>

@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 20,
     paddingVertical: Platform.OS === 'ios' ? 15 : 10,
-    borderRadius: 15,
+    borderRadius: 12,
     color: 'black',
   },
 });
