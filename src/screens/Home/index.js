@@ -12,12 +12,12 @@ export function Home({navigation}) {
     navigation.setOptions({
       headerRight: () => (
         <View style={{flexDirection: 'row'}}>
-          <IconButton
+          {/* <IconButton
             iconName={'color-palette'}
             onPress={() => {
               switchTheme();
             }}
-          />
+          /> */}
           <IconButton
             iconName={'log-out'}
             onPress={() => {

@@ -8,10 +8,10 @@ export function MainStackNavigator() {
   return (
     <MainStack.Navigator>
       <MainStack.Screen
-        name={'ProductsList'}
+        name={'Home'}
         component={Home}
         options={{
-          title: 'Products List',
+          title: 'Home',
         }}
       />
     </MainStack.Navigator>

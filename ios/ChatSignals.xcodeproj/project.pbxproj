@@ -12,7 +12,6 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* ChatSignalsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ChatSignalsTests.m */; };
 		5193E136E31D13D9D6622F20 /* libPods-ChatSignals-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F2581E473FA9382ED4A2B15 /* libPods-ChatSignals-tvOS.a */; };
@@ -61,7 +60,7 @@
 		62671A5B4DECAAAB38EA3761 /* Pods-ChatSignals-ChatSignalsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatSignals-ChatSignalsTests.debug.xcconfig"; path = "Target Support Files/Pods-ChatSignals-ChatSignalsTests/Pods-ChatSignals-ChatSignalsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ChatSignals/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8CF9B1A22CA6B2E6143442AB /* Pods-ChatSignals.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatSignals.release.xcconfig"; path = "Target Support Files/Pods-ChatSignals/Pods-ChatSignals.release.xcconfig"; sourceTree = "<group>"; };
-		B9A8707F00DE499E9A058B62 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-ionicons/fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		B9A8707F00DE499E9A058B62 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-ionicons/fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		DCC0082A77B0063670B0A95C /* Pods-ChatSignals-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatSignals-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-ChatSignals-tvOSTests/Pods-ChatSignals-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		E284C85525F52C4BAB54F504 /* Pods-ChatSignals-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatSignals-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-ChatSignals-tvOSTests/Pods-ChatSignals-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E2BD0CA9E9D23F466D4C1CB3 /* Pods-ChatSignals-ChatSignalsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatSignals-ChatSignalsTests.release.xcconfig"; path = "Target Support Files/Pods-ChatSignals-ChatSignalsTests/Pods-ChatSignals-ChatSignalsTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -197,7 +196,6 @@
 				E284C85525F52C4BAB54F504 /* Pods-ChatSignals-tvOSTests.debug.xcconfig */,
 				DCC0082A77B0063670B0A95C /* Pods-ChatSignals-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -207,7 +205,6 @@
 				B9A8707F00DE499E9A058B62 /* Ionicons.ttf */,
 			);
 			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -362,7 +359,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

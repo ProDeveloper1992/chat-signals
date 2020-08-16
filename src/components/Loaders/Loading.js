@@ -1,16 +1,19 @@
 import React from 'react';
 import {View, StyleSheet, ActivityIndicator, Text} from 'react-native';
+import {useTheme} from '@react-navigation/native';
 
 export function Loading({loading}) {
+  const {colors} = useTheme();
+
   if (!loading) {
     return <View />;
   }
 
   return (
     <View style={styles.overlay}>
-      <View style={styles.container}>
-        <ActivityIndicator color={'black'} />
-        <Text style={styles.text}>Loading...</Text>
+      <View style={[styles.container, {backgroundColor: colors.primary}]}>
+        <ActivityIndicator color={colors.white} />
+        <Text style={[styles.text, {color: colors.white}]}>Loading...</Text>
       </View>
     </View>
   );
@@ -24,10 +27,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   container: {
-    backgroundColor: 'white',
     flexDirection: 'row',
     padding: 20,
     borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 5},
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    elevation: 8,
   },
   text: {
     marginLeft: 16,

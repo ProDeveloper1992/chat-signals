@@ -9,28 +9,28 @@ export default class CountryPicker extends Component {
       countryData: [
         {
           country_id: 1,
-          country_name: 'India',
-          country_code: 'IN',
+          country_name: 'Germany',
+          country_code: 'DE',
           country_flag:
-            'https://cdn.countryflags.com/thumbs/india/flag-400.png',
-          selected: true,
+            'https://cdn.countryflags.com/thumbs/germany/flag-round-250.png',
+          selected: false,
         },
 
         {
-          country_id: 2,
-          country_name: 'Germany',
-          country_code: 'GM',
+          country_id: 1,
+          country_name: 'Austria',
+          country_code: 'AT',
           country_flag:
-            'https://cdn.webshopapp.com/shops/94414/files/54006608/germany-flag-icon-free-download.jpg',
+            'https://cdn.countryflags.com/thumbs/austria/flag-round-250.png',
           selected: false,
         },
 
         {
           country_id: 3,
-          country_name: 'USA',
-          country_code: 'US',
+          country_name: 'Switzerland',
+          country_code: 'CH',
           country_flag:
-            'https://www.nicepng.com/png/detail/6-63506_usa-png-clipart-american-flag-icon-png.png',
+            'https://cdn.countryflags.com/thumbs/switzerland/flag-round-250.png',
           selected: false,
         },
       ],

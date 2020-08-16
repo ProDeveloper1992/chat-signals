@@ -3,14 +3,7 @@ import {StyleSheet, TouchableOpacity, Text, View, Image} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import PropTypes from 'prop-types';
 
-export function CountryItem({
-  isSelected,
-  imageUrl,
-  countryName,
-  size,
-  style,
-  onPress,
-}) {
+export function GenderItem({isSelected, imageUrl, size, style, onPress}) {
   const {colors} = useTheme();
   return (
     <TouchableOpacity
@@ -30,16 +23,9 @@ export function CountryItem({
           width: size,
           height: size,
           resizeMode: 'contain',
-          borderRadius: size / 2,
+          tintColor: isSelected ? colors.white : colors.primary,
         }}
       />
-      <Text
-        style={[
-          styles.title,
-          {color: isSelected ? colors.white : colors.black},
-        ]}>
-        {countryName}
-      </Text>
     </TouchableOpacity>
   );
 }
@@ -59,23 +45,16 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 8,
   },
-  title: {
-    fontSize: 16,
-    fontWeight: '700',
-    marginTop: 5,
-  },
 });
 
-CountryItem.propTypes = {
+GenderItem.propTypes = {
   imageUrl: PropTypes.string,
-  countryName: PropTypes.string,
   size: PropTypes.any,
   onPress: PropTypes.func,
 };
 
-CountryItem.defaultProps = {
+GenderItem.defaultProps = {
   imageUrl: 'https://cdn.countryflags.com/thumbs/india/flag-400.png',
-  countryName: 'IN',
   size: 24,
 
   onPress: () => {},
