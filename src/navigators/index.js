@@ -43,7 +43,7 @@ export default function () {
   return (
     <ThemeContext.Provider value={switchTheme}>
       <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'light-content'}
+        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={
           isDarkMode ? Colors.ui_primary : Colors.ui_primary_dark
         }

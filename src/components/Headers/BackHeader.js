@@ -3,15 +3,28 @@ import {Text, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-ionicons';
 import {useTheme} from '@react-navigation/native';
 
-export function BackHeader({title, color, size, style, onBackPress}) {
+export function BackHeader({
+  title,
+  color,
+  size,
+  style,
+  onBackPress,
+  rightContent,
+}) {
   const {colors} = useTheme();
   return (
-    <TouchableOpacity style={[styles.container, style]} onPress={onBackPress}>
-      <Icon name={'arrow-back'} color={colors.primary} size={size || 30} />
+    <View style={[styles.container, style]}>
+      <Icon
+        name={'arrow-back'}
+        color={colors.primary}
+        size={size || 30}
+        onPress={onBackPress}
+      />
       <View style={styles.titleContainer}>
         <Text style={styles.title}>{title}</Text>
       </View>
-    </TouchableOpacity>
+      {rightContent}
+    </View>
   );
 }
 

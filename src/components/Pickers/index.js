@@ -1,3 +1,4 @@
 import CountryPicker from './CountryPicker';
+import GenderPicker from './GenderPicker';
 
-export {CountryPicker};
+export {CountryPicker, GenderPicker};
