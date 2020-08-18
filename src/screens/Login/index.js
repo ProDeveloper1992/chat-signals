@@ -67,7 +67,7 @@ export function Login({navigation}) {
           <TextButton
             title={"Don't you have an account? Create one"}
             onPress={() => {
-              navigation.navigate('Register');
+              navigation.navigate('RegisterLanding');
             }}
           />
           <Loading loading={loading} />

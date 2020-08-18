@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, ImageBackground} from 'react-native';
+import {View, Text, StyleSheet, ImageBackground, Image} from 'react-native';
 import {
   GradientButton,
   AuthInput,
@@ -7,6 +7,7 @@ import {
   BackHeader,
 } from '../../components';
 import {Images} from '../../constants';
+import {globalStyle} from '../../styles/globalStyle';
 
 export default class ForgotPassword extends Component {
   constructor(props) {
@@ -21,7 +22,13 @@ export default class ForgotPassword extends Component {
     return (
       <AuthContainer blur>
         <BackHeader onBackPress={() => this.props.navigation.goBack()} />
-        <View style={{flex: 1, justifyContent: 'center'}}>
+        <Image style={globalStyle.logo} source={Images.forgot_heart_logo} />
+        <View style={{flex: 1, justifyContent: 'flex-end', paddingBottom: 20}}>
+          <Text style={{color:'#fff',paddingHorizontal:5,paddingVertical:10 , fontWeight:'800'}}>
+            {
+              'Forgot Password?  Not bad.  As a registered member, you can now request a new password using your email address.'
+            }
+          </Text>
           <AuthInput
             placeholder={'Email'}
             keyboardType={'email-address'}
@@ -30,7 +37,7 @@ export default class ForgotPassword extends Component {
           />
           <GradientButton
             type={'primary'}
-            title={'Send'}
+            title={'Request New Password'}
             style={{marginTop: 20}}
             // onPress={this.onLogin.bind(this)}
           />

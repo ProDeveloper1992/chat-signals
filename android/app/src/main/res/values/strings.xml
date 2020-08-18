@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Chat Signal</string>
+    <string name="facebook_app_id">771108183652072</string>
+    <string name="fb_login_protocol_scheme">fb771108183652072</string>
 </resources>
