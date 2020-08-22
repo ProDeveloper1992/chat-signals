@@ -21,12 +21,12 @@ export default class GenderPicker extends Component {
           selected: false,
         },
 
-        {
-          gender_id: 3,
-          gender_icon:
-            'https://img.pngio.com/gender-symbol-gender-wiki-fandom-powered-by-wikia-gender-symbol-png-300_300.png',
-          selected: false,
-        },
+        // {
+        //   gender_id: 3,
+        //   gender_icon:
+        //     'https://img.pngio.com/gender-symbol-gender-wiki-fandom-powered-by-wikia-gender-symbol-png-300_300.png',
+        //   selected: false,
+        // },
       ],
     };
   }

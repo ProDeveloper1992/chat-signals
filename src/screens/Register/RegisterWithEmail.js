@@ -179,7 +179,7 @@ export function RegisterWithEmail({navigation}) {
       </ScrollView>
       <GradientButton
         title={stepPosition == 0 ? 'Next' : 'Register'}
-        style={{marginTop: 20}}
+        style={{marginVertical:20}}
         onPress={() => onBottomButtonPress()}
       />
     </AuthContainer>
