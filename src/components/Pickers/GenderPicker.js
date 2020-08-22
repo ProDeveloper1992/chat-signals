@@ -44,7 +44,7 @@ export default class GenderPicker extends Component {
   render() {
     const {genderData} = this.state;
     return (
-      <View style={{flexDirection: 'row', paddingVertical: 10}}>
+      <View style={{flexDirection: 'row', paddingVertical: 5}}>
         {genderData.map((item, index) => (
           <View style={{flex: 1}}>
             <GenderItem

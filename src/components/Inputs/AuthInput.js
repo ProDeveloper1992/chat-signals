@@ -1,30 +1,47 @@
 import React from 'react';
-import {StyleSheet, TextInput, Platform} from 'react-native';
+import {StyleSheet, TextInput, Platform, View, Text} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
-export function AuthInput({style, ...props}) {
+export function AuthInput({style, label, error, ...props}) {
   const {colors} = useTheme();
 
   return (
-    <TextInput
-      {...props}
-      style={[
-        styles.input,
-        style,
-        {
-          backgroundColor: '#fff',
-          borderWidth: 0.5,
-          borderColor: colors.primary,
-        },
-      ]}
-      placeholderTextColor={'darkgray'}
-    />
+    <View>
+      <View style={styles.labelContainer}>
+        {label && (
+          <Text
+            style={[
+              styles.label,
+              {color: error ? colors.ui_error : colors.greydark},
+            ]}>
+            {label}
+          </Text>
+        )}
+      </View>
+      <TextInput
+        {...props}
+        style={[
+          styles.input,
+          style,
+          {
+            backgroundColor: '#fff',
+            borderWidth: 0.5,
+            borderColor: error ? colors.ui_error : colors.primary,
+          },
+        ]}
+        placeholderTextColor={'darkgray'}
+      />
+      {error && (
+        <Text style={[styles.errorText, {color: colors.ui_error}]}>
+          {error}
+        </Text>
+      )}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   input: {
-    // width: '100%',
     paddingHorizontal: 20,
     paddingVertical: Platform.OS === 'ios' ? 15 : 10,
     borderRadius: 8,
@@ -34,6 +51,20 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 4,
-    // marginHorizontal:4
+  },
+  errorText: {
+    fontSize: 13,
+    fontWeight: '700',
+    textAlign: 'right',
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: '700',
+    paddingTop: 5,
+  },
+  labelContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 });

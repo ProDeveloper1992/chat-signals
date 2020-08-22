@@ -19,17 +19,23 @@ import {
   CountryPicker,
   GenderPicker,
 } from '../../components';
+import {mailformat} from '../../constants';
 
 export function RegisterWithEmail({navigation}) {
   const {register} = React.useContext(AuthContext);
+
   const [userName, setUserName] = React.useState('');
   const [postalCode, setPostalCode] = React.useState('');
   const [email, setEmail] = React.useState('');
+  const [emailError, setEmailError] = React.useState(null);
   const [password, setPassword] = React.useState('');
+  const [passError, setPassError] = React.useState(null);
   const [confpassword, setConfPassword] = React.useState('');
+  const [confPassError, setConfPassError] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const [stepPosition, setStepPosition] = React.useState(0);
   const [stepCount, setStepCount] = React.useState(2);
+
   const {colors} = useTheme();
 
   const labels = ['User Details', 'Registration'];
@@ -68,12 +74,39 @@ export function RegisterWithEmail({navigation}) {
     if (stepPosition == 0) {
       setStepPosition(1);
     } else {
-      try {
-        setLoading(true);
-        await register(email, password);
-        navigation.pop();
-      } catch (e) {
-        setLoading(false);
+      let isValid = true;
+      if (email.trim() == 0) {
+        isValid = false;
+        setEmailError('Please enter email address!');
+      } else if (!email.match(mailformat)) {
+        isValid = false;
+        setEmailError('Invalid email address!');
+      } else {
+        setEmailError(null);
+      }
+
+      if (password.trim() == 0) {
+        isValid = false;
+        setPassError('Please enter password!');
+      } else {
+        setPassError(null);
+      }
+
+      if (confpassword != password) {
+        isValid = false;
+        setConfPassError('Passwords not matching!');
+      } else {
+        setConfPassError(null);
+      }
+
+      if (isValid) {
+        try {
+          setLoading(true);
+          await register(email, password);
+          navigation.pop();
+        } catch (e) {
+          setLoading(false);
+        }
       }
     }
   };
@@ -87,16 +120,18 @@ export function RegisterWithEmail({navigation}) {
   };
 
   const SectionLable = ({title}) => {
-    return <Text style={styles.lable}>{title}</Text>;
+    return (
+      <Text style={[styles.label, {color: colors.greydark}]}>{title}</Text>
+    );
   };
 
   const renderPage = () => {
     if (stepPosition == 0) {
       return (
         <View>
-          <SectionLable title={'Username'} />
           <AuthInput
             style={styles.input}
+            label={'Username'}
             placeholder={'User name'}
             keyboardType={'email-address'}
             value={userName}
@@ -108,9 +143,9 @@ export function RegisterWithEmail({navigation}) {
           <GenderPicker />
           <SectionLable title={'Country'} />
           <CountryPicker />
-          <SectionLable title={'Postal code'} />
           <AuthInput
             style={styles.input}
+            label={'Postal code'}
             placeholder={'Postal Code'}
             keyboardType={'number-pad'}
             value={postalCode}
@@ -121,31 +156,34 @@ export function RegisterWithEmail({navigation}) {
     } else {
       return (
         <View>
-          <SectionLable title={'Email'} />
           <AuthInput
             style={styles.input}
+            label={'Email'}
             placeholder={'E-mail address'}
             keyboardType={'email-address'}
             value={email}
             onChangeText={setEmail}
+            error={emailError}
           />
 
-          <SectionLable title={'Password'} />
           <AuthInput
+            label={'Password'}
             style={styles.input}
             placeholder={'password'}
             secureTextEntry
             value={password}
             onChangeText={setPassword}
+            error={passError}
           />
 
-          <SectionLable title={'Confirm Password'} />
           <AuthInput
             style={styles.input}
+            label={'Confirm password'}
             placeholder={'confirm password'}
             secureTextEntry
             value={confpassword}
             onChangeText={setConfPassword}
+            error={confPassError}
           />
           <Loading loading={loading} />
         </View>
@@ -160,7 +198,7 @@ export function RegisterWithEmail({navigation}) {
         rightContent={
           stepPosition == 0 && (
             <TouchableOpacity onPress={() => onSkipPress()}>
-              <Text style={[styles.lable, {color: colors.primary}]}>
+              <Text style={[styles.label, {color: colors.primary}]}>
                 {'Skip'}
               </Text>
             </TouchableOpacity>
@@ -179,7 +217,7 @@ export function RegisterWithEmail({navigation}) {
       </ScrollView>
       <GradientButton
         title={stepPosition == 0 ? 'Next' : 'Register'}
-        style={{marginVertical:20}}
+        style={{marginVertical: 20}}
         onPress={() => onBottomButtonPress()}
       />
     </AuthContainer>
@@ -202,9 +240,9 @@ const styles = StyleSheet.create({
     top: 60,
     right: 16,
   },
-  lable: {
+  label: {
     fontSize: 16,
     fontWeight: '700',
-    paddingTop: 5,
+    // paddingTop: 5,
   },
 });

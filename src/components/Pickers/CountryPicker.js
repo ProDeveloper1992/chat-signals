@@ -50,7 +50,7 @@ export default class CountryPicker extends Component {
   render() {
     const {countryData} = this.state;
     return (
-      <View style={{flexDirection: 'row', paddingVertical: 10}}>
+      <View style={{flexDirection: 'row', paddingVertical: 5}}>
         {countryData.map((item, index) => (
           <View style={{flex: 1}}>
             <CountryItem

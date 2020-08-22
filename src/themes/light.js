@@ -9,6 +9,7 @@ export const lightTheme = {
     primary: '#52b8bc',
     primary_dark: '#3c8e92',
     positive: '#98ff67',
+    ui_error: '#B22222',
     white: '#ffffff',
     black: '#1f191b',
     google: '#db4a39',

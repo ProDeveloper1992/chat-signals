@@ -5,9 +5,10 @@ export const Colors = {
 };
 
 export const Images = {
-  login_bg_1: require('../assets/images/login_bg1.jpg'),
   login_bg_2: require('../assets/images/login_bg2.jpg'),
   splash: require('../assets/images/splash.jpg'),
   app_logo: require('../assets/images/app_logo.png'),
-  forgot_heart_logo:require('../assets/images/heart_logo.png')
+  forgot_heart_logo: require('../assets/images/heart_logo.png'),
 };
+
+export const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
