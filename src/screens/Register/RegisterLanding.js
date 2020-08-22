@@ -13,7 +13,7 @@ export function RegisterLanding({navigation}) {
     <AuthContainer blur>
       <BackHeader onBackPress={() => navigation.goBack()} />
       <Image style={globalStyle.logo} source={Images.app_logo} />
-      <View style={{flex: 1, justifyContent: 'flex-end'}}>
+      <View style={{flex: 1, justifyContent: 'flex-end', marginBottom: 15}}>
         <GradientButton
           type={'primary'}
           title={'Register With Email'}

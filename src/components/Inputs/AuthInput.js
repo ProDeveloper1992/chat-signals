@@ -24,7 +24,7 @@ export function AuthInput({style, ...props}) {
 
 const styles = StyleSheet.create({
   input: {
-    width: '100%',
+    // width: '100%',
     paddingHorizontal: 20,
     paddingVertical: Platform.OS === 'ios' ? 15 : 10,
     borderRadius: 8,
@@ -33,6 +33,7 @@ const styles = StyleSheet.create({
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    elevation: 8,
+    elevation: 4,
+    // marginHorizontal:4
   },
 });

@@ -18,25 +18,31 @@
 //   },
 // });
 
-import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import React, {Component} from 'react';
+import {View, StyleSheet} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
-import LottieView from 'lottie-react-native';
 
 export default class index extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
 
   componentDidMount() {
-    SplashScreen.hide();
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 1000);
   }
 
   render() {
     return (
-      <LottieView source={require('../../assets/animations/heart.json')} autoPlay loop />
+      <View style={[styles.container, {backgroundColor: 'transparent'}]}></View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
