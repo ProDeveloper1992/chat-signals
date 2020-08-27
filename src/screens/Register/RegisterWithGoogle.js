@@ -1,5 +1,12 @@
-import React, { Component } from 'react';
-import {StyleSheet, Image, View, ScrollView,TouchableOpacity,Text} from 'react-native';
+import React, {Component} from 'react';
+import {
+  StyleSheet,
+  Image,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
 import {
@@ -34,7 +41,8 @@ export class RegisterWithGoogle extends Component {
       //It is mandatory to call this method before attempting to call signIn()
       scopes: ['https://www.googleapis.com/auth/drive.readonly'],
       // Repleace with your webClientId generated from Firebase console
-      webClientId: '621048235124-rfcui16pf4g76mo2vm0ijbr3frjnkqqd.apps.googleusercontent.com',
+      webClientId:
+        '621048235124-rfcui16pf4g76mo2vm0ijbr3frjnkqqd.apps.googleusercontent.com',
     });
     //Check if user is already signed in
     this._isSignedIn();
@@ -47,22 +55,21 @@ export class RegisterWithGoogle extends Component {
       //Get the User details as user is already signed in
       this._getCurrentUserInfo();
     } else {
-      //alert("Please Login");
       console.log('Please Login');
     }
-    this.setState({ gettingLoginStatus: false });
+    this.setState({gettingLoginStatus: false});
   };
 
   _getCurrentUserInfo = async () => {
     try {
       const userInfo = await GoogleSignin.signInSilently();
       console.log('User Info --> ', userInfo);
-      this.setState({ userInfo: userInfo });
+      this.setState({userInfo: userInfo});
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_REQUIRED) {
-        console.log('User has not signed in yet',error);
+        console.log('User has not signed in yet', error);
       } else {
-        console.log("Something went wrong. Unable to get user's info",error);
+        console.log("Something went wrong. Unable to get user's info", error);
       }
     }
   };
@@ -77,7 +84,7 @@ export class RegisterWithGoogle extends Component {
       });
       const userInfo = await GoogleSignin.signIn();
       console.log('User Info --> ', userInfo);
-      this.setState({ userInfo: userInfo });
+      this.setState({userInfo: userInfo});
     } catch (error) {
       console.log('Message', error.message);
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -97,40 +104,39 @@ export class RegisterWithGoogle extends Component {
     try {
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
-      this.setState({ userInfo: null }); // Remove the user from your app's state as well
+      this.setState({userInfo: null}); // Remove the user from your app's state as well
     } catch (error) {
       console.error(error);
     }
   };
 
+  render() {
+    return (
+      <AuthContainer blur>
+        <BackHeader onBackPress={() => this.props.navigation.goBack()} />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Image style={globalStyle.logo} source={Images.app_logo} />
+          <View style={{marginTop: '10%'}}>
+            <CountryPicker />
 
-  render(){
-  return (
-    <AuthContainer blur>
-      <BackHeader onBackPress={() => this.props.navigation.goBack()} />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Image style={globalStyle.logo} source={Images.app_logo} />
-        <View style={{marginTop: '10%'}}>
-          <CountryPicker />
-
-          <GradientButton
-            type={'google'}
-            title={'Register With Google'}
-            icon={'mail'}
-            // iconColor={colors.white}
-            style={styles.registerButtom}
-            onPress={() => this._signIn()}
-          />
-          {/* <Loading loading={loading} /> */}
-          {this.state.userInfo&&
-          <TouchableOpacity style={styles.button} onPress={this._signOut}>
-              <Text>Logout</Text>
-            </TouchableOpacity>
-  }
-        </View>
-      </ScrollView>
-    </AuthContainer>
-  );
+            <GradientButton
+              type={'google'}
+              title={'Register With Google'}
+              icon={'mail'}
+              // iconColor={colors.white}
+              style={styles.registerButtom}
+              onPress={() => this._signIn()}
+            />
+            {/* <Loading loading={loading} /> */}
+            {this.state.userInfo && (
+              <TouchableOpacity style={styles.button} onPress={this._signOut}>
+                <Text>Logout</Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        </ScrollView>
+      </AuthContainer>
+    );
   }
 }
 
@@ -155,12 +161,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
 });
-
-
-
-
-
-
 
 // import React from 'react';
 // import {
