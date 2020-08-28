@@ -19,6 +19,7 @@
 		608722BD808B35A57DF5FB9C /* libPods-ChatSignals.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F93EB2FA796568CC0BE9530F /* libPods-ChatSignals.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		ACEE848B88CE22330AF5F0B2 /* libPods-ChatSignals-ChatSignalsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B035BA3F7CDA0BC633C93D6 /* libPods-ChatSignals-ChatSignalsTests.a */; };
+		C80EAD6224F15400003DE1E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C80EAD6124F15400003DE1E6 /* GoogleService-Info.plist */; };
 		E6F471A92EE3EE9965C17157 /* libPods-ChatSignals-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5C8ED8CEB0BF45D7C5EF0F /* libPods-ChatSignals-tvOSTests.a */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,7 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ChatSignals/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8CF9B1A22CA6B2E6143442AB /* Pods-ChatSignals.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatSignals.release.xcconfig"; path = "Target Support Files/Pods-ChatSignals/Pods-ChatSignals.release.xcconfig"; sourceTree = "<group>"; };
 		B9A8707F00DE499E9A058B62 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-ionicons/fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		C80EAD6124F15400003DE1E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DCC0082A77B0063670B0A95C /* Pods-ChatSignals-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatSignals-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-ChatSignals-tvOSTests/Pods-ChatSignals-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		E284C85525F52C4BAB54F504 /* Pods-ChatSignals-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatSignals-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-ChatSignals-tvOSTests/Pods-ChatSignals-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E2BD0CA9E9D23F466D4C1CB3 /* Pods-ChatSignals-ChatSignalsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatSignals-ChatSignalsTests.release.xcconfig"; path = "Target Support Files/Pods-ChatSignals-ChatSignalsTests/Pods-ChatSignals-ChatSignalsTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 		13B07FAE1A68108700A75B9A /* ChatSignals */ = {
 			isa = PBXGroup;
 			children = (
+				C80EAD6124F15400003DE1E6 /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -350,6 +353,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				C80EAD6224F15400003DE1E6 /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				5ADF19EB80F04C958F3D5BB1 /* Ionicons.ttf in Resources */,
 			);
@@ -681,7 +685,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.chatsignal;
 				PRODUCT_NAME = ChatSignals;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -703,7 +707,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.chatsignal;
 				PRODUCT_NAME = ChatSignals;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
