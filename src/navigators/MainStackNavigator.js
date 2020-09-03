@@ -1,10 +1,11 @@
 import React from 'react';
-import {Text} from 'react-native'
-import { NavigationContainer } from '@react-navigation/native';
+import {Text, SafeAreaView} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Home} from '../screens/Home';
+import {Home} from '../screens';
 import {Setting} from '../screens/Setting';
+import BottomTabBar from '../components/BottomTabBar';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -47,28 +48,23 @@ function SettingsStack() {
 
 export function MainStackNavigator() {
   return (
-    // <MainStack.Navigator>
-    //   <MainStack.Screen
-    //     name={'Home'}
-    //     component={Home}
-    //     options={{
-    //       title: 'Home',
-    //     }}
-    //   />
-    // </MainStack.Navigator>
     <Tab.Navigator
-      initialRouteName="Feed"
-      tabBarOptions={{
-        activeTintColor: '#42f44b',
-      }}>
+      // initialRouteName="HomeStack"
+      // tabBarOptions={{
+      //   activeTintColor: '#42f44b',
+      // }}
+      tabBar={(props) => (
+        <>
+          <BottomTabBar {...props} />
+          <SafeAreaView style={{backgroundColor: 'white'}} />
+        </>
+      )}>
       <Tab.Screen
         name="HomeStack"
         component={HomeStack}
         options={{
           tabBarLabel: 'Home',
-          tabBarIcon: ({ color, size }) => (
-            <Text>HOME</Text>
-          ),
+          tabBarIcon: ({color, size}) => <Text>HOME</Text>,
         }}
       />
       <Tab.Screen
@@ -76,10 +72,15 @@ export function MainStackNavigator() {
         component={SettingsStack}
         options={{
           tabBarLabel: 'Settings',
-          tabBarIcon: ({ color, size }) => (
-           
-            <Text>Setting</Text>
-          ),
+          tabBarIcon: ({color, size}) => <Text>Setting</Text>,
+        }}
+      />
+      <Tab.Screen
+        name="ProfileStack"
+        component={SettingsStack}
+        options={{
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({color, size}) => <Text>Setting</Text>,
         }}
       />
     </Tab.Navigator>

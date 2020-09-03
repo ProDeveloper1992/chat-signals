@@ -6,7 +6,9 @@ import {
   RegisterWithFacebook,
 } from './Register';
 import Landing from './Landing';
-import ForgotPassword from './ForgotPassword';
+import ForgotPassword from './forgot-password-screen';
+import AppLoading from './app-loading-screen';
+import Home from './home-screen';
 
 export {
   Login,
@@ -16,4 +18,6 @@ export {
   RegisterWithFacebook,
   Landing,
   ForgotPassword,
+  AppLoading,
+  Home,
 };
