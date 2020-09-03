@@ -5,7 +5,7 @@ import {AuthContext} from '../../contexts/AuthContext';
 import {ThemeContext} from '../../contexts/ThemeContext';
 import {IconButton} from '../../components';
 
-export function Home({navigation}) {
+export default function Home({navigation}) {
   const {logout} = React.useContext(AuthContext);
   const switchTheme = React.useContext(ThemeContext);
   React.useLayoutEffect(() => {
