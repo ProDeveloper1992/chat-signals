@@ -28,7 +28,7 @@ export default function () {
       return <RootStack.Screen name={'Splash'} component={Splash} />;
     }
     return state.user ? (
-      <RootStack.Screen name={'MainStack'}>
+      <RootStack.Screen name={'Stack'}>
         {() => (
           <UserContext.Provider value={state.user}>
             <MainStackNavigator />

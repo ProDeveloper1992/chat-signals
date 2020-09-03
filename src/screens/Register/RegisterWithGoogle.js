@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component,useEffect} from 'react';
 import {
   StyleSheet,
   Image,
@@ -23,20 +23,39 @@ import {
   GoogleSigninButton,
   statusCodes,
 } from 'react-native-google-signin';
-export class RegisterWithGoogle extends Component {
-  // const [loading, setLoading] = React.useState(false);
-  // const {colors} = useTheme();
+import {AuthContext} from '../../contexts/AuthContext';
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      userInfo: null,
-      gettingLoginStatus: true,
-    };
-  }
+export function RegisterWithGoogle({navigation}) {
+// export class RegisterWithGoogle extends Component {
 
-  componentDidMount() {
-    //initial configuration
+  const {register} = React.useContext(AuthContext);
+  const [loading, setLoading] = React.useState(false);
+  const [userInfo, setUserInfo] = React.useState(null);
+  const [gettingLoginStatus, setGettingLoginStatus] = React.useState(true);
+  const {colors} = useTheme();
+
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     userInfo: null,
+  //     gettingLoginStatus: true,
+  //   };
+  // }
+
+  //  componentDidMount() {
+  //   //initial configuration
+  //   GoogleSignin.configure({
+  //     //It is mandatory to call this method before attempting to call signIn()
+  //     scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+  //     // Repleace with your webClientId generated from Firebase console
+  //     webClientId:
+  //       '621048235124-rfcui16pf4g76mo2vm0ijbr3frjnkqqd.apps.googleusercontent.com',
+  //   });
+  //   //Check if user is already signed in
+  //    _isSignedIn();
+  // }
+
+  useEffect(()=>{
     GoogleSignin.configure({
       //It is mandatory to call this method before attempting to call signIn()
       scopes: ['https://www.googleapis.com/auth/drive.readonly'],
@@ -45,26 +64,28 @@ export class RegisterWithGoogle extends Component {
         '621048235124-rfcui16pf4g76mo2vm0ijbr3frjnkqqd.apps.googleusercontent.com',
     });
     //Check if user is already signed in
-    this._isSignedIn();
-  }
+     _isSignedIn;
+  })
 
-  _isSignedIn = async () => {
+  const _isSignedIn = async () => {
     const isSignedIn = await GoogleSignin.isSignedIn();
     if (isSignedIn) {
       alert('User is already signed in');
       //Get the User details as user is already signed in
-      this._getCurrentUserInfo();
+       _getCurrentUserInfo;
     } else {
       console.log('Please Login');
     }
-    this.setState({gettingLoginStatus: false});
+    //  setState({gettingLoginStatus: false});
+     setGettingLoginStatus(false)
   };
 
-  _getCurrentUserInfo = async () => {
+  const _getCurrentUserInfo = async () => {
     try {
       const userInfo = await GoogleSignin.signInSilently();
       console.log('User Info --> ', userInfo);
-      this.setState({userInfo: userInfo});
+      //  setState({userInfo: userInfo});
+       setUserInfo(userInfo)
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_REQUIRED) {
         console.log('User has not signed in yet', error);
@@ -74,7 +95,7 @@ export class RegisterWithGoogle extends Component {
     }
   };
 
-  _signIn = async () => {
+  const _signIn = async () => {
     //Prompts a modal to let the user sign in into your application.
     try {
       await GoogleSignin.hasPlayServices({
@@ -84,7 +105,8 @@ export class RegisterWithGoogle extends Component {
       });
       const userInfo = await GoogleSignin.signIn();
       console.log('User Info --> ', userInfo);
-      this.setState({userInfo: userInfo});
+       //  setState({userInfo: userInfo});
+       setUserInfo(userInfo)
     } catch (error) {
       console.log('Message', error.message);
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -99,21 +121,22 @@ export class RegisterWithGoogle extends Component {
     }
   };
 
-  _signOut = async () => {
+  const _signOut = async () => {
     //Remove user session from the device.
     try {
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
-      this.setState({userInfo: null}); // Remove the user from your app's state as well
+      //  setState({userInfo: null}); // Remove the user from your app's state as well
+       setUserInfo(null)
     } catch (error) {
       console.error(error);
     }
   };
 
-  render() {
+  // render() {
     return (
       <AuthContainer blur>
-        <BackHeader onBackPress={() => this.props.navigation.goBack()} />
+        <BackHeader onBackPress={() =>  navigation.goBack()} />
         <ScrollView showsVerticalScrollIndicator={false}>
           <Image style={globalStyle.logo} source={Images.app_logo} />
           <View style={{marginTop: '10%'}}>
@@ -123,13 +146,13 @@ export class RegisterWithGoogle extends Component {
               type={'google'}
               title={'Register With Google'}
               icon={'mail'}
-              // iconColor={colors.white}
+              iconColor={colors.white}
               style={styles.registerButtom}
-              onPress={() => this._signIn()}
+              onPress={() =>  _signIn()}
             />
-            {/* <Loading loading={loading} /> */}
-            {this.state.userInfo && (
-              <TouchableOpacity style={styles.button} onPress={this._signOut}>
+            <Loading loading={loading} />
+            { userInfo && (
+              <TouchableOpacity style={styles.button} onPress={ _signOut}>
                 <Text>Logout</Text>
               </TouchableOpacity>
             )}
@@ -138,7 +161,7 @@ export class RegisterWithGoogle extends Component {
       </AuthContainer>
     );
   }
-}
+// }
 
 const styles = StyleSheet.create({
   input: {

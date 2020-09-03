@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {StyleSheet, Image, View, ScrollView} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 
@@ -15,70 +15,54 @@ import {
   LoginManager,
   AccessToken,
   GraphRequest,
-  GraphRequestManager
+  GraphRequestManager,
 } from 'react-native-fbsdk';
+import {AuthContext} from '../../contexts/AuthContext';
 
-export class RegisterWithFacebook extends Component {
-  // const [loading, setLoading] = React.useState(false);
-  // const {colors} = useTheme();
-  constructor(props){
-    super(props);
-    this.state = {
-     
-    };
-  }
+export function RegisterWithFacebook({navigation}) {
+  const [loading, setLoading] = React.useState(false);
+  const {register} = React.useContext(AuthContext);
 
-  onLoginWithFacebook() {
-    let self = this;
-    self.setState({
-      name: '',
-      email: '',
-      password: '',
-      usernameErr: '',
-      emailErr: '',
-      passwordErr: '',
-      authError: '',
-      isAuthError: false
-    });
+  const {colors} = useTheme();
 
+  function onLoginWithFacebook() {
     LoginManager.logInWithPermissions(['public_profile']).then(
-      function(result) {
+      function (result) {
         if (result.isCancelled) {
         } else {
-          AccessToken.getCurrentAccessToken().then(data => {
+          AccessToken.getCurrentAccessToken().then((data) => {
             const infoRequest = new GraphRequest(
               '/me',
               {
                 parameters: {
                   fields: {
                     string:
-                      'email,name,picture,first_name,middle_name,last_name' // what you want to get
-                  }
-                }
+                      'email,name,picture,first_name,middle_name,last_name', // what you want to get
+                  },
+                },
               },
-              self._responseInfoCallback
+              _responseInfoCallback,
             );
             new GraphRequestManager().addRequest(infoRequest).start();
           });
         }
       },
-      function(error) {}
+      function (error) {},
     );
   }
 
   //Create response callback.
-  _responseInfoCallback = (error, result) => {
+  const _responseInfoCallback = (error, result) => {
     if (error) {
-      console.log('ERROR:- ',error)
+      console.log('ERROR:- ', error);
     } else {
-     console.log('RESULT:- ',result)
+      console.log('RESULT:- ', result);
     }
   };
 
-  render(){
   return (
     <AuthContainer blur>
-      <BackHeader onBackPress={() => this.props.navigation.goBack()} />
+      <BackHeader onBackPress={() => navigation.goBack()} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Image style={globalStyle.logo} source={Images.app_logo} />
         <View style={{marginTop: '10%'}}>
@@ -88,16 +72,15 @@ export class RegisterWithFacebook extends Component {
             type={'facebook'}
             title={'Register With Facebook'}
             icon={'mail'}
-            // iconColor={colors.white}
+            iconColor={colors.white}
             style={styles.registerButtom}
-            onPress={() => this.onLoginWithFacebook()}
+            onPress={() => onLoginWithFacebook()}
           />
-          {/* <Loading loading={loading} /> */}
+          <Loading loading={loading} />
         </View>
       </ScrollView>
     </AuthContainer>
   );
-  }
 }
 
 const styles = StyleSheet.create({
@@ -158,7 +141,6 @@ const styles = StyleSheet.create({
 //   render() {
 //     return (
 //       <View style={styles.container}>
-
 
 //         {this.state.avatar_url ?
 //           <Image
