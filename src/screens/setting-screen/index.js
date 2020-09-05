@@ -1,43 +1,36 @@
 import React from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
-
-import {AuthContext} from '../../contexts/AuthContext';
-import {ThemeContext} from '../../contexts/ThemeContext';
+import {StyleSheet, View} from 'react-native';
 import {IconButton} from '../../components';
 
-export function Setting({navigation}) {
-  const {logout} = React.useContext(AuthContext);
-  const switchTheme = React.useContext(ThemeContext);
+const Setting = (props) => {
+  const {navigation} = props;
+
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <View style={{flexDirection: 'row'}}>
-          {/* <IconButton
-            iconName={'color-palette'}
-            onPress={() => {
-              switchTheme();
-            }}
-          /> */}
           <IconButton
             iconName={'log-out'}
             onPress={() => {
-              logout();
+              // logout();
             }}
           />
         </View>
       ),
     });
-  }, [navigation, logout, switchTheme]);
+  }, [navigation]);
 
   const products = [
     {name: 'test', price: 'price test', description: 'description test'},
   ];
 
   return <View style={styles.container}></View>;
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
 });
+
+export default Setting;

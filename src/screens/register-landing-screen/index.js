@@ -1,13 +1,12 @@
 import React from 'react';
-import {StyleSheet, Image, View, ScrollView, Platform} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {StyleSheet, Image, View} from 'react-native';
 
 import {GradientButton, AuthContainer, BackHeader} from '../../components';
-import {Images} from '../../constants';
-import {globalStyle} from '../../styles/globalStyle';
+import {Images, Colors} from '../../constants';
+import {globalStyle} from '../../styles/global-style';
 
-export function RegisterLanding({navigation}) {
-  const {colors} = useTheme();
+const RegisterLanding = (props) => {
+  const {navigation} = props;
 
   return (
     <AuthContainer blur>
@@ -18,7 +17,7 @@ export function RegisterLanding({navigation}) {
           type={'primary'}
           title={'Register With Email'}
           icon={'mail'}
-          iconColor={colors.white}
+          iconColor={Colors.white}
           style={styles.registerButtom}
           onPress={() => navigation.navigate('RegisterWithEmail')}
         />
@@ -26,7 +25,7 @@ export function RegisterLanding({navigation}) {
           type={'google'}
           title={'Register With Google'}
           icon={'mail'}
-          iconColor={colors.white}
+          iconColor={Colors.white}
           style={styles.registerButtom}
           onPress={() => navigation.navigate('RegisterWithGoogle')}
         />
@@ -34,14 +33,14 @@ export function RegisterLanding({navigation}) {
           type={'facebook'}
           title={'Register With Facebook'}
           icon={'mail'}
-          iconColor={colors.white}
+          iconColor={Colors.white}
           style={styles.registerButtom}
           onPress={() => navigation.navigate('RegisterWithFacebook')}
         />
       </View>
     </AuthContainer>
   );
-}
+};
 
 const styles = StyleSheet.create({
   input: {
@@ -57,3 +56,5 @@ const styles = StyleSheet.create({
     right: 16,
   },
 });
+
+export default RegisterLanding;

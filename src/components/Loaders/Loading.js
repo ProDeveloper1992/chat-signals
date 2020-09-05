@@ -1,19 +1,17 @@
 import React from 'react';
 import {View, StyleSheet, ActivityIndicator, Text} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {Colors} from '../../constants';
 
 export function Loading({loading}) {
-  const {colors} = useTheme();
-
   if (!loading) {
     return <View />;
   }
 
   return (
     <View style={styles.overlay}>
-      <View style={[styles.container, {backgroundColor: colors.primary}]}>
-        <ActivityIndicator color={colors.white} />
-        <Text style={[styles.text, {color: colors.white}]}>Loading...</Text>
+      <View style={[styles.container, {backgroundColor: Colors.ui_primary}]}>
+        <ActivityIndicator color={Colors.white} />
+        <Text style={[styles.text, {color: Colors.white}]}>Loading...</Text>
       </View>
     </View>
   );

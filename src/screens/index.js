@@ -1,14 +1,13 @@
-import {Login} from './Login';
-import {
-  RegisterLanding,
-  RegisterWithEmail,
-  RegisterWithGoogle,
-  RegisterWithFacebook,
-} from './Register';
-import Landing from './Landing';
+import Landing from './landing-screen';
 import ForgotPassword from './forgot-password-screen';
 import AppLoading from './app-loading-screen';
 import Home from './home-screen';
+import RegisterLanding from './register-landing-screen';
+import RegisterWithEmail from './register-with-email-screen';
+import RegisterWithGoogle from './register-with-google-screen';
+import RegisterWithFacebook from './register-with-facebook-screen';
+import Login from './login-screen';
+import Setting from './setting-screen';
 
 export {
   Login,
@@ -20,4 +19,5 @@ export {
   ForgotPassword,
   AppLoading,
   Home,
+  Setting,
 };

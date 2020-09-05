@@ -52,7 +52,7 @@ export default class CountryPicker extends Component {
     return (
       <View style={{flexDirection: 'row', paddingVertical: 5}}>
         {countryData.map((item, index) => (
-          <View style={{flex: 1}}>
+          <View style={{flex: 1}} key={String(index)}>
             <CountryItem
               key={index}
               isSelected={item.selected}

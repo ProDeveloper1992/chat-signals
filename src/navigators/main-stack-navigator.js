@@ -3,9 +3,9 @@ import {Text, SafeAreaView} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Home} from '../screens';
-import {Setting} from '../screens/Setting';
+import {Home, Setting} from '../screens';
 import BottomTabBar from '../components/BottomTabBar';
+import {Colors} from '../constants';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -15,8 +15,8 @@ function HomeStack() {
     <Stack.Navigator
       initialRouteName="Home"
       screenOptions={{
-        headerStyle: {backgroundColor: '#42f44b'},
-        headerTintColor: '#fff',
+        headerStyle: {backgroundColor: Colors.white},
+        headerTintColor: Colors.black,
         headerTitleStyle: {fontWeight: 'bold'},
       }}>
       <Stack.Screen
@@ -33,8 +33,8 @@ function SettingsStack() {
     <Stack.Navigator
       initialRouteName="Settings"
       screenOptions={{
-        headerStyle: {backgroundColor: '#42f44b'},
-        headerTintColor: '#fff',
+        headerStyle: {backgroundColor: Colors.white},
+        headerTintColor: Colors.black,
         headerTitleStyle: {fontWeight: 'bold'},
       }}>
       <Stack.Screen
@@ -46,7 +46,7 @@ function SettingsStack() {
   );
 }
 
-export function MainStackNavigator() {
+export default function MainStackNavigator() {
   return (
     <Tab.Navigator
       // initialRouteName="HomeStack"

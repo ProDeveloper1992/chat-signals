@@ -1,47 +1,45 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, Platform} from 'react-native';
-import {useTheme} from '@react-navigation/native';
 import Icon from 'react-native-ionicons';
 import PropTypes from 'prop-types';
+import {Colors} from '../../constants';
 
 export function GradientButton({type, title, icon, iconColor, style, onPress}) {
-  const {colors} = useTheme();
-
   function getBgColor() {
     switch (type) {
       case 'primary':
-        return colors.primary;
+        return Colors.ui_primary;
       case 'positive':
-        return colors.positive;
+        return Colors.positive;
       case 'transparent':
-        return colors.transparent;
+        return Colors.transparent;
       case 'light':
-        return colors.white;
+        return Colors.white;
       case 'google':
-        return colors.google;
+        return Colors.google;
       case 'facebook':
-        return colors.facebook;
+        return Colors.facebook;
       default:
-        return colors.primary;
+        return Colors.ui_primary;
     }
   }
 
   function getTextColor() {
     switch (type) {
       case 'primary':
-        return colors.white;
+        return Colors.white;
       case 'positive':
-        return colors.white;
+        return Colors.white;
       case 'transparent':
-        return colors.primary;
+        return Colors.ui_primary;
       case 'light':
-        return colors.black;
+        return Colors.black;
       case 'google':
-        return colors.white;
+        return Colors.white;
       case 'facebook':
-        return colors.white;
+        return Colors.white;
       default:
-        return colors.white;
+        return Colors.white;
     }
   }
 
@@ -53,7 +51,8 @@ export function GradientButton({type, title, icon, iconColor, style, onPress}) {
         {
           backgroundColor: getBgColor(),
           borderWidth: type == 'transparent' ? 1 : 0,
-          borderColor: type == 'transparent' ? colors.primary : 'transparent',
+          borderColor:
+            type == 'transparent' ? Colors.ui_primary : 'transparent',
           justifyContent: icon ? 'flex-start' : 'center',
         },
       ]}

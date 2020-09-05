@@ -1,7 +1,18 @@
 export const Colors = {
-  ui_primary: '#48adff',
-  ui_primary_dark: '#010101',
+  ui_primary: '#52b8bc',
+  ui_primary_dark: '#3c8e92',
   white: '#ffffff',
+  black: '#1f191b',
+  positive: '#98ff67',
+  ui_error: '#B22222',
+  google: '#db4a39',
+  facebook: '#3b5998',
+  greydark: '#4E586E',
+  gradient_1: '#6debef',
+  gradient_2: '#52b8bc',
+  gradient_3: '#3c8e92',
+  gradient_4: '#337277',
+  gradient_5: '#1d4044',
 };
 
 export const Images = {

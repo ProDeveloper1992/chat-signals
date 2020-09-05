@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, StyleSheet, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-ionicons';
-import {useTheme} from '@react-navigation/native';
+import {Colors} from '../../constants';
 
 export function BackHeader({
   title,
@@ -11,12 +11,11 @@ export function BackHeader({
   onBackPress,
   rightContent,
 }) {
-  const {colors} = useTheme();
   return (
     <View style={[styles.container, style]}>
       <Icon
         name={'arrow-back'}
-        color={colors.primary}
+        color={Colors.ui_primary}
         size={size || 30}
         onPress={onBackPress}
       />

@@ -1,10 +1,8 @@
 import React from 'react';
 import {StyleSheet, TextInput, Platform, View, Text} from 'react-native';
-import {useTheme} from '@react-navigation/native';
+import {Colors} from '../../constants';
 
 export function AuthInput({style, label, error, ...props}) {
-  const {colors} = useTheme();
-
   return (
     <View>
       <View style={styles.labelContainer}>
@@ -12,7 +10,7 @@ export function AuthInput({style, label, error, ...props}) {
           <Text
             style={[
               styles.label,
-              {color: error ? colors.ui_error : colors.greydark},
+              {color: error ? Colors.ui_error : Colors.greydark},
             ]}>
             {label}
           </Text>
@@ -26,13 +24,13 @@ export function AuthInput({style, label, error, ...props}) {
           {
             backgroundColor: '#fff',
             borderWidth: 0.5,
-            borderColor: error ? colors.ui_error : colors.primary,
+            borderColor: error ? Colors.ui_error : Colors.primary,
           },
         ]}
         placeholderTextColor={'darkgray'}
       />
       {error && (
-        <Text style={[styles.errorText, {color: colors.ui_error}]}>
+        <Text style={[styles.errorText, {color: Colors.ui_error}]}>
           {error}
         </Text>
       )}

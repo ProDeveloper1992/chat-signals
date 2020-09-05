@@ -2,63 +2,45 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import {AuthStackNavigator} from './AuthStackNavigator';
-import {lightTheme} from '../themes/light';
-import {AuthContext} from '../contexts/AuthContext';
-import {MainStackNavigator} from '../navigators/MainStackNavigator';
-import {useAuth} from '../hooks/useAuth';
-import {UserContext} from '../contexts/UserContext';
+import AuthStackNavigator from './auth-stack-navigator';
+import MainStackNavigator from './main-stack-navigator';
 import {AppLoading} from '../screens';
-import {darkTheme} from '../themes/dark';
-import {ThemeContext} from '../contexts/ThemeContext';
 import {StatusBar} from 'react-native';
 import {Colors} from '../constants';
+import {useSelector} from 'react-redux';
 
 const RootStack = createStackNavigator();
 
 export default function () {
-  const {auth, state} = useAuth();
-  const [isDarkMode, setIsDarkMode] = React.useState(false);
-  const switchTheme = React.useCallback(() => {
-    setIsDarkMode(!isDarkMode);
-  }, [isDarkMode]);
+  const {appLoading} = useSelector((state) => state.appState);
+  const {isLoggedIn} = useSelector((state) => state.userState);
 
   function renderScreens() {
-    if (state.loading) {
+    if (appLoading) {
       return <RootStack.Screen name={'Splash'} component={AppLoading} />;
+    } else if (!appLoading && isLoggedIn) {
+      return <RootStack.Screen name={'Stack'} component={MainStackNavigator} />;
     }
-    return state.user ? (
-      <RootStack.Screen name={'Stack'}>
-        {() => (
-          <UserContext.Provider value={state.user}>
-            <MainStackNavigator />
-          </UserContext.Provider>
-        )}
-      </RootStack.Screen>
-    ) : (
+    return (
       <RootStack.Screen name={'AuthStack'} component={AuthStackNavigator} />
     );
   }
 
   return (
-    <ThemeContext.Provider value={switchTheme}>
+    <>
       <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={
-          isDarkMode ? Colors.ui_primary : Colors.ui_primary_dark
-        }
+        barStyle={'dark-content'}
+        backgroundColor={Colors.ui_primary_dark}
       />
-      <AuthContext.Provider value={auth}>
-        <NavigationContainer theme={isDarkMode ? darkTheme : lightTheme}>
-          <RootStack.Navigator
-            screenOptions={{
-              headerShown: false,
-              animationEnabled: false,
-            }}>
-            {renderScreens()}
-          </RootStack.Navigator>
-        </NavigationContainer>
-      </AuthContext.Provider>
-    </ThemeContext.Provider>
+      <NavigationContainer>
+        <RootStack.Navigator
+          screenOptions={{
+            headerShown: false,
+            animationEnabled: false,
+          }}>
+          {renderScreens()}
+        </RootStack.Navigator>
+      </NavigationContainer>
+    </>
   );
 }
