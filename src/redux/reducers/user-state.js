@@ -1,14 +1,22 @@
-import {GET_APP_STRINGS_REQUEST} from '../actions/types';
-
-// import {client} from '../../helpers/api';
+import {LOGIN_REQUEST, LOGIN_FAIL, LOGIN_SUCCESS} from '../actions/types';
 
 const initialState = {
-  appStrings: {app_name: 'Chat Signal'},
+  isLoggedIn: false,
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case GET_APP_STRINGS_REQUEST:
+    case LOGIN_REQUEST:
+      return {
+        ...state,
+      };
+
+    case LOGIN_SUCCESS:
+      return {
+        ...state,
+      };
+
+    case LOGIN_FAIL:
       return {
         ...state,
       };
@@ -17,22 +25,3 @@ export default function (state = initialState, action) {
       return state;
   }
 }
-
-// export const getCourseLeaders = (courseId, data) => (dispatch) =>
-//   new Promise(function (resolve, reject) {
-//     client
-//       .post(`/leaderboard/${courseId}`, data)
-//       .then((res) => {
-//         resolve(res);
-//       })
-//       .catch((err) => {
-//         reject(err);
-//       });
-//   });
-
-// const getCourseLeadersSuccess = (data) => ({
-//   type: GET_APP_STRINGS_REQUEST,
-//   payload: {
-//     leaders: data,
-//   },
-// });

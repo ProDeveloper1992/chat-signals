@@ -22,6 +22,7 @@ export default function BottomTabBar({state, descriptors, navigation}) {
         elevation: 8,
       }}>
       {state.routes.map((route, index) => {
+        console.log('Route...', route);
         const {options} = descriptors[route.key];
         const label =
           options.tabBarLabel !== undefined
@@ -51,21 +52,20 @@ export default function BottomTabBar({state, descriptors, navigation}) {
         };
 
         const getTabIcon = () => {
-          const tabIndex = state.index;
-          switch (tabIndex) {
-            case 0:
+          switch (route.name) {
+            case 'HomeStack':
               if (isFocused) {
                 return Icons.home_active;
               }
               return Icons.home_inactive;
 
-            case 1:
+            case 'SettingsStack':
               if (isFocused) {
                 return Icons.chat_active;
               }
               return Icons.chat_inactive;
 
-            case 2:
+            case 'ProfileStack':
               if (isFocused) {
                 return Icons.home_active;
               }
@@ -75,6 +75,7 @@ export default function BottomTabBar({state, descriptors, navigation}) {
 
         return (
           <TouchableOpacity
+            key={String(index)}
             activeOpacity={1}
             accessibilityRole="button"
             accessibilityStates={isFocused ? ['selected'] : []}
@@ -105,7 +106,12 @@ export default function BottomTabBar({state, descriptors, navigation}) {
                 source={getTabIcon()}
               />
             </View>
-            <Text style={{color: isFocused ? '#673ab7' : '#222'}}>{label}</Text>
+            <Text
+              style={{
+                color: isFocused ? Colors.ui_primary_dark : Colors.black,
+              }}>
+              {label}
+            </Text>
           </TouchableOpacity>
         );
       })}

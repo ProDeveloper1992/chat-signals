@@ -1,6 +1,5 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image, ScrollView} from 'react-native';
-import {useTheme} from '@react-navigation/native';
 import {
   TextButton,
   AuthContainer,
@@ -8,22 +7,24 @@ import {
   AuthInput,
   BackHeader,
 } from '../../components';
-import {AuthContext} from '../../contexts/AuthContext';
+import {useDispatch} from 'react-redux';
+
 import {GradientButton} from '../../components';
 import {Images, mailformat} from '../../constants';
-import {isIphoneX} from '../../utils/globalFunctions';
-import {globalStyle} from '../../styles/globalStyle';
+import {globalStyle} from '../../styles/global-style';
+import {loginUser} from '../../redux/actions/user-actions';
 
-export function Login({navigation}) {
-  const {login} = React.useContext(AuthContext);
+const LoginScreen = (props) => {
+  const {navigation} = props;
+
+  //Actions to dispatch
+  const dispatch = useDispatch();
 
   const [email, setEmail] = React.useState('');
   const [emailError, setEmailError] = React.useState(null);
   const [password, setPassword] = React.useState('');
   const [passError, setPassError] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
-
-  const {colors} = useTheme();
 
   const onLoginPress = async () => {
     let isValid = true;
@@ -46,12 +47,17 @@ export function Login({navigation}) {
 
     if (isValid) {
       try {
-        setLoading(true);
         await login(email, password);
       } catch (e) {
         setLoading(false);
       }
     }
+  };
+
+  const login = (email, password) => {
+    dispatch(loginUser('email'));
+    // setLoading(true);
+    //TODO: login method
   };
 
   return (
@@ -92,7 +98,8 @@ export function Login({navigation}) {
             type={'primary'}
             title={'Login'}
             style={styles.loginButton}
-            onPress={() => onLoginPress()}
+            onPress={() => login()}
+            // onPress={() => onLoginPress()}
           />
           <TextButton
             title={"Don't you have an account? Create one"}
@@ -105,7 +112,7 @@ export function Login({navigation}) {
       </ScrollView>
     </AuthContainer>
   );
-}
+};
 
 const styles = StyleSheet.create({
   input: {
@@ -115,3 +122,5 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
 });
+
+export default LoginScreen;

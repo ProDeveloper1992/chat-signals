@@ -14,7 +14,7 @@ import {
 const AuthStack = createStackNavigator();
 const LoginStack = createStackNavigator();
 
-export function AuthStackNavigator() {
+export default function AuthStackNavigator() {
   return (
     <AuthStack.Navigator
       mode={'modal'}

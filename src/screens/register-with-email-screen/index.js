@@ -6,10 +6,8 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import {useTheme} from '@react-navigation/native';
 import StepIndicator from 'react-native-step-indicator';
 
-import {AuthContext} from '../../contexts/AuthContext';
 import {
   GradientButton,
   AuthInput,
@@ -19,10 +17,10 @@ import {
   CountryPicker,
   GenderPicker,
 } from '../../components';
-import {mailformat} from '../../constants';
+import {mailformat, Colors} from '../../constants';
 
-export function RegisterWithEmail({navigation}) {
-  const {register} = React.useContext(AuthContext);
+const RegisterWithEmail = (props) => {
+  const {navigation} = props;
 
   const [userName, setUserName] = React.useState('');
   const [postalCode, setPostalCode] = React.useState('');
@@ -36,8 +34,6 @@ export function RegisterWithEmail({navigation}) {
   const [stepPosition, setStepPosition] = React.useState(0);
   const [stepCount, setStepCount] = React.useState(2);
 
-  const {colors} = useTheme();
-
   const labels = ['User Details', 'Registration'];
   const stepIndicatorStyle = {
     stepIndicatorSize: 26,
@@ -46,20 +42,20 @@ export function RegisterWithEmail({navigation}) {
     separatorStrokeFinishedWidth: 3,
     currentStepStrokeWidth: 3,
     stepStrokeWidth: 1,
-    stepStrokeCurrentColor: colors.primary,
-    stepStrokeFinishedColor: colors.primary,
-    stepStrokeUnFinishedColor: colors.primary,
-    separatorFinishedColor: colors.primary,
-    separatorUnFinishedColor: colors.greydark,
-    stepIndicatorFinishedColor: colors.primary,
-    stepIndicatorUnFinishedColor: colors.white,
-    stepIndicatorCurrentColor: colors.white,
-    stepIndicatorLabelCurrentColor: colors.primary,
-    stepIndicatorLabelFinishedColor: colors.white,
-    stepIndicatorLabelUnFinishedColor: colors.greydark,
-    currentStepLabelColor: colors.primary,
+    stepStrokeCurrentColor: Colors.ui_primary,
+    stepStrokeFinishedColor: Colors.ui_primary,
+    stepStrokeUnFinishedColor: Colors.ui_primary,
+    separatorFinishedColor: Colors.ui_primary,
+    separatorUnFinishedColor: Colors.greydark,
+    stepIndicatorFinishedColor: Colors.ui_primary,
+    stepIndicatorUnFinishedColor: Colors.white,
+    stepIndicatorCurrentColor: Colors.white,
+    stepIndicatorLabelCurrentColor: Colors.ui_primary,
+    stepIndicatorLabelFinishedColor: Colors.white,
+    stepIndicatorLabelUnFinishedColor: Colors.greydark,
+    currentStepLabelColor: Colors.ui_primary,
     labelSize: 12,
-    labelColor: colors.greydark,
+    labelColor: Colors.greydark,
   };
 
   const onStepPress = (position) => {
@@ -101,8 +97,8 @@ export function RegisterWithEmail({navigation}) {
 
       if (isValid) {
         try {
-          setLoading(true);
-          await register(email, password);
+          //   setLoading(true);
+          //   await register(email, password);
           navigation.pop();
         } catch (e) {
           setLoading(false);
@@ -121,7 +117,7 @@ export function RegisterWithEmail({navigation}) {
 
   const SectionLable = ({title}) => {
     return (
-      <Text style={[styles.label, {color: colors.greydark}]}>{title}</Text>
+      <Text style={[styles.label, {color: Colors.greydark}]}>{title}</Text>
     );
   };
 
@@ -198,7 +194,7 @@ export function RegisterWithEmail({navigation}) {
         rightContent={
           stepPosition == 0 && (
             <TouchableOpacity onPress={() => onSkipPress()}>
-              <Text style={[styles.label, {color: colors.primary}]}>
+              <Text style={[styles.label, {color: Colors.ui_primary}]}>
                 {'Skip'}
               </Text>
             </TouchableOpacity>
@@ -222,7 +218,7 @@ export function RegisterWithEmail({navigation}) {
       />
     </AuthContainer>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -246,3 +242,5 @@ const styles = StyleSheet.create({
     // paddingTop: 5,
   },
 });
+
+export default RegisterWithEmail;

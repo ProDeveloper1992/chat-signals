@@ -7,7 +7,7 @@ import {
   BackHeader,
 } from '../../components';
 import {Images} from '../../constants';
-import {globalStyle} from '../../styles/globalStyle';
+import {globalStyle} from '../../styles/global-style';
 
 const ForgotPassword = (props) => {
   const [email, SetEmail] = useState('');

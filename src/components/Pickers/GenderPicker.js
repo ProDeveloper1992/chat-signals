@@ -46,9 +46,8 @@ export default class GenderPicker extends Component {
     return (
       <View style={{flexDirection: 'row', paddingVertical: 5}}>
         {genderData.map((item, index) => (
-          <View style={{flex: 1}}>
+          <View style={{flex: 1}} key={String(index)}>
             <GenderItem
-              key={index}
               isSelected={item.selected}
               imageUrl={item.gender_icon}
               onPress={this.changeCountry.bind(this, index)}

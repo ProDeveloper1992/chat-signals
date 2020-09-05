@@ -12,3 +12,7 @@ export function isIphoneX() {
       dimen.width === 896)
   );
 }
+
+export function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, Text, View, Image} from 'react-native';
-import {useTheme} from '@react-navigation/native';
 import PropTypes from 'prop-types';
+import {Colors} from '../../constants';
 
 export function CountryItem({
   isSelected,
@@ -11,7 +11,6 @@ export function CountryItem({
   style,
   onPress,
 }) {
-  const {colors} = useTheme();
   return (
     <TouchableOpacity
       activeOpacity={0.8}
@@ -19,8 +18,8 @@ export function CountryItem({
         styles.container,
         style,
         {
-          backgroundColor: isSelected ? colors.primary : colors.white,
-          borderColor: isSelected ? colors.white : colors.greydark,
+          backgroundColor: isSelected ? Colors.ui_primary : Colors.white,
+          borderColor: isSelected ? Colors.white : Colors.greydark,
         },
       ]}
       onPress={onPress}>
@@ -36,7 +35,7 @@ export function CountryItem({
       <Text
         style={[
           styles.title,
-          {color: isSelected ? colors.white : colors.black},
+          {color: isSelected ? Colors.white : Colors.black},
         ]}>
         {countryName}
       </Text>
