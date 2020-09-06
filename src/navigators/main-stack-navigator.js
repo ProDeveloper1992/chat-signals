@@ -49,7 +49,7 @@ function SettingsStack() {
 export default function MainStackNavigator() {
   return (
     <Tab.Navigator
-      // initialRouteName="HomeStack"
+      // initialRouteName="FirstTabStack"
       // tabBarOptions={{
       //   activeTintColor: '#42f44b',
       // }}
@@ -60,27 +60,38 @@ export default function MainStackNavigator() {
         </>
       )}>
       <Tab.Screen
-        name="HomeStack"
+        name="FirstTabStack"
         component={HomeStack}
         options={{
           tabBarLabel: 'Home',
-          tabBarIcon: ({color, size}) => <Text>HOME</Text>,
         }}
       />
       <Tab.Screen
-        name="SettingsStack"
+        name="SecondTabStack"
         component={SettingsStack}
         options={{
-          tabBarLabel: 'Settings',
-          tabBarIcon: ({color, size}) => <Text>Setting</Text>,
+          tabBarLabel: 'Chat',
         }}
       />
       <Tab.Screen
-        name="ProfileStack"
+        name="ThirdTabStack"
         component={SettingsStack}
         options={{
           tabBarLabel: 'Profile',
-          tabBarIcon: ({color, size}) => <Text>Setting</Text>,
+        }}
+      />
+      <Tab.Screen
+        name="FourthTabStack"
+        component={SettingsStack}
+        options={{
+          tabBarLabel: 'Profile',
+        }}
+      />
+      <Tab.Screen
+        name="FifthTabStack"
+        component={SettingsStack}
+        options={{
+          tabBarLabel: 'Profile',
         }}
       />
     </Tab.Navigator>
