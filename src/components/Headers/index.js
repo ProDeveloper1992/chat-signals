@@ -1,3 +1,4 @@
 import {BackHeader} from './BackHeader';
+import {GeneralHeader} from './GeneralHeader';
 
-export {BackHeader};
+export {BackHeader, GeneralHeader};

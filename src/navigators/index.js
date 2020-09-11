@@ -1,4 +1,5 @@
 import React from 'react';
+import {Platform} from 'react-native'
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -29,7 +30,7 @@ export default function () {
   return (
     <>
       <StatusBar
-        barStyle={'dark-content'}
+        barStyle={Platform.OS==='ios'?'dark-content':'light-content'}
         backgroundColor={Colors.ui_primary_dark}
       />
       <NavigationContainer>

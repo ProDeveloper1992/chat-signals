@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {IconButton} from '../../components';
 
-const Setting = (props) => {
+const CoinPurchase = (props) => {
   const {navigation} = props;
 
   React.useLayoutEffect(() => {
@@ -33,4 +33,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Setting;
+export default CoinPurchase;

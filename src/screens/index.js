@@ -2,12 +2,17 @@ import Landing from './landing-screen';
 import ForgotPassword from './forgot-password-screen';
 import AppLoading from './app-loading-screen';
 import Home from './home-screen';
+import Contact from './contact-screen';
+import Chat from './chat-screen';
+import DailyCoins from './daily-coin-collection-screen';
+import CoinPurchase from './coins-purchase-screen';
 import RegisterLanding from './register-landing-screen';
 import RegisterWithEmail from './register-with-email-screen';
 import RegisterWithGoogle from './register-with-google-screen';
 import RegisterWithFacebook from './register-with-facebook-screen';
 import Login from './login-screen';
-import Setting from './setting-screen';
+import FlirtTab from './flirt-top-tab'
+import SuperFlirtTab from './super-flirt-top-tab'
 
 export {
   Login,
@@ -19,5 +24,11 @@ export {
   ForgotPassword,
   AppLoading,
   Home,
-  Setting,
+  Contact,
+  Chat,
+  DailyCoins,
+  CoinPurchase,
+  FlirtTab,
+  SuperFlirtTab,
+
 };

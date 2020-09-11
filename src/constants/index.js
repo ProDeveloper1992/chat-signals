@@ -26,6 +26,13 @@ export const Icons = {
   home_inactive: require('../assets/icons/home-inactive.png'),
   chat_active: require('../assets/icons/chat-active.png'),
   chat_inactive: require('../assets/icons/chat-inactive.png'),
+  coin_active: require('../assets/icons/coin-active.png'),
+  coin_inactive: require('../assets/icons/coin-inactive.png'),
+  group_active: require('../assets/icons/group-active.png'),
+  group_inactive: require('../assets/icons/group-inactive.png'),
+  user_profile: require('../assets/icons/search.png'),
+  search: require('../assets/icons/user.png'),
+  icon_languages: require('../assets/icons/languages.png'),
 };
 
 export const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;

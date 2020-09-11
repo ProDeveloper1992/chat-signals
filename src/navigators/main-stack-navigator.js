@@ -3,44 +3,84 @@ import {Text, SafeAreaView} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Home, Setting} from '../screens';
+import {Home, Contact, Chat, DailyCoins, CoinPurchase} from '../screens';
 import BottomTabBar from '../components/BottomTabBar';
 import {Colors} from '../constants';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+const screenOptions={
+  headerStyle: {backgroundColor: Colors.white},
+  headerTintColor: Colors.ui_primary_dark,
+  headerTitleStyle: {fontWeight: 'bold'},
+}
+
 function HomeStack() {
   return (
     <Stack.Navigator
       initialRouteName="Home"
-      screenOptions={{
-        headerStyle: {backgroundColor: Colors.white},
-        headerTintColor: Colors.black,
-        headerTitleStyle: {fontWeight: 'bold'},
-      }}>
+      screenOptions={{headerShown: false}}>
       <Stack.Screen
         name="Home"
         component={Home}
-        options={{title: 'Home Page'}}
+        options={{title: 'Home'}}
       />
     </Stack.Navigator>
   );
 }
 
-function SettingsStack() {
+function ContactStack() {
   return (
     <Stack.Navigator
-      initialRouteName="Settings"
-      screenOptions={{
-        headerStyle: {backgroundColor: Colors.white},
-        headerTintColor: Colors.black,
-        headerTitleStyle: {fontWeight: 'bold'},
-      }}>
+      initialRouteName="Contact"
+      screenOptions={{headerShown: false}}>
       <Stack.Screen
-        name="Settings"
-        component={Setting}
-        options={{title: 'Setting Page'}}
+        name="Contact"
+        component={Contact}
+        options={{title: 'Contact'}}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function ChatStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="Chat"
+      screenOptions={{headerShown: false}}>
+      <Stack.Screen
+        name="Chat"
+        component={Chat}
+        options={{title: 'Chat'}}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function DailyCoinStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="Daily Coins"
+      screenOptions={{headerShown: false}}>
+      <Stack.Screen
+        name="Daily Coins"
+        component={DailyCoins}
+        options={{title: 'Daily Coins'}}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function CoinPurchaseStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="Coin Purchase"
+      screenOptions={{headerShown: false}}>
+      <Stack.Screen
+        name="Coin Purchase"
+        component={CoinPurchase}
+        options={{title: 'Coin Purchase'}}
       />
     </Stack.Navigator>
   );
@@ -68,30 +108,30 @@ export default function MainStackNavigator() {
       />
       <Tab.Screen
         name="SecondTabStack"
-        component={SettingsStack}
+        component={ContactStack}
+        options={{
+          tabBarLabel: 'Contact',
+        }}
+      />
+      <Tab.Screen
+        name="ThirdTabStack"
+        component={ChatStack}
         options={{
           tabBarLabel: 'Chat',
         }}
       />
       <Tab.Screen
-        name="ThirdTabStack"
-        component={SettingsStack}
-        options={{
-          tabBarLabel: 'Profile',
-        }}
-      />
-      <Tab.Screen
         name="FourthTabStack"
-        component={SettingsStack}
+        component={DailyCoinStack}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'Daily Coins',
         }}
       />
       <Tab.Screen
         name="FifthTabStack"
-        component={SettingsStack}
+        component={CoinPurchaseStack}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'Purchase',
         }}
       />
     </Tab.Navigator>

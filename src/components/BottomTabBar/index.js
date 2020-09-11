@@ -7,7 +7,7 @@ export default function BottomTabBar({state, descriptors, navigation}) {
   return (
     <View style={styles.tabBarContainer}>
       {state.routes.map((route, index) => {
-        console.log('Route...', route);
+        // console.log('Route...', route);
         const {options} = descriptors[route.key];
         const label =
           options.tabBarLabel !== undefined
@@ -38,29 +38,29 @@ export default function BottomTabBar({state, descriptors, navigation}) {
 
         const getTabIcon = () => {
           switch (route.name) {
-            case 'FirstTabStack':
-              if (isFocused) {
-                return Icons.home_active;
-              }
-              return Icons.home_inactive;
+            // case 'FirstTabStack':
+            //   if (isFocused) {
+            //     return Icons.home_active;
+            //   }
+            //   return Icons.home_inactive;
 
             case 'SecondTabStack':
               if (isFocused) {
-                return Icons.chat_active;
+                return Icons.group_active;group_active
               }
-              return Icons.chat_inactive;
+              return Icons.group_inactive;
 
             case 'ThirdTabStack':
               if (isFocused) {
-                return Icons.home_active;
-              }
-              return Icons.home_inactive;
-
-            case 'FourthTabStack':
-              if (isFocused) {
                 return Icons.chat_active;
               }
               return Icons.chat_inactive;
+
+            case 'FourthTabStack':
+              if (isFocused) {
+                return Icons.coin_active;
+              }
+              return Icons.coin_inactive;
 
             case 'FifthTabStack':
               if (isFocused) {
@@ -87,7 +87,7 @@ export default function BottomTabBar({state, descriptors, navigation}) {
             onPress={onPress}
             onLongPress={onLongPress}
             style={{flex: 1, alignItems: 'center'}}>
-            <View style={styles.activeTabIconContainer(isFocused)}>
+            <View style={[styles.activeTabIconContainer(isFocused),{borderRadius:20}]}>
               <Image style={styles.tabIcon(isFocused)} source={getTabIcon()} />
             </View>
 

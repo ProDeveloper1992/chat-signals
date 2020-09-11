@@ -30,6 +30,7 @@
     "react-native-screens": "^2.9.0",
     "react-native-splash-screen": "^3.2.0",
     "react-native-step-indicator": "^1.0.3",
+    "react-native-tab-view": "^2.15.1",
     "react-redux": "^7.2.1",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",

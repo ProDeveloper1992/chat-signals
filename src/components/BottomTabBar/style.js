@@ -37,7 +37,6 @@ export default StyleSheet.create({
       return {
         width: 40,
         height: 40,
-        borderRadius: 40 / 2,
         justifyContent: 'center',
         alignItems: 'center',
       };
