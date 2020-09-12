@@ -1,7 +1,8 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import AsyncStorage from '@react-native-community/async-storage';
 import userState from './user-state';
 import appState from './app-state';
+import appModalState from './app-modals-state';
 // import NavigatorService from "../helpers/navigator";
 
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
@@ -9,6 +10,7 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 const allReducers = combineReducers({
   userState: userState,
   appState: appState,
+  appModalState: appModalState
 });
 
 // export const logout = (user) => (dispatch, getState) =>

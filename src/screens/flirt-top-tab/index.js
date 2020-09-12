@@ -1,59 +1,49 @@
-import React, {useState} from 'react';
-import {StyleSheet, View, FlatList, Text, ImageBackground} from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import React, { useState } from 'react';
+import { StyleSheet, View, FlatList, Text, ImageBackground, Dimensions } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const FlirtTab = (props) => {
-  const [FlatListItems, getFlatListItem] = useState([
-    {id: '1', value: 'A', is_online: false},
-    {id: '2', value: 'B', is_online: true},
-    {id: '3', value: 'C', is_online: false},
-    {id: '4', value: 'D', is_online: false},
-    {id: '5', value: 'E', is_online: true},
-    {id: '6', value: 'F', is_online: false},
-    {id: '7', value: 'G', is_online: true},
-    {id: '8', value: 'H', is_online: false},
-    {id: '9', value: 'I', is_online: false},
-    {id: '10', value: 'J', is_online: true},
-    {id: '11', value: 'K', is_online: false},
-    {id: '12', value: 'L', is_online: true},
-    {id: '13', value: 'M', is_online: false},
-    {id: '14', value: 'N', is_online: true},
-    {id: '15', value: 'O', is_online: false},
+  const [flirtsList, setFlirtsList] = useState([
+    { id: '1', value: 'A', is_online: false },
+    { id: '2', value: 'B', is_online: true },
+    { id: '3', value: 'C', is_online: false },
+    { id: '4', value: 'D', is_online: false },
+    { id: '5', value: 'E', is_online: true },
+    { id: '6', value: 'F', is_online: false },
+    { id: '7', value: 'G', is_online: true },
   ]);
+
+  // screen sizing
+  const { width, height } = Dimensions.get('window');
+  // orientation must fixed
+  const SCREEN_WIDTH = width < height ? width : height;
+  const SCREEN_HEIGHT = height > width ? height : width;
+
+  const listColums = 2;
+  const listRows = 3;
+  const listItemMargin = 10;
+  const listItemWidth = (SCREEN_WIDTH - (listColums + 1) * listItemMargin) / listColums
+  const listItemHeight = (SCREEN_HEIGHT - (listRows + 1) * listItemMargin) / listRows
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={FlatListItems}
-        numColumns={2}
+        data={flirtsList}
+        numColumns={listColums}
         showsVerticalScrollIndicator={false}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <TouchableOpacity
-            style={{
-              flex: 1 / 2,
-              // flex: 1,
-              // alignSelf:'center'
-              height: 200,
-              width: 200,
-              // borderRadius: 8,
-              // alignItems: 'center',
-              // justifyContent: 'center',
-              // backgroundColor: 'green',
-              // margin: 5,
-            }}
             onPress={() => alert(123)} activeOpacity={0.6}>
             <ImageBackground
               style={{
                 flex: 1,
-                // height: 200,
-                borderRadius: 8,
-                alignItems: 'center',
-                // justifyContent: 'flex-end',
-                backgroundColor: 'grey',
-                margin: 5,
+                marginLeft: listItemMargin,
+                marginTop: 10,
+                width: listItemWidth,
+                height: listItemHeight,
               }}
               resizeMode={'cover'}
-              imageStyle={{borderRadius: 5}}
+              imageStyle={{ borderRadius: 5 }}
               source={{
                 uri:
                   'https://images.pexels.com/photos/1391498/pexels-photo-1391498.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
@@ -79,7 +69,7 @@ const FlirtTab = (props) => {
                     backgroundColor: item.is_online ? 'green' : 'red',
                   }}></View>
 
-                <Text style={{color: 'black', fontSize: 12}}>
+                <Text style={{ color: 'black', fontSize: 12 }}>
                   {item.is_online ? 'Online' : 'Offline'}
                 </Text>
               </View>
@@ -96,7 +86,6 @@ const FlirtTab = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 5,
   },
 });
 
