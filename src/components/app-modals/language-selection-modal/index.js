@@ -16,7 +16,7 @@ export default function LanguageSelectionModal({ visible, onHideModal }) {
             <View style={styles.modalSubContainer}>
                 <Text style={styles.modalTitle}>{'Select your language'}</Text>
                 <CountryPicker />
-                <GradientButton title={'Set Language'} style={{ marginTop: 10, }} />
+                <GradientButton title={'Set Language'} style={{ marginTop: 10, }} onPress={onHideModal} />
             </View>
         </Modal>
     )
