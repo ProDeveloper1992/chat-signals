@@ -1,3 +1,5 @@
+import { Dimensions } from 'react-native';
+
 export const Colors = {
   ui_primary: '#52b8bc',
   ui_primary_dark: '#3c8e92',
@@ -36,3 +38,10 @@ export const Icons = {
 };
 
 export const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+
+// screen sizing
+const { width, height } = Dimensions.get('window');
+// orientation must fixed
+export const SCREEN_WIDTH = width < height ? width : height;
+export const SCREEN_HEIGHT = height > width ? height : width;
