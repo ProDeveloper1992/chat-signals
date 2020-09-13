@@ -1,14 +1,67 @@
-import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import * as React from 'react';
+import { Dimensions, View, Text } from 'react-native';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { useDispatch } from 'react-redux';
 
-const Contact = (props) => {
-  return <View style={styles.container}></View>;
-};
+import styles from './style'
+import { Colors, Icons } from '../../constants';
+import { GeneralHeader } from '../../components/Headers';
+import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
+//Top Tabs
+import BookMarkTopTab from './bookmark-top-tab'
+import FriendsTopTab from './friends-top-tab'
+import VisitorsTopTab from './visitors-top-tab'
+import BlockedTopTab from './blocked-top-tab'
 
-export default Contact;
+const initialLayout = { width: Dimensions.get('window').width };
+
+export default function Home() {
+  const dispatch = useDispatch()
+
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState([
+    { key: 'bookmarks', title: 'Bookmarks' },
+    { key: 'friends', title: 'Friends' },
+    { key: 'visitors', title: 'Visitors' },
+    { key: 'blocked', title: 'Blocked' },
+  ]);
+
+  const renderScene = SceneMap({
+    bookmarks: BookMarkTopTab,
+    friends: FriendsTopTab,
+    visitors: VisitorsTopTab,
+    blocked: BlockedTopTab
+  });
+
+  return (
+    <View style={styles.container}>
+      <GeneralHeader
+        rightIcon={Icons.user_profile}
+        onRightPress={() => { }}
+        onLeftPress={() => { }}
+        onLanguagePress={() => dispatch(toggleLanguageModal(true))}
+        LanguageIcon={Icons.icon_languages}
+        leftIcon={Icons.search}
+        label={'CONTACTS'}
+      />
+
+      <TabView
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={initialLayout}
+        renderTabBar={(props) => (
+          <TabBar
+            {...props}
+            indicatorStyle={styles.topTabIndicator}
+            style={styles.topTabContainer}
+            labelStyle={styles.topTabLabel}
+            activeColor={Colors.ui_primary}
+            inactiveColor={Colors.black}
+          />
+        )}
+      />
+    </View>
+  );
+}
