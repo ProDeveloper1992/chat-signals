@@ -1,11 +1,14 @@
 import * as React from 'react';
 import { Dimensions, View } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-import { FlirtTab, SuperFlirtTab } from '../index';
-import { Colors, Icons } from '../../constants';
-import { GeneralHeader } from '../../components/Headers';
-import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 import { useDispatch } from 'react-redux';
+
+import { Colors, Icons } from '../../constants';
+import { FlirtTab, SuperFlirtTab } from '../index';
+import { GeneralHeader } from '../../components/Headers';
+import styles from './style'
+
+import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
@@ -24,7 +27,7 @@ export default function Home() {
   });
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <GeneralHeader
         rightIcon={Icons.user_profile}
         onRightPress={() => { }}
@@ -32,7 +35,7 @@ export default function Home() {
         onLanguagePress={() => dispatch(toggleLanguageModal(true))}
         LanguageIcon={Icons.icon_languages}
         leftIcon={Icons.search}
-        label={'FLIRTS'}
+        label={'Flirts'}
       />
 
       <TabView
@@ -43,14 +46,11 @@ export default function Home() {
         renderTabBar={(props) => (
           <TabBar
             {...props}
-            indicatorStyle={{
-              backgroundColor: Colors.ui_primary,
-              height: 3,
-              borderRadius: 30,
-            }}
-            style={{ height: 50, backgroundColor: 'white' }}
-            tabStyle={{}}
-            labelStyle={{ fontSize: 14, color: Colors.black }}
+            indicatorStyle={styles.topTabIndicator}
+            style={styles.topTabContainer}
+            labelStyle={styles.topTabLabel}
+            activeColor={Colors.ui_primary}
+            inactiveColor={Colors.black}
           />
         )}
       />
