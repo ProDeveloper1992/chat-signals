@@ -1,8 +1,9 @@
 import React from 'react';
-import { TouchableOpacity, ImageBackground, View, Text } from 'react-native';
+import { TouchableOpacity, ImageBackground, View, Text, Image } from 'react-native';
+import { Icons } from '../../../constants';
 import styles from './style'
 
-export default function ModeratorListItem({ item, onPress }) {
+export default function ModeratorListItem({ item, onPress, bookmarked }) {
     return (
         <TouchableOpacity
             onPress={onPress} activeOpacity={0.6}>
@@ -13,21 +14,14 @@ export default function ModeratorListItem({ item, onPress }) {
                 source={{
                     uri: item.image_url,
                 }}>
-                <OnlineStatus isOnline={item.is_online} />
+                {bookmarked && (<View style={styles.bookmarkedContainer}><Image source={Icons.bookmark} style={styles.bookmarkIcon}/></View>)}
+                <View style={styles.bottomContainer}>
+                    <View style={styles.onlineStatusSignal(item.is_online)} />
+                    <Text style={styles.name}>{item.name}</Text>
+                    <Image source={{ uri: 'https://cdn.countryflags.com/thumbs/germany/flag-round-250.png' }} style={{ width: 18, height: 18, resizeMode: 'contain' }} />
+                </View>
             </ImageBackground>
         </TouchableOpacity>
     );
 
-}
-
-const OnlineStatus = (props) => {
-    const { isOnline } = props;
-    return (
-        <View style={styles.onlineStatusContainer}>
-            <View style={styles.onlineStatusSignal(isOnline)} />
-            <Text style={styles.onlineStatusText}>
-                {isOnline ? 'Online' : 'Offline'}
-            </Text>
-        </View>
-    )
 }

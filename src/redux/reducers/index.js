@@ -4,6 +4,7 @@ import userState from './user-state';
 import appState from './app-state';
 import flirtsState from './flirts-state';
 import appModalState from './app-modals-state';
+import bookmarkState from './bookmarks-state';
 // import NavigatorService from "../helpers/navigator";
 
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
@@ -12,7 +13,8 @@ const allReducers = combineReducers({
   userState: userState,
   appState: appState,
   appModalState: appModalState,
-  flirtsState: flirtsState
+  flirtsState: flirtsState,
+  bookmarkState: bookmarkState
 });
 
 // export const logout = (user) => (dispatch, getState) =>

@@ -31,7 +31,7 @@ export default function () {
     <>
       <StatusBar
         barStyle={Platform.OS==='ios'?'dark-content':'light-content'}
-        backgroundColor={Colors.ui_primary_dark}
+        backgroundColor={Colors.black}
       />
       <NavigationContainer>
         <RootStack.Navigator
