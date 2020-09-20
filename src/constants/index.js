@@ -4,7 +4,11 @@ export const Colors = {
   ui_primary: '#52b8bc',
   ui_primary_dark: '#3c8e92',
   white: '#ffffff',
+  white_80: 'rgba(255,255,255,0.8)',
   black: '#1f191b',
+  black_30: 'rgba(0,0,0,0.3)',
+  green: 'green',
+  red: 'red',
   positive: '#98ff67',
   ui_error: '#B22222',
   google: '#db4a39',
@@ -35,6 +39,7 @@ export const Icons = {
   user_profile: require('../assets/icons/search.png'),
   search: require('../assets/icons/user.png'),
   icon_languages: require('../assets/icons/languages.png'),
+  bookmark:require('../assets/icons/bookmark.png'),
 };
 
 export const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
