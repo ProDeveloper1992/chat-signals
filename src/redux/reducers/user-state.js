@@ -1,7 +1,7 @@
 import { LOGIN_REQUEST, LOGIN_FAIL, LOGIN_SUCCESS } from '../actions/types';
 
 const initialState = {
-  isLoggedIn: true,
+  isLoggedIn: false,
 };
 
 export default function (state = initialState, action) {
@@ -14,6 +14,7 @@ export default function (state = initialState, action) {
     case LOGIN_SUCCESS:
       return {
         ...state,
+        isLoggedIn:true
       };
 
     case LOGIN_FAIL:

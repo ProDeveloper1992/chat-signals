@@ -3,7 +3,7 @@ import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL} from './types';
 import {client} from '../../services/api-service';
 
 export const loginUser = (params) => (dispatch) =>
-  // dispatch(ActionDispatcher(LOGIN_SUCCESS));
+  dispatch(ActionDispatcher(LOGIN_SUCCESS));
   // dispatch(ActionDispatcher(LOGIN_FAIL));
 
   new Promise(function (resolve, reject) {

@@ -3,29 +3,25 @@ import {Text, SafeAreaView} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Home, Contact, Chat, DailyCoins, CoinPurchase} from '../screens';
+import {Home, Contact, Chat, DailyCoins, CoinPurchase, ModeratorProfile} from '../screens';
 import BottomTabBar from '../components/BottomTabBar';
 import {Colors} from '../constants';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const screenOptions={
+const screenOptions = {
   headerStyle: {backgroundColor: Colors.white},
   headerTintColor: Colors.ui_primary_dark,
   headerTitleStyle: {fontWeight: 'bold'},
-}
+};
 
 function HomeStack() {
   return (
     <Stack.Navigator
       initialRouteName="Home"
       screenOptions={{headerShown: false}}>
-      <Stack.Screen
-        name="Home"
-        component={Home}
-        options={{title: 'Home'}}
-      />
+      <Stack.Screen name="Home" component={Home} options={{title: 'Home'}} />
     </Stack.Navigator>
   );
 }
@@ -49,11 +45,7 @@ function ChatStack() {
     <Stack.Navigator
       initialRouteName="Chat"
       screenOptions={{headerShown: false}}>
-      <Stack.Screen
-        name="Chat"
-        component={Chat}
-        options={{title: 'Chat'}}
-      />
+      <Stack.Screen name="Chat" component={Chat} options={{title: 'Chat'}} />
     </Stack.Navigator>
   );
 }
@@ -86,7 +78,7 @@ function CoinPurchaseStack() {
   );
 }
 
-export default function MainStackNavigator() {
+const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
       // initialRouteName="FirstTabStack"
@@ -135,5 +127,24 @@ export default function MainStackNavigator() {
         }}
       />
     </Tab.Navigator>
+  );
+};
+
+export default function MainStackNavigator() {
+  return (
+    <Stack.Navigator
+      initialRouteName="BottomTab"
+      screenOptions={{headerShown: false}}>
+      <Stack.Screen
+        name="BottomTab"
+        component={BottomTabNavigator}
+        // options={{title: 'Home'}}
+      />
+      <Stack.Screen
+      name="ModeratorProfile"
+      component={ModeratorProfile}
+      options={{title: 'Moderator Profile'}}
+    />
+    </Stack.Navigator>
   );
 }
