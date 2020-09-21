@@ -3,7 +3,7 @@ import { AuthContainer } from './Containers';
 import { Loading } from './Loaders';
 import { GradientButton, IconButton } from './Buttons';
 import { AuthInput } from './Inputs';
-import { BackHeader } from './Headers';
+import { BackHeader,GeneralHeader } from './Headers';
 import { CountryItem, GenderItem } from './Radios';
 import { CountryPicker, GenderPicker } from './Pickers';
 import { NoListData } from './app-no-data-views'
@@ -17,6 +17,7 @@ export {
   IconButton,
   AuthInput,
   BackHeader,
+  GeneralHeader,
   CountryItem,
   GenderItem,
   CountryPicker,

@@ -40,6 +40,11 @@ export const Icons = {
   search: require('../assets/icons/user.png'),
   icon_languages: require('../assets/icons/languages.png'),
   bookmark:require('../assets/icons/bookmark.png'),
+  back_icon:require('../assets/icons/back-icon.png'),
+  like_icon:require('../assets/icons/like.png'),
+  kiss_icon:require('../assets/icons/kiss.png'),
+  add_friend_icon:require('../assets/icons/add-friend.png'),
+  chat_flat_icon:require('../assets/icons/chat-icon.png'),
 };
 
 export const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;

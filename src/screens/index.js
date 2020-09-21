@@ -13,6 +13,7 @@ import RegisterWithFacebook from './register-with-facebook-screen';
 import Login from './login-screen';
 import FlirtTab from './flirt-top-tab'
 import SuperFlirtTab from './super-flirt-top-tab'
+import ModeratorProfile from './moderator-profile-screen'
 
 export {
   Login,
@@ -30,5 +31,5 @@ export {
   CoinPurchase,
   FlirtTab,
   SuperFlirtTab,
-
+  ModeratorProfile
 };
