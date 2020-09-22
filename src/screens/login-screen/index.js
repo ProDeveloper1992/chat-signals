@@ -47,7 +47,8 @@ const LoginScreen = (props) => {
 
     if (isValid) {
       try {
-        await login(email, password);
+        await dispatch(loginUser(email, password));
+        navigation.navigate('main-stack')
       } catch (e) {
         setLoading(false);
       }
@@ -98,8 +99,8 @@ const LoginScreen = (props) => {
             type={'primary'}
             title={'Login'}
             style={styles.loginButton}
-            onPress={() => login()}
-            // onPress={() => onLoginPress()}
+            // onPress={() => login()}
+            onPress={() => onLoginPress()}
           />
           <TextButton
             title={"Don't you have an account? Create one"}

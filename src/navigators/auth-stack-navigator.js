@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Alert, BackHandler } from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import {
@@ -10,11 +11,33 @@ import {
   RegisterWithGoogle,
   RegisterWithFacebook,
 } from '../screens';
+import SplashScreen from 'react-native-splash-screen';
 
 const AuthStack = createStackNavigator();
 const LoginStack = createStackNavigator();
 
 export default function AuthStackNavigator() {
+  useEffect(()=>{
+    SplashScreen.hide()
+    const backAction = () => {
+      Alert.alert("Hold on!", "Are you sure you want to exit?", [
+        {
+          text: "Cancel",
+          onPress: () => null,
+          style: "cancel"
+        },
+        { text: "YES", onPress: () => BackHandler.exitApp() }
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  },[])
   return (
     <AuthStack.Navigator
       mode={'modal'}

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import StepIndicator from 'react-native-step-indicator';
+import { useDispatch } from 'react-redux';
 
 import {
   GradientButton,
@@ -18,9 +19,11 @@ import {
   GenderPicker,
 } from '../../components';
 import {mailformat, Colors} from '../../constants';
+import { loginUser } from '../../redux/actions/user-actions';
 
 const RegisterWithEmail = (props) => {
   const {navigation} = props;
+  const dispatch = useDispatch();
 
   const [userName, setUserName] = React.useState('');
   const [postalCode, setPostalCode] = React.useState('');
@@ -99,7 +102,8 @@ const RegisterWithEmail = (props) => {
         try {
           //   setLoading(true);
           //   await register(email, password);
-          navigation.pop();
+          dispatch(loginUser())
+          navigation.navigate('main-stack');
         } catch (e) {
           setLoading(false);
         }

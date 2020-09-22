@@ -16,9 +16,13 @@ import {
   GraphRequest,
   GraphRequestManager,
 } from 'react-native-fbsdk';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../redux/actions/user-actions';
 
 const RegisterWithFacebook = (props) => {
   const {navigation} = props;
+  const dispatch = useDispatch();
+
   const [loading, setLoading] = React.useState(false);
 
   function onLoginWithFacebook() {
@@ -52,6 +56,8 @@ const RegisterWithFacebook = (props) => {
     if (error) {
       console.log('ERROR:- ', error);
     } else {
+      dispatch(loginUser())
+      navigation.navigate('main-stack')
       console.log('RESULT:- ', result);
     }
   };
