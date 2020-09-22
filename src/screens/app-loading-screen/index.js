@@ -14,9 +14,9 @@ const AppLoading = (props) => {
   }, []);
 
   async function getAppData() {
+    SplashScreen.hide();
     let app_strings_response = await dispatch(getAppStrings());
     if (app_strings_response.data) {
-      SplashScreen.hide();
       console.log('app_strings_response', app_strings_response);
     }
   }
