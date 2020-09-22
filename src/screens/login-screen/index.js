@@ -98,8 +98,8 @@ const LoginScreen = (props) => {
             type={'primary'}
             title={'Login'}
             style={styles.loginButton}
-            onPress={() => login()}
-            // onPress={() => onLoginPress()}
+            // onPress={() => login()}
+            onPress={() => onLoginPress()}
           />
           <TextButton
             title={"Don't you have an account? Create one"}

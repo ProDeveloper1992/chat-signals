@@ -110,11 +110,11 @@ const RegisterWithGoogle = (props) => {
             onPress={() => _signIn()}
           />
           <Loading loading={loading} />
-          {userInfo && (
+          {/* {userInfo && (
             <TouchableOpacity style={styles.button} onPress={_signOut}>
               <Text>Logout</Text>
             </TouchableOpacity>
-          )}
+          )} */}
         </View>
       </ScrollView>
     </AuthContainer>

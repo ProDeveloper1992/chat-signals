@@ -107,7 +107,7 @@ export default function ModeratorProfile(props) {
             onValueChange={toggleSwitch}
             value={isEnabled}
           />
-          <Text style={{fontSize: 14, fontWeight: '700'}}>MARK</Text>
+          <Text style={{fontSize: 14, fontWeight: '700'}}>BOOKMARK</Text>
         </View>
       </View>
 
@@ -155,8 +155,9 @@ export default function ModeratorProfile(props) {
         style={{
           flexDirection: 'row',
           alignItems: 'center',
-          borderTopWidth: 1,
-          borderBottomWidth: 1,
+          borderTopWidth: 0.5,
+          borderBottomWidth: 0.5,
+          borderColor: Colors.greydark,
         }}>
         <TouchableOpacity
           style={{
@@ -179,8 +180,9 @@ export default function ModeratorProfile(props) {
             flex: 1,
             padding: 15,
             alignItems: 'center',
-            borderRightWidth: 1,
-            borderLeftWidth: 1,
+            borderRightWidth: 0.5,
+            borderLeftWidth: 0.5,
+            borderColor: Colors.greydark,
             backgroundColor:
               cuurentTab === 1 ? Colors.ui_primary_dark : Colors.white,
           }}
@@ -188,7 +190,9 @@ export default function ModeratorProfile(props) {
           <Text
             style={{
               color: cuurentTab === 1 ? Colors.white : Colors.black,
-            }}>Profile-Info</Text>
+            }}>
+            Profile-Info
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{
@@ -202,7 +206,9 @@ export default function ModeratorProfile(props) {
           <Text
             style={{
               color: cuurentTab === 2 ? Colors.white : Colors.black,
-            }}>Action</Text>
+            }}>
+            Action
+          </Text>
         </TouchableOpacity>
       </View>
 
@@ -215,7 +221,17 @@ const Header = (props) => {
   return (
     <View style={[styles.headerContainer]}>
       <View style={styles.flexOne}>
-        <TouchableOpacity onPress={props.onBackPress}>
+        <TouchableOpacity
+          onPress={props.onBackPress}
+          style={{
+            backgroundColor: Colors.black_30,
+            alignSelf: 'flex-start',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 15,
+            height: 30,
+            width: 30,
+          }}>
           <Image style={styles.backIcon} source={Icons.back_icon} />
         </TouchableOpacity>
       </View>

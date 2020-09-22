@@ -3,9 +3,12 @@ import { View, FlatList } from 'react-native';
 import { useSelector } from 'react-redux';
 import { ModeratorListItem, NoListData } from '../../../components';
 import styles from './style'
+import {useNavigation} from '@react-navigation/native';
 
 export default function BookmarkTopTab(props) {
     const { bookmarksList } = useSelector((state) => state.bookmarkState)
+
+    const navigation = useNavigation();
 
     return (
         <View style={styles.container}>
@@ -15,7 +18,7 @@ export default function BookmarkTopTab(props) {
                 numColumns={2}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item, index }) => (
-                    <ModeratorListItem key={String(index)} item={item} bookmarked onPress={() => { }} />
+                    <ModeratorListItem key={String(index)} item={item} bookmarked onPress={() => navigation.navigate('ModeratorProfile', {item: item})} />
                 )}
                 keyExtractor={(item, index) => index.toString()}
             />
