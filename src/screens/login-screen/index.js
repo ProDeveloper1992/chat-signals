@@ -47,7 +47,8 @@ const LoginScreen = (props) => {
 
     if (isValid) {
       try {
-        await login(email, password);
+        await dispatch(loginUser(email, password));
+        navigation.navigate('main-stack')
       } catch (e) {
         setLoading(false);
       }

@@ -20,10 +20,10 @@ export default function () {
     if (appLoading) {
       return <RootStack.Screen name={'Splash'} component={AppLoading} />;
     } else if (!appLoading && isLoggedIn) {
-      return <RootStack.Screen name={'Stack'} component={MainStackNavigator} />;
+      return <RootStack.Screen name={'main-stack'} component={MainStackNavigator} />;
     }
     return (
-      <RootStack.Screen name={'AuthStack'} component={AuthStackNavigator} />
+      <RootStack.Screen name={'auth-stack'} component={AuthStackNavigator} />
     );
   }
 
@@ -35,11 +35,15 @@ export default function () {
       />
       <NavigationContainer>
         <RootStack.Navigator
+        initialRouteName={isLoggedIn?'main-stack':'auth-stack'}
           screenOptions={{
             headerShown: false,
             animationEnabled: false,
           }}>
-          {renderScreens()}
+          {/* {renderScreens()} */}
+          <RootStack.Screen name={'app-loading-screen'} component={AppLoading} />
+          <RootStack.Screen name={'main-stack'} component={MainStackNavigator} />
+          <RootStack.Screen name={'auth-stack'} component={AuthStackNavigator} />
         </RootStack.Navigator>
       </NavigationContainer>
     </>

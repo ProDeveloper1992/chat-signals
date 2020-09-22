@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Dimensions, View } from 'react-native';
+import { Alert, Dimensions, View } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { useDispatch } from 'react-redux';
 
@@ -9,11 +9,14 @@ import { GeneralHeader } from '../../components/Headers';
 import styles from './style'
 
 import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
+import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
 export default function Home() {
-  const dispatch = useDispatch()
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
@@ -26,12 +29,26 @@ export default function Home() {
     superflirt: SuperFlirtTab,
   });
 
+  const onLogout=()=>{
+    Alert.alert("Confirm Logout!", "Are you sure you want to logout?", [
+      {
+        text: "No",
+        onPress: () => null,
+        style: "cancel"
+      },
+      { text: "Yes", onPress: () => {
+        AsyncStorage.clear();
+        navigation.navigate('auth-stack');
+      } }
+    ]);
+  }
+
   return (
     <View style={styles.container}>
       <GeneralHeader
         rightIcon={Icons.user_profile}
         onRightPress={() => { }}
-        onLeftPress={() => { }}
+        onLeftPress={onLogout}
         onLanguagePress={() => dispatch(toggleLanguageModal(true))}
         LanguageIcon={Icons.icon_languages}
         leftIcon={Icons.search}
