@@ -18,6 +18,7 @@ export default function SuperFlirtTab(props) {
       <FlatList
         data={superFlirtsList}
         numColumns={2}
+        contentContainerStyle={{paddingBottom:20}}
         showsVerticalScrollIndicator={false}
         renderItem={({item, index}) => (
           <ModeratorListItem

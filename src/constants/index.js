@@ -13,6 +13,7 @@ export const Colors = {
   ui_error: '#B22222',
   google: '#db4a39',
   facebook: '#3b5998',
+  grey:'grey',
   greydark: '#4E586E',
   gradient_1: '#6debef',
   gradient_2: '#52b8bc',
