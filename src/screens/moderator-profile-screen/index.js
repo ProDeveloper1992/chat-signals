@@ -8,6 +8,7 @@ import {
   Switch,
   TouchableOpacity,
 } from 'react-native';
+import {NoListData} from '../../components';
 import {Icons, Colors} from '../../constants';
 import styles from './style';
 
@@ -21,28 +22,13 @@ export default function ModeratorProfile(props) {
   const renderCurrentTab = () => {
     switch (cuurentTab) {
       case 0:
-        return (
-          <View
-            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <Text>No photos Found!</Text>
-          </View>
-        );
+        return <NoListData title={'No photos found!'} />;
 
       case 1:
-        return (
-          <View
-            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <Text>Profile Info Tab</Text>
-          </View>
-        );
+        return <NoListData title={'No profile information found!'} />;
 
       case 2:
-        return (
-          <View
-            style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            <Text>Action Tab</Text>
-          </View>
-        );
+        return <NoListData title={'No actions found!'} />;
     }
   };
 
@@ -58,169 +44,167 @@ export default function ModeratorProfile(props) {
             onBackPress={() => props.navigation.goBack()}
           />
         </ImageBackground>
-      </View>
 
-      <View style={{height: 0.3, backgroundColor: 'grey'}}></View>
+        <View style={{height: 0.3, backgroundColor: 'grey'}}></View>
 
-      <View style={styles.moderatorSwitchContainer}>
-        <View>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginVertical: 5,
-            }}>
+        <View style={styles.moderatorSwitchContainer}>
+          <View>
             <View
               style={{
-                height: 15,
-                width: 15,
-                borderRadius: 7.5,
-                backgroundColor: 'grey',
-                marginRight: 5,
-              }}></View>
-            <Text
-              style={{textAlign: 'center', fontSize: 14, fontWeight: 'bold'}}>
-              {params.item.name}
-            </Text>
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginVertical: 5,
+              }}>
+              <View style={styles.onlineStatusSignal(params.item.is_online)} />
+              <Text
+                style={{textAlign: 'center', fontSize: 16, fontWeight: 'bold'}}>
+                {params.item.name}
+              </Text>
+            </View>
+
+            <View style={{flexDirection: 'row', marginVertical: 3}}>
+              <Text style={{marginRight: 10}}>{'5 km'}</Text>
+              <Text style={{marginRight: 10}}>{'Germany'}</Text>
+              <Image
+                source={{
+                  uri:
+                    'https://cdn.countryflags.com/thumbs/germany/flag-round-250.png',
+                }}
+                style={{
+                  height: 16,
+                  width: 16,
+                  resizeMode: 'cover',
+                  alignSelf: 'center',
+                }}
+              />
+            </View>
           </View>
 
-          <View style={{flexDirection: 'row', marginVertical: 3}}>
-            <Text style={{marginRight: 10}}>{'Distance'}</Text>
-            <Text style={{marginRight: 10}}>{'Country'}</Text>
-            <Image
-              source={Icons.chat_active}
-              style={{
-                height: 16,
-                width: 16,
-                resizeMode: 'cover',
-                alignSelf: 'center',
-              }}
+          <View style={styles.switchViewContainer}>
+            <Switch
+              trackColor={{false: '#e0e0e0', true: Colors.ui_primary_dark}}
+              thumbColor={isEnabled ? Colors.white : Colors.white}
+              ios_backgroundColor={Colors.white_80}
+              onValueChange={toggleSwitch}
+              value={isEnabled}
             />
+            <Text style={{fontSize: 14, fontWeight: '700'}}>BOOKMARK</Text>
           </View>
         </View>
 
-        <View style={styles.switchViewContainer}>
-          <Switch
-            trackColor={{false: '#e0e0e0', true: Colors.ui_primary_dark}}
-            thumbColor={isEnabled ? Colors.white : Colors.white}
-            ios_backgroundColor={Colors.white_80}
-            onValueChange={toggleSwitch}
-            value={isEnabled}
+        <View style={{height: 0.3, backgroundColor: 'grey'}}></View>
+
+        <View
+          style={{
+            flexDirection: 'row',
+            flex: 1,
+            justifyContent: 'space-between',
+            padding: 10,
+          }}>
+          <IconLabel
+            onIconPress={() => {}}
+            IconName={'Kisses'}
+            Icon={Icons.kiss_icon}
           />
-          <Text style={{fontSize: 14, fontWeight: '700'}}>BOOKMARK</Text>
+
+          <IconLabel
+            onIconPress={() => {}}
+            IconName={'Like'}
+            Icon={Icons.like_icon}
+          />
+
+          <IconLabel
+            onIconPress={() => {}}
+            IconName={'Chat'}
+            Icon={Icons.chat_flat_icon}
+          />
+
+          <IconLabel
+            onIconPress={() => {}}
+            IconName={'Add Friend'}
+            Icon={Icons.add_friend_icon}
+          />
         </View>
-      </View>
 
-      <View style={{height: 0.3, backgroundColor: 'grey'}}></View>
-
-      <View
-        style={{
-          flexDirection: 'row',
-          flex: 1,
-          justifyContent: 'space-between',
-          padding: 10,
-        }}>
-        <IconLabel
-          onIconPress={() => alert('Kiss')}
-          txtColor={'red'}
-          IconName={'Kisses'}
-          Icon={Icons.kiss_icon}
-        />
-
-        <IconLabel
-          onIconPress={() => alert('Like')}
-          txtColor={'blue'}
-          IconName={'Like'}
-          Icon={Icons.like_icon}
-        />
-
-        <IconLabel
-          onIconPress={() => alert('Chat')}
-          txtColor={'#FFD700'}
-          IconName={'Chat'}
-          Icon={Icons.chat_flat_icon}
-        />
-
-        <IconLabel
-          onIconPress={() => alert('Add friend')}
-          txtColor={'green'}
-          IconName={'Add Friend'}
-          Icon={Icons.add_friend_icon}
-        />
-      </View>
-
-      <View style={{height: 0.3, backgroundColor: 'grey'}}></View>
-
-      <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-          borderTopWidth: 0.5,
-          borderBottomWidth: 0.5,
-          borderColor: Colors.greydark,
-        }}>
-        <TouchableOpacity
+        <View
           style={{
-            flex: 1,
-            padding: 15,
+            flexDirection: 'row',
             alignItems: 'center',
-            backgroundColor:
-              cuurentTab === 0 ? Colors.ui_primary_dark : Colors.white,
-          }}
-          onPress={() => setCurrentTab(0)}>
-          <Text
+            borderTopWidth: 0.5,
+            borderBottomWidth: 0.5,
+            borderColor: Colors.grey,
+          }}>
+          <TouchableOpacity
             style={{
-              color: cuurentTab === 0 ? Colors.white : Colors.black,
-            }}>
-            Photos
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            flex: 1,
-            padding: 15,
-            alignItems: 'center',
-            borderRightWidth: 0.5,
-            borderLeftWidth: 0.5,
-            borderColor: Colors.greydark,
-            backgroundColor:
-              cuurentTab === 1 ? Colors.ui_primary_dark : Colors.white,
-          }}
-          onPress={() => setCurrentTab(1)}>
-          <Text
+              flex: 1,
+              padding: 15,
+              alignItems: 'center',
+              backgroundColor:
+                cuurentTab === 0 ? Colors.ui_primary_dark : Colors.white,
+            }}
+            onPress={() => setCurrentTab(0)}>
+            <Text
+              style={{
+                color: cuurentTab === 0 ? Colors.white : Colors.black,
+                fontSize: 16,
+                fontWeight: 'bold',
+              }}>
+              Photos
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
             style={{
-              color: cuurentTab === 1 ? Colors.white : Colors.black,
-            }}>
-            Profile-Info
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            flex: 1,
-            padding: 15,
-            alignItems: 'center',
-            backgroundColor:
-              cuurentTab === 2 ? Colors.ui_primary_dark : Colors.white,
-          }}
-          onPress={() => setCurrentTab(2)}>
-          <Text
+              flex: 1,
+              padding: 15,
+              alignItems: 'center',
+              borderRightWidth: 0.5,
+              borderLeftWidth: 0.5,
+              borderColor: Colors.grey,
+              backgroundColor:
+                cuurentTab === 1 ? Colors.ui_primary_dark : Colors.white,
+            }}
+            onPress={() => setCurrentTab(1)}>
+            <Text
+              style={{
+                color: cuurentTab === 1 ? Colors.white : Colors.black,
+                fontSize: 16,
+                fontWeight: 'bold',
+              }}>
+              Profile-Info
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
             style={{
-              color: cuurentTab === 2 ? Colors.white : Colors.black,
-            }}>
-            Action
-          </Text>
-        </TouchableOpacity>
-      </View>
+              flex: 1,
+              padding: 15,
+              alignItems: 'center',
+              backgroundColor:
+                cuurentTab === 2 ? Colors.ui_primary_dark : Colors.white,
+              fontSize: 16,
+              fontWeight: 'bold',
+            }}
+            onPress={() => setCurrentTab(2)}>
+            <Text
+              style={{
+                color: cuurentTab === 2 ? Colors.white : Colors.black,
+                fontSize: 16,
+                fontWeight: 'bold',
+              }}>
+              Action
+            </Text>
+          </TouchableOpacity>
+        </View>
 
-      {renderCurrentTab()}
+        <View style={{minHeight: 200}}>{renderCurrentTab()}</View>
+      </View>
     </ScrollView>
   );
 }
 
 const Header = (props) => {
   return (
-    <View style={[styles.headerContainer]}>
-      <View style={styles.flexOne}>
+    <View style={styles.headerContainer}>
+      <View>
         <TouchableOpacity
           onPress={props.onBackPress}
           style={{
@@ -236,11 +220,11 @@ const Header = (props) => {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.flexOne}>
+      <View>
         <Text style={styles.headerTitle}>{props.label}</Text>
       </View>
 
-      <View style={styles.flexOne}></View>
+      <View />
     </View>
   );
 };
@@ -258,7 +242,7 @@ const IconLabel = (props) => {
           source={props.Icon}
           style={{height: 35, width: 35, resizeMode: 'cover'}}
         />
-        <Text style={{color: props.txtColor, paddingTop: 10}}>
+        <Text style={{color: Colors.black, paddingTop: 10}}>
           {props.IconName}
         </Text>
       </View>

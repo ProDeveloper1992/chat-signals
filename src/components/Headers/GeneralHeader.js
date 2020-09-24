@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text, StyleSheet, TouchableOpacity, View, Image } from 'react-native';
-import { Colors } from '../../constants';
+import {Text, StyleSheet, TouchableOpacity, View, Image} from 'react-native';
+import {Colors} from '../../constants';
 
 export function GeneralHeader({
   style,
@@ -29,14 +29,17 @@ export function GeneralHeader({
       </View>
 
       <View style={styles.flexOne}>
-        <Text
-          style={styles.headerTitle}>
-          {label}
-        </Text>
+        <Text style={styles.headerTitle}>{label}</Text>
       </View>
 
-      <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
-        <TouchableOpacity
+      <View
+        style={{
+          flexDirection: 'row',
+          flex: 1,
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+        }}>
+        {/* <TouchableOpacity
           onPress={onRightPress}>
           <Image
             style={{
@@ -47,10 +50,8 @@ export function GeneralHeader({
             }}
             source={rightIcon}
           />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{ marginStart: 20 }}
-          onPress={onLanguagePress}>
+        </TouchableOpacity> */}
+        <TouchableOpacity style={{marginStart: 20}} onPress={onLanguagePress}>
           <Image
             style={{
               height: 24,
@@ -83,6 +84,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     letterSpacing: 0.5,
     textAlign: 'center',
-    textTransform: 'uppercase'
-  }
+    textTransform: 'uppercase',
+  },
 });

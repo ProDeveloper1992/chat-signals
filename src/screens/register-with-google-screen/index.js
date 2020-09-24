@@ -19,8 +19,8 @@ import {Images} from '../../constants';
 import {globalStyle} from '../../styles/global-style';
 import {GoogleSignin, statusCodes} from 'react-native-google-signin';
 import {Colors} from '../../constants';
-import { useDispatch } from 'react-redux';
-import { loginUser } from '../../redux/actions/user-actions';
+import {useDispatch} from 'react-redux';
+import {loginUser} from '../../redux/actions/user-actions';
 
 const RegisterWithGoogle = (props) => {
   const {navigation} = props;
@@ -42,7 +42,7 @@ const RegisterWithGoogle = (props) => {
   const _isSignedIn = async () => {
     const isSignedIn = await GoogleSignin.isSignedIn();
     if (isSignedIn) {
-      alert('User is already signed in');
+      // alert('User is already signed in');
       _getCurrentUserInfo;
     } else {
       console.log('Please Login');
@@ -73,7 +73,7 @@ const RegisterWithGoogle = (props) => {
       console.log('User Info --> ', userInfo);
       setUserInfo(userInfo);
       dispatch(loginUser());
-      navigation.navigate('main-stack')
+      navigation.navigate('main-stack');
     } catch (error) {
       console.log('Message', error.message);
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {

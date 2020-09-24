@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {Colors} from '../../constants';
 
 export default StyleSheet.create({
   container: {
@@ -7,13 +8,14 @@ export default StyleSheet.create({
   },
 
   imgBackground: {
-    height: 400,
+    height: 350,
     width: '100%',
   },
 
   headerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     paddingVertical: 15,
     paddingHorizontal: 20,
   },
@@ -39,14 +41,26 @@ export default StyleSheet.create({
   },
 
   moderatorSwitchContainer: {
-    flexDirection:'row',
-    alignItems:'center',
-    justifyContent:'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     padding: 10,
   },
 
-  switchViewContainer:{
-    flexDirection:'row',
-    alignItems:'center'
-  }
+  switchViewContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  onlineStatusSignal: function (isOnline) {
+    return {
+      height: 14,
+      width: 14,
+      borderRadius: 7,
+      marginEnd: 5,
+      backgroundColor: isOnline ? Colors.green : Colors.red,
+      borderWidth: 2,
+      borderColor: Colors.white,
+    };
+  },
 });
