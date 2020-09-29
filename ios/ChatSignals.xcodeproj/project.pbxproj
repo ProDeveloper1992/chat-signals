@@ -21,6 +21,11 @@
 		ACEE848B88CE22330AF5F0B2 /* libPods-ChatSignals-ChatSignalsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B035BA3F7CDA0BC633C93D6 /* libPods-ChatSignals-ChatSignalsTests.a */; };
 		C80EAD6224F15400003DE1E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C80EAD6124F15400003DE1E6 /* GoogleService-Info.plist */; };
 		E6F471A92EE3EE9965C17157 /* libPods-ChatSignals-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5C8ED8CEB0BF45D7C5EF0F /* libPods-ChatSignals-tvOSTests.a */; };
+		BE8B3A9BC727409987CFBDE7 /* Gilroy-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9533F0DF41464AC5A3C36C0B /* Gilroy-Bold.ttf */; };
+		6C6C67DCD2B44C738A1878A0 /* Gilroy-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68777CAAE822469AB65DBECB /* Gilroy-Heavy.ttf */; };
+		AB12BCD80D4C4D6E91B40AC5 /* Gilroy-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 04093C9370744503B953056C /* Gilroy-Light.ttf */; };
+		2B29024A26924231995B523F /* Gilroy-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8FE63DC01F27445EBBA5EFF4 /* Gilroy-Medium.ttf */; };
+		15FC7416D06D4622B03D9FA1 /* Gilroy-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE4FE65A70B34A99815E48F1 /* Gilroy-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +75,11 @@
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F93EB2FA796568CC0BE9530F /* libPods-ChatSignals.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ChatSignals.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF78E774AC069A1A9AA68FFD /* Pods-ChatSignals.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatSignals.debug.xcconfig"; path = "Target Support Files/Pods-ChatSignals/Pods-ChatSignals.debug.xcconfig"; sourceTree = "<group>"; };
+		9533F0DF41464AC5A3C36C0B /* Gilroy-Bold.ttf */ = {isa = PBXFileReference; name = "Gilroy-Bold.ttf"; path = "../assets/fonts/Gilroy-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		68777CAAE822469AB65DBECB /* Gilroy-Heavy.ttf */ = {isa = PBXFileReference; name = "Gilroy-Heavy.ttf"; path = "../assets/fonts/Gilroy-Heavy.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		04093C9370744503B953056C /* Gilroy-Light.ttf */ = {isa = PBXFileReference; name = "Gilroy-Light.ttf"; path = "../assets/fonts/Gilroy-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8FE63DC01F27445EBBA5EFF4 /* Gilroy-Medium.ttf */ = {isa = PBXFileReference; name = "Gilroy-Medium.ttf"; path = "../assets/fonts/Gilroy-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CE4FE65A70B34A99815E48F1 /* Gilroy-Regular.ttf */ = {isa = PBXFileReference; name = "Gilroy-Regular.ttf"; path = "../assets/fonts/Gilroy-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +216,11 @@
 			isa = PBXGroup;
 			children = (
 				B9A8707F00DE499E9A058B62 /* Ionicons.ttf */,
+				9533F0DF41464AC5A3C36C0B /* Gilroy-Bold.ttf */,
+				68777CAAE822469AB65DBECB /* Gilroy-Heavy.ttf */,
+				04093C9370744503B953056C /* Gilroy-Light.ttf */,
+				8FE63DC01F27445EBBA5EFF4 /* Gilroy-Medium.ttf */,
+				CE4FE65A70B34A99815E48F1 /* Gilroy-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -357,6 +372,11 @@
 				C80EAD6224F15400003DE1E6 /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				5ADF19EB80F04C958F3D5BB1 /* Ionicons.ttf in Resources */,
+				BE8B3A9BC727409987CFBDE7 /* Gilroy-Bold.ttf in Resources */,
+				6C6C67DCD2B44C738A1878A0 /* Gilroy-Heavy.ttf in Resources */,
+				AB12BCD80D4C4D6E91B40AC5 /* Gilroy-Light.ttf in Resources */,
+				2B29024A26924231995B523F /* Gilroy-Medium.ttf in Resources */,
+				15FC7416D06D4622B03D9FA1 /* Gilroy-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

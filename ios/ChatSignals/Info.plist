@@ -23,11 +23,9 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.621048235124-a70gasl2khst8fmb131cnmlb0h23tsiq</string>
+				<string>fb771108183652072</string>
 			</array>
 		</dict>
 	</array>
@@ -49,10 +47,15 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Ionicons.ttf</string>
+		<string>Gilroy-Bold.ttf</string>
+		<string>Gilroy-Heavy.ttf</string>
+		<string>Gilroy-Light.ttf</string>
+		<string>Gilroy-Medium.ttf</string>
+		<string>Gilroy-Regular.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
@@ -68,18 +71,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-  <key>CFBundleURLTypes</key>
-  <array>
-    <dict>
-    <key>CFBundleURLSchemes</key>
-    <array>
-      <string>fb771108183652072</string>
-    </array>
-    </dict>
-  </array>
-  <key>FacebookAppID</key>
-  <string>771108183652072</string>
-  <key>FacebookDisplayName</key>
-  <string>ChatSignal</string>
+	<key>FacebookAppID</key>
+	<string>771108183652072</string>
+	<key>FacebookDisplayName</key>
+	<string>ChatSignal</string>
 </dict>
 </plist>

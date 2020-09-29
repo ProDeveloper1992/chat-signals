@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Image} from 'react-native';
 import {
   GradientButton,
   AuthInput,
   AuthContainer,
   BackHeader,
+  AppText,
 } from '../../components';
-import {Images} from '../../constants';
+import {Colors, Images} from '../../constants';
 import {globalStyle} from '../../styles/global-style';
 
 const ForgotPassword = (props) => {
@@ -18,17 +19,17 @@ const ForgotPassword = (props) => {
       <BackHeader onBackPress={() => navigation.goBack()} />
       <Image style={globalStyle.logo} source={Images.forgot_heart_logo} />
       <View style={{flex: 1, justifyContent: 'flex-end', paddingBottom: 20}}>
-        <Text
+        <AppText
+          type={'medium'}
+          color={Colors.white}
           style={{
-            color: '#fff',
             paddingHorizontal: 5,
             paddingVertical: 10,
-            fontWeight: '800',
           }}>
           {
             'Forgot Password?  Not bad.  As a registered member, you can now request a new password using your email address.'
           }
-        </Text>
+        </AppText>
         <AuthInput
           placeholder={'Email'}
           keyboardType={'email-address'}

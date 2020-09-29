@@ -1,7 +1,8 @@
 import React from 'react';
-import {Text, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import Icon from 'react-native-ionicons';
 import {Colors} from '../../constants';
+import {AppText} from '../../components';
 
 export function BackHeader({
   title,
@@ -20,7 +21,9 @@ export function BackHeader({
         onPress={onBackPress}
       />
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>{title}</Text>
+        <AppText type={'bold'} size={16}>
+          {title}
+        </AppText>
       </View>
       {rightContent}
     </View>
@@ -32,9 +35,5 @@ const styles = StyleSheet.create({
   titleContainer: {
     flex: 1,
     alignItems: 'center',
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: '700',
   },
 });

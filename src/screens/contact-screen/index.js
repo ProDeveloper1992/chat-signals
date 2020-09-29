@@ -1,45 +1,45 @@
 import * as React from 'react';
-import { Dimensions, View, Text } from 'react-native';
-import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-import { useDispatch } from 'react-redux';
+import {Dimensions, View} from 'react-native';
+import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
+import {useDispatch} from 'react-redux';
 
-import styles from './style'
-import { Colors, Icons } from '../../constants';
-import { GeneralHeader } from '../../components/Headers';
-import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
+import styles from './style';
+import {Colors, Icons} from '../../constants';
+import {GeneralHeader} from '../../components/Headers';
+import {toggleLanguageModal} from '../../redux/actions/app-modals-actions';
 
 //Top Tabs
-import BookMarkTopTab from './bookmark-top-tab'
-import FriendsTopTab from './friends-top-tab'
-import VisitorsTopTab from './visitors-top-tab'
-import BlockedTopTab from './blocked-top-tab'
+import BookMarkTopTab from './bookmark-top-tab';
+import FriendsTopTab from './friends-top-tab';
+import VisitorsTopTab from './visitors-top-tab';
+import BlockedTopTab from './blocked-top-tab';
 
-const initialLayout = { width: Dimensions.get('window').width };
+const initialLayout = {width: Dimensions.get('window').width};
 
 export default function Home() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'bookmarks', title: 'Bookmarks' },
-    { key: 'friends', title: 'Friends' },
-    { key: 'visitors', title: 'Visitors' },
-    { key: 'blocked', title: 'Blocked' },
+    {key: 'bookmarks', title: 'Bookmarks'},
+    {key: 'friends', title: 'Friends'},
+    {key: 'visitors', title: 'Visitors'},
+    {key: 'blocked', title: 'Blocked'},
   ]);
 
   const renderScene = SceneMap({
     bookmarks: BookMarkTopTab,
     friends: FriendsTopTab,
     visitors: VisitorsTopTab,
-    blocked: BlockedTopTab
+    blocked: BlockedTopTab,
   });
 
   return (
     <View style={styles.container}>
       <GeneralHeader
         rightIcon={Icons.user_profile}
-        onRightPress={() => { }}
-        onLeftPress={() => { }}
+        onRightPress={() => {}}
+        onLeftPress={() => {}}
         onLanguagePress={() => dispatch(toggleLanguageModal(true))}
         LanguageIcon={Icons.icon_languages}
         leftIcon={Icons.search}
@@ -47,7 +47,7 @@ export default function Home() {
       />
 
       <TabView
-        navigationState={{ index, routes }}
+        navigationState={{index, routes}}
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={initialLayout}

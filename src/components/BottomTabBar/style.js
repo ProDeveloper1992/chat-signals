@@ -50,18 +50,4 @@ export default StyleSheet.create({
       tintColor: isFocused ? Colors.white : Colors.black,
     };
   },
-
-  tabLabel: function (isFocused) {
-    if (isFocused) {
-      return {
-        color: Colors.black,
-        fontSize: isFocused ? 13 : 12,
-      };
-    } else {
-      return {
-        color: Colors.greydark,
-        fontSize: isFocused ? 13 : 12,
-      };
-    }
-  },
 });

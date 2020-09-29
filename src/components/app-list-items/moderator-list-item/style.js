@@ -44,7 +44,6 @@ export default StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 5,
     },
-    name: { color: Colors.white, fontSize: 14, fontWeight: '700' },
     bookmarkedContainer: {
         backgroundColor: Colors.white_80,
         alignSelf: 'flex-start',

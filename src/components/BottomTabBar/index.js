@@ -1,6 +1,7 @@
 import React from 'react';
-import {View, TouchableOpacity, Text, Image} from 'react-native';
+import {View, TouchableOpacity, Image} from 'react-native';
 import {Colors, Icons} from '../../constants';
+import {AppText} from '../../components';
 import styles from './style';
 
 export default function BottomTabBar({state, descriptors, navigation}) {
@@ -46,7 +47,8 @@ export default function BottomTabBar({state, descriptors, navigation}) {
 
             case 'SecondTabStack':
               if (isFocused) {
-                return Icons.group_active;group_active
+                return Icons.group_active;
+                group_active;
               }
               return Icons.group_inactive;
 
@@ -87,11 +89,19 @@ export default function BottomTabBar({state, descriptors, navigation}) {
             onPress={onPress}
             onLongPress={onLongPress}
             style={{flex: 1, alignItems: 'center'}}>
-            <View style={[styles.activeTabIconContainer(isFocused),{borderRadius:20}]}>
+            <View
+              style={[
+                styles.activeTabIconContainer(isFocused),
+                {borderRadius: 20},
+              ]}>
               <Image style={styles.tabIcon(isFocused)} source={getTabIcon()} />
             </View>
 
-            <Text style={styles.tabLabel(isFocused)}>{label}</Text>
+            <AppText
+              size={isFocused ? 13 : 12}
+              color={isFocused ? Colors.black : Colors.greydark}>
+              {label}
+            </AppText>
           </TouchableOpacity>
         );
       })}

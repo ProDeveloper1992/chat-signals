@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, View, ScrollView, TouchableOpacity} from 'react-native';
 import StepIndicator from 'react-native-step-indicator';
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 import {
   GradientButton,
@@ -17,9 +11,10 @@ import {
   BackHeader,
   CountryPicker,
   GenderPicker,
+  AppText,
 } from '../../components';
 import {mailformat, Colors} from '../../constants';
-import { loginUser } from '../../redux/actions/user-actions';
+import {loginUser} from '../../redux/actions/user-actions';
 
 const RegisterWithEmail = (props) => {
   const {navigation} = props;
@@ -102,7 +97,7 @@ const RegisterWithEmail = (props) => {
         try {
           //   setLoading(true);
           //   await register(email, password);
-          dispatch(loginUser())
+          dispatch(loginUser());
           navigation.navigate('main-stack');
         } catch (e) {
           setLoading(false);
@@ -121,7 +116,9 @@ const RegisterWithEmail = (props) => {
 
   const SectionLable = ({title}) => {
     return (
-      <Text style={[styles.label, {color: Colors.greydark}]}>{title}</Text>
+      <AppText type={'bold'} size={16} color={Colors.greydark}>
+        {title}
+      </AppText>
     );
   };
 
@@ -198,9 +195,9 @@ const RegisterWithEmail = (props) => {
         rightContent={
           stepPosition == 0 && (
             <TouchableOpacity onPress={() => onSkipPress()}>
-              <Text style={[styles.label, {color: Colors.ui_primary}]}>
+              <AppText type={'bold'} size={16} color={Colors.ui_primary}>
                 {'Skip'}
-              </Text>
+              </AppText>
             </TouchableOpacity>
           )
         }
@@ -239,11 +236,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 60,
     right: 16,
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: '700',
-    // paddingTop: 5,
   },
 });
 

@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
 import {
   View,
-  Text,
   Image,
   ImageBackground,
   ScrollView,
   Switch,
   TouchableOpacity,
 } from 'react-native';
-import {NoListData} from '../../components';
+import {NoListData, AppText} from '../../components';
 import {Icons, Colors} from '../../constants';
 import styles from './style';
 
@@ -56,15 +55,14 @@ export default function ModeratorProfile(props) {
                 marginVertical: 5,
               }}>
               <View style={styles.onlineStatusSignal(params.item.is_online)} />
-              <Text
-                style={{textAlign: 'center', fontSize: 16, fontWeight: 'bold'}}>
+              <AppText type={'bold'} size={16} style={{textAlign: 'center'}}>
                 {params.item.name}
-              </Text>
+              </AppText>
             </View>
 
             <View style={{flexDirection: 'row', marginVertical: 3}}>
-              <Text style={{marginRight: 10}}>{'5 km'}</Text>
-              <Text style={{marginRight: 10}}>{'Germany'}</Text>
+              <AppText style={{marginRight: 10}}>{'5 km'}</AppText>
+              <AppText style={{marginRight: 10}}>{'Germany'}</AppText>
               <Image
                 source={{
                   uri:
@@ -88,7 +86,7 @@ export default function ModeratorProfile(props) {
               onValueChange={toggleSwitch}
               value={isEnabled}
             />
-            <Text style={{fontSize: 14, fontWeight: '700'}}>BOOKMARK</Text>
+            <AppText type={'bold'}>BOOKMARK</AppText>
           </View>
         </View>
 
@@ -143,14 +141,12 @@ export default function ModeratorProfile(props) {
                 cuurentTab === 0 ? Colors.ui_primary_dark : Colors.white,
             }}
             onPress={() => setCurrentTab(0)}>
-            <Text
-              style={{
-                color: cuurentTab === 0 ? Colors.white : Colors.black,
-                fontSize: 16,
-                fontWeight: 'bold',
-              }}>
+            <AppText
+              type={'bold'}
+              size={16}
+              color={cuurentTab === 0 ? Colors.white : Colors.black}>
               Photos
-            </Text>
+            </AppText>
           </TouchableOpacity>
           <TouchableOpacity
             style={{
@@ -164,14 +160,12 @@ export default function ModeratorProfile(props) {
                 cuurentTab === 1 ? Colors.ui_primary_dark : Colors.white,
             }}
             onPress={() => setCurrentTab(1)}>
-            <Text
-              style={{
-                color: cuurentTab === 1 ? Colors.white : Colors.black,
-                fontSize: 16,
-                fontWeight: 'bold',
-              }}>
+            <AppText
+              type={'bold'}
+              size={16}
+              color={cuurentTab === 1 ? Colors.white : Colors.black}>
               Profile-Info
-            </Text>
+            </AppText>
           </TouchableOpacity>
           <TouchableOpacity
             style={{
@@ -184,14 +178,12 @@ export default function ModeratorProfile(props) {
               fontWeight: 'bold',
             }}
             onPress={() => setCurrentTab(2)}>
-            <Text
-              style={{
-                color: cuurentTab === 2 ? Colors.white : Colors.black,
-                fontSize: 16,
-                fontWeight: 'bold',
-              }}>
+            <AppText
+              type={'bold'}
+              size={16}
+              color={cuurentTab === 2 ? Colors.white : Colors.black}>
               Action
-            </Text>
+            </AppText>
           </TouchableOpacity>
         </View>
 
@@ -221,7 +213,13 @@ const Header = (props) => {
       </View>
 
       <View>
-        <Text style={styles.headerTitle}>{props.label}</Text>
+        <AppText
+          type={'bold'}
+          size={16}
+          color={Colors.white}
+          style={styles.headerTitle}>
+          {props.label}
+        </AppText>
       </View>
 
       <View />
@@ -242,9 +240,7 @@ const IconLabel = (props) => {
           source={props.Icon}
           style={{height: 35, width: 35, resizeMode: 'cover'}}
         />
-        <Text style={{color: Colors.black, paddingTop: 10}}>
-          {props.IconName}
-        </Text>
+        <AppText style={{paddingTop: 10}}>{props.IconName}</AppText>
       </View>
     </TouchableOpacity>
   );

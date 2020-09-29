@@ -1,12 +1,5 @@
 import React, {useEffect} from 'react';
-import {
-  StyleSheet,
-  Image,
-  View,
-  ScrollView,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
+import {StyleSheet, Image, View, ScrollView} from 'react-native';
 
 import {
   GradientButton,
@@ -14,6 +7,7 @@ import {
   AuthContainer,
   BackHeader,
   CountryPicker,
+  AppText,
 } from '../../components';
 import {Images} from '../../constants';
 import {globalStyle} from '../../styles/global-style';
@@ -117,7 +111,7 @@ const RegisterWithGoogle = (props) => {
           <Loading loading={loading} />
           {/* {userInfo && (
             <TouchableOpacity style={styles.button} onPress={_signOut}>
-              <Text>Logout</Text>
+              <AppText>Logout</AppText>
             </TouchableOpacity>
           )} */}
         </View>
