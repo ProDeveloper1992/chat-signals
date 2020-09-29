@@ -1,19 +1,20 @@
 import React from 'react';
-import {StyleSheet, TextInput, Platform, View, Text} from 'react-native';
+import {StyleSheet, TextInput, Platform, View} from 'react-native';
 import {Colors} from '../../constants';
+import {AppText} from '../../components';
 
 export function AuthInput({style, label, error, ...props}) {
   return (
     <View>
       <View style={styles.labelContainer}>
         {label && (
-          <Text
-            style={[
-              styles.label,
-              {color: error ? Colors.ui_error : Colors.greydark},
-            ]}>
+          <AppText
+            type={'bold'}
+            size={16}
+            color={error ? Colors.ui_error : Colors.greydark}
+            style={styles.label}>
             {label}
-          </Text>
+          </AppText>
         )}
       </View>
       <TextInput
@@ -30,9 +31,13 @@ export function AuthInput({style, label, error, ...props}) {
         placeholderTextColor={'darkgray'}
       />
       {error && (
-        <Text style={[styles.errorText, {color: Colors.ui_error}]}>
+        <AppText
+          type={'bold'}
+          size={13}
+          color={Colors.ui_error}
+          style={styles.errorText}>
           {error}
-        </Text>
+        </AppText>
       )}
     </View>
   );
@@ -51,13 +56,9 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   errorText: {
-    fontSize: 13,
-    fontWeight: '700',
     textAlign: 'right',
   },
   label: {
-    fontSize: 16,
-    fontWeight: '700',
     paddingTop: 5,
   },
   labelContainer: {

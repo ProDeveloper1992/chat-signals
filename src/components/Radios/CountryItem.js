@@ -1,7 +1,8 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity, Text, View, Image} from 'react-native';
+import {StyleSheet, TouchableOpacity, Image} from 'react-native';
 import PropTypes from 'prop-types';
 import {Colors} from '../../constants';
+import {AppText} from '../../components';
 
 export function CountryItem({
   isSelected,
@@ -32,13 +33,13 @@ export function CountryItem({
           borderRadius: size / 2,
         }}
       />
-      <Text
-        style={[
-          styles.title,
-          {color: isSelected ? Colors.white : Colors.black},
-        ]}>
+      <AppText
+        type={'bold'}
+        size={16}
+        color={isSelected ? Colors.white : Colors.black}
+        style={styles.title}>
         {countryName}
-      </Text>
+      </AppText>
     </TouchableOpacity>
   );
 }
@@ -59,8 +60,6 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   title: {
-    fontSize: 16,
-    fontWeight: '700',
     marginTop: 5,
   },
 });

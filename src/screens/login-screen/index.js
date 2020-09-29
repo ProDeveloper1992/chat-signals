@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image, ScrollView} from 'react-native';
+import {StyleSheet, View, Image, ScrollView} from 'react-native';
 import {
   TextButton,
   AuthContainer,
@@ -48,7 +48,7 @@ const LoginScreen = (props) => {
     if (isValid) {
       try {
         await dispatch(loginUser(email, password));
-        navigation.navigate('main-stack')
+        navigation.navigate('main-stack');
       } catch (e) {
         setLoading(false);
       }

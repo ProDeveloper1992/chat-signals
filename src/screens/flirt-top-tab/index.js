@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, FlatList, Text, ImageBackground} from 'react-native';
+import {View, FlatList} from 'react-native';
 import {useSelector} from 'react-redux';
 import {ModeratorListItem} from '../../components';
 import {useNavigation} from '@react-navigation/native';
@@ -18,13 +18,15 @@ export default function FlirtTab(props) {
       <FlatList
         data={flirtsList}
         numColumns={2}
-        contentContainerStyle={{paddingBottom:20}}
+        contentContainerStyle={{paddingBottom: 20}}
         showsVerticalScrollIndicator={false}
         renderItem={({item, index}) => (
           <ModeratorListItem
             item={item}
             key={String(index)}
-            onPress={() => navigation.navigate('ModeratorProfile', {item: item})}
+            onPress={() =>
+              navigation.navigate('ModeratorProfile', {item: item})
+            }
           />
         )}
         keyExtractor={(item, index) => index.toString()}

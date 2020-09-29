@@ -1,8 +1,9 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, Platform} from 'react-native';
+import {StyleSheet, TouchableOpacity, Platform} from 'react-native';
 import Icon from 'react-native-ionicons';
 import PropTypes from 'prop-types';
 import {Colors} from '../../constants';
+import {AppText} from '..';
 
 export function GradientButton({type, title, icon, iconColor, style, onPress}) {
   function getBgColor() {
@@ -60,9 +61,9 @@ export function GradientButton({type, title, icon, iconColor, style, onPress}) {
       {icon && (
         <Icon name={icon} color={iconColor} style={{paddingHorizontal: 5}} />
       )}
-      <Text style={[styles.text, {color: getTextColor()}]}>
+      <AppText type={'bold'} color={getTextColor()} size={16}>
         {title.toUpperCase()}
-      </Text>
+      </AppText>
     </TouchableOpacity>
   );
 }
@@ -74,12 +75,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: Platform.OS === 'ios' ? 15 : 15,
     borderRadius: 8,
-  },
-  text: {
-    flex: 1,
-    textAlign: 'center',
-    fontWeight: '500',
-    fontSize: 16,
   },
 });
 

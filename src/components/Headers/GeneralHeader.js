@@ -1,6 +1,7 @@
 import React from 'react';
-import {Text, StyleSheet, TouchableOpacity, View, Image} from 'react-native';
+import {StyleSheet, TouchableOpacity, View, Image} from 'react-native';
 import {Colors} from '../../constants';
+import {AppText} from '../../components';
 
 export function GeneralHeader({
   style,
@@ -29,7 +30,9 @@ export function GeneralHeader({
       </View>
 
       <View style={styles.flexOne}>
-        <Text style={styles.headerTitle}>{label}</Text>
+        <AppText type={'bold'} size={16} style={styles.headerTitle}>
+          {label}
+        </AppText>
       </View>
 
       <View
@@ -79,9 +82,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headerTitle: {
-    fontSize: 16,
     color: 'white',
-    fontWeight: 'bold',
     letterSpacing: 0.5,
     textAlign: 'center',
     textTransform: 'uppercase',

@@ -32,9 +32,6 @@ export default StyleSheet.create({
   },
 
   headerTitle: {
-    fontSize: 16,
-    color: 'white',
-    fontWeight: 'bold',
     letterSpacing: 0.5,
     textAlign: 'center',
     textTransform: 'uppercase',

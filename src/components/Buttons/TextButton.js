@@ -1,13 +1,14 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import {Colors} from '../../constants';
+import {AppText} from '../../components';
 
 export function TextButton({title, style, titleColor, onPress}) {
   return (
     <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
-      <Text style={[styles.text, {color: titleColor || Colors.white}]}>
+      <AppText size={13} type={'medium'} color={titleColor || Colors.white}>
         {title.toUpperCase()}
-      </Text>
+      </AppText>
     </TouchableOpacity>
   );
 }
@@ -18,9 +19,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-  },
-  text: {
-    fontWeight: '500',
-    fontSize: 14,
   },
 });

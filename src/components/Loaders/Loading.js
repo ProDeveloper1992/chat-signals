@@ -1,6 +1,7 @@
 import React from 'react';
-import {View, StyleSheet, ActivityIndicator, Text} from 'react-native';
+import {View, StyleSheet, ActivityIndicator} from 'react-native';
 import {Colors} from '../../constants';
+import {AppText} from '../../components';
 
 export function Loading({loading}) {
   if (!loading) {
@@ -11,7 +12,13 @@ export function Loading({loading}) {
     <View style={styles.overlay}>
       <View style={[styles.container, {backgroundColor: Colors.ui_primary}]}>
         <ActivityIndicator color={Colors.white} />
-        <Text style={[styles.text, {color: Colors.white}]}>Loading...</Text>
+        <AppText
+          type={'medium'}
+          size={18}
+          color={Colors.white}
+          style={styles.text}>
+          Loading...
+        </AppText>
       </View>
     </View>
   );
@@ -36,7 +43,5 @@ const styles = StyleSheet.create({
   },
   text: {
     marginLeft: 16,
-    fontSize: 18,
-    fontWeight: '500',
   },
 });
