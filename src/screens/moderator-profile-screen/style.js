@@ -4,7 +4,6 @@ import {Colors} from '../../constants';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor:'yellow'
   },
 
   imgBackground: {
@@ -12,29 +11,9 @@ export default StyleSheet.create({
     width: '100%',
   },
 
-  headerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-  },
-
-  flexOne: {
-    flex: 1,
-  },
-
-  backIcon: {
-    height: 25,
-    width: 25,
-    resizeMode: 'cover',
-    tintColor: 'white',
-  },
-
-  headerTitle: {
-    letterSpacing: 0.5,
-    textAlign: 'center',
-    textTransform: 'uppercase',
+  hrLine: {
+    height: 0.3,
+    backgroundColor: 'grey',
   },
 
   moderatorSwitchContainer: {
@@ -44,9 +23,61 @@ export default StyleSheet.create({
     padding: 10,
   },
 
+  moderatorNameContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 5,
+  },
+
+  moderatorLocationContainer: {
+    flexDirection: 'row',
+    marginVertical: 3,
+  },
+
+  mRight: {
+    marginRight: 10,
+  },
+
+  flagImage: {
+    height: 16,
+    width: 16,
+    resizeMode: 'cover',
+    alignSelf: 'center',
+  },
+
   switchViewContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+
+  moderatorIconViewHolder: {
+    flexDirection: 'row',
+    flex: 1,
+    justifyContent: 'space-between',
+    padding: 10,
+  },
+
+  tabViewContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderTopWidth: 0.5,
+    borderBottomWidth: 0.5,
+    borderColor: Colors.grey,
+  },
+
+  tabView: {
+    flex: 1,
+    padding: 15,
+    alignItems: 'center',
+  },
+
+  centerTabView:{
+    flex: 1,
+    padding: 15,
+    alignItems: 'center',
+    borderRightWidth: 0.5,
+    borderLeftWidth: 0.5,
+    borderColor: Colors.grey,
   },
 
   onlineStatusSignal: function (isOnline) {

@@ -7,7 +7,11 @@ import {BackHeader, GeneralHeader} from './Headers';
 import {CountryItem, GenderItem} from './Radios';
 import {CountryPicker, GenderPicker} from './Pickers';
 import {NoListData} from './app-no-data-views';
-import {ModeratorListItem} from './app-list-items';
+import {
+  ModeratorListItem,
+  ModeratorIconLabel,
+  ModeratorHeader,
+} from './app-list-items';
 import {AppText} from './app-text';
 
 export {
@@ -26,4 +30,6 @@ export {
   GenderPicker,
   NoListData,
   ModeratorListItem,
+  ModeratorIconLabel,
+  ModeratorHeader,
 };

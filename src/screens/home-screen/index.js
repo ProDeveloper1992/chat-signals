@@ -9,6 +9,7 @@ import { GeneralHeader } from '../../components/Headers';
 import styles from './style'
 
 import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
+import {GoogleSignin, statusCodes} from 'react-native-google-signin';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -29,15 +30,21 @@ export default function Home() {
     superflirt: SuperFlirtTab,
   });
 
-  const onLogout=()=>{
+  const onLogout=  ()=>{
     Alert.alert("Confirm Logout!", "Are you sure you want to logout?", [
       {
         text: "No",
         onPress: () => null,
         style: "cancel"
       },
-      { text: "Yes", onPress: () => {
-        AsyncStorage.clear();
+      { text: "Yes", onPress: async () => {
+        try {
+          await GoogleSignin.revokeAccess();
+          await GoogleSignin.signOut();
+          AsyncStorage.clear();
+        } catch (error) {
+          console.error(error);
+        }
         navigation.navigate('auth-stack');
       } }
     ]);
