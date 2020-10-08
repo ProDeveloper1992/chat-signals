@@ -1,7 +1,8 @@
-import { LOGIN_REQUEST, LOGIN_FAIL, LOGIN_SUCCESS } from '../actions/types';
+import {LOGIN_REQUEST, LOGIN_FAIL, LOGIN_SUCCESS} from '../actions/types';
 
 const initialState = {
   isLoggedIn: false,
+  selectedLanguage: 'en',
 };
 
 export default function (state = initialState, action) {
@@ -14,7 +15,7 @@ export default function (state = initialState, action) {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        isLoggedIn:true
+        isLoggedIn: true,
       };
 
     case LOGIN_FAIL:
