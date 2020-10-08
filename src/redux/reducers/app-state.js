@@ -20,7 +20,7 @@ export default function (state = initialState, action) {
     case GET_APP_STRINGS_SUCCESS:
       return {
         ...state,
-        // appStrings: action.payload,
+        appStrings: action.payload,
         appLoading: false,
       };
 

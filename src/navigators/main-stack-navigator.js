@@ -88,27 +88,27 @@ function CoinPurchaseStack() {
 }
 
 const BottomTabNavigator = () => {
-  useEffect(()=>{
+  useEffect(() => {
     SplashScreen.hide();
     const backAction = () => {
-      Alert.alert("Hold on!", "Are you sure you want to exit?", [
+      Alert.alert('Hold on!', 'Are you sure you want to exit?', [
         {
-          text: "Cancel",
+          text: 'Cancel',
           onPress: () => null,
-          style: "cancel"
+          style: 'cancel',
         },
-        { text: "YES", onPress: () => BackHandler.exitApp() }
+        {text: 'YES', onPress: () => BackHandler.exitApp()},
       ]);
       return true;
     };
 
     const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
+      'hardwareBackPress',
+      backAction,
     );
 
     return () => backHandler.remove();
-  },[])
+  }, []);
   return (
     <Tab.Navigator
       // initialRouteName="FirstTabStack"
@@ -162,25 +162,25 @@ const BottomTabNavigator = () => {
 
 export default function MainStackNavigator() {
   // useEffect(() => {
-    // SplashScreen.hide();
-    // const backAction = () => {
-    //   Alert.alert("Hold on!", "Are you sure you want to exit?", [
-    //     {
-    //       text: "Cancel",
-    //       onPress: () => null,
-    //       style: "cancel"
-    //     },
-    //     { text: "YES", onPress: () => BackHandler.exitApp() }
-    //   ]);
-    //   return true;
-    // };
+  // SplashScreen.hide();
+  // const backAction = () => {
+  //   Alert.alert("Hold on!", "Are you sure you want to exit?", [
+  //     {
+  //       text: "Cancel",
+  //       onPress: () => null,
+  //       style: "cancel"
+  //     },
+  //     { text: "YES", onPress: () => BackHandler.exitApp() }
+  //   ]);
+  //   return true;
+  // };
 
-    // const backHandler = BackHandler.addEventListener(
-    //   "hardwareBackPress",
-    //   backAction
-    // );
+  // const backHandler = BackHandler.addEventListener(
+  //   "hardwareBackPress",
+  //   backAction
+  // );
 
-    // return () => backHandler.remove();
+  // return () => backHandler.remove();
   // }, []);
   return (
     <Stack.Navigator
