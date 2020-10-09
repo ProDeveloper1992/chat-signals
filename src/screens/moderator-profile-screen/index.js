@@ -14,6 +14,7 @@ import styles from './style';
 import {ModeratorIconLabel, ModeratorHeader} from '../../components';
 import ModeratorProfileInfoTab from './moderator-profile-info-tab'
 import ModeratorProfilePhotosTab from './moderator-profile-photos-tab'
+import ModeratorProfileActionTab from './moderator-profile-action-tab'
 
 export default function ModeratorProfile(props) {
   const {params} = props.route;
