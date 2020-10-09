@@ -1,5 +1,14 @@
-import React, {Component} from 'react';
-import {View, StyleSheet, Image, Platform} from 'react-native';
+import React, {Component, useEffect} from 'react';
+import {
+  View,
+  StyleSheet,
+  Image,
+  Platform,
+  BackHandler,
+  Alert,
+} from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
+
 import {GradientButton, AuthContainer} from '../../components';
 import {Images} from '../../constants';
 import {isIphoneX} from '../../utils/common';
@@ -7,6 +16,28 @@ import {globalStyle} from '../../styles/global-style';
 
 const LandingScreen = (props) => {
   const {navigation} = props;
+
+  useEffect(() => {
+    SplashScreen.hide();
+    const backAction = () => {
+      Alert.alert('Hold on!', 'Are you sure you want to exit?', [
+        {
+          text: 'Cancel',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        {text: 'YES', onPress: () => BackHandler.exitApp()},
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, []);
 
   const onRegister = () => {
     navigation.navigate('RegisterLanding');
