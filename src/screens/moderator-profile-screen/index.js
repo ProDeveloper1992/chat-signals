@@ -12,6 +12,9 @@ import {Icons, Colors} from '../../constants';
 import ImagePicker from 'react-native-image-picker';
 import styles from './style';
 import {ModeratorIconLabel, ModeratorHeader} from '../../components';
+import ModeratorProfileInfoTab from './moderator-profile-info-tab'
+import ModeratorProfilePhotosTab from './moderator-profile-photos-tab'
+import ModeratorProfileActionTab from './moderator-profile-action-tab'
 
 export default function ModeratorProfile(props) {
   const {params} = props.route;
@@ -26,7 +29,7 @@ export default function ModeratorProfile(props) {
         return <NoListData title={'No photos found!'} />;
 
       case 1:
-        return <NoListData title={'No profile information found!'} />;
+        return <ModeratorProfileInfoTab/>;
 
       case 2:
         return <NoListData title={'No actions found!'} />;
