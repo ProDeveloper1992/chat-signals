@@ -7,8 +7,28 @@ import {
 const initialState = {
     bookmarksLoading: false,
     bookmarksList: [
-        { moderator_id: 1, is_online: false, name: 'Loria Rae', image_url: 'https://i.pinimg.com/736x/13/67/b3/1367b38982223d2c570f6b8d5d9cc2cc.jpg', is_super_flirt: true },
-        { moderator_id: 2, is_online: true, name: 'Sheila Gomez', image_url: 'https://redhot-society.com/wp-content/uploads/2016/12/A4Q7980a.jpg', is_super_flirt: false },
+        { moderator_id: 1, is_online: false, name: 'Loria Rae', image_url: 'https://i.pinimg.com/736x/13/67/b3/1367b38982223d2c570f6b8d5d9cc2cc.jpg', is_super_flirt: true,
+        moderator_photos: [
+            {
+              image:
+                'https://i.pinimg.com/736x/13/67/b3/1367b38982223d2c570f6b8d5d9cc2cc.jpg',
+            },
+            {
+              image:
+                'https://www.marieclaire.com.au/media/43584/heidi-klum.jpg',
+            },
+          ] },
+        { moderator_id: 2, is_online: true, name: 'Sheila Gomez', image_url: 'https://redhot-society.com/wp-content/uploads/2016/12/A4Q7980a.jpg', is_super_flirt: false,
+        moderator_photos: [
+            {
+              image:
+                'https://i.pinimg.com/736x/13/67/b3/1367b38982223d2c570f6b8d5d9cc2cc.jpg',
+            },
+            {
+              image:
+                'https://www.marieclaire.com.au/media/43584/heidi-klum.jpg',
+            },
+          ] },
     ]
 };
 
