@@ -4,14 +4,18 @@ import {Colors} from '../../../constants';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    marginBottom:50
+    marginBottom: 50,
   },
 
   propertyContainer: {
     flexDirection: 'row',
-    padding: 15,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     borderBottomColor: '#ccc',
     borderBottomWidth: 0.5,
+    backgroundColor: Colors.white,
   },
 
   subPropertyContainer: {

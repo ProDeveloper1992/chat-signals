@@ -46,6 +46,7 @@ export const Icons = {
   kiss_icon:require('../assets/icons/kiss.png'),
   add_friend_icon:require('../assets/icons/add-friend.png'),
   chat_flat_icon:require('../assets/icons/chat-icon.png'),
+  right_arrow:require('../assets/icons/right-chevron-arrow.png'),
 };
 
 export const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;

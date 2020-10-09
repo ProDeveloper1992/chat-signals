@@ -1,84 +1,50 @@
 import React from 'react';
-import {View, ScrollView, Image} from 'react-native';
+import {View, ScrollView, Image, TouchableOpacity, Text} from 'react-native';
 import {AppText} from '../../../components';
-import {Icons} from '../../../constants';
+import {Icons, Colors} from '../../../constants';
 import styles from './style';
 
 export default function ModeratorProfileActionTab(props) {
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
-      <PropertyHolder
-        IconSource={Icons.chat_active}
-        Key={'Geschlecht'}
-        Value={'Frau'}
+      <AppText
+        type={'bold'}
+        size={13}
+        style={{
+          textAlign: 'center',
+          textTransform: 'uppercase',
+          padding: 10,
+        }}>
+        {'settings'}
+      </AppText>
+
+      <ActionHolder
+        onPress={() => alert('Give away coins')}
+        label={'Give away coins'}
       />
-      <PropertyHolder
-        IconSource={Icons.chat_active}
-        Key={'Wohnort'}
-        Value={'DE'}
+      <ActionHolder
+        onPress={() => alert('Report user')}
+        label={'Report user'}
       />
-      <PropertyHolder
-        IconSource={Icons.chat_active}
-        Key={'Entfernung'}
-        Value={'25 km Umkreis'}
-      />
-      <PropertyHolder
-        IconSource={Icons.chat_active}
-        Key={'Alter'}
-        Value={'35'}
-      />
-      <PropertyHolder
-        IconSource={Icons.chat_active}
-        Key={'Sternzeichen'}
-        Value={'Fisch'}
-      />
-      <PropertyHolder
-        IconSource={Icons.chat_active}
-        Key={'Grosse'}
-        Value={'160cm - 170cm'}
-      />
-      <PropertyHolder
-        IconSource={Icons.chat_active}
-        Key={'Figur'}
-        Value={'normal'}
-      />
-      <PropertyHolder
-        IconSource={Icons.chat_active}
-        Key={'Haarfarbe'}
-        Value={'schwarz'}
-      />
-      <PropertyHolder
-        IconSource={Icons.chat_active}
-        Key={'Augenfarbe'}
-        Value={'blau'}
-      />
-      <PropertyHolder
-        IconSource={Icons.chat_active}
-        Key={'Hautfarbe'}
-        Value={'hell'}
-      />
+
+      <ActionHolder onPress={() => alert('Block user')} label={'Block user'} />
     </ScrollView>
   );
 }
 
-const PropertyHolder = (props) => {
+const ActionHolder = (props) => {
   return (
-    <View style={styles.propertyContainer}>
-      <View style={styles.subPropertyContainer}>
-        <View style={styles.iconView}>
-          <Image source={props.IconSource} style={styles.iconSize} />
-        </View>
-        <View style={styles.txtContainer}>
-          <AppText type={'bold'} size={13} style={{textAlign: 'center'}}>
-            {props.Key}
-          </AppText>
-        </View>
-      </View>
-      <View style={styles.subPropertyContainer}>
-        <AppText size={12} style={{textAlign: 'center'}}>
-          {props.Value}
-        </AppText>
-      </View>
-    </View>
+    <TouchableOpacity
+      style={styles.propertyContainer}
+      onPress={props.onPress}
+      activeOpacity={0.5}>
+      <AppText type={'medium'} size={12}>
+        {props.label}
+      </AppText>
+      <Image
+        source={Icons.right_arrow}
+        style={{height: 14, width: 14, resizeMode: 'cover'}}
+      />
+    </TouchableOpacity>
   );
 };
