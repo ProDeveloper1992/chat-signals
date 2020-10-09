@@ -13,31 +13,34 @@ import {GradientButton, AuthContainer} from '../../components';
 import {Images} from '../../constants';
 import {isIphoneX} from '../../utils/common';
 import {globalStyle} from '../../styles/global-style';
+import {useIsFocused} from '@react-navigation/native';
 
 const LandingScreen = (props) => {
   const {navigation} = props;
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     SplashScreen.hide();
-    const backAction = () => {
-      Alert.alert('Hold on!', 'Are you sure you want to exit?', [
-        {
-          text: 'Cancel',
-          onPress: () => null,
-          style: 'cancel',
-        },
-        {text: 'YES', onPress: () => BackHandler.exitApp()},
-      ]);
-      return true;
-    };
+    if (isFocused) {
+      const backAction = () => {
+        Alert.alert('Hold on!', 'Are you sure you want to exit?', [
+          {
+            text: 'Cancel',
+            onPress: () => null,
+            style: 'cancel',
+          },
+          {text: 'YES', onPress: () => BackHandler.exitApp()},
+        ]);
+        return true;
+      };
 
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backAction,
-    );
-
-    return () => backHandler.remove();
-  }, []);
+      const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        backAction,
+      );
+      return () => backHandler.remove();
+    }
+  }, [isFocused]);
 
   const onRegister = () => {
     navigation.navigate('RegisterLanding');
