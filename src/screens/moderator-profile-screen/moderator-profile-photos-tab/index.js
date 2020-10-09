@@ -25,7 +25,6 @@ export default function ModeratorProfilePhotosTab(props) {
             key={String(index)}
             style={{
               flex: 1,
-              marginLeft: listItemMargin,
               marginTop: 10,
               width: listItemWidth,
               height: listItemHeight,
@@ -34,7 +33,7 @@ export default function ModeratorProfilePhotosTab(props) {
             }}>
             <Image
               source={{uri: item.image}}
-              style={{height:"100%",width:'100%'}}
+              style={{height: '100%', width: '100%'}}
             />
           </View>
         )}

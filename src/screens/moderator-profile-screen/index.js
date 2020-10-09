@@ -12,28 +12,40 @@ import {Icons, Colors} from '../../constants';
 import ImagePicker from 'react-native-image-picker';
 import styles from './style';
 import {ModeratorIconLabel, ModeratorHeader} from '../../components';
-import ModeratorProfileInfoTab from './moderator-profile-info-tab'
-import ModeratorProfilePhotosTab from './moderator-profile-photos-tab'
-import ModeratorProfileActionTab from './moderator-profile-action-tab'
+import ModeratorProfileInfoTab from './moderator-profile-info-tab';
+import ModeratorProfilePhotosTab from './moderator-profile-photos-tab';
+import ModeratorProfileActionTab from './moderator-profile-action-tab';
+import {ModeratorActivityModal} from '../../components/app-modals';
 
 export default function ModeratorProfile(props) {
   const {params} = props.route;
 
   const [isEnabled, setIsEnabled] = useState(false);
+  const [activityType, setActivityType] = useState('kisses');
+  const [activityModalVisible, setActivityModalVisible] = useState(false);
   const [cuurentTab, setCurrentTab] = useState(0);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
   const renderCurrentTab = () => {
     switch (cuurentTab) {
       case 0:
-        return <NoListData title={'No photos found!'} />;
+        return (
+          <ModeratorProfilePhotosTab
+            photosList={params.item.moderator_photos}
+          />
+        );
 
       case 1:
-        return <ModeratorProfileInfoTab/>;
+        return <ModeratorProfileInfoTab />;
 
       case 2:
-        return <NoListData title={'No actions found!'} />;
+        return <ModeratorProfileActionTab />;
     }
+  };
+
+  const showActivityModal = (type) => {
+    setActivityType(type);
+    setActivityModalVisible(true);
   };
 
   return (
@@ -89,25 +101,25 @@ export default function ModeratorProfile(props) {
 
         <View style={styles.moderatorIconViewHolder}>
           <ModeratorIconLabel
-            onIconPress={() => {}}
+            onIconPress={() => showActivityModal('kisses')}
             IconName={'Kisses'}
             Icon={Icons.kiss_icon}
           />
 
           <ModeratorIconLabel
-            onIconPress={() => {}}
+            onIconPress={() => showActivityModal('like')}
             IconName={'Like'}
             Icon={Icons.like_icon}
           />
 
           <ModeratorIconLabel
-            onIconPress={() => {}}
+            onIconPress={() => showActivityModal('chat')}
             IconName={'Chat'}
             Icon={Icons.chat_flat_icon}
           />
 
           <ModeratorIconLabel
-            onIconPress={() => {}}
+            onIconPress={() => showActivityModal('addfriend')}
             IconName={'Add Friend'}
             Icon={Icons.add_friend_icon}
           />
@@ -161,6 +173,11 @@ export default function ModeratorProfile(props) {
         </View>
 
         <View style={{minHeight: 200}}>{renderCurrentTab()}</View>
+        <ModeratorActivityModal
+          visible={activityModalVisible}
+          onHideModal={() => setActivityModalVisible(false)}
+          type={activityType}
+        />
       </View>
     </ScrollView>
   );

@@ -14,7 +14,6 @@ import {
 } from '../screens';
 import BottomTabBar from '../components/BottomTabBar';
 import {Colors} from '../constants';
-import SplashScreen from 'react-native-splash-screen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -88,27 +87,6 @@ function CoinPurchaseStack() {
 }
 
 const BottomTabNavigator = () => {
-  useEffect(() => {
-    SplashScreen.hide();
-    const backAction = () => {
-      Alert.alert('Hold on!', 'Are you sure you want to exit?', [
-        {
-          text: 'Cancel',
-          onPress: () => null,
-          style: 'cancel',
-        },
-        {text: 'YES', onPress: () => BackHandler.exitApp()},
-      ]);
-      return true;
-    };
-
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backAction,
-    );
-
-    return () => backHandler.remove();
-  }, []);
   return (
     <Tab.Navigator
       // initialRouteName="FirstTabStack"
@@ -161,27 +139,6 @@ const BottomTabNavigator = () => {
 };
 
 export default function MainStackNavigator() {
-  // useEffect(() => {
-  // SplashScreen.hide();
-  // const backAction = () => {
-  //   Alert.alert("Hold on!", "Are you sure you want to exit?", [
-  //     {
-  //       text: "Cancel",
-  //       onPress: () => null,
-  //       style: "cancel"
-  //     },
-  //     { text: "YES", onPress: () => BackHandler.exitApp() }
-  //   ]);
-  //   return true;
-  // };
-
-  // const backHandler = BackHandler.addEventListener(
-  //   "hardwareBackPress",
-  //   backAction
-  // );
-
-  // return () => backHandler.remove();
-  // }, []);
   return (
     <Stack.Navigator
       initialRouteName="BottomTab"
