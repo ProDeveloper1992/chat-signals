@@ -1,4 +1,4 @@
-import { Dimensions } from 'react-native';
+import {Dimensions} from 'react-native';
 
 export const Colors = {
   ui_primary: '#52b8bc',
@@ -13,7 +13,7 @@ export const Colors = {
   ui_error: '#B22222',
   google: '#db4a39',
   facebook: '#3b5998',
-  grey:'grey',
+  grey: 'grey',
   greydark: '#4E586E',
   gradient_1: '#6debef',
   gradient_2: '#52b8bc',
@@ -40,13 +40,14 @@ export const Icons = {
   user_profile: require('../assets/icons/search.png'),
   search: require('../assets/icons/user.png'),
   icon_languages: require('../assets/icons/languages.png'),
-  bookmark:require('../assets/icons/bookmark.png'),
-  back_icon:require('../assets/icons/back-icon.png'),
-  like_icon:require('../assets/icons/like.png'),
-  kiss_icon:require('../assets/icons/kiss.png'),
-  add_friend_icon:require('../assets/icons/add-friend.png'),
-  chat_flat_icon:require('../assets/icons/chat-icon.png'),
-  right_arrow:require('../assets/icons/right-chevron-arrow.png'),
+  bookmark: require('../assets/icons/bookmark.png'),
+  back_icon: require('../assets/icons/back-icon.png'),
+  like_icon: require('../assets/icons/like.png'),
+  kiss_icon: require('../assets/icons/kiss.png'),
+  add_friend_icon: require('../assets/icons/add-friend.png'),
+  chat_flat_icon: require('../assets/icons/chat-icon.png'),
+  right_arrow: require('../assets/icons/right-chevron-arrow.png'),
+  facebook_icon: require('../assets/icons/facebook_24.png'),
 };
 
 export const Gifs = {
@@ -55,9 +56,8 @@ export const Gifs = {
 
 export const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-
 // screen sizing
-const { width, height } = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 // orientation must fixed
 export const SCREEN_WIDTH = width < height ? width : height;
 export const SCREEN_HEIGHT = height > width ? height : width;

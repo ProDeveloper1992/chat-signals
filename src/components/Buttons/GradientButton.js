@@ -1,11 +1,10 @@
 import React from 'react';
 import {StyleSheet, TouchableOpacity, Platform} from 'react-native';
-import Icon from 'react-native-ionicons';
 import PropTypes from 'prop-types';
 import {Colors} from '../../constants';
 import {AppText} from '..';
 
-export function GradientButton({type, title, icon, iconColor, style, onPress}) {
+export function GradientButton({type, title, icon, style, onPress}) {
   function getBgColor() {
     switch (type) {
       case 'primary':
@@ -58,9 +57,7 @@ export function GradientButton({type, title, icon, iconColor, style, onPress}) {
         },
       ]}
       onPress={onPress}>
-      {icon && (
-        <Icon name={icon} color={iconColor} style={{paddingHorizontal: 5}} />
-      )}
+      {icon && icon}
       <AppText type={'bold'} color={getTextColor()} size={16}>
         {title.toUpperCase()}
       </AppText>
@@ -91,7 +88,6 @@ GradientButton.propTypes = {
     'facebook',
   ]),
 
-  iconColor: PropTypes.string,
   style: PropTypes.any,
   onPress: PropTypes.func,
 };

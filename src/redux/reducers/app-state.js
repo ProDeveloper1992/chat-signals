@@ -18,6 +18,7 @@ export default function (state = initialState, action) {
       };
 
     case GET_APP_STRINGS_SUCCESS:
+      console.log(action.payload);
       return {
         ...state,
         appStrings: action.payload,
