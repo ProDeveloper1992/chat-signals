@@ -85,6 +85,7 @@ export default function Home() {
         rightIcon={Icons.user_profile}
         onRightPress={() => {}}
         onLeftPress={onLogout}
+        onLeftPress={()=>navigation.navigate('UserProfile')}
         onLanguagePress={() => dispatch(toggleLanguageModal(true))}
         LanguageIcon={Icons.icon_languages}
         leftIcon={Icons.search}

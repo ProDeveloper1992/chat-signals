@@ -49,6 +49,10 @@ export const Icons = {
   right_arrow:require('../assets/icons/right-chevron-arrow.png'),
 };
 
+export const Gifs = {
+  chat_signal_logo: require('../assets/gifs/chat-signal-logo.gif'),
+}
+
 export const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 
