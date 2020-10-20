@@ -16,7 +16,7 @@ export function BackHeader({
     <View style={[styles.container, style]}>
       <Icon
         name={'arrow-back'}
-        color={Colors.ui_primary}
+        color={Colors.black}
         size={size || 30}
         onPress={onBackPress}
       />
