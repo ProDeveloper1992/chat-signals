@@ -11,6 +11,7 @@ import {
   DailyCoins,
   CoinPurchase,
   ModeratorProfile,
+  UserProfile,
 } from '../screens';
 import BottomTabBar from '../components/BottomTabBar';
 import {Colors} from '../constants';
@@ -152,6 +153,12 @@ export default function MainStackNavigator() {
         name="ModeratorProfile"
         component={ModeratorProfile}
         options={{title: 'Moderator Profile'}}
+      />
+
+      <Stack.Screen
+        name="UserProfile"
+        component={UserProfile}
+        options={{title: 'User Profile'}}
       />
     </Stack.Navigator>
   );
