@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, ScrollView, Image, TouchableOpacity, Text,Alert} from 'react-native';
+import {
+  View,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  Text,
+  Alert,
+} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {AppText} from '../../../components';
@@ -7,7 +14,6 @@ import {Icons, Colors} from '../../../constants';
 import styles from './style';
 
 export default function UserProfileActionTab(props) {
-
   const navigation = useNavigation();
 
   const onLogout = () => {
@@ -47,15 +53,58 @@ export default function UserProfileActionTab(props) {
       </AppText>
 
       <ActionHolder
-        onPress={() => alert('Give away coins')}
-        label={'Give away coins'}
+        onPress={() => alert('Edit Profile')}
+        label={'Edit Profile'}
       />
 
       <ActionHolder
-        onPress={onLogout}
-        label={'Logout'}
+        onPress={() => alert('Search Filter')}
+        label={'Search Filter'}
       />
 
+      <ActionHolder
+        onPress={() => alert('Change Password')}
+        label={'Change Password'}
+      />
+
+      <ActionHolder
+        onPress={() => alert('Deactivate Account')}
+        label={'Deactivate Account'}
+      />
+
+      <ActionHolder onPress={() => alert('Credit Log')} label={'Credit Log'} />
+
+      <ActionHolder onPress={onLogout} label={'Logout'} />
+
+      <AppText
+        type={'bold'}
+        size={13}
+        style={{
+          textAlign: 'center',
+          textTransform: 'uppercase',
+          padding: 10,
+        }}>
+        {'profile-info'}
+      </AppText>
+
+      <ActionHolder
+        onPress={() => alert('Privacy policy')}
+        label={'Privacy policy'}
+      />
+
+      <ActionHolder
+        onPress={() => alert('Terms of Service')}
+        label={'Terms of Service'}
+      />
+
+      <ActionHolder onPress={() => alert('Revocation')} label={'Revocation'} />
+
+      <ActionHolder
+        onPress={() => alert('About ChatSignal')}
+        label={'About ChatSignal'}
+      />
+
+      <ActionHolder onPress={() => alert('Contact')} label={'Contact'} />
     </ScrollView>
   );
 }

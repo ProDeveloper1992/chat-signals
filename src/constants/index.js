@@ -48,6 +48,10 @@ export const Icons = {
   chat_flat_icon: require('../assets/icons/chat-icon.png'),
   right_arrow: require('../assets/icons/right-chevron-arrow.png'),
   facebook_icon: require('../assets/icons/facebook_24.png'),
+  heart_icon: require('../assets/icons/heart.png'),
+  super_flirt_heart_icon: require('../assets/icons/super-flirt-heart.png'),
+  coins_icon: require('../assets/icons/coins.png'),
+  sticker_icon: require('../assets/icons/sticker.png'),
 };
 
 export const Gifs = {

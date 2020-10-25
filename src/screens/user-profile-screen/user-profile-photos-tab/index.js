@@ -39,23 +39,22 @@ export default function UserProfilePhotosTab(props) {
       <FlatList
         data={photosList}
         numColumns={2}
-        contentContainerStyle={{paddingBottom: 20}}
+        contentContainerStyle={{}}
         showsVerticalScrollIndicator={false}
         renderItem={({item, index}) => (
           <View
             key={String(index)}
             style={{
               flex: 1,
-              marginTop: 10,
-              marginHorizontal: 5,
+              marginTop: 3,
+              marginHorizontal:2,
               width: listItemWidth,
               height: listItemHeight,
               backgroundColor: 'lightgrey',
-              borderRadius: 5,
             }}>
             <Image
               source={{uri: item.image}}
-              style={{height: '100%', width: '100%', borderRadius: 5}}
+              style={{height: '100%', width: '100%'}}
             />
           </View>
         )}

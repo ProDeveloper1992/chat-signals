@@ -31,7 +31,7 @@ export default function UserProfile(props) {
       case 0:
         return (
           <ModeratorProfilePhotosTab
-            // photosList={params.item.moderator_photos}
+          // photosList={params.item.moderator_photos}
           />
         );
 
@@ -56,7 +56,7 @@ export default function UserProfile(props) {
           resizeMode="cover"
           source={{uri: 'https://picsum.photos/200/300'}}>
           <ModeratorHeader
-            label={'User Name'}
+            label={'Main Profile'}
             onBackPress={() => props.navigation.goBack()}
           />
         </ImageBackground>
@@ -68,33 +68,42 @@ export default function UserProfile(props) {
             <View style={styles.moderatorNameContainer}>
               <View style={styles.onlineStatusSignal(true)} />
               <AppText type={'bold'} size={16} style={{textAlign: 'center'}}>
-                {'Name'}
+                {'Zayn Rambo'}
               </AppText>
             </View>
 
             <View style={styles.moderatorLocationContainer}>
-              <AppText style={styles.mRight}>{'5 km'}</AppText>
-              <AppText style={styles.mRight}>{'Germany'}</AppText>
-              <Image
-                source={{
-                  uri:
-                    'https://cdn.countryflags.com/thumbs/germany/flag-round-250.png',
-                }}
-                style={styles.flagImage}
-              />
+              <Image source={Icons.coins_icon} style={styles.flagImage} />
+              <AppText
+                style={styles.mRight}
+                color={'gold'}
+                type={'bold'}
+                size={14}>
+                {'5'}
+              </AppText>
+              <AppText style={styles.mRight} size={14}>
+                {'Charge coins'}
+              </AppText>
             </View>
           </View>
 
-          <View style={styles.switchViewContainer}>
-            <Switch
-              trackColor={{false: '#e0e0e0', true: Colors.ui_primary_dark}}
-              thumbColor={isEnabled ? Colors.white : Colors.white}
-              ios_backgroundColor={Colors.white_80}
-              onValueChange={toggleSwitch}
-              value={isEnabled}
+          <TouchableOpacity
+            style={styles.superFlirtContainer}
+            activeOpacity={0.8}
+            onPress={() => {}}>
+            <Image
+              style={{
+                height: 24,
+                width: 24,
+                resizeMode: 'cover',
+                marginHorizontal: 5,
+              }}
+              source={Icons.super_flirt_heart_icon}
             />
-            <AppText type={'bold'}>{'BOOKMARK'}</AppText>
-          </View>
+            <AppText type={'normal'} size={14} color={Colors.ui_primary}>
+              {'Get Super-Flirted now!'}
+            </AppText>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.hrLine}></View>
@@ -102,26 +111,26 @@ export default function UserProfile(props) {
         <View style={styles.moderatorIconViewHolder}>
           <ModeratorIconLabel
             onIconPress={() => showActivityModal('kisses')}
-            IconName={'Kisses'}
+            IconName={'0 Kisses'}
             Icon={Icons.kiss_icon}
           />
 
           <ModeratorIconLabel
             onIconPress={() => showActivityModal('like')}
-            IconName={'Like'}
+            IconName={'2 Likes'}
             Icon={Icons.like_icon}
           />
 
           <ModeratorIconLabel
-            onIconPress={() => showActivityModal('chat')}
-            IconName={'Chat'}
-            Icon={Icons.chat_flat_icon}
+            onIconPress={() => showActivityModal('stickers')}
+            IconName={'0 Stickers'}
+            Icon={Icons.sticker_icon}
           />
 
           <ModeratorIconLabel
-            onIconPress={() => showActivityModal('addfriend')}
-            IconName={'Add Friend'}
-            Icon={Icons.add_friend_icon}
+            onIconPress={() => showActivityModal('hearts')}
+            IconName={'1 Heart'}
+            Icon={Icons.heart_icon}
           />
         </View>
 

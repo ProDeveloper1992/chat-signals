@@ -35,7 +35,7 @@ export default StyleSheet.create({
   },
 
   mRight: {
-    marginRight: 10,
+    marginRight: 5,
   },
 
   flagImage: {
@@ -43,9 +43,10 @@ export default StyleSheet.create({
     width: 16,
     resizeMode: 'cover',
     alignSelf: 'center',
+    marginEnd: 5,
   },
 
-  switchViewContainer: {
+  superFlirtContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -71,7 +72,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
 
-  centerTabView:{
+  centerTabView: {
     flex: 1,
     padding: 15,
     alignItems: 'center',
