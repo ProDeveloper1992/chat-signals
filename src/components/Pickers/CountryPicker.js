@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
 import {CountryItem} from '../Radios';
+import PropTypes from 'prop-types';
 
 export default class CountryPicker extends Component {
   constructor(props) {
@@ -9,26 +10,26 @@ export default class CountryPicker extends Component {
       countryData: [
         {
           country_id: 1,
+          country_name: 'USA',
+          country_code: 'en',
+          country_flag:
+            'https://cdn.countryflags.com/thumbs/united-states-of-america/flag-800.png',
+          selected: true,
+        },
+
+        {
+          country_id: 2,
           country_name: 'Germany',
-          country_code: 'DE',
+          country_code: 'de',
           country_flag:
             'https://cdn.countryflags.com/thumbs/germany/flag-round-250.png',
           selected: false,
         },
 
         {
-          country_id: 1,
-          country_name: 'Austria',
-          country_code: 'AT',
-          country_flag:
-            'https://cdn.countryflags.com/thumbs/austria/flag-round-250.png',
-          selected: false,
-        },
-
-        {
           country_id: 3,
           country_name: 'Switzerland',
-          country_code: 'CH',
+          country_code: 'ch',
           country_flag:
             'https://cdn.countryflags.com/thumbs/switzerland/flag-round-250.png',
           selected: false,
@@ -45,6 +46,7 @@ export default class CountryPicker extends Component {
     });
     countries[index].selected = true;
     this.setState({countryData: countries});
+    this.props.onChangeLanguage(countries[index]);
   };
 
   render() {
@@ -66,3 +68,13 @@ export default class CountryPicker extends Component {
     );
   }
 }
+
+CountryPicker.propTypes = {
+  onChangeLanguage: PropTypes.func,
+};
+
+CountryPicker.defaultProps = {
+  onChangeLanguage: (language) => {
+    // alert(JSON.stringify(language));
+  },
+};

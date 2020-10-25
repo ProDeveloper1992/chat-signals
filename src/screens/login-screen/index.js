@@ -7,7 +7,7 @@ import {
   AuthInput,
   BackHeader,
 } from '../../components';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {GradientButton} from '../../components';
 import {Images, mailformat} from '../../constants';
@@ -19,6 +19,8 @@ const LoginScreen = (props) => {
 
   //Actions to dispatch
   const dispatch = useDispatch();
+
+  const {appStrings} = useSelector((state) => state.appState);
 
   const [email, setEmail] = React.useState('');
   const [emailError, setEmailError] = React.useState(null);
@@ -69,8 +71,8 @@ const LoginScreen = (props) => {
         <View style={{flex: 1, justifyContent: 'center'}}>
           <AuthInput
             style={styles.input}
-            label={'Email'}
-            placeholder={'Email'}
+            label={appStrings.login.email}
+            placeholder={appStrings.login.email}
             keyboardType={'email-address'}
             value={email}
             onChangeText={setEmail}
@@ -78,8 +80,8 @@ const LoginScreen = (props) => {
           />
           <AuthInput
             style={styles.input}
-            label={'Password'}
-            placeholder={'Password'}
+            label={appStrings.login.password}
+            placeholder={appStrings.login.password}
             secureTextEntry
             value={password}
             onChangeText={setPassword}
@@ -88,7 +90,7 @@ const LoginScreen = (props) => {
 
           <View style={{alignSelf: 'flex-end'}}>
             <TextButton
-              title={'Forgot Password?'}
+              title={appStrings.login.forgot_password}
               onPress={() => {
                 navigation.navigate('ForgotPassword');
               }}
@@ -97,13 +99,16 @@ const LoginScreen = (props) => {
 
           <GradientButton
             type={'primary'}
-            title={'Login'}
+            title={appStrings.login.login}
             style={styles.loginButton}
             // onPress={() => login()}
             onPress={() => onLoginPress()}
           />
           <TextButton
-            title={"Don't you have an account? Create one"}
+            title={
+              appStrings.login.dont_have_an_account +
+              appStrings.login.create_one
+            }
             onPress={() => {
               navigation.navigate('RegisterLanding');
             }}

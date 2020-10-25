@@ -13,12 +13,14 @@ import {Images} from '../../constants';
 import {globalStyle} from '../../styles/global-style';
 import {GoogleSignin, statusCodes} from 'react-native-google-signin';
 import {Colors} from '../../constants';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {loginUser} from '../../redux/actions/user-actions';
 
 const RegisterWithGoogle = (props) => {
   const {navigation} = props;
   const dispatch = useDispatch();
+
+  const {appStrings} = useSelector((state) => state.appState);
 
   const [loading, setLoading] = React.useState(false);
   const [userInfo, setUserInfo] = React.useState(null);
@@ -102,7 +104,7 @@ const RegisterWithGoogle = (props) => {
 
           <GradientButton
             type={'google'}
-            title={'Register With Google'}
+            title={appStrings.register.register_with_google}
             icon={'mail'}
             iconColor={Colors.white}
             style={styles.registerButtom}
