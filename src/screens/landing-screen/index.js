@@ -6,18 +6,24 @@ import {
   Platform,
   BackHandler,
   Alert,
+  TouchableOpacity,
 } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 
 import {GradientButton, AuthContainer} from '../../components';
-import {Images} from '../../constants';
+import {Colors, Icons, Images} from '../../constants';
 import {isIphoneX} from '../../utils/common';
 import {globalStyle} from '../../styles/global-style';
 import {useIsFocused} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {toggleLanguageModal} from '../../redux/actions/app-modals-actions';
 
 const LandingScreen = (props) => {
   const {navigation} = props;
   const isFocused = useIsFocused();
+  const dispatch = useDispatch();
+
+  const {appStrings} = useSelector((state) => state.appState);
 
   useEffect(() => {
     SplashScreen.hide();
@@ -50,17 +56,39 @@ const LandingScreen = (props) => {
     navigation.navigate('Login');
   };
 
+  const onLanguageIconPress = () => {
+    dispatch(toggleLanguageModal(true));
+  };
+
   return (
     <AuthContainer>
+      <TouchableOpacity
+        onPress={onLanguageIconPress}
+        style={{
+          backgroundColor: Colors.white,
+          width: 50,
+          height: 50,
+          borderRadius: 25,
+          alignItems: 'center',
+          justifyContent: 'center',
+          alignSelf: 'flex-end',
+          marginTop: 20,
+          elevation: 5,
+        }}>
+        <Image
+          style={{width: 24, height: 24, tintColor: Colors.ui_primary}}
+          source={Icons.icon_languages}
+        />
+      </TouchableOpacity>
       <Image
-        style={[globalStyle.logo, {marginTop: isIphoneX() ? 60 : 50}]}
+        style={[globalStyle.logo, {marginTop: isIphoneX() ? 20 : 10}]}
         source={Images.app_logo}
       />
       <View style={styles.bottomView}>
         <View style={{marginEnd: 8, flex: 1}}>
           <GradientButton
             type={'light'}
-            title={'Register'}
+            title={appStrings.landing.rigister}
             style={{paddingVertical: Platform.OS === 'ios' ? 18 : 15}}
             onPress={onRegister}
           />
@@ -68,7 +96,7 @@ const LandingScreen = (props) => {
         <View style={{marginStart: 8, flex: 1}}>
           <GradientButton
             type={'primary'}
-            title={'Login'}
+            title={appStrings.landing.login}
             style={{paddingVertical: Platform.OS === 'ios' ? 18 : 15}}
             onPress={onLogin}
           />

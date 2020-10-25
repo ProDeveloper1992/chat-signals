@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, View, ScrollView, TouchableOpacity} from 'react-native';
 import StepIndicator from 'react-native-step-indicator';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {
   GradientButton,
@@ -20,6 +20,8 @@ const RegisterWithEmail = (props) => {
   const {navigation} = props;
   const dispatch = useDispatch();
 
+  const {appStrings} = useSelector((state) => state.appState);
+
   const [userName, setUserName] = React.useState('');
   const [postalCode, setPostalCode] = React.useState('');
   const [email, setEmail] = React.useState('');
@@ -32,7 +34,10 @@ const RegisterWithEmail = (props) => {
   const [stepPosition, setStepPosition] = React.useState(0);
   const [stepCount, setStepCount] = React.useState(2);
 
-  const labels = ['User Details', 'Registration'];
+  const labels = [
+    appStrings.register.user_details,
+    appStrings.register.registration,
+  ];
   const stepIndicatorStyle = {
     stepIndicatorSize: 26,
     currentStepIndicatorSize: 30,
@@ -71,24 +76,24 @@ const RegisterWithEmail = (props) => {
       let isValid = true;
       if (email.trim() == 0) {
         isValid = false;
-        setEmailError('Please enter email address!');
+        setEmailError(appStrings.register.email_error_1);
       } else if (!email.match(mailformat)) {
         isValid = false;
-        setEmailError('Invalid email address!');
+        setEmailError(appStrings.register.email_error_2);
       } else {
         setEmailError(null);
       }
 
       if (password.trim() == 0) {
         isValid = false;
-        setPassError('Please enter password!');
+        setPassError(appStrings.register.password_error_1);
       } else {
         setPassError(null);
       }
 
       if (confpassword != password) {
         isValid = false;
-        setConfPassError('Passwords not matching!');
+        setConfPassError(appStrings.register.password_error_2);
       } else {
         setConfPassError(null);
       }
@@ -128,22 +133,22 @@ const RegisterWithEmail = (props) => {
         <View>
           <AuthInput
             style={styles.input}
-            label={'Username'}
-            placeholder={'User name'}
+            label={appStrings.register.user_name}
+            placeholder={appStrings.register.user_name}
             keyboardType={'email-address'}
             value={userName}
             onChangeText={setUserName}
           />
-          <SectionLable title={'I am...'} />
+          <SectionLable title={appStrings.register.i_am} />
           <GenderPicker />
-          <SectionLable title={"I'm looking for..."} />
+          <SectionLable title={appStrings.register.i_am_looking_for} />
           <GenderPicker />
-          <SectionLable title={'Country'} />
+          <SectionLable title={appStrings.register.country} />
           <CountryPicker />
           <AuthInput
             style={styles.input}
-            label={'Postal code'}
-            placeholder={'Postal Code'}
+            label={appStrings.register.postal_code}
+            placeholder={appStrings.register.postal_code}
             keyboardType={'number-pad'}
             value={postalCode}
             onChangeText={setPostalCode}
@@ -155,8 +160,8 @@ const RegisterWithEmail = (props) => {
         <View>
           <AuthInput
             style={styles.input}
-            label={'Email'}
-            placeholder={'E-mail address'}
+            label={appStrings.register.email}
+            placeholder={appStrings.register.email}
             keyboardType={'email-address'}
             value={email}
             onChangeText={setEmail}
@@ -164,9 +169,9 @@ const RegisterWithEmail = (props) => {
           />
 
           <AuthInput
-            label={'Password'}
+            label={appStrings.register.password}
             style={styles.input}
-            placeholder={'password'}
+            placeholder={appStrings.register.password}
             secureTextEntry
             value={password}
             onChangeText={setPassword}
@@ -175,8 +180,8 @@ const RegisterWithEmail = (props) => {
 
           <AuthInput
             style={styles.input}
-            label={'Confirm password'}
-            placeholder={'confirm password'}
+            label={appStrings.register.confirm_password}
+            placeholder={appStrings.register.confirm_password}
             secureTextEntry
             value={confpassword}
             onChangeText={setConfPassword}
@@ -196,7 +201,7 @@ const RegisterWithEmail = (props) => {
           stepPosition == 0 && (
             <TouchableOpacity onPress={() => onSkipPress()}>
               <AppText type={'bold'} size={16} color={Colors.ui_primary}>
-                {'Skip'}
+                {appStrings.register.skip}
               </AppText>
             </TouchableOpacity>
           )
@@ -213,7 +218,11 @@ const RegisterWithEmail = (props) => {
         <View style={{paddingTop: 30}}>{renderPage()}</View>
       </ScrollView>
       <GradientButton
-        title={stepPosition == 0 ? 'Next' : 'Register'}
+        title={
+          stepPosition == 0
+            ? appStrings.register.next
+            : appStrings.register.register
+        }
         style={{marginVertical: 20}}
         onPress={() => onBottomButtonPress()}
       />

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Image, View} from 'react-native';
 import Icon from 'react-native-ionicons';
+import {useSelector} from 'react-redux';
 
 import {GradientButton, AuthContainer, BackHeader} from '../../components';
 import {Images, Colors, Icons} from '../../constants';
@@ -10,6 +11,8 @@ import styles from './style';
 const RegisterLanding = (props) => {
   const {navigation} = props;
 
+  const {appStrings} = useSelector((state) => state.appState);
+
   return (
     <AuthContainer blur>
       <BackHeader onBackPress={() => navigation.goBack()} />
@@ -17,7 +20,7 @@ const RegisterLanding = (props) => {
       <View style={styles.container}>
         <GradientButton
           type={'primary'}
-          title={'Register With Email'}
+          title={appStrings.register.register_with_email}
           icon={
             <Icon
               name={'mail'}
@@ -31,7 +34,7 @@ const RegisterLanding = (props) => {
         />
         <GradientButton
           type={'google'}
-          title={'Register With Google'}
+          title={appStrings.register.register_with_google}
           icon={
             <Icon
               name={'mail'}
@@ -45,7 +48,7 @@ const RegisterLanding = (props) => {
         />
         <GradientButton
           type={'facebook'}
-          title={'Register With Facebook'}
+          title={appStrings.register.register_with_facebook}
           icon={
             <Image source={Icons.facebook_icon} style={styles.buttonIcon} />
           }

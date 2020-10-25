@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
   },
   title: {
     marginTop: 5,
+    textTransform: 'uppercase',
   },
 });
 

@@ -16,12 +16,14 @@ import {
   GraphRequest,
   GraphRequestManager,
 } from 'react-native-fbsdk';
-import { useDispatch } from 'react-redux';
-import { loginUser } from '../../redux/actions/user-actions';
+import {useDispatch, useSelector} from 'react-redux';
+import {loginUser} from '../../redux/actions/user-actions';
 
 const RegisterWithFacebook = (props) => {
   const {navigation} = props;
   const dispatch = useDispatch();
+
+  const {appStrings} = useSelector((state) => state.appState);
 
   const [loading, setLoading] = React.useState(false);
 
@@ -56,8 +58,8 @@ const RegisterWithFacebook = (props) => {
     if (error) {
       console.log('ERROR:- ', error);
     } else {
-      dispatch(loginUser())
-      navigation.navigate('main-stack')
+      dispatch(loginUser());
+      navigation.navigate('main-stack');
       console.log('RESULT:- ', result);
     }
   };
@@ -72,7 +74,7 @@ const RegisterWithFacebook = (props) => {
 
           <GradientButton
             type={'facebook'}
-            title={'Register With Facebook'}
+            title={appStrings.register.register_with_facebook}
             icon={'mail'}
             iconColor={Colors.white}
             style={styles.registerButtom}
