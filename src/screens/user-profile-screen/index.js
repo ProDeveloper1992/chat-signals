@@ -110,25 +110,25 @@ export default function UserProfile(props) {
 
         <View style={styles.moderatorIconViewHolder}>
           <ModeratorIconLabel
-            onIconPress={() => showActivityModal('kisses')}
+            onIconPress={() => {}}
             IconName={'0 Kisses'}
             Icon={Icons.kiss_icon}
           />
 
           <ModeratorIconLabel
-            onIconPress={() => showActivityModal('like')}
+            onIconPress={() => {}}
             IconName={'2 Likes'}
             Icon={Icons.like_icon}
           />
 
           <ModeratorIconLabel
-            onIconPress={() => showActivityModal('stickers')}
+            onIconPress={() => {}}
             IconName={'0 Stickers'}
             Icon={Icons.sticker_icon}
           />
 
           <ModeratorIconLabel
-            onIconPress={() => showActivityModal('hearts')}
+            onIconPress={() => {}}
             IconName={'1 Heart'}
             Icon={Icons.heart_icon}
           />
