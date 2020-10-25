@@ -1,30 +1,27 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {IconButton} from '../../components';
+import {GeneralHeader} from '../../components/Headers';
+import {useNavigation} from '@react-navigation/native';
+import {toggleLanguageModal} from '../../redux/actions/app-modals-actions';
+import {useDispatch} from 'react-redux';
+import {Icons} from '../../constants';
 
-const CoinPurchase = (props) => {
-  const {navigation} = props;
+const CoinPurchase = () => {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
 
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <View style={{flexDirection: 'row'}}>
-          <IconButton
-            iconName={'log-out'}
-            onPress={() => {
-              // logout();
-            }}
-          />
-        </View>
-      ),
-    });
-  }, [navigation]);
-
-  const products = [
-    {name: 'test', price: 'price test', description: 'description test'},
-  ];
-
-  return <View style={styles.container}></View>;
+  return <View style={styles.container}>
+    <GeneralHeader
+        rightIcon={Icons.user_profile}
+        onRightPress={() => {}}
+        onLeftPress={() => {}}
+        onLeftPress={()=>navigation.navigate('UserProfile')}
+        onLanguagePress={() => dispatch(toggleLanguageModal(true))}
+        LanguageIcon={Icons.icon_languages}
+        leftIcon={Icons.search}
+        label={'Purchase'}
+      />
+  </View>;
 };
 
 const styles = StyleSheet.create({

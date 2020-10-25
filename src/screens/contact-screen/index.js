@@ -2,6 +2,7 @@ import * as React from 'react';
 import {Dimensions, View} from 'react-native';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {useDispatch} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 
 import styles from './style';
 import {Colors, Icons} from '../../constants';
@@ -17,6 +18,7 @@ import BlockedTopTab from './blocked-top-tab';
 const initialLayout = {width: Dimensions.get('window').width};
 
 export default function Home() {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const [index, setIndex] = React.useState(0);
@@ -39,7 +41,7 @@ export default function Home() {
       <GeneralHeader
         rightIcon={Icons.user_profile}
         onRightPress={() => {}}
-        onLeftPress={() => {}}
+        onLeftPress={()=>navigation.navigate('UserProfile')}
         onLanguagePress={() => dispatch(toggleLanguageModal(true))}
         LanguageIcon={Icons.icon_languages}
         leftIcon={Icons.search}
