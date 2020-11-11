@@ -11,7 +11,7 @@ import {
 import SplashScreen from 'react-native-splash-screen';
 
 import {GradientButton, AuthContainer} from '../../components';
-import {Colors, Icons, Images} from '../../constants';
+import {Colors, Icons, Images,Gifs} from '../../constants';
 import {isIphoneX} from '../../utils/common';
 import {globalStyle} from '../../styles/global-style';
 import {useIsFocused} from '@react-navigation/native';
@@ -81,8 +81,8 @@ const LandingScreen = (props) => {
         />
       </TouchableOpacity>
       <Image
-        style={[globalStyle.logo, {marginTop: isIphoneX() ? 20 : 10}]}
-        source={Images.app_logo}
+        style={[globalStyle.logo, {marginTop: isIphoneX() ? 20 : 10,width:250,height:150}]}
+        source={Gifs.chat_signal_logo}
       />
       <View style={styles.bottomView}>
         <View style={{marginEnd: 8, flex: 1}}>

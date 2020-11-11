@@ -105,7 +105,7 @@ const RegisterWithGoogle = (props) => {
           <GradientButton
             type={'google'}
             title={appStrings.register.register_with_google}
-            icon={'mail'}
+            // icon={'mail'}
             iconColor={Colors.white}
             style={styles.registerButtom}
             onPress={() => _signIn()}
