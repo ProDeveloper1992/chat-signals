@@ -75,7 +75,7 @@ const RegisterWithFacebook = (props) => {
           <GradientButton
             type={'facebook'}
             title={appStrings.register.register_with_facebook}
-            icon={'mail'}
+            // icon={'mail'}
             iconColor={Colors.white}
             style={styles.registerButtom}
             onPress={() => onLoginWithFacebook()}

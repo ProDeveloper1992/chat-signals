@@ -52,6 +52,7 @@ export const Icons = {
   super_flirt_heart_icon: require('../assets/icons/super-flirt-heart.png'),
   coins_icon: require('../assets/icons/coins.png'),
   sticker_icon: require('../assets/icons/sticker.png'),
+  add_image_icon: require('../assets/icons/add-Image.png'),
 };
 
 export const Gifs = {
