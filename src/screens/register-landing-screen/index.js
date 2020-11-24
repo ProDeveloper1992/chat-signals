@@ -36,12 +36,7 @@ const RegisterLanding = (props) => {
           type={'google'}
           title={appStrings.register.register_with_google}
           icon={
-            <Icon
-              name={'mail'}
-              color={Colors.white}
-              style={{marginEnd: 10}}
-              size={24}
-            />
+            <Image source={Icons.google_icon} style={styles.buttonIcon} />
           }
           style={styles.registerButtom}
           onPress={() => navigation.navigate('RegisterWithGoogle')}

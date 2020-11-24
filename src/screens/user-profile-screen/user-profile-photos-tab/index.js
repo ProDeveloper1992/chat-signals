@@ -2,11 +2,11 @@ import React, {useState} from 'react';
 import {
   View,
   ScrollView,
+  SafeAreaView,
   Image,
   FlatList,
   Dimensions,
   TouchableOpacity,
-  Text,
 } from 'react-native';
 import {AppText} from '../../../components';
 import {Colors, SCREEN_HEIGHT, SCREEN_WIDTH, Icons} from '../../../constants';
@@ -46,12 +46,6 @@ export default function UserProfilePhotosTab(props) {
   const chooseFile = () => {
     let options = {
       title: 'Select Image',
-      customButtons: [
-        {
-          name: 'customOptionKey',
-          title: 'Choose Photo from Custom Option',
-        },
-      ],
       storageOptions: {
         skipBackup: true,
         path: 'images',
@@ -79,7 +73,7 @@ export default function UserProfilePhotosTab(props) {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <FlatList
         columnWrapperStyle={{justifyContent: 'space-between'}}
         data={photosList}
@@ -156,13 +150,15 @@ export default function UserProfilePhotosTab(props) {
         </View>
       </TouchableOpacity>
 
-      <Image
+      {/* <Image
         source={{
           uri: 'data:image/jpeg;base64,' + filePath.data,
         }}
         style={styles.imageStyle}
-      />
-      <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
-    </View>
+      /> */}
+      {filePath.uri && (
+        <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
+      )}
+    </SafeAreaView>
   );
 }
