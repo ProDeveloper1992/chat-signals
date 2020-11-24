@@ -4,6 +4,8 @@ export const GET_APP_STRINGS_FAIL = 'GET_APP_STRINGS_FAIL';
 
 export const CHANGE_APP_LANGUAGE = 'CHANGE_APP_LANGUAGE';
 
+export const SHOW_TOAST = 'SHOW_TOAST';
+
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';

@@ -1,8 +1,11 @@
+import Snackbar from 'react-native-snackbar';
+import {Colors} from '../../constants';
 import {
   GET_APP_STRINGS_REQUEST,
   GET_APP_STRINGS_SUCCESS,
   GET_APP_STRINGS_FAIL,
   CHANGE_APP_LANGUAGE,
+  SHOW_TOAST,
 } from '../actions/types';
 
 const initialState = {
@@ -137,6 +140,17 @@ function getLanguageStrings(language_code) {
   }
 }
 
+function getToastBackgroundColor(type) {
+  switch (type) {
+    case 'positive':
+      return Colors.green;
+    case 'negative':
+      return Colors.red;
+    default:
+      return Colors.black;
+  }
+}
+
 export default function (state = initialState, action) {
   switch (action.type) {
     case GET_APP_STRINGS_REQUEST:
@@ -163,6 +177,16 @@ export default function (state = initialState, action) {
       return {
         ...state,
         appStrings: getLanguageStrings(action.payload),
+      };
+
+    case SHOW_TOAST:
+      Snackbar.show({
+        text: action.payload.title,
+        duration: Snackbar.LENGTH_LONG,
+        backgroundColor: getToastBackgroundColor(action.payload.type),
+      });
+      return {
+        ...state,
       };
 
     default:
