@@ -5,6 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 import {toggleLanguageModal} from '../../redux/actions/app-modals-actions';
 import {useDispatch} from 'react-redux';
 import {Icons} from '../../constants';
+import styles from './style';
 
 const Chat = () => {
 
@@ -24,11 +25,5 @@ const Chat = () => {
       />
   </View>;
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default Chat;

@@ -58,11 +58,6 @@ export default function UserProfileActionTab(props) {
       />
 
       <ActionHolder
-        onPress={() => alert('Search Filter')}
-        label={'Search Filter'}
-      />
-
-      <ActionHolder
         onPress={() => alert('Change Password')}
         label={'Change Password'}
       />
