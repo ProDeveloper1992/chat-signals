@@ -4,6 +4,7 @@ import {
   GET_APP_STRINGS_SUCCESS,
   GET_APP_STRINGS_FAIL,
   CHANGE_APP_LANGUAGE,
+  SHOW_TOAST,
 } from './types';
 import {client} from '../../services/api-service';
 import {store} from '../../redux/store';
@@ -31,3 +32,6 @@ export const getAppStrings = (params) => (dispatch) =>
 
 export const changeAppLanguage = (language_code) => (dispatch) =>
   dispatch(ActionDispatcher(CHANGE_APP_LANGUAGE, language_code));
+
+export const showToast = (type, title) => (dispatch) =>
+  dispatch(ActionDispatcher(SHOW_TOAST, {type: type, title: title}));
