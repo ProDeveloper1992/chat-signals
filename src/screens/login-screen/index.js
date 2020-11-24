@@ -49,8 +49,16 @@ const LoginScreen = (props) => {
 
     if (isValid) {
       try {
-        await dispatch(loginUser(email, password));
-        navigation.navigate('main-stack');
+        let requestData = {
+          email: email,
+          password: password,
+        };
+        setLoading(true);
+        const response = await dispatch(loginUser(requestData));
+        setLoading(false);
+        if (response.meta.status) {
+          navigation.navigate('main-stack');
+        }
       } catch (e) {
         setLoading(false);
       }
@@ -103,6 +111,7 @@ const LoginScreen = (props) => {
             style={styles.loginButton}
             // onPress={() => login()}
             onPress={() => onLoginPress()}
+            loading={loading}
           />
           <TextButton
             title={
@@ -113,7 +122,6 @@ const LoginScreen = (props) => {
               navigation.navigate('RegisterLanding');
             }}
           />
-          <Loading loading={loading} />
         </View>
       </ScrollView>
     </AuthContainer>

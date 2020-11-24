@@ -1,10 +1,15 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity, Platform} from 'react-native';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  Platform,
+  ActivityIndicator,
+} from 'react-native';
 import PropTypes from 'prop-types';
 import {Colors} from '../../constants';
 import {AppText} from '..';
 
-export function GradientButton({type, title, icon, style, onPress}) {
+export function GradientButton({type, title, icon, style, onPress, loading}) {
   function getBgColor() {
     switch (type) {
       case 'primary':
@@ -58,9 +63,13 @@ export function GradientButton({type, title, icon, style, onPress}) {
       ]}
       onPress={onPress}>
       {icon && icon}
-      <AppText type={'bold'} color={getTextColor()} size={16}>
-        {title.toUpperCase()}
-      </AppText>
+      {loading ? (
+        <ActivityIndicator size={'small'} color={Colors.white} />
+      ) : (
+        <AppText type={'bold'} color={getTextColor()} size={16}>
+          {title.toUpperCase()}
+        </AppText>
+      )}
     </TouchableOpacity>
   );
 }
@@ -78,7 +87,7 @@ const styles = StyleSheet.create({
 GradientButton.propTypes = {
   title: PropTypes.string,
   icon: PropTypes.any,
-
+  loading: PropTypes.bool,
   type: PropTypes.oneOf([
     'primary',
     'positive',
@@ -95,5 +104,6 @@ GradientButton.propTypes = {
 GradientButton.defaultProps = {
   type: 'primary',
   title: 'Submit',
+  loading: false,
   onPress: () => {},
 };

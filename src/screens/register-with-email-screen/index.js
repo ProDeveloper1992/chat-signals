@@ -14,7 +14,7 @@ import {
   AppText,
 } from '../../components';
 import {mailformat, Colors} from '../../constants';
-import {loginUser} from '../../redux/actions/user-actions';
+import {registerUser} from '../../redux/actions/user-actions';
 
 const RegisterWithEmail = (props) => {
   const {navigation} = props;
@@ -23,6 +23,7 @@ const RegisterWithEmail = (props) => {
   const {appStrings} = useSelector((state) => state.appState);
 
   const [userName, setUserName] = React.useState('');
+  const [userNameError, setUsernameError] = React.useState(null);
   const [postalCode, setPostalCode] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [emailError, setEmailError] = React.useState(null);
@@ -74,6 +75,13 @@ const RegisterWithEmail = (props) => {
       setStepPosition(1);
     } else {
       let isValid = true;
+      if (userName.trim() == 0) {
+        isValid = false;
+        setUsernameError('Username must not be empty!');
+        // setEmailError(appStrings.register.email_error_1);
+      } else {
+        setUsernameError(null);
+      }
       if (email.trim() == 0) {
         isValid = false;
         setEmailError(appStrings.register.email_error_1);
@@ -102,8 +110,18 @@ const RegisterWithEmail = (props) => {
         try {
           //   setLoading(true);
           //   await register(email, password);
-          dispatch(loginUser());
-          navigation.navigate('main-stack');
+          let requestData = {
+            language: 'en',
+            username: userName,
+            email: email,
+            password: password,
+          };
+          setLoading(true);
+          const response = await dispatch(registerUser(requestData));
+          setLoading(false);
+          if (response.meta.status) {
+            // navigation.navigate('main-stack');
+          }
         } catch (e) {
           setLoading(false);
         }
@@ -131,14 +149,6 @@ const RegisterWithEmail = (props) => {
     if (stepPosition == 0) {
       return (
         <View>
-          <AuthInput
-            style={styles.input}
-            label={appStrings.register.user_name}
-            placeholder={appStrings.register.user_name}
-            keyboardType={'email-address'}
-            value={userName}
-            onChangeText={setUserName}
-          />
           <SectionLable title={appStrings.register.i_am} />
           <GenderPicker />
           <SectionLable title={appStrings.register.i_am_looking_for} />
@@ -158,6 +168,15 @@ const RegisterWithEmail = (props) => {
     } else {
       return (
         <View>
+          <AuthInput
+            style={styles.input}
+            label={appStrings.register.user_name}
+            placeholder={appStrings.register.user_name}
+            keyboardType={'email-address'}
+            value={userName}
+            onChangeText={setUserName}
+            error={userNameError}
+          />
           <AuthInput
             style={styles.input}
             label={appStrings.register.email}
@@ -187,7 +206,6 @@ const RegisterWithEmail = (props) => {
             onChangeText={setConfPassword}
             error={confPassError}
           />
-          <Loading loading={loading} />
         </View>
       );
     }
@@ -225,6 +243,7 @@ const RegisterWithEmail = (props) => {
         }
         style={{marginVertical: 20}}
         onPress={() => onBottomButtonPress()}
+        loading={loading}
       />
     </AuthContainer>
   );
