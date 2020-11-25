@@ -9,10 +9,11 @@ import styles from './style';
 
 export default function LanguageSelectionModal({visible, onHideModal}) {
   const dispatch = useDispatch();
-  const {appStrings} = useSelector((state) => state.appState);
+  const {appLabels} = useSelector((state) => state.appState);
 
   const onChangeAppLanguage = (language) => {
     dispatch(changeAppLanguage(language.country_code));
+    onHideModal();
   };
 
   return (
@@ -29,11 +30,6 @@ export default function LanguageSelectionModal({visible, onHideModal}) {
           {'Select your language'}
         </AppText>
         <CountryPicker onChangeLanguage={onChangeAppLanguage} />
-        <GradientButton
-          title={'Set Language'}
-          style={{marginTop: 10}}
-          onPress={onHideModal}
-        />
       </View>
     </Modal>
   );

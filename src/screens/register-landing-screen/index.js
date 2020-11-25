@@ -11,7 +11,7 @@ import styles from './style';
 const RegisterLanding = (props) => {
   const {navigation} = props;
 
-  const {appStrings} = useSelector((state) => state.appState);
+  const {appLabels} = useSelector((state) => state.appState);
 
   return (
     <AuthContainer blur>
@@ -20,7 +20,7 @@ const RegisterLanding = (props) => {
       <View style={styles.container}>
         <GradientButton
           type={'primary'}
-          title={appStrings.register.register_with_email}
+          title={appLabels.register_with_email}
           icon={
             <Icon
               name={'mail'}
@@ -34,16 +34,14 @@ const RegisterLanding = (props) => {
         />
         <GradientButton
           type={'google'}
-          title={appStrings.register.register_with_google}
-          icon={
-            <Image source={Icons.google_icon} style={styles.buttonIcon} />
-          }
+          title={appLabels.register_with_google}
+          icon={<Image source={Icons.google_icon} style={styles.buttonIcon} />}
           style={styles.registerButtom}
           onPress={() => navigation.navigate('RegisterWithGoogle')}
         />
         <GradientButton
           type={'facebook'}
-          title={appStrings.register.register_with_facebook}
+          title={appLabels.register_with_facebook}
           icon={
             <Image source={Icons.facebook_icon} style={styles.buttonIcon} />
           }

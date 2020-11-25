@@ -20,7 +20,7 @@ const RegisterWithGoogle = (props) => {
   const {navigation} = props;
   const dispatch = useDispatch();
 
-  const {appStrings} = useSelector((state) => state.appState);
+  const {appLabels} = useSelector((state) => state.appState);
 
   const [loading, setLoading] = React.useState(false);
   const [userInfo, setUserInfo] = React.useState(null);
@@ -104,7 +104,7 @@ const RegisterWithGoogle = (props) => {
 
           <GradientButton
             type={'google'}
-            title={appStrings.register.register_with_google}
+            title={appLabels.register_with_google}
             // icon={'mail'}
             iconColor={Colors.white}
             style={styles.registerButtom}

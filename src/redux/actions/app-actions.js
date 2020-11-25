@@ -13,7 +13,7 @@ export const getAppStrings = (params) => (dispatch) =>
   new Promise(function (resolve, reject) {
     dispatch(ActionDispatcher(GET_APP_STRINGS_REQUEST));
     let state = store.getState();
-    let user_language = state.userState.selectedLanguage;
+    let user_language = state.appState.selectedLanguage;
     client
       .get(`/appsettings/${user_language}`)
       .then((res) => {
@@ -30,8 +30,10 @@ export const getAppStrings = (params) => (dispatch) =>
       });
   });
 
-export const changeAppLanguage = (language_code) => (dispatch) =>
-  dispatch(ActionDispatcher(CHANGE_APP_LANGUAGE, language_code));
+export const changeAppLanguage = (language_code) => async (dispatch) => {
+  await dispatch(ActionDispatcher(CHANGE_APP_LANGUAGE, language_code));
+  dispatch(getAppStrings());
+};
 
 export const showToast = (type, title) => (dispatch) =>
   dispatch(ActionDispatcher(SHOW_TOAST, {type: type, title: title}));
