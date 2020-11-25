@@ -12,6 +12,7 @@ import {
   CoinPurchase,
   ModeratorProfile,
   UserProfile,
+  ChatDetail
 } from '../screens';
 import BottomTabBar from '../components/BottomTabBar';
 import {Colors} from '../constants';
@@ -159,6 +160,12 @@ export default function MainStackNavigator() {
         name="UserProfile"
         component={UserProfile}
         options={{title: 'User Profile'}}
+      />
+
+      <Stack.Screen
+        name="ChatDetail"
+        component={ChatDetail}
+        options={{title: 'Chat Detail'}}
       />
     </Stack.Navigator>
   );

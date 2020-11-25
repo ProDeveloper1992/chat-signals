@@ -1,4 +1,5 @@
 import {BackHeader} from './BackHeader';
 import {GeneralHeader} from './GeneralHeader';
+import {ChatDetailHeader} from './ChatDetailHeader';
 
-export {BackHeader, GeneralHeader};
+export {BackHeader, GeneralHeader,ChatDetailHeader};

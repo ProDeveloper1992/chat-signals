@@ -9,7 +9,13 @@ import {
 import {Colors, Icons} from '../../../constants';
 import {AppText} from '../../index';
 
-export default function ChatListItem() {
+export default function ChatListItem({
+  onChatPress,
+  profileImage,
+  userName,
+  lastMessage,
+  lastMessageTime,
+}) {
   const [chatData, setChatData] = React.useState([
     {
       key: 1,
@@ -39,9 +45,9 @@ export default function ChatListItem() {
       // FlatList Item Separator
       <View
         style={{
-          flexGrow:1,
+          flexGrow: 1,
           height: 0.5,
-          marginHorizontal:12,
+          marginHorizontal: 12,
           backgroundColor: Colors.ui_primary_dark,
         }}
       />
@@ -49,77 +55,83 @@ export default function ChatListItem() {
   };
 
   return (
-    <FlatList
-      data={chatData}
-      contentContainerStyle={{paddingBottom: 20}}
-      showsVerticalScrollIndicator={false}
-      renderItem={({item, index}) => (
-        <TouchableOpacity
-          activeOpacity={0.8}
+    // <FlatList
+    //   data={chatData}
+    //   contentContainerStyle={{paddingBottom: 20}}
+    //   showsVerticalScrollIndicator={false}
+    //   renderItem={({item, index}) => (
+    <TouchableOpacity
+      activeOpacity={0.8}
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        backgroundColor: '#ffffff',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingHorizontal: 12,
+        paddingVertical: 10,
+      }}
+      onPress={onChatPress}>
+      <View style={{flexDirection: 'row'}}>
+        <Image
           style={{
-            flex: 1,
-            alignItems: 'center',
-            backgroundColor: '#ffffff',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            paddingHorizontal: 12,
-            paddingVertical: 10,
+            height: 50,
+            width: 50,
+            borderRadius: 8,
+            alignSelf: 'center',
+            resizeMode: 'cover',
           }}
-          onPress={() => {}}>
-          <View style={{flexDirection: 'row'}}>
-            <Image
-              style={{
-                height: 50,
-                width: 50,
-                borderRadius: 8,
-                alignSelf: 'center',
-                resizeMode: 'cover',
-              }}
-              source={{uri: item.profileImage}}
-            />
-            <View
-              style={{
-                alignSelf: 'center',
-                marginLeft: 15,
-              }}>
-              <AppText
-                type={'bold'}
-                size={14}
-                color={Colors.black}
-                style={{textTransform: 'uppercase'}}>
-                {item.userName}
-              </AppText>
-              <AppText
-                type={'normal'}
-                size={12}
-                color={Colors.black}
-                style={{
-                  marginTop: 5,
-                }}>
-                {item.lastMessage}
-              </AppText>
-            </View>
-          </View>
-          <View
+          source={profileImage}
+          // source={{uri: item.profileImage}}
+        />
+        <View
+          style={{
+            alignSelf: 'center',
+            marginLeft: 15,
+          }}>
+          <AppText
+            type={'bold'}
+            size={14}
+            color={Colors.black}
+            style={{textTransform: 'uppercase'}}>
+            {/* {item.userName} */}
+            {userName}
+          </AppText>
+          <AppText
+            type={'light'}
+            size={12}
+            color={Colors.black}
             style={{
-              alignItems: 'center',
+              marginTop: 5,
             }}>
-            <AppText size={10}>{item.lastMessageTime}</AppText>
-            <Image
-              style={{
-                height: 12,
-                width: 13,
-                resizeMode: 'cover',
-                marginTop: 10,
-                alignSelf: 'flex-end',
-              }}
-              source={Icons.right_arrow}
-            />
-          </View>
-        </TouchableOpacity>
-      )}
-      ItemSeparatorComponent={ItemSeparatorView}
-      keyExtractor={(item, index) => index.toString()}
-    />
+            {lastMessage}
+            {/* {item.lastMessage} */}
+          </AppText>
+        </View>
+      </View>
+      <View
+        style={{
+          alignItems: 'center',
+        }}>
+        <AppText size={10}>
+          {lastMessageTime}
+          {/* {item.lastMessageTime} */}
+        </AppText>
+        <Image
+          style={{
+            height: 12,
+            width: 13,
+            resizeMode: 'cover',
+            marginTop: 10,
+            alignSelf: 'flex-end',
+          }}
+          source={Icons.right_arrow}
+        />
+      </View>
+    </TouchableOpacity>
+    //   )}
+    //   ItemSeparatorComponent={ItemSeparatorView}
+    //   keyExtractor={(item, index) => index.toString()}
+    // />
   );
 }
