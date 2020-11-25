@@ -20,7 +20,7 @@ const RegisterWithEmail = (props) => {
   const {navigation} = props;
   const dispatch = useDispatch();
 
-  const {appStrings} = useSelector((state) => state.appState);
+  const {appLabels} = useSelector((state) => state.appState);
 
   const [userName, setUserName] = React.useState('');
   const [userNameError, setUsernameError] = React.useState(null);
@@ -35,10 +35,7 @@ const RegisterWithEmail = (props) => {
   const [stepPosition, setStepPosition] = React.useState(0);
   const [stepCount, setStepCount] = React.useState(2);
 
-  const labels = [
-    appStrings.register.user_details,
-    appStrings.register.registration,
-  ];
+  const labels = [appLabels.user_details, appLabels.registration];
   const stepIndicatorStyle = {
     stepIndicatorSize: 26,
     currentStepIndicatorSize: 30,
@@ -78,30 +75,30 @@ const RegisterWithEmail = (props) => {
       if (userName.trim() == 0) {
         isValid = false;
         setUsernameError('Username must not be empty!');
-        // setEmailError(appStrings.register.email_error_1);
+        // setEmailError(appLabels.email_error_1);
       } else {
         setUsernameError(null);
       }
       if (email.trim() == 0) {
         isValid = false;
-        setEmailError(appStrings.register.email_error_1);
+        setEmailError(appLabels.email_error_1);
       } else if (!email.match(mailformat)) {
         isValid = false;
-        setEmailError(appStrings.register.email_error_2);
+        setEmailError(appLabels.email_error_2);
       } else {
         setEmailError(null);
       }
 
       if (password.trim() == 0) {
         isValid = false;
-        setPassError(appStrings.register.password_error_1);
+        setPassError(appLabels.password_error_1);
       } else {
         setPassError(null);
       }
 
       if (confpassword != password) {
         isValid = false;
-        setConfPassError(appStrings.register.password_error_2);
+        setConfPassError(appLabels.password_error_2);
       } else {
         setConfPassError(null);
       }
@@ -149,16 +146,16 @@ const RegisterWithEmail = (props) => {
     if (stepPosition == 0) {
       return (
         <View>
-          <SectionLable title={appStrings.register.i_am} />
+          <SectionLable title={appLabels.i_am} />
           <GenderPicker />
-          <SectionLable title={appStrings.register.i_am_looking_for} />
+          <SectionLable title={appLabels.i_am_looking_for} />
           <GenderPicker />
-          <SectionLable title={appStrings.register.country} />
+          <SectionLable title={appLabels.country} />
           <CountryPicker />
           <AuthInput
             style={styles.input}
-            label={appStrings.register.postal_code}
-            placeholder={appStrings.register.postal_code}
+            label={appLabels.postal_code}
+            placeholder={appLabels.postal_code}
             keyboardType={'number-pad'}
             value={postalCode}
             onChangeText={setPostalCode}
@@ -170,8 +167,8 @@ const RegisterWithEmail = (props) => {
         <View>
           <AuthInput
             style={styles.input}
-            label={appStrings.register.user_name}
-            placeholder={appStrings.register.user_name}
+            label={appLabels.user_name}
+            placeholder={appLabels.user_name}
             keyboardType={'email-address'}
             value={userName}
             onChangeText={setUserName}
@@ -179,8 +176,8 @@ const RegisterWithEmail = (props) => {
           />
           <AuthInput
             style={styles.input}
-            label={appStrings.register.email}
-            placeholder={appStrings.register.email}
+            label={appLabels.email}
+            placeholder={appLabels.email}
             keyboardType={'email-address'}
             value={email}
             onChangeText={setEmail}
@@ -188,9 +185,9 @@ const RegisterWithEmail = (props) => {
           />
 
           <AuthInput
-            label={appStrings.register.password}
+            label={appLabels.password}
             style={styles.input}
-            placeholder={appStrings.register.password}
+            placeholder={appLabels.password}
             secureTextEntry
             value={password}
             onChangeText={setPassword}
@@ -199,8 +196,8 @@ const RegisterWithEmail = (props) => {
 
           <AuthInput
             style={styles.input}
-            label={appStrings.register.confirm_password}
-            placeholder={appStrings.register.confirm_password}
+            label={appLabels.confirm_password}
+            placeholder={appLabels.confirm_password}
             secureTextEntry
             value={confpassword}
             onChangeText={setConfPassword}
@@ -219,7 +216,7 @@ const RegisterWithEmail = (props) => {
           stepPosition == 0 && (
             <TouchableOpacity onPress={() => onSkipPress()}>
               <AppText type={'bold'} size={16} color={Colors.ui_primary}>
-                {appStrings.register.skip}
+                {appLabels.skip}
               </AppText>
             </TouchableOpacity>
           )
@@ -236,11 +233,7 @@ const RegisterWithEmail = (props) => {
         <View style={{paddingTop: 30}}>{renderPage()}</View>
       </ScrollView>
       <GradientButton
-        title={
-          stepPosition == 0
-            ? appStrings.register.next
-            : appStrings.register.register
-        }
+        title={stepPosition == 0 ? appLabels.next : appLabels.register}
         style={{marginVertical: 20}}
         onPress={() => onBottomButtonPress()}
         loading={loading}

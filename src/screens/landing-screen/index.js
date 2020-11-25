@@ -11,7 +11,7 @@ import {
 import SplashScreen from 'react-native-splash-screen';
 
 import {GradientButton, AuthContainer} from '../../components';
-import {Colors, Icons, Images,Gifs} from '../../constants';
+import {Colors, Icons, Images, Gifs} from '../../constants';
 import {isIphoneX} from '../../utils/common';
 import {globalStyle} from '../../styles/global-style';
 import {useIsFocused} from '@react-navigation/native';
@@ -23,7 +23,7 @@ const LandingScreen = (props) => {
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
 
-  const {appStrings} = useSelector((state) => state.appState);
+  const {appLabels} = useSelector((state) => state.appState);
 
   useEffect(() => {
     SplashScreen.hide();
@@ -81,14 +81,17 @@ const LandingScreen = (props) => {
         />
       </TouchableOpacity>
       <Image
-        style={[globalStyle.logo, {marginTop: isIphoneX() ? 20 : 10,width:250,height:150}]}
+        style={[
+          globalStyle.logo,
+          {marginTop: isIphoneX() ? 20 : 10, width: 250, height: 150},
+        ]}
         source={Gifs.chat_signal_logo}
       />
       <View style={styles.bottomView}>
         <View style={{marginEnd: 8, flex: 1}}>
           <GradientButton
             type={'light'}
-            title={appStrings.landing.rigister}
+            title={appLabels.rigister}
             style={{paddingVertical: Platform.OS === 'ios' ? 18 : 15}}
             onPress={onRegister}
           />
@@ -96,7 +99,7 @@ const LandingScreen = (props) => {
         <View style={{marginStart: 8, flex: 1}}>
           <GradientButton
             type={'primary'}
-            title={appStrings.landing.login}
+            title={appLabels.login}
             style={{paddingVertical: Platform.OS === 'ios' ? 18 : 15}}
             onPress={onLogin}
           />

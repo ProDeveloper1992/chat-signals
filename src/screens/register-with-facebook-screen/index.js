@@ -23,7 +23,7 @@ const RegisterWithFacebook = (props) => {
   const {navigation} = props;
   const dispatch = useDispatch();
 
-  const {appStrings} = useSelector((state) => state.appState);
+  const {appLabels} = useSelector((state) => state.appState);
 
   const [loading, setLoading] = React.useState(false);
 
@@ -74,7 +74,7 @@ const RegisterWithFacebook = (props) => {
 
           <GradientButton
             type={'facebook'}
-            title={appStrings.register.register_with_facebook}
+            title={appLabels.register_with_facebook}
             // icon={'mail'}
             iconColor={Colors.white}
             style={styles.registerButtom}

@@ -20,7 +20,7 @@ const LoginScreen = (props) => {
   //Actions to dispatch
   const dispatch = useDispatch();
 
-  const {appStrings} = useSelector((state) => state.appState);
+  const {appLabels} = useSelector((state) => state.appState);
 
   const [email, setEmail] = React.useState('');
   const [emailError, setEmailError] = React.useState(null);
@@ -54,11 +54,11 @@ const LoginScreen = (props) => {
           password: password,
         };
         setLoading(true);
-        // const response = await dispatch(loginUser(requestData));
+        const response = await dispatch(loginUser(requestData));
         setLoading(false);
-        // if (response.meta.status) {
+        if (response.meta.status) {
           navigation.navigate('main-stack');
-        // }
+        }
       } catch (e) {
         setLoading(false);
       }
@@ -79,8 +79,8 @@ const LoginScreen = (props) => {
         <View style={{flex: 1, justifyContent: 'center'}}>
           <AuthInput
             style={styles.input}
-            label={appStrings.login.email}
-            placeholder={appStrings.login.email}
+            label={appLabels.email}
+            placeholder={appLabels.email}
             keyboardType={'email-address'}
             value={email}
             onChangeText={setEmail}
@@ -88,8 +88,8 @@ const LoginScreen = (props) => {
           />
           <AuthInput
             style={styles.input}
-            label={appStrings.login.password}
-            placeholder={appStrings.login.password}
+            label={appLabels.password}
+            placeholder={appLabels.password}
             secureTextEntry
             value={password}
             onChangeText={setPassword}
@@ -98,7 +98,7 @@ const LoginScreen = (props) => {
 
           <View style={{alignSelf: 'flex-end'}}>
             <TextButton
-              title={appStrings.login.forgot_password}
+              title={appLabels.forgot_password}
               onPress={() => {
                 navigation.navigate('ForgotPassword');
               }}
@@ -107,17 +107,14 @@ const LoginScreen = (props) => {
 
           <GradientButton
             type={'primary'}
-            title={appStrings.login.login}
+            title={appLabels.login}
             style={styles.loginButton}
             // onPress={() => login()}
             onPress={() => onLoginPress()}
             loading={loading}
           />
           <TextButton
-            title={
-              appStrings.login.dont_have_an_account +
-              appStrings.login.create_one
-            }
+            title={appLabels.dont_have_an_account + appLabels.create_one}
             onPress={() => {
               navigation.navigate('RegisterLanding');
             }}
