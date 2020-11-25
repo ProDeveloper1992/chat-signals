@@ -54,11 +54,11 @@ const LoginScreen = (props) => {
           password: password,
         };
         setLoading(true);
-        const response = await dispatch(loginUser(requestData));
+        // const response = await dispatch(loginUser(requestData));
         setLoading(false);
-        if (response.meta.status) {
+        // if (response.meta.status) {
           navigation.navigate('main-stack');
-        }
+        // }
       } catch (e) {
         setLoading(false);
       }

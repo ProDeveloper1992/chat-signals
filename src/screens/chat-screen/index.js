@@ -6,6 +6,7 @@ import {toggleLanguageModal} from '../../redux/actions/app-modals-actions';
 import {useDispatch} from 'react-redux';
 import {Icons} from '../../constants';
 import styles from './style';
+import {ChatListItem} from '../../components/app-list-items'
 
 const Chat = () => {
 
@@ -23,6 +24,7 @@ const Chat = () => {
         leftIcon={Icons.search}
         label={'Chat'}
       />
+      <ChatListItem/>
   </View>;
 };
 
