@@ -38,8 +38,10 @@ export const loginUser = (requestData) => (dispatch) =>
       .then((res) => {
         // alert(JSON.stringify(res));
         if (res.meta.status) {
+          dispatch(ActionDispatcher(LOGIN_SUCCESS));
           dispatch(showToast('positive', res.meta.message));
         } else {
+          dispatch(ActionDispatcher(LOGIN_FAIL));
           dispatch(showToast('negative', res.meta.message));
         }
         resolve(res);
@@ -48,6 +50,30 @@ export const loginUser = (requestData) => (dispatch) =>
         dispatch(ActionDispatcher(LOGIN_FAIL));
         dispatch(showToast('negative', 'Something went wrong!'));
         // alert(JSON.stringify(err));
+        resolve({data: {success: false}});
+        reject(err);
+      });
+  });
+
+export const forgotPassword = (requestData) => (dispatch) =>
+  // dispatch(ActionDispatcher(LOGIN_SUCCESS));
+  // dispatch(ActionDispatcher(LOGIN_FAIL));
+
+  new Promise(function (resolve, reject) {
+    client
+      .post(`/resetPasswordEmailSend`, requestData)
+      .then((res) => {
+        console.log(res);
+        if (res.meta.status === true) {
+          dispatch(showToast('positive', res.meta.message));
+        } else {
+          dispatch(showToast('negative', res.meta.message));
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch(showToast('negative', 'Something went wrong!'));
         resolve({data: {success: false}});
         reject(err);
       });
