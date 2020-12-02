@@ -21,7 +21,7 @@ export function ChatDetailHeader({
         name={'arrow-back'}
         color={Colors.white}
         size={25}
-        onpress={onLeftPress}
+        onPress={onLeftPress}
       />
       <Image
         style={{

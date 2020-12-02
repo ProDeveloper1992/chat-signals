@@ -15,7 +15,7 @@ export default StyleSheet.create({
     borderRadius: 30,
   },
   topTabLabel: {
-    fontSize: 10,
+    fontSize: 12,
     fontWeight: '700',
     letterSpacing:1
   },

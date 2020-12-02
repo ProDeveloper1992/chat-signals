@@ -10,7 +10,7 @@ import {Images} from '../../constants';
 export function AuthContainer({children, style, blur}) {
   return (
     <ImageBackground
-      blurRadius={blur ? 5 : 0}
+      blurRadius={blur ? 15 : 0}
       style={styles.container}
       source={Images.login_bg_2}>
       <SafeAreaView style={[style, {flex: 1}]}>{children}</SafeAreaView>

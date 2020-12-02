@@ -10,7 +10,7 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 
 import {GradientButton} from '../../components';
-import {Images, mailformat} from '../../constants';
+import {Images, mailformat,Color} from '../../constants';
 import {globalStyle} from '../../styles/global-style';
 import {loginUser} from '../../redux/actions/user-actions';
 
@@ -98,6 +98,8 @@ const LoginScreen = (props) => {
 
           <View style={{alignSelf: 'flex-end'}}>
             <TextButton
+              fontType={'bold'}
+              fontSize={14}
               title={appLabels.forgot_password}
               onPress={() => {
                 navigation.navigate('ForgotPassword');
@@ -114,7 +116,8 @@ const LoginScreen = (props) => {
             loading={loading}
           />
           <TextButton
-            title={appLabels.dont_have_an_account + appLabels.create_one}
+            fontType={'bold'}
+            title={appLabels.dont_have_an_account + '  ' + appLabels.create_one}
             onPress={() => {
               navigation.navigate('RegisterLanding');
             }}

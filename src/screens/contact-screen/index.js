@@ -56,6 +56,7 @@ export default function Home() {
         renderTabBar={(props) => (
           <TabBar
             {...props}
+            scrollEnabled
             indicatorStyle={styles.topTabIndicator}
             style={styles.topTabContainer}
             labelStyle={styles.topTabLabel}
