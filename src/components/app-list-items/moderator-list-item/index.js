@@ -29,7 +29,7 @@ export default function ModeratorListItem({item, onPress, bookmarked}) {
               uri:
                 'https://cdn.countryflags.com/thumbs/germany/flag-round-250.png',
             }}
-            style={{width: 18, height: 18, resizeMode: 'contain'}}
+            style={styles.flagIcon}
           />
         </View>
       </ImageBackground>

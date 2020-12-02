@@ -3,10 +3,10 @@ import {StyleSheet, TouchableOpacity} from 'react-native';
 import {Colors} from '../../constants';
 import {AppText} from '../../components';
 
-export function TextButton({title, style, titleColor, onPress}) {
+export function TextButton({title, style, titleColor, onPress, fontType, fontSize}) {
   return (
     <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
-      <AppText size={13} type={'medium'} color={titleColor || Colors.white}>
+      <AppText size={fontSize || 13} type={fontType || 'medium'} color={titleColor || Colors.white}>
         {title.toUpperCase()}
       </AppText>
     </TouchableOpacity>

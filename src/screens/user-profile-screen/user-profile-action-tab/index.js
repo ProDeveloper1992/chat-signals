@@ -110,7 +110,7 @@ const ActionHolder = (props) => {
       style={styles.propertyContainer}
       onPress={props.onPress}
       activeOpacity={0.5}>
-      <AppText type={'medium'} size={12}>
+      <AppText type={'medium'} size={13}>
         {props.label}
       </AppText>
       <Image
