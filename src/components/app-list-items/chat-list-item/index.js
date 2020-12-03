@@ -19,7 +19,7 @@ export default function ChatListItem({
       onPress={onChatPress}>
       <View style={{flexDirection: 'row'}}>
         <Image style={styles.profileImg} source={profileImage} />
-        <View style={style.userDetailContainer}>
+        <View style={styles.userDetailContainer}>
           <AppText
             type={'bold'}
             size={14}

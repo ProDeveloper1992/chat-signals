@@ -6,6 +6,7 @@ import {
 
 const initialState = {
   flirtsLoading: false,
+  flirtsList: [],
   flirtsData: [
     {
       moderator_id: 1,
@@ -20,10 +21,9 @@ const initialState = {
             'https://i.pinimg.com/736x/13/67/b3/1367b38982223d2c570f6b8d5d9cc2cc.jpg',
         },
         {
-          image:
-            'https://www.marieclaire.com.au/media/43584/heidi-klum.jpg',
+          image: 'https://www.marieclaire.com.au/media/43584/heidi-klum.jpg',
         },
-      ]
+      ],
     },
     {
       moderator_id: 2,
@@ -38,10 +38,9 @@ const initialState = {
             'https://i.pinimg.com/736x/13/67/b3/1367b38982223d2c570f6b8d5d9cc2cc.jpg',
         },
         {
-          image:
-            'https://www.marieclaire.com.au/media/43584/heidi-klum.jpg',
+          image: 'https://www.marieclaire.com.au/media/43584/heidi-klum.jpg',
         },
-      ]
+      ],
     },
     {
       moderator_id: 3,
@@ -55,10 +54,9 @@ const initialState = {
             'https://i.pinimg.com/736x/13/67/b3/1367b38982223d2c570f6b8d5d9cc2cc.jpg',
         },
         {
-          image:
-            'https://www.marieclaire.com.au/media/43584/heidi-klum.jpg',
+          image: 'https://www.marieclaire.com.au/media/43584/heidi-klum.jpg',
         },
-      ]
+      ],
     },
     {
       moderator_id: 4,
@@ -73,10 +71,9 @@ const initialState = {
             'https://i.pinimg.com/736x/13/67/b3/1367b38982223d2c570f6b8d5d9cc2cc.jpg',
         },
         {
-          image:
-            'https://www.marieclaire.com.au/media/43584/heidi-klum.jpg',
+          image: 'https://www.marieclaire.com.au/media/43584/heidi-klum.jpg',
         },
-      ]
+      ],
     },
     {
       moderator_id: 5,
@@ -91,10 +88,9 @@ const initialState = {
             'https://i.pinimg.com/736x/13/67/b3/1367b38982223d2c570f6b8d5d9cc2cc.jpg',
         },
         {
-          image:
-            'https://www.marieclaire.com.au/media/43584/heidi-klum.jpg',
+          image: 'https://www.marieclaire.com.au/media/43584/heidi-klum.jpg',
         },
-      ]
+      ],
     },
     {
       moderator_id: 6,
@@ -109,10 +105,9 @@ const initialState = {
             'https://i.pinimg.com/736x/13/67/b3/1367b38982223d2c570f6b8d5d9cc2cc.jpg',
         },
         {
-          image:
-            'https://www.marieclaire.com.au/media/43584/heidi-klum.jpg',
+          image: 'https://www.marieclaire.com.au/media/43584/heidi-klum.jpg',
         },
-      ]
+      ],
     },
     {
       moderator_id: 7,
@@ -127,10 +122,9 @@ const initialState = {
             'https://i.pinimg.com/736x/13/67/b3/1367b38982223d2c570f6b8d5d9cc2cc.jpg',
         },
         {
-          image:
-            'https://www.marieclaire.com.au/media/43584/heidi-klum.jpg',
+          image: 'https://www.marieclaire.com.au/media/43584/heidi-klum.jpg',
         },
-      ]
+      ],
     },
   ],
 };
@@ -147,6 +141,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         flirtsLoading: false,
+        flirtsList: action.payload,
       };
 
     case GET_FLIRTS_FAILED:

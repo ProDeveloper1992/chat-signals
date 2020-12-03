@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Image,
@@ -16,6 +16,7 @@ import ModeratorProfileInfoTab from './user-profile-info-tab';
 import ModeratorProfilePhotosTab from './user-profile-photos-tab';
 import ModeratorProfileActionTab from './user-profile-action-tab';
 import {ModeratorActivityModal} from '../../components/app-modals';
+import {useSelector} from 'react-redux';
 
 export default function UserProfile(props) {
   const {params} = props.route;
@@ -25,6 +26,10 @@ export default function UserProfile(props) {
   const [activityModalVisible, setActivityModalVisible] = useState(false);
   const [cuurentTab, setCurrentTab] = useState(0);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+
+  const {userData} = useSelector((state) => state.userState);
+
+  useEffect(() => {}, []);
 
   const renderCurrentTab = () => {
     switch (cuurentTab) {
@@ -54,9 +59,9 @@ export default function UserProfile(props) {
         <ImageBackground
           style={styles.imgBackground}
           resizeMode="cover"
-          source={{uri: 'https://picsum.photos/200/300'}}>
+          source={{uri: userData.avatar}}>
           <ModeratorHeader
-            label={'Main Profile'}
+            label={userData.username}
             onBackPress={() => props.navigation.goBack()}
           />
         </ImageBackground>
@@ -68,7 +73,7 @@ export default function UserProfile(props) {
             <View style={styles.moderatorNameContainer}>
               <View style={styles.onlineStatusSignal(true)} />
               <AppText type={'bold'} size={16} style={{textAlign: 'center'}}>
-                {'Zayn Rambo'}
+                {userData.username}
               </AppText>
             </View>
 

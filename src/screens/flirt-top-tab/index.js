@@ -1,17 +1,24 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, FlatList} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {ModeratorListItem} from '../../components';
 import {useNavigation} from '@react-navigation/native';
 
 import styles from './style';
+import {getFlirtsList} from '../../redux/actions/flirts-actions';
 
 export default function FlirtTab(props) {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
-  const {flirtsData} = useSelector((state) => state.flirtsState);
+  const {flirtsList} = useSelector((state) => state.flirtsState);
 
-  const flirtsList = flirtsData.filter((item) => item.is_super_flirt === false);
+  useEffect(() => {
+    let requestData = {
+      page: 1,
+    };
+    dispatch(getFlirtsList(requestData));
+  }, []);
 
   return (
     <View style={styles.container}>
