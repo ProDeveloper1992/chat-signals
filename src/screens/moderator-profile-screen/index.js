@@ -54,9 +54,9 @@ export default function ModeratorProfile(props) {
         <ImageBackground
           style={styles.imgBackground}
           resizeMode="cover"
-          source={{uri: params.item.image_url}}>
+          source={{uri: params.item.picture}}>
           <ModeratorHeader
-            label={params.item.name}
+            label={params.item.username}
             onBackPress={() => props.navigation.goBack()}
           />
         </ImageBackground>
@@ -68,7 +68,7 @@ export default function ModeratorProfile(props) {
             <View style={styles.moderatorNameContainer}>
               <View style={styles.onlineStatusSignal(params.item.is_online)} />
               <AppText type={'bold'} size={16} style={{textAlign: 'center'}}>
-                {params.item.name}
+                {params.item.username}
               </AppText>
             </View>
 

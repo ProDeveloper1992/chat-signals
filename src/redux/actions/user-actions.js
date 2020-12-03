@@ -38,7 +38,7 @@ export const loginUser = (requestData) => (dispatch) =>
       .then((res) => {
         // alert(JSON.stringify(res));
         if (res.meta.status) {
-          dispatch(ActionDispatcher(LOGIN_SUCCESS));
+          dispatch(ActionDispatcher(LOGIN_SUCCESS, res));
           dispatch(showToast('positive', res.meta.message));
         } else {
           dispatch(ActionDispatcher(LOGIN_FAIL));

@@ -2,23 +2,21 @@ import React, {useState} from 'react';
 import {View, FlatList} from 'react-native';
 import {useSelector} from 'react-redux';
 import {ModeratorListItem} from '../../components';
-import {useNavigation} from '@react-navigation/native'
+import {useNavigation} from '@react-navigation/native';
 
 import styles from './style';
 
 export default function SuperFlirtTab(props) {
-  const {flirtsData} = useSelector((state) => state.flirtsState);
+  const {flirtsList} = useSelector((state) => state.flirtsState);
 
   const navigation = useNavigation();
-
-  const superFlirtsList = flirtsData.filter((item) => item.is_super_flirt);
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={superFlirtsList}
+        data={flirtsList}
         numColumns={2}
-        contentContainerStyle={{paddingBottom:20}}
+        contentContainerStyle={{paddingBottom: 20}}
         showsVerticalScrollIndicator={false}
         renderItem={({item, index}) => (
           <ModeratorListItem

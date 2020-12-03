@@ -12,7 +12,7 @@ export default function ModeratorListItem({item, onPress, bookmarked}) {
         resizeMode={'cover'}
         imageStyle={{borderRadius: 5}}
         source={{
-          uri: item.image_url,
+          uri: item.picture,
         }}>
         {bookmarked && (
           <View style={styles.bookmarkedContainer}>
@@ -22,7 +22,7 @@ export default function ModeratorListItem({item, onPress, bookmarked}) {
         <View style={styles.bottomContainer}>
           <View style={styles.onlineStatusSignal(item.is_online)} />
           <AppText type={'bold'} color={Colors.white}>
-            {item.name}
+            {item.username}
           </AppText>
           <Image
             source={{
