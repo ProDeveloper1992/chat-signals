@@ -29,6 +29,7 @@ export function AuthInput({style, label, error, ...props}) {
           },
         ]}
         placeholderTextColor={'darkgray'}
+        autoCapitalize={'none'}
       />
       {error && (
         <AppText

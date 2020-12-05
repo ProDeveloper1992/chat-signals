@@ -10,7 +10,7 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 
 import {GradientButton} from '../../components';
-import {Images, mailformat,Color} from '../../constants';
+import {Images, mailformat, Color, Gifs} from '../../constants';
 import {globalStyle} from '../../styles/global-style';
 import {loginUser} from '../../redux/actions/user-actions';
 
@@ -75,7 +75,7 @@ const LoginScreen = (props) => {
     <AuthContainer blur>
       <BackHeader onBackPress={() => navigation.goBack()} />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Image style={globalStyle.logo} source={Images.app_logo} />
+        <Image style={globalStyle.logo} source={Gifs.chat_signal_logo} />
         <View style={{flex: 1, justifyContent: 'center'}}>
           <AuthInput
             style={styles.input}

@@ -8,7 +8,7 @@ import {
   BackHeader,
   CountryPicker,
 } from '../../components';
-import {Images, Colors} from '../../constants';
+import {Images, Colors, Icons, Gifs} from '../../constants';
 import {globalStyle} from '../../styles/global-style';
 import {
   LoginManager,
@@ -28,9 +28,11 @@ const RegisterWithFacebook = (props) => {
   const [loading, setLoading] = React.useState(false);
 
   function onLoginWithFacebook() {
+    setLoading(true);
     LoginManager.logInWithPermissions(['public_profile']).then(
       function (result) {
         if (result.isCancelled) {
+          setLoading(false);
         } else {
           AccessToken.getCurrentAccessToken().then((data) => {
             const infoRequest = new GraphRequest(
@@ -49,17 +51,22 @@ const RegisterWithFacebook = (props) => {
           });
         }
       },
-      function (error) {},
+      function (error) {
+        setLoading(false);
+      },
     );
   }
 
   //Create response callback.
-  const _responseInfoCallback = (error, result) => {
+  const _responseInfoCallback = async (error, result) => {
     if (error) {
       console.log('ERROR:- ', error);
     } else {
-      dispatch(loginUser());
-      navigation.navigate('main-stack');
+      const response = await dispatch(loginUser());
+      setLoading(false);
+      if (response.meta.status) {
+        navigation.navigate('main-stack');
+      }
       console.log('RESULT:- ', result);
     }
   };
@@ -68,19 +75,21 @@ const RegisterWithFacebook = (props) => {
     <AuthContainer blur>
       <BackHeader onBackPress={() => navigation.goBack()} />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Image style={globalStyle.logo} source={Images.app_logo} />
+        <Image style={globalStyle.logo} source={Gifs.chat_signal_logo} />
         <View style={{marginTop: '10%'}}>
           <CountryPicker />
 
           <GradientButton
             type={'facebook'}
             title={appLabels.register_with_facebook}
-            // icon={'mail'}
+            icon={
+              <Image source={Icons.facebook_icon} style={styles.facebookIcon} />
+            }
             iconColor={Colors.white}
             style={styles.registerButtom}
             onPress={() => onLoginWithFacebook()}
+            loading={loading}
           />
-          <Loading loading={loading} />
         </View>
       </ScrollView>
     </AuthContainer>
@@ -99,6 +108,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 60,
     right: 16,
+  },
+  facebookIcon: {
+    width: 24,
+    height: 24,
+    tintColor: Colors.white,
+    marginEnd: 8,
   },
 });
 

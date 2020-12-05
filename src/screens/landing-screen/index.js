@@ -81,10 +81,7 @@ const LandingScreen = (props) => {
         />
       </TouchableOpacity>
       <Image
-        style={[
-          globalStyle.logo,
-          {marginTop: isIphoneX() ? 20 : 10, width: 250, height: 150},
-        ]}
+        style={[globalStyle.logo, {marginTop: isIphoneX() ? 20 : 10}]}
         source={Gifs.chat_signal_logo}
       />
       <View style={styles.bottomView}>

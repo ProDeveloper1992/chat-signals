@@ -9,12 +9,13 @@ import {
   CountryPicker,
   AppText,
 } from '../../components';
-import {Images} from '../../constants';
+import {Gifs, Icons, Images} from '../../constants';
 import {globalStyle} from '../../styles/global-style';
 import {GoogleSignin, statusCodes} from 'react-native-google-signin';
 import {Colors} from '../../constants';
 import {useDispatch, useSelector} from 'react-redux';
 import {loginUser} from '../../redux/actions/user-actions';
+import {showToast} from '../../redux/actions/app-actions';
 
 const RegisterWithGoogle = (props) => {
   const {navigation} = props;
@@ -65,11 +66,15 @@ const RegisterWithGoogle = (props) => {
       await GoogleSignin.hasPlayServices({
         showPlayServicesUpdateDialog: true,
       });
+      setLoading(true);
       const userInfo = await GoogleSignin.signIn();
       console.log('User Info --> ', userInfo);
       setUserInfo(userInfo);
-      dispatch(loginUser());
-      navigation.navigate('main-stack');
+      const response = await dispatch(loginUser());
+      setLoading(false);
+      if (response.meta.status) {
+        navigation.navigate('main-stack');
+      }
     } catch (error) {
       console.log('Message', error.message);
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -77,7 +82,9 @@ const RegisterWithGoogle = (props) => {
       } else if (error.code === statusCodes.IN_PROGRESS) {
         console.log('Signing In');
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        console.log('Play Services Not Available or Outdated');
+        dispatch(
+          showToast('negative', 'Play Services Not Available or Outdated'),
+        );
       } else {
         console.log('Some Other Error Happened');
       }
@@ -98,19 +105,21 @@ const RegisterWithGoogle = (props) => {
     <AuthContainer blur>
       <BackHeader onBackPress={() => navigation.goBack()} />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Image style={globalStyle.logo} source={Images.app_logo} />
+        <Image style={globalStyle.logo} source={Gifs.chat_signal_logo} />
         <View style={{marginTop: '10%'}}>
           <CountryPicker />
 
           <GradientButton
             type={'google'}
             title={appLabels.register_with_google}
-            // icon={'mail'}
+            icon={
+              <Image source={Icons.google_icon} style={styles.googleIcon} />
+            }
             iconColor={Colors.white}
             style={styles.registerButtom}
             onPress={() => _signIn()}
+            loading={loading}
           />
-          <Loading loading={loading} />
           {/* {userInfo && (
             <TouchableOpacity style={styles.button} onPress={_signOut}>
               <AppText>Logout</AppText>
@@ -141,6 +150,12 @@ const styles = StyleSheet.create({
     padding: 10,
     width: 300,
     marginTop: 30,
+  },
+  googleIcon: {
+    width: 24,
+    height: 24,
+    tintColor: Colors.white,
+    marginEnd: 8,
   },
 });
 

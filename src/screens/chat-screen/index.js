@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -7,6 +7,8 @@ import {
   Image,
   FlatList,
 } from 'react-native';
+import Pusher from 'pusher-js/react-native';
+
 import {GeneralHeader} from '../../components/Headers';
 import {useNavigation} from '@react-navigation/native';
 import {toggleLanguageModal} from '../../redux/actions/app-modals-actions';
@@ -43,6 +45,37 @@ const Chat = () => {
     },
   ]);
 
+  useEffect(() => {
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('2550b11480f5cba62c1e', {
+      cluster: 'ap2',
+    });
+
+    pusher.connection.bind('connected', function () {
+      // alert('pusher connected');
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('pusher:subscription_succeeded', () => {
+      channel.bind('join', (data) => {
+        alert(data);
+        // this.handleJoin(data.name);
+      });
+      channel.bind('part', (data) => {
+        alert(data);
+        // this.handlePart(data.name);
+      });
+      channel.bind('message', (data) => {
+        alert(data);
+        // this.handleMessage(data.name, data.message);
+      });
+    });
+    // channel.bind('my-event', function (data) {
+    //   alert(JSON.stringify(data));
+    // });
+  }, []);
+
   const ItemSeparatorView = () => {
     return (
       // FlatList Item Separator
@@ -75,7 +108,7 @@ const Chat = () => {
         showsVerticalScrollIndicator={false}
         renderItem={({item, index}) => (
           <ChatListItem
-            onChatPress={() => navigation.navigate('ChatDetail',{item:item})}
+            onChatPress={() => navigation.navigate('ChatDetail', {item: item})}
             profileImage={{uri: item.profileImage}}
             userName={item.userName}
             lastMessage={item.lastMessage}
