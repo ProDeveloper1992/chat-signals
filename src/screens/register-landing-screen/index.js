@@ -4,7 +4,7 @@ import Icon from 'react-native-ionicons';
 import {useSelector} from 'react-redux';
 
 import {GradientButton, AuthContainer, BackHeader} from '../../components';
-import {Images, Colors, Icons} from '../../constants';
+import {Images, Colors, Icons, Gifs} from '../../constants';
 import {globalStyle} from '../../styles/global-style';
 import styles from './style';
 
@@ -16,7 +16,7 @@ const RegisterLanding = (props) => {
   return (
     <AuthContainer blur>
       <BackHeader onBackPress={() => navigation.goBack()} />
-      <Image style={globalStyle.logo} source={Images.app_logo} />
+      <Image style={globalStyle.logo} source={Gifs.chat_signal_logo} />
       <View style={styles.container}>
         <GradientButton
           type={'primary'}

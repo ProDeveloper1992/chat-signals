@@ -12,7 +12,7 @@ export default function LanguageSelectionModal({visible, onHideModal}) {
   const {appLabels} = useSelector((state) => state.appState);
 
   const onChangeAppLanguage = (language) => {
-    dispatch(changeAppLanguage(language.country_code));
+    // dispatch(changeAppLanguage(language.country_code));
     onHideModal();
   };
 

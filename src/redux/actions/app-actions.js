@@ -32,7 +32,7 @@ export const getAppStrings = (params) => (dispatch) =>
 
 export const changeAppLanguage = (language_code) => async (dispatch) => {
   await dispatch(ActionDispatcher(CHANGE_APP_LANGUAGE, language_code));
-  dispatch(getAppStrings());
+  await dispatch(getAppStrings());
 };
 
 export const showToast = (type, title) => (dispatch) =>

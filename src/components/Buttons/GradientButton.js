@@ -58,17 +58,19 @@ export function GradientButton({type, title, icon, style, onPress, loading}) {
           borderWidth: type == 'transparent' ? 1 : 0,
           borderColor:
             type == 'transparent' ? Colors.ui_primary : 'transparent',
-          justifyContent: icon ? 'flex-start' : 'center',
+          justifyContent: icon && !loading ? 'flex-start' : 'center',
         },
       ]}
       onPress={onPress}>
-      {icon && icon}
       {loading ? (
         <ActivityIndicator size={'small'} color={Colors.white} />
       ) : (
-        <AppText type={'bold'} color={getTextColor()} size={16}>
-          {title.toUpperCase()}
-        </AppText>
+        <>
+          {icon && icon}
+          <AppText type={'bold'} color={getTextColor()} size={16}>
+            {title.toUpperCase()}
+          </AppText>
+        </>
       )}
     </TouchableOpacity>
   );

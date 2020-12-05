@@ -1,17 +1,40 @@
-import React from 'react';
-import {StyleSheet, TouchableOpacity, Image} from 'react-native';
+import React, {useState} from 'react';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  ActivityIndicator,
+} from 'react-native';
 import PropTypes from 'prop-types';
 import {Colors} from '../../constants';
 import {AppText} from '../../components';
+import {useDispatch, useSelector} from 'react-redux';
+import {changeAppLanguage} from '../../redux/actions/app-actions';
 
 export function CountryItem({
+  country,
   isSelected,
   imageUrl,
   countryName,
   size,
   style,
-  onPress,
+  onChangeCountry,
 }) {
+  const dispatch = useDispatch();
+
+  const {selectedLanguage} = useSelector((state) => state.appState);
+
+  const [loading, setLoading] = useState(false);
+
+  const onPress = async () => {
+    if (selectedLanguage != country.country_code) {
+      setLoading(true);
+      await dispatch(changeAppLanguage(country.country_code));
+      setLoading(false);
+      onChangeCountry();
+    }
+  };
+
   return (
     <TouchableOpacity
       activeOpacity={0.8}
@@ -33,13 +56,21 @@ export function CountryItem({
           borderRadius: size / 2,
         }}
       />
-      <AppText
-        type={'bold'}
-        size={16}
-        color={isSelected ? Colors.white : Colors.black}
-        style={styles.title}>
-        {countryName}
-      </AppText>
+      {loading ? (
+        <ActivityIndicator
+          size={'small'}
+          color={isSelected ? Colors.white : Colors.black}
+          style={{marginTop: 5}}
+        />
+      ) : (
+        <AppText
+          type={'bold'}
+          size={16}
+          color={isSelected ? Colors.white : Colors.black}
+          style={styles.title}>
+          {countryName}
+        </AppText>
+      )}
     </TouchableOpacity>
   );
 }
@@ -69,7 +100,7 @@ CountryItem.propTypes = {
   imageUrl: PropTypes.string,
   countryName: PropTypes.string,
   size: PropTypes.any,
-  onPress: PropTypes.func,
+  onChangeCountry: PropTypes.func,
 };
 
 CountryItem.defaultProps = {
@@ -77,5 +108,5 @@ CountryItem.defaultProps = {
   countryName: 'IN',
   size: 24,
 
-  onPress: () => {},
+  onChangeCountry: () => {},
 };
