@@ -8,7 +8,7 @@ export const Colors = {
   black: '#1f191b',
   black_30: 'rgba(0,0,0,0.3)',
   green: 'green',
-  red: 'red',
+  red: '#CB4335',
   positive: '#98ff67',
   ui_error: '#B22222',
   google: '#db4a39',
@@ -54,6 +54,7 @@ export const Icons = {
   coins_icon: require('../assets/icons/coins.png'),
   sticker_icon: require('../assets/icons/sticker.png'),
   add_image_icon: require('../assets/icons/add-Image.png'),
+  send_icon: require('../assets/icons/send.png'),
 };
 
 export const Gifs = {

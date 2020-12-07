@@ -11,21 +11,22 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		15FC7416D06D4622B03D9FA1 /* Gilroy-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE4FE65A70B34A99815E48F1 /* Gilroy-Regular.ttf */; };
+		180C6EA0257C94BF002E004B /* libswiftWebKit.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 180C6E9F257C94BF002E004B /* libswiftWebKit.tbd */; };
+		2B29024A26924231995B523F /* Gilroy-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8FE63DC01F27445EBBA5EFF4 /* Gilroy-Medium.ttf */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* ChatSignalsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ChatSignalsTests.m */; };
 		5193E136E31D13D9D6622F20 /* libPods-ChatSignals-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F2581E473FA9382ED4A2B15 /* libPods-ChatSignals-tvOS.a */; };
 		5ADF19EB80F04C958F3D5BB1 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B9A8707F00DE499E9A058B62 /* Ionicons.ttf */; };
 		608722BD808B35A57DF5FB9C /* libPods-ChatSignals.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F93EB2FA796568CC0BE9530F /* libPods-ChatSignals.a */; };
+		6C6C67DCD2B44C738A1878A0 /* Gilroy-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68777CAAE822469AB65DBECB /* Gilroy-Heavy.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		AB12BCD80D4C4D6E91B40AC5 /* Gilroy-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 04093C9370744503B953056C /* Gilroy-Light.ttf */; };
 		ACEE848B88CE22330AF5F0B2 /* libPods-ChatSignals-ChatSignalsTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B035BA3F7CDA0BC633C93D6 /* libPods-ChatSignals-ChatSignalsTests.a */; };
+		BE8B3A9BC727409987CFBDE7 /* Gilroy-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9533F0DF41464AC5A3C36C0B /* Gilroy-Bold.ttf */; };
 		C80EAD6224F15400003DE1E6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C80EAD6124F15400003DE1E6 /* GoogleService-Info.plist */; };
 		E6F471A92EE3EE9965C17157 /* libPods-ChatSignals-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B5C8ED8CEB0BF45D7C5EF0F /* libPods-ChatSignals-tvOSTests.a */; };
-		BE8B3A9BC727409987CFBDE7 /* Gilroy-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9533F0DF41464AC5A3C36C0B /* Gilroy-Bold.ttf */; };
-		6C6C67DCD2B44C738A1878A0 /* Gilroy-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 68777CAAE822469AB65DBECB /* Gilroy-Heavy.ttf */; };
-		AB12BCD80D4C4D6E91B40AC5 /* Gilroy-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 04093C9370744503B953056C /* Gilroy-Light.ttf */; };
-		2B29024A26924231995B523F /* Gilroy-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8FE63DC01F27445EBBA5EFF4 /* Gilroy-Medium.ttf */; };
-		15FC7416D06D4622B03D9FA1 /* Gilroy-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CE4FE65A70B34A99815E48F1 /* Gilroy-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,12 +51,14 @@
 		00E356EE1AD99517003FC87E /* ChatSignalsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChatSignalsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* ChatSignalsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatSignalsTests.m; sourceTree = "<group>"; };
+		04093C9370744503B953056C /* Gilroy-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Light.ttf"; path = "../assets/fonts/Gilroy-Light.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* ChatSignals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatSignals.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ChatSignals/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ChatSignals/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ChatSignals/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ChatSignals/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ChatSignals/main.m; sourceTree = "<group>"; };
+		180C6E9F257C94BF002E004B /* libswiftWebKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftWebKit.tbd; path = usr/lib/swift/libswiftWebKit.tbd; sourceTree = SDKROOT; };
 		1B035BA3F7CDA0BC633C93D6 /* libPods-ChatSignals-ChatSignalsTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ChatSignals-ChatSignalsTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B5C8ED8CEB0BF45D7C5EF0F /* libPods-ChatSignals-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ChatSignals-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E47B1E0B4A5D006451C7 /* ChatSignals-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ChatSignals-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,10 +67,14 @@
 		568E7B854451E2D31918F894 /* Pods-ChatSignals-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatSignals-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-ChatSignals-tvOS/Pods-ChatSignals-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		5F2581E473FA9382ED4A2B15 /* libPods-ChatSignals-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ChatSignals-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		62671A5B4DECAAAB38EA3761 /* Pods-ChatSignals-ChatSignalsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatSignals-ChatSignalsTests.debug.xcconfig"; path = "Target Support Files/Pods-ChatSignals-ChatSignalsTests/Pods-ChatSignals-ChatSignalsTests.debug.xcconfig"; sourceTree = "<group>"; };
+		68777CAAE822469AB65DBECB /* Gilroy-Heavy.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Heavy.ttf"; path = "../assets/fonts/Gilroy-Heavy.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ChatSignals/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8CF9B1A22CA6B2E6143442AB /* Pods-ChatSignals.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatSignals.release.xcconfig"; path = "Target Support Files/Pods-ChatSignals/Pods-ChatSignals.release.xcconfig"; sourceTree = "<group>"; };
+		8FE63DC01F27445EBBA5EFF4 /* Gilroy-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Medium.ttf"; path = "../assets/fonts/Gilroy-Medium.ttf"; sourceTree = "<group>"; };
+		9533F0DF41464AC5A3C36C0B /* Gilroy-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Bold.ttf"; path = "../assets/fonts/Gilroy-Bold.ttf"; sourceTree = "<group>"; };
 		B9A8707F00DE499E9A058B62 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-ionicons/fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		C80EAD6124F15400003DE1E6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CE4FE65A70B34A99815E48F1 /* Gilroy-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gilroy-Regular.ttf"; path = "../assets/fonts/Gilroy-Regular.ttf"; sourceTree = "<group>"; };
 		DCC0082A77B0063670B0A95C /* Pods-ChatSignals-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatSignals-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-ChatSignals-tvOSTests/Pods-ChatSignals-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		E284C85525F52C4BAB54F504 /* Pods-ChatSignals-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatSignals-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-ChatSignals-tvOSTests/Pods-ChatSignals-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E2BD0CA9E9D23F466D4C1CB3 /* Pods-ChatSignals-ChatSignalsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatSignals-ChatSignalsTests.release.xcconfig"; path = "Target Support Files/Pods-ChatSignals-ChatSignalsTests/Pods-ChatSignals-ChatSignalsTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -75,11 +82,6 @@
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F93EB2FA796568CC0BE9530F /* libPods-ChatSignals.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ChatSignals.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF78E774AC069A1A9AA68FFD /* Pods-ChatSignals.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatSignals.debug.xcconfig"; path = "Target Support Files/Pods-ChatSignals/Pods-ChatSignals.debug.xcconfig"; sourceTree = "<group>"; };
-		9533F0DF41464AC5A3C36C0B /* Gilroy-Bold.ttf */ = {isa = PBXFileReference; name = "Gilroy-Bold.ttf"; path = "../assets/fonts/Gilroy-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		68777CAAE822469AB65DBECB /* Gilroy-Heavy.ttf */ = {isa = PBXFileReference; name = "Gilroy-Heavy.ttf"; path = "../assets/fonts/Gilroy-Heavy.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		04093C9370744503B953056C /* Gilroy-Light.ttf */ = {isa = PBXFileReference; name = "Gilroy-Light.ttf"; path = "../assets/fonts/Gilroy-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		8FE63DC01F27445EBBA5EFF4 /* Gilroy-Medium.ttf */ = {isa = PBXFileReference; name = "Gilroy-Medium.ttf"; path = "../assets/fonts/Gilroy-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		CE4FE65A70B34A99815E48F1 /* Gilroy-Regular.ttf */ = {isa = PBXFileReference; name = "Gilroy-Regular.ttf"; path = "../assets/fonts/Gilroy-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				180C6EA0257C94BF002E004B /* libswiftWebKit.tbd in Frameworks */,
 				608722BD808B35A57DF5FB9C /* libPods-ChatSignals.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -153,6 +156,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				180C6E9F257C94BF002E004B /* libswiftWebKit.tbd */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				F93EB2FA796568CC0BE9530F /* libPods-ChatSignals.a */,
@@ -321,8 +325,8 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = S9886HJ8FM;
 						LastSwiftMigration = 1120;
+						ProvisioningStyle = Automatic;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -697,11 +701,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S9886HJ8FM;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ChatSignals/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/swift",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -709,6 +719,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatsignal;
 				PRODUCT_NAME = ChatSignals;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -721,10 +732,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = S9886HJ8FM;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = ChatSignals/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/swift",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -732,6 +749,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chatsignal;
 				PRODUCT_NAME = ChatSignals;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

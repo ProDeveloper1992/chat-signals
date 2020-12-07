@@ -67,7 +67,7 @@ function getToastBackgroundColor(type) {
     case 'positive':
       return Colors.green;
     case 'negative':
-      return Colors.red;
+      return Colors.ui_error;
     default:
       return Colors.black;
   }

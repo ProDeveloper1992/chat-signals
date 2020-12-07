@@ -2,7 +2,7 @@ import {TextButton} from './Buttons';
 import {AuthContainer} from './Containers';
 import {Loading} from './Loaders';
 import {GradientButton, IconButton} from './Buttons';
-import {AuthInput} from './Inputs';
+import {AuthInput, ChatInput} from './Inputs';
 import {BackHeader, GeneralHeader} from './Headers';
 import {CountryItem, GenderItem} from './Radios';
 import {CountryPicker, GenderPicker} from './Pickers';
@@ -22,6 +22,7 @@ export {
   GradientButton,
   IconButton,
   AuthInput,
+  ChatInput,
   BackHeader,
   GeneralHeader,
   CountryItem,

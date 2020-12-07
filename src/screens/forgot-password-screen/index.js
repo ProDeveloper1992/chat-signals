@@ -75,7 +75,7 @@ const ForgotPassword = (props) => {
           keyboardType={'email-address'}
           value={email}
           onChangeText={SetEmail}
-          style={{margintVertical: 8}}
+          style={{marginVertical: 8}}
           label={appLabels.email}
           placeholder={appLabels.email}
           error={emailError}
