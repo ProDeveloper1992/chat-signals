@@ -39,8 +39,11 @@ client.interceptors.request.use(
 // Add a response interceptor
 client.interceptors.response.use(
   function (response) {
+    console.log("API response...", response)
     // return response;
-    if (response.data) return response.data;
+    if (response.data){
+     return response.data;
+    }
     // if (response.data && response.data.status) return response.data;
     else {
       // if (response.data.message) message = response.data.message;
@@ -48,6 +51,8 @@ client.interceptors.response.use(
     }
   },
   function (error) {
+    console.log("API Error...", error)
+
     return Promise.reject(error);
   },
 );
