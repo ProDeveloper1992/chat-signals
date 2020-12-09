@@ -55,6 +55,8 @@ export const Icons = {
   sticker_icon: require('../assets/icons/sticker.png'),
   add_image_icon: require('../assets/icons/add-Image.png'),
   send_icon: require('../assets/icons/send.png'),
+  tick_icon: require('../assets/icons/tick_24.png'),
+  double_tick_icon: require('../assets/icons/double_tick_24.png'),
 };
 
 export const Gifs = {

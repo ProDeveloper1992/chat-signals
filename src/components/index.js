@@ -11,6 +11,7 @@ import {
   ModeratorListItem,
   ModeratorIconLabel,
   ModeratorHeader,
+  ChatBubble
 } from './app-list-items';
 import {AppText} from './app-text';
 
@@ -33,4 +34,5 @@ export {
   ModeratorListItem,
   ModeratorIconLabel,
   ModeratorHeader,
+  ChatBubble
 };
