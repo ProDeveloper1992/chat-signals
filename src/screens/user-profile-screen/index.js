@@ -27,7 +27,9 @@ export default function UserProfile(props) {
   const [cuurentTab, setCurrentTab] = useState(0);
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
-  const {userData} = useSelector((state) => state.userState);
+  const {userData, userProfileDetailList} = useSelector(
+    (state) => state.userState,
+  );
 
   useEffect(() => {}, []);
 
@@ -53,15 +55,30 @@ export default function UserProfile(props) {
     setActivityModalVisible(true);
   };
 
+  const getProfilePicture = () => {
+    var profilePic;
+    if (
+      userProfileDetailList.profile_picture &&
+      userProfileDetailList.profile_picture.length > 0
+    ) {
+      for (let item of userProfileDetailList.profile_picture) {
+        if (item.is_profile_photo == 1) {
+          profilePic = item.picture;
+        }
+      }
+    }
+    return profilePic;
+  };
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
         <ImageBackground
           style={styles.imgBackground}
           resizeMode="cover"
-          source={{uri: userData.avatar}}>
+          source={{uri: getProfilePicture()}}>
           <ModeratorHeader
-            label={userData.username}
+            label={userProfileDetailList?.firstname+" "+userProfileDetailList?.lastname}
             onBackPress={() => props.navigation.goBack()}
           />
         </ImageBackground>
@@ -73,7 +90,7 @@ export default function UserProfile(props) {
             <View style={styles.moderatorNameContainer}>
               <View style={styles.onlineStatusSignal(true)} />
               <AppText type={'bold'} size={16} style={{textAlign: 'center'}}>
-                {userData.username}
+                {userProfileDetailList?.firstname+" "+userProfileDetailList?.lastname}
               </AppText>
             </View>
 

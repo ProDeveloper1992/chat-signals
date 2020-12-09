@@ -3,59 +3,65 @@ import {View, ScrollView, Image} from 'react-native';
 import {AppText} from '../../../components';
 import {Icons} from '../../../constants';
 import styles from './style';
+import {useSelector} from 'react-redux';
 
 export default function UserProfileInfoTab(props) {
+  const {userProfileDetailList} = useSelector(
+    (state) => state.userState,
+  );
+
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       <PropertyHolder
         IconSource={Icons.chat_active}
-        Key={'Geschlecht'}
-        Value={'Frau'}
+        Key={'Gender'}
+        Value={userProfileDetailList.Gender}
       />
       <PropertyHolder
         IconSource={Icons.chat_active}
-        Key={'Wohnort'}
-        Value={'DE'}
+        // Key={'Wohnort'}
+        Key={'Country'}
+        Value={userProfileDetailList.country}
       />
       <PropertyHolder
         IconSource={Icons.chat_active}
-        Key={'Entfernung'}
-        Value={'25 km Umkreis'}
+        Key={'Distance'}
+        Value={'25 km Radius'}
       />
       <PropertyHolder
         IconSource={Icons.chat_active}
-        Key={'Alter'}
+        Key={'Age'}
         Value={'35'}
       />
       <PropertyHolder
         IconSource={Icons.chat_active}
-        Key={'Sternzeichen'}
-        Value={'Fisch'}
+        Key={'Zodiac Sign'}
+        Value={'fish'}
       />
       <PropertyHolder
         IconSource={Icons.chat_active}
-        Key={'Grosse'}
+        Key={'Height'}
         Value={'160cm - 170cm'}
       />
       <PropertyHolder
         IconSource={Icons.chat_active}
-        Key={'Figur'}
+        Key={'Figure'}
         Value={'normal'}
       />
       <PropertyHolder
         IconSource={Icons.chat_active}
-        Key={'Haarfarbe'}
-        Value={'schwarz'}
+        Key={'Hair Color'}
+        Value={'black'}
       />
       <PropertyHolder
         IconSource={Icons.chat_active}
-        Key={'Augenfarbe'}
-        Value={'blau'}
+        Key={'Eye color'}
+        Value={'blue'}
       />
       <PropertyHolder
         IconSource={Icons.chat_active}
-        Key={'Hautfarbe'}
-        Value={'hell'}
+        Key={'Skin color'}
+        Value={'bright'}
       />
     </ScrollView>
   );
