@@ -6,18 +6,24 @@ import {useNavigation} from '@react-navigation/native';
 
 import styles from './style';
 import {getFlirtsList} from '../../redux/actions/flirts-actions';
+import {userProfileDetail} from '../../redux/actions/user-actions';
 
 export default function FlirtTab(props) {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const {flirtsList} = useSelector((state) => state.flirtsState);
+  const {userData} = useSelector((state) => state.userState);
 
   useEffect(() => {
     let requestData = {
       page: 1,
     };
+    let userId = {
+      id : userData.id
+    }
     dispatch(getFlirtsList(requestData));
+    dispatch(userProfileDetail(userId));
   }, []);
 
   return (
