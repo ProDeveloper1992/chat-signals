@@ -5,9 +5,9 @@ import appState from './app-state';
 import flirtsState from './flirts-state';
 import appModalState from './app-modals-state';
 import bookmarkState from './bookmarks-state';
-// import NavigatorService from "../helpers/navigator";
+import { ActionDispatcher } from '../actions';
 
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGOUT_USER = 'LOGOUT_USER';
 
 const allReducers = combineReducers({
   userState: userState,
@@ -17,22 +17,23 @@ const allReducers = combineReducers({
   bookmarkState: bookmarkState
 });
 
-// export const logout = (user) => (dispatch, getState) =>
-//   new Promise(function (resolve, reject) {
-//     dispatch({
-//       type: LOGOUT_SUCCESS,
-//     });
-//     resolve(true);
-//   });
+export const logoutUser = (user) => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    // dispatch({
+    //   type: LOGOUT_USER,
+    // });
+    dispatch(ActionDispatcher(LOGOUT_USER, true));
+    resolve(true);
+  });
 
 const rootReducer = (state, action) => {
-  //   if (action.type === LOGOUT_SUCCESS) {
-  //     Object.keys(state).forEach((key) => {
-  //       AsyncStorage.removeItem(`persist:${key}`);
-  //     });
-  //     AsyncStorage.removeItem('userToken');
-  //     state = undefined;
-  //   }
+    if (action.type === LOGOUT_USER) {
+      Object.keys(state).forEach((key) => {
+        AsyncStorage.removeItem(`persist:${key}`);
+      });
+      AsyncStorage.removeItem('userToken');
+      state = undefined;
+    }
   return allReducers(state, action);
 };
 

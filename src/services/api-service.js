@@ -1,6 +1,10 @@
 // import { store } from '../redux/store/store';
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
+import * as RootNavigation from '../navigators/root-navigation'
+import { store } from '../redux/store';
+import { showToast } from '../redux/actions/app-actions';
+import { logoutUser } from '../redux/reducers';
 // import io from "socket.io-client";
 
 // export const socket = io("http://13.251.162.218:8080");
@@ -22,13 +26,12 @@ export const client = axios.create({
 
 client.interceptors.request.use(
   async function (config) {
-    // var basicAuth = await AsyncStorage.getItem("userToken");
-    // if (basicAuth && basicAuth != null) {
-    //   config.headers.Authorization = `Bearer ${basicAuth}`;
-    //   //console.log("Token", config.headers.Authorization);
-    // } else {
-    //   // NavigatorService.navigate("SignIn");
-    // }
+    var basicAuth = store.getState().userState.authToken;
+    if (basicAuth && basicAuth != null) {
+      config.headers.Authorization = `Bearer ${basicAuth}`;
+    } else {
+      RootNavigation.navigate('auth-stack');
+    }
     return config;
   },
   function (error) {
@@ -40,19 +43,20 @@ client.interceptors.request.use(
 client.interceptors.response.use(
   function (response) {
     console.log("API response...", response)
-    // return response;
     if (response.data){
      return response.data;
     }
-    // if (response.data && response.data.status) return response.data;
     else {
-      // if (response.data.message) message = response.data.message;
       return Promise.reject(response);
     }
   },
   function (error) {
-    console.log("API Error...", error)
-
+    console.log("API Error...", error.response)
+    if(error.response.status == 401){
+      store.dispatch(showToast('negative', "Session Expired! Login Again!"));
+      store.dispatch(logoutUser())
+      RootNavigation.navigate('auth-stack');
+    }
     return Promise.reject(error);
   },
 );

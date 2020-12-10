@@ -9,6 +9,7 @@ import {AppLoading} from '../screens';
 import {StatusBar} from 'react-native';
 import {Colors} from '../constants';
 import {useSelector} from 'react-redux';
+import { navigationRef } from './root-navigation';
 
 const RootStack = createStackNavigator();
 
@@ -35,7 +36,7 @@ export default function () {
         barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}
         backgroundColor={Colors.black}
       />
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <RootStack.Navigator
           // initialRouteName={isLoggedIn ? 'main-stack' : 'auth-stack'}
           initialRouteName={'app-loading-screen'}
