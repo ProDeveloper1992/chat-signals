@@ -5,6 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import styles from './style';
 import { ChatBubble, ChatInput } from '../../components';
+import { Icons } from '../../constants';
 
 const ChatDetail = (props) => {
   const navigation = useNavigation();
@@ -140,9 +141,9 @@ const ChatDetail = (props) => {
     // <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
     <View style={styles.container}>
       <ChatDetailHeader
-        leftIcon={{uri: userItem.profileImage}}
+        leftIcon={Icons.user_profile}
         onLeftPress={() => navigation.goBack()}
-        label={userItem.userName}
+        label={userItem.user.username}
       />
       <FlatList
         data={chatData}

@@ -19,7 +19,7 @@ const DailyCoins = () => {
         onLeftPress={()=>navigation.navigate('UserProfile')}
         onLanguagePress={() => dispatch(toggleLanguageModal(true))}
         LanguageIcon={Icons.icon_languages}
-        leftIcon={Icons.search}
+        leftIcon={Icons.user_profile}
         label={'Daily Coins'}
       />
   </View>;

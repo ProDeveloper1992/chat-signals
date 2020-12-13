@@ -88,7 +88,7 @@ export default function Home() {
         onLeftPress={()=>navigation.navigate('UserProfile')}
         onLanguagePress={() => dispatch(toggleLanguageModal(true))}
         LanguageIcon={Icons.icon_languages}
-        leftIcon={Icons.search}
+        leftIcon={Icons.user_profile}
         label={'Flirts'}
       />
 

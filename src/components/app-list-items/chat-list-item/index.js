@@ -1,6 +1,9 @@
+import moment from 'moment';
 import React from 'react';
 import {TouchableOpacity, View, Image} from 'react-native';
-import {Colors, Icons} from '../../../constants';
+import PropTypes from 'prop-types';
+
+import {Colors, Icons, Images} from '../../../constants';
 import {AppText} from '../../index';
 import style from '../moderator-list-item/style';
 import styles from './style';
@@ -24,7 +27,7 @@ export default function ChatListItem({
             type={'bold'}
             size={14}
             color={Colors.black}
-            style={{textTransform: 'uppercase'}}>
+            >
             {userName}
           </AppText>
           <AppText
@@ -34,7 +37,7 @@ export default function ChatListItem({
             style={{
               marginTop: 5,
             }}>
-            {lastMessage}
+            {lastMessage!=""?lastMessage:"Media"}
           </AppText>
         </View>
       </View>
@@ -42,9 +45,25 @@ export default function ChatListItem({
         style={{
           alignItems: 'center',
         }}>
-        <AppText size={10}>{lastMessageTime}</AppText>
+        <AppText size={10}>{moment(lastMessageTime).fromNow()}</AppText>
         <Image style={styles.arrowRight} source={Icons.right_arrow} />
       </View>
     </TouchableOpacity>
   );
 }
+
+ChatListItem.propTypes = {
+  profileImage:PropTypes.any,
+  userName:PropTypes.string,
+  lastMessage:PropTypes.any,
+  lastMessageTime:PropTypes.string,
+  onChatPress:PropTypes.func,
+};
+
+ChatListItem.defaultProps = {
+  profileImage:Images.forgot_heart_logo,
+  userName:'Username',
+  lastMessage:'Last Message',
+  lastMessageTime:new Date(),
+  onChatPress:()=>{},
+};

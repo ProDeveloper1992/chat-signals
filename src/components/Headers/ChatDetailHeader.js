@@ -29,6 +29,7 @@ export function ChatDetailHeader({
           width: 40,
           borderRadius: 20,
           resizeMode: 'cover',
+          tintColor:Colors.white
         }}
         source={leftIcon}
       />
@@ -76,7 +77,6 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
     textAlign: 'center',
     marginLeft: 15,
-    textTransform: 'uppercase',
   },
   profileView: {
     flexDirection: 'row',
