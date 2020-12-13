@@ -18,6 +18,7 @@ export default StyleSheet.create({
     borderRadius: 8,
     alignSelf: 'center',
     resizeMode: 'cover',
+    tintColor:Colors.ui_primary_dark
   },
 
   userDetailContainer:{

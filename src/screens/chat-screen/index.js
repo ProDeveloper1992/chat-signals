@@ -6,44 +6,26 @@ import {
   ImageBackground,
   Image,
   FlatList,
+  ActivityIndicator,
 } from 'react-native';
 import Pusher from 'pusher-js/react-native';
 
 import {GeneralHeader} from '../../components/Headers';
 import {useNavigation} from '@react-navigation/native';
 import {toggleLanguageModal} from '../../redux/actions/app-modals-actions';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Colors, Icons} from '../../constants';
 import {AppText} from '../../components/app-text';
 import styles from './style';
 import {ChatListItem} from '../../components/app-list-items';
+import { getUserChatList } from '../../redux/actions/user-actions';
+import { NoListData } from '../../components';
 
 const Chat = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const [chatData, setChatData] = React.useState([
-    {
-      key: 1,
-      userName: 'u1',
-      profileImage: 'https://picsum.photos/200',
-      lastMessage: 'i am good',
-      lastMessageTime: '17.58',
-    },
-    {
-      key: 2,
-      userName: 'User2',
-      profileImage: 'https://picsum.photos/300',
-      lastMessage: 'hi',
-      lastMessageTime: '07.58',
-    },
-    {
-      key: 3,
-      userName: 'u3',
-      profileImage: 'https://picsum.photos/450',
-      lastMessage: 'finding nemo',
-      lastMessageTime: '22.21',
-    },
-  ]);
+
+  const {userChatList, loadingChatList}= useSelector((state)=>state.userState);
 
   useEffect(() => {
     Pusher.logToConsole = true;
@@ -74,6 +56,9 @@ const Chat = () => {
     // channel.bind('my-event', function (data) {
     //   alert(JSON.stringify(data));
     // });
+
+    //API call for get user's chat list
+    dispatch(getUserChatList());
   }, []);
 
   const ItemSeparatorView = () => {
@@ -99,25 +84,33 @@ const Chat = () => {
         onLeftPress={() => navigation.navigate('UserProfile')}
         onLanguagePress={() => dispatch(toggleLanguageModal(true))}
         LanguageIcon={Icons.icon_languages}
-        leftIcon={Icons.search}
+        leftIcon={Icons.user_profile}
         label={'Chat'}
       />
-      <FlatList
-        data={chatData}
-        contentContainerStyle={{paddingBottom: 20}}
-        showsVerticalScrollIndicator={false}
-        renderItem={({item, index}) => (
-          <ChatListItem
-            onChatPress={() => navigation.navigate('ChatDetail', {item: item})}
-            profileImage={{uri: item.profileImage}}
-            userName={item.userName}
-            lastMessage={item.lastMessage}
-            lastMessageTime={item.lastMessageTime}
-          />
-        )}
-        ItemSeparatorComponent={ItemSeparatorView}
-        keyExtractor={(item, index) => index.toString()}
-      />
+      {loadingChatList?(
+        <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
+            <ActivityIndicator size={'large'} color={Colors.ui_primary}/>
+        </View>
+      ):(
+        <FlatList
+          data={userChatList}
+          contentContainerStyle={{flexGrow:1,paddingBottom: 20}}
+          showsVerticalScrollIndicator={false}
+          renderItem={({item, index}) => (
+            <ChatListItem
+              onChatPress={() => navigation.navigate('ChatDetail', {item: item})}
+              profileImage={Icons.user_profile}
+              userName={item.user.username}
+              lastMessage={item.lastMessage.body}
+              lastMessageTime={item.lastMessage.created_at}
+            />
+          )}
+          ItemSeparatorComponent={ItemSeparatorView}
+          keyExtractor={(item, index) => index.toString()}
+          ListEmptyComponent={<NoListData title={"No Chats Found!"}/>}
+        />
+      )}
+      
     </View>
   );
 };
