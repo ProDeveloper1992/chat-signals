@@ -12,6 +12,7 @@ import {AppText} from '../../../components';
 import {Colors, SCREEN_HEIGHT, SCREEN_WIDTH, Icons} from '../../../constants';
 import styles from './style';
 import ImagePicker from 'react-native-image-picker';
+import GallerySwiper from 'react-native-gallery-swiper';
 
 const listColums = 2;
 const listRows = 3.5;
@@ -91,10 +92,12 @@ export default function UserProfilePhotosTab(props) {
               height: listItemHeight,
               backgroundColor: 'lightgrey',
             }}>
-            <Image
-              source={{uri: item.image}}
-              style={{height: '100%', width: '100%'}}
-            />
+            <TouchableOpacity onPress={()=>onImagePress(index)}>
+              <Image
+                source={{uri: item.image}}
+                style={{height: '100%', width: '100%'}}
+              />
+            </TouchableOpacity>
           </View>
         )}
         keyExtractor={(item, index) => String(index)}
@@ -149,6 +152,20 @@ export default function UserProfilePhotosTab(props) {
           />
         </View>
       </TouchableOpacity>
+      {/* <GallerySwiper
+        images={[
+          {uri: 'https://picsum.photos/200'},
+          {uri: 'https://picsum.photos/300'},
+          {uri: 'https://picsum.photos/400'},
+          {uri: 'https://picsum.photos/500'},
+          {uri: 'https://picsum.photos/600'},
+          {uri: 'https://picsum.photos/700'},
+        ]}
+        initialNumToRender={2}
+        sensitiveScroll={false}
+      /> */}
+
+     
 
       {/* <Image
         source={{

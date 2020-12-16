@@ -122,7 +122,7 @@ export default function UserProfile(props) {
               }}
               source={Icons.super_flirt_heart_icon}
             />
-            <AppText type={'normal'} size={14} color={Colors.ui_primary}>
+            <AppText type={'regular'} size={14} color={Colors.ui_primary}>
               {'Get Super-Flirted now!'}
             </AppText>
           </TouchableOpacity>
