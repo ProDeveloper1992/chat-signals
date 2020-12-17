@@ -12,7 +12,8 @@ import {AppText} from '../../../components';
 import {Colors, SCREEN_HEIGHT, SCREEN_WIDTH, Icons} from '../../../constants';
 import styles from './style';
 import ImagePicker from 'react-native-image-picker';
-import GallerySwiper from 'react-native-gallery-swiper';
+import { useDispatch } from 'react-redux';
+import { toggleGallerySwiperModal } from '../../../redux/actions/app-modals-actions';
 
 const listColums = 2;
 const listRows = 3.5;
@@ -25,21 +26,29 @@ const listItemHeight =
 let width = Dimensions.get('screen').width / 2 - 8;
 
 export default function UserProfilePhotosTab(props) {
+
+  const dispatch = useDispatch();
+
   const [photosList, setphotosList] = useState([
     {
-      image: 'https://picsum.photos/200',
+      uri: 'https://picsum.photos/200',
+      dimensions: { width: 1080, height: 1920 }
     },
     {
-      image: 'https://picsum.photos/300',
+      uri: 'https://picsum.photos/300',
+      dimensions: { width: 1080, height: 1920 }
     },
     {
-      image: 'https://picsum.photos/220',
+      uri: 'https://picsum.photos/220',
+      dimensions: { width: 1080, height: 1920 }
     },
     {
-      image: 'https://picsum.photos/240',
+      uri: 'https://picsum.photos/240',
+      dimensions: { width: 1080, height: 1920 }
     },
     {
-      image: 'https://picsum.photos/260',
+      uri: 'https://picsum.photos/260',
+      dimensions: { width: 1080, height: 1920 }
     },
   ]);
   const [filePath, setFilePath] = useState({});
@@ -73,6 +82,10 @@ export default function UserProfilePhotosTab(props) {
     });
   };
 
+  const onImagePress=(index)=>{
+    dispatch(toggleGallerySwiperModal(true, photosList, index))
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
@@ -92,9 +105,9 @@ export default function UserProfilePhotosTab(props) {
               height: listItemHeight,
               backgroundColor: 'lightgrey',
             }}>
-            <TouchableOpacity onPress={()=>onImagePress(index)}>
+            <TouchableOpacity activeOpacity={0.8} onPress={()=>onImagePress(index)}>
               <Image
-                source={{uri: item.image}}
+                source={{uri: item.uri}}
                 style={{height: '100%', width: '100%'}}
               />
             </TouchableOpacity>
@@ -152,20 +165,6 @@ export default function UserProfilePhotosTab(props) {
           />
         </View>
       </TouchableOpacity>
-      {/* <GallerySwiper
-        images={[
-          {uri: 'https://picsum.photos/200'},
-          {uri: 'https://picsum.photos/300'},
-          {uri: 'https://picsum.photos/400'},
-          {uri: 'https://picsum.photos/500'},
-          {uri: 'https://picsum.photos/600'},
-          {uri: 'https://picsum.photos/700'},
-        ]}
-        initialNumToRender={2}
-        sensitiveScroll={false}
-      /> */}
-
-     
 
       {/* <Image
         source={{

@@ -1,15 +1,34 @@
-import React, {useState} from 'react';
-import {View, FlatList} from 'react-native';
-import {useSelector} from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {View, FlatList, ActivityIndicator} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import {ModeratorListItem} from '../../components';
 import {useNavigation} from '@react-navigation/native';
 
 import styles from './style';
+import { Colors } from '../../constants';
+import { getFlirtsList } from '../../redux/actions/flirts-actions';
 
 export default function SuperFlirtTab(props) {
-  const {flirtsList} = useSelector((state) => state.flirtsState);
+  const dispatch = useDispatch();
+
+  const {flirtsList, flirtsLoading} = useSelector((state) => state.flirtsState);
+
+  useEffect(() => {
+    let requestData = {
+      page: 1,
+    };
+    dispatch(getFlirtsList(requestData));
+  }, []);
 
   const navigation = useNavigation();
+
+  if(flirtsLoading){
+    return  (
+      <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
+        <ActivityIndicator size={'large'} color={Colors.ui_primary}/>
+      </View>
+    )
+  }
 
   return (
     <View style={styles.container}>

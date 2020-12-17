@@ -1,5 +1,13 @@
 import {StyleSheet} from 'react-native';
-import {Colors} from '../../../constants';
+import {Colors, SCREEN_HEIGHT, SCREEN_WIDTH} from '../../../constants';
+
+const listColums = 2;
+const listRows = 3.5;
+const listItemMargin = 10;
+const listItemWidth =
+  (SCREEN_WIDTH - (listColums + 1) * listItemMargin) / listColums;
+const listItemHeight =
+  (SCREEN_HEIGHT - (listRows + 1) * listItemMargin) / listRows;
 
 export default StyleSheet.create({
   container: {
@@ -22,8 +30,10 @@ export default StyleSheet.create({
     padding: 5,
   },
   imageStyle: {
-    width: 200,
-    height: 200,
-    margin: 5,
+    flex: 1 / 2,
+    width: listItemWidth,
+    height: listItemHeight,
+    marginTop: 3,
+    marginHorizontal: 2,
   },
 });
