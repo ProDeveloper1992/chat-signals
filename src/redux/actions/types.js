@@ -13,6 +13,8 @@ export const LOGIN_FAIL = 'LOGIN_FAIL';
 //App UI Modal's Actions
 export const TOGGLE_LANGUAGE_SELECTION_MODAL =
   'TOGGLE_LANGUAGE_SELECTION_MODAL';
+  export const TOGGLE_GALLERY_SWIPER_MODAL =
+  'TOGGLE_GALLERY_SWIPER_MODAL';
 
 //Flirts and Superflirts list Actions
 export const GET_FLIRTS_REQUEST = 'GET_FLIRTS_REQUEST';

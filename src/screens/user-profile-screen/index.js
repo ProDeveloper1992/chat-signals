@@ -56,7 +56,7 @@ export default function UserProfile(props) {
   };
 
   const getProfilePicture = () => {
-    var profilePic;
+    var profilePic = null;
     if (
       userProfileDetailList.profile_picture &&
       userProfileDetailList.profile_picture.length > 0

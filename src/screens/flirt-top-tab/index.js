@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, FlatList} from 'react-native';
+import {View, FlatList, ActivityIndicator} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {ModeratorListItem} from '../../components';
 import {useNavigation} from '@react-navigation/native';
@@ -7,12 +7,13 @@ import {useNavigation} from '@react-navigation/native';
 import styles from './style';
 import {getFlirtsList} from '../../redux/actions/flirts-actions';
 import {userProfileDetail} from '../../redux/actions/user-actions';
+import { Colors } from '../../constants';
 
 export default function FlirtTab(props) {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const {flirtsList} = useSelector((state) => state.flirtsState);
+  const {flirtsList, flirtsLoading} = useSelector((state) => state.flirtsState);
   const {userData} = useSelector((state) => state.userState);
 
   useEffect(() => {
@@ -25,6 +26,14 @@ export default function FlirtTab(props) {
     dispatch(getFlirtsList(requestData));
     dispatch(userProfileDetail(userId));
   }, []);
+
+  if(flirtsLoading){
+    return  (
+      <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
+        <ActivityIndicator size={'large'} color={Colors.ui_primary}/>
+      </View>
+    )
+  }
 
   return (
     <View style={styles.container}>
