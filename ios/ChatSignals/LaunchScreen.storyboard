@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,15 +16,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="OCs-WB-dqf">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Bcu-3y-fUS" firstAttribute="bottom" secondItem="OCs-WB-dqf" secondAttribute="bottom" id="KSC-bT-rag"/>
-                            <constraint firstItem="OCs-WB-dqf" firstAttribute="top" secondItem="Bcu-3y-fUS" secondAttribute="top" id="aDE-oa-1PP"/>
-                            <constraint firstItem="OCs-WB-dqf" firstAttribute="leading" secondItem="Bcu-3y-fUS" secondAttribute="leading" id="hab-uW-X8H"/>
+                            <constraint firstAttribute="bottom" secondItem="OCs-WB-dqf" secondAttribute="bottom" id="KSC-bT-rag"/>
+                            <constraint firstItem="OCs-WB-dqf" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="aDE-oa-1PP"/>
+                            <constraint firstItem="OCs-WB-dqf" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="hab-uW-X8H"/>
                             <constraint firstAttribute="trailing" secondItem="OCs-WB-dqf" secondAttribute="trailing" id="iow-9J-dqb"/>
                         </constraints>
                     </view>
@@ -36,6 +34,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="splash" width="1009" height="1391"/>
+        <image name="splash" width="213" height="319.5"/>
     </resources>
 </document>

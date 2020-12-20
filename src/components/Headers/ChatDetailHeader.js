@@ -1,7 +1,7 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity, View, Image} from 'react-native';
-import {Colors, Icons} from '../../constants';
-import {AppText} from '..';
+import { StyleSheet, TouchableOpacity, View, Image, SafeAreaView } from 'react-native';
+import { Colors, Icons } from '../../constants';
+import { AppText } from '..';
 import Icon from 'react-native-ionicons';
 
 export function ChatDetailHeader({
@@ -15,49 +15,52 @@ export function ChatDetailHeader({
   onLanguagePress,
 }) {
   return (
-    <View style={[styles.container, style]}>
-      <Icon
-        style={{marginRight: 10}}
-        name={'arrow-back'}
-        color={Colors.white}
-        size={25}
-        onPress={onLeftPress}
-      />
-      <Image
-        style={{
-          height: 40,
-          width: 40,
-          borderRadius: 20,
-          resizeMode: 'cover',
-          tintColor:Colors.white
-        }}
-        source={leftIcon}
-      />
+    <>
+      <SafeAreaView style={{ backgroundColor: Colors.ui_primary }} />
+      <View style={[styles.container, style]}>
+        <Icon
+          style={{ marginRight: 10 }}
+          name={'arrow-back'}
+          color={Colors.white}
+          size={25}
+          onPress={onLeftPress}
+        />
+        <Image
+          style={{
+            height: 40,
+            width: 40,
+            borderRadius: 20,
+            resizeMode: 'cover',
+            tintColor: Colors.white
+          }}
+          source={leftIcon}
+        />
 
-      <AppText type={'bold'} size={16} style={styles.headerTitle}>
-        {label}
-      </AppText>
+        <AppText type={'bold'} size={16} style={styles.headerTitle}>
+          {label}
+        </AppText>
 
-      <View
-        style={{
-          flexDirection: 'row',
-          flex: 1,
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-        }}>
-        <TouchableOpacity onPress={onRightPress}>
-          <Image
-            style={{
-              height: 20,
-              width: 20,
-              resizeMode: 'contain',
-              tintColor: 'white',
-            }}
-            source={rightIcon}
-          />
-        </TouchableOpacity>
+        <View
+          style={{
+            flexDirection: 'row',
+            flex: 1,
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+          }}>
+          <TouchableOpacity onPress={onRightPress}>
+            <Image
+              style={{
+                height: 20,
+                width: 20,
+                resizeMode: 'contain',
+                tintColor: 'white',
+              }}
+              source={rightIcon}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 

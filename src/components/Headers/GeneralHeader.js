@@ -1,7 +1,7 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity, View, Image} from 'react-native';
-import {Colors} from '../../constants';
-import {AppText} from '../../components';
+import { StyleSheet, TouchableOpacity, View, Image, SafeAreaView } from 'react-native';
+import { Colors } from '../../constants';
+import { AppText } from '../../components';
 
 export function GeneralHeader({
   style,
@@ -14,35 +14,37 @@ export function GeneralHeader({
   onLanguagePress,
 }) {
   return (
-    <View style={[styles.container, style]}>
-      <View style={styles.flexOne}>
-        <TouchableOpacity onPress={onLeftPress}>
-          <Image
-            style={{
-              height: 25,
-              width: 25,
-              resizeMode: 'cover',
-              tintColor: 'white',
-            }}
-            source={leftIcon}
-          />
-        </TouchableOpacity>
-      </View>
+    <>
+      <SafeAreaView style={{ backgroundColor: Colors.ui_primary }} />
+      <View style={[styles.container, style]}>
+        <View style={styles.flexOne}>
+          <TouchableOpacity onPress={onLeftPress}>
+            <Image
+              style={{
+                height: 25,
+                width: 25,
+                resizeMode: 'cover',
+                tintColor: 'white',
+              }}
+              source={leftIcon}
+            />
+          </TouchableOpacity>
+        </View>
 
-      <View style={styles.flexOne}>
-        <AppText type={'bold'} size={16} style={styles.headerTitle}>
-          {label}
-        </AppText>
-      </View>
+        <View style={styles.flexOne}>
+          <AppText type={'bold'} size={16} style={styles.headerTitle}>
+            {label}
+          </AppText>
+        </View>
 
-      <View
-        style={{
-          flexDirection: 'row',
-          flex: 1,
-          justifyContent: 'flex-end',
-          alignItems: 'center',
-        }}>
-        {/* <TouchableOpacity
+        <View
+          style={{
+            flexDirection: 'row',
+            flex: 1,
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+          }}>
+          {/* <TouchableOpacity
           onPress={onRightPress}>
           <Image
             style={{
@@ -54,19 +56,20 @@ export function GeneralHeader({
             source={rightIcon}
           />
         </TouchableOpacity> */}
-        <TouchableOpacity style={{marginStart: 20}} onPress={onLanguagePress}>
-          <Image
-            style={{
-              height: 24,
-              width: 24,
-              resizeMode: 'contain',
-              tintColor: 'white',
-            }}
-            source={LanguageIcon}
-          />
-        </TouchableOpacity>
+          <TouchableOpacity style={{ marginStart: 20 }} onPress={onLanguagePress}>
+            <Image
+              style={{
+                height: 24,
+                width: 24,
+                resizeMode: 'contain',
+                tintColor: 'white',
+              }}
+              source={LanguageIcon}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 

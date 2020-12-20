@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   ScrollView,
@@ -8,8 +8,8 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
-import {AppText} from '../../../components';
-import {Colors, SCREEN_HEIGHT, SCREEN_WIDTH, Icons} from '../../../constants';
+import { AppText } from '../../../components';
+import { Colors, SCREEN_HEIGHT, SCREEN_WIDTH, Icons } from '../../../constants';
 import styles from './style';
 import ImagePicker from 'react-native-image-picker';
 import { useDispatch } from 'react-redux';
@@ -82,19 +82,19 @@ export default function UserProfilePhotosTab(props) {
     });
   };
 
-  const onImagePress=(index)=>{
+  const onImagePress = (index) => {
     dispatch(toggleGallerySwiperModal(true, photosList, index))
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        columnWrapperStyle={{justifyContent: 'space-between'}}
+        columnWrapperStyle={{ justifyContent: 'space-between' }}
         data={photosList}
         numColumns={2}
         contentContainerStyle={{}}
         showsVerticalScrollIndicator={false}
-        renderItem={({item, index}) => (
+        renderItem={({ item, index }) => (
           <View
             key={String(index)}
             style={{
@@ -105,10 +105,10 @@ export default function UserProfilePhotosTab(props) {
               height: listItemHeight,
               backgroundColor: 'lightgrey',
             }}>
-            <TouchableOpacity activeOpacity={0.8} onPress={()=>onImagePress(index)}>
+            <TouchableOpacity activeOpacity={0.8} onPress={() => onImagePress(index)}>
               <Image
-                source={{uri: item.uri}}
-                style={{height: '100%', width: '100%'}}
+                source={{ uri: item.uri }}
+                style={{ height: '100%', width: '100%' }}
               />
             </TouchableOpacity>
           </View>
@@ -173,7 +173,7 @@ export default function UserProfilePhotosTab(props) {
         style={styles.imageStyle}
       /> */}
       {filePath.uri && (
-        <Image source={{uri: filePath.uri}} style={styles.imageStyle} />
+        <Image source={{ uri: filePath.uri }} style={styles.imageStyle} />
       )}
     </SafeAreaView>
   );

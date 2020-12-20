@@ -6,10 +6,10 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import {Colors} from '../../constants';
-import {AppText} from '..';
+import { Colors } from '../../constants';
+import { AppText } from '..';
 
-export function GradientButton({type, title, icon, style, onPress, loading}) {
+export function GradientButton({ type, title, icon, style, onPress, loading }) {
   function getBgColor() {
     switch (type) {
       case 'primary':
@@ -65,13 +65,13 @@ export function GradientButton({type, title, icon, style, onPress, loading}) {
       {loading ? (
         <ActivityIndicator size={'small'} color={Colors.white} />
       ) : (
-        <>
-          {icon && icon}
-          <AppText type={'bold'} color={getTextColor()} size={16}>
-            {title.toUpperCase()}
-          </AppText>
-        </>
-      )}
+          <>
+            {icon && icon}
+            <AppText type={'bold'} color={getTextColor()} size={16} uppercase>
+              {title}
+            </AppText>
+          </>
+        )}
     </TouchableOpacity>
   );
 }
@@ -107,5 +107,5 @@ GradientButton.defaultProps = {
   type: 'primary',
   title: 'Submit',
   loading: false,
-  onPress: () => {},
+  onPress: () => { },
 };
