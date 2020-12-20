@@ -22,22 +22,22 @@ export default function AppModals(props) {
         dispatch(toggleLanguageModal(false));
         break;
       case GALLERY_SWIPER_MODAL:
-        dispatch(toggleGallerySwiperModal(false,[]));
+        dispatch(toggleGallerySwiperModal(false, []));
       default:
         break;
     }
   };
 
   return (
-    <View style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0 }}>
+    <>
       <LanguageSelectionModal
         visible={isLanguageModalVisible}
-        onHideModal={()=>onCloseModal(LANGUAGE_MODAL)}
+        onHideModal={() => onCloseModal(LANGUAGE_MODAL)}
       />
       <GallerySwiperModal
         visible={isGAllerySwiperModalVisible}
-        onHideModal={()=>onCloseModal(GALLERY_SWIPER_MODAL)}
+        onHideModal={() => onCloseModal(GALLERY_SWIPER_MODAL)}
       />
-    </View>
+    </>
   );
 }

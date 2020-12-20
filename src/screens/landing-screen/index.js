@@ -1,4 +1,4 @@
-import React, {Component, useEffect} from 'react';
+import React, { Component, useEffect } from 'react';
 import {
   View,
   StyleSheet,
@@ -10,20 +10,20 @@ import {
 } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 
-import {GradientButton, AuthContainer} from '../../components';
-import {Colors, Icons, Images, Gifs} from '../../constants';
-import {isIphoneX} from '../../utils/common';
-import {globalStyle} from '../../styles/global-style';
-import {useIsFocused} from '@react-navigation/native';
-import {useDispatch, useSelector} from 'react-redux';
-import {toggleLanguageModal} from '../../redux/actions/app-modals-actions';
+import { GradientButton, AuthContainer } from '../../components';
+import { Colors, Icons, Images, Gifs } from '../../constants';
+import { isIphoneX } from '../../utils/common';
+import { globalStyle } from '../../styles/global-style';
+import { useIsFocused } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 
 const LandingScreen = (props) => {
-  const {navigation} = props;
+  const { navigation } = props;
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
 
-  const {appLabels} = useSelector((state) => state.appState);
+  const { appLabels } = useSelector((state) => state.appState);
 
   useEffect(() => {
     SplashScreen.hide();
@@ -35,7 +35,7 @@ const LandingScreen = (props) => {
             onPress: () => null,
             style: 'cancel',
           },
-          {text: 'YES', onPress: () => BackHandler.exitApp()},
+          { text: 'YES', onPress: () => BackHandler.exitApp() },
         ]);
         return true;
       };
@@ -76,28 +76,28 @@ const LandingScreen = (props) => {
           elevation: 5,
         }}>
         <Image
-          style={{width: 24, height: 24, tintColor: Colors.ui_primary}}
+          style={{ width: 24, height: 24, tintColor: Colors.ui_primary }}
           source={Icons.icon_languages}
         />
       </TouchableOpacity>
       <Image
-        style={[globalStyle.logo, {marginTop: isIphoneX() ? 20 : 10}]}
+        style={[globalStyle.logo, { marginTop: isIphoneX() ? 20 : 10 }]}
         source={Gifs.chat_signal_logo}
       />
       <View style={styles.bottomView}>
-        <View style={{marginEnd: 8, flex: 1}}>
+        <View style={{ marginEnd: 8, flex: 1 }}>
           <GradientButton
             type={'light'}
             title={appLabels.rigister}
-            style={{paddingVertical: Platform.OS === 'ios' ? 18 : 15}}
+            style={{ paddingVertical: Platform.OS === 'ios' ? 18 : 15 }}
             onPress={onRegister}
           />
         </View>
-        <View style={{marginStart: 8, flex: 1}}>
+        <View style={{ marginStart: 8, flex: 1 }}>
           <GradientButton
             type={'primary'}
             title={appLabels.login}
-            style={{paddingVertical: Platform.OS === 'ios' ? 18 : 15}}
+            style={{ paddingVertical: Platform.OS === 'ios' ? 18 : 15 }}
             onPress={onLogin}
           />
         </View>

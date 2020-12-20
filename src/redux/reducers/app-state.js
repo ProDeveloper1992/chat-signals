@@ -1,6 +1,6 @@
 import Snackbar from 'react-native-snackbar';
-import {act} from 'react-test-renderer';
-import {Colors} from '../../constants';
+import { act } from 'react-test-renderer';
+import { Colors } from '../../constants';
 import {
   GET_APP_STRINGS_REQUEST,
   GET_APP_STRINGS_SUCCESS,
