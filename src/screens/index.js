@@ -16,6 +16,7 @@ import SuperFlirtTab from './super-flirt-top-tab'
 import ModeratorProfile from './moderator-profile-screen'
 import UserProfile from './user-profile-screen'
 import ChatDetail from './chat-detail-screen'
+import SearchScreen from './search-screen'
 
 export {
   Login,
@@ -36,4 +37,5 @@ export {
   ModeratorProfile,
   UserProfile,
   ChatDetail,
+  SearchScreen,
 };

@@ -39,12 +39,12 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <GeneralHeader
-        rightIcon={Icons.user_profile}
-        onRightPress={() => {}}
-        onLeftPress={()=>navigation.navigate('UserProfile')}
-        onLanguagePress={() => dispatch(toggleLanguageModal(true))}
-        LanguageIcon={Icons.icon_languages}
         leftIcon={Icons.user_profile}
+        onLeftPress={()=>navigation.navigate('UserProfile')}
+        // rightIcon={Icons.search}
+        // onRightPress={() => {}}
+        LanguageIcon={Icons.icon_languages}
+        onLanguagePress={() => dispatch(toggleLanguageModal(true))}
         label={'CONTACTS'}
       />
 

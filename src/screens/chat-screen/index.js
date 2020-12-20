@@ -78,13 +78,10 @@ const Chat = () => {
   return (
     <View style={styles.container}>
       <GeneralHeader
-        rightIcon={Icons.user_profile}
-        onRightPress={() => {}}
-        onLeftPress={() => {}}
-        onLeftPress={() => navigation.navigate('UserProfile')}
-        onLanguagePress={() => dispatch(toggleLanguageModal(true))}
-        LanguageIcon={Icons.icon_languages}
         leftIcon={Icons.user_profile}
+        onLeftPress={() => navigation.navigate('UserProfile')}
+        LanguageIcon={Icons.icon_languages}
+        onLanguagePress={() => dispatch(toggleLanguageModal(true))}
         label={'Chat'}
       />
       {loadingChatList?(
