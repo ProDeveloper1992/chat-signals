@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { Colors } from '../../constants';
 import { AppText } from '..';
 
-export function GradientButton({ type, title, icon, style, onPress, loading }) {
+export function GradientButton({ type, title, icon, style, onPress, loading, disabled }) {
   function getBgColor() {
     switch (type) {
       case 'primary':
@@ -50,10 +50,12 @@ export function GradientButton({ type, title, icon, style, onPress, loading }) {
 
   return (
     <TouchableOpacity
+      disabled={disabled}
       style={[
         styles.container,
         style,
         {
+          opacity: disabled ? 0.5 : 1,
           backgroundColor: getBgColor(),
           borderWidth: type == 'transparent' ? 1 : 0,
           borderColor:
@@ -90,6 +92,7 @@ GradientButton.propTypes = {
   title: PropTypes.string,
   icon: PropTypes.any,
   loading: PropTypes.bool,
+  disabled: PropTypes.bool,
   type: PropTypes.oneOf([
     'primary',
     'positive',
@@ -107,5 +110,6 @@ GradientButton.defaultProps = {
   type: 'primary',
   title: 'Submit',
   loading: false,
+  disabled: false,
   onPress: () => { },
 };

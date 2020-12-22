@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   FlatList,
@@ -7,23 +7,24 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
+  Platform,
 } from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {ModeratorListItem} from '../../components';
-import {useNavigation} from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { ModeratorListItem } from '../../components';
+import { useNavigation } from '@react-navigation/native';
 
 import styles from './style';
-import {getFlirtsList} from '../../redux/actions/flirts-actions';
-import {userProfileDetail} from '../../redux/actions/user-actions';
-import {Colors, Icons} from '../../constants';
+import { getFlirtsList } from '../../redux/actions/flirts-actions';
+import { userProfileDetail } from '../../redux/actions/user-actions';
+import { Colors, Icons } from '../../constants';
 
 export default function FlirtTab(props) {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  
+
   const [search, setSearch] = useState('');
-  const {flirtsList, flirtsLoading} = useSelector((state) => state.flirtsState);
-  const {userData} = useSelector((state) => state.userState);
+  const { flirtsList, flirtsLoading } = useSelector((state) => state.flirtsState);
+  const { userData } = useSelector((state) => state.userState);
 
   useEffect(() => {
     let requestData = {
@@ -36,10 +37,10 @@ export default function FlirtTab(props) {
     dispatch(userProfileDetail(userId));
   }, []);
 
-  if(flirtsLoading){
-    return  (
-      <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
-        <ActivityIndicator size={'large'} color={Colors.ui_primary}/>
+  if (flirtsLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size={'large'} color={Colors.ui_primary} />
       </View>
     )
   }
@@ -51,7 +52,7 @@ export default function FlirtTab(props) {
           flex: 1,
           marginTop: 15,
           marginBottom: 5,
-          marginHorizontal:10,
+          marginHorizontal: 10,
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'center',
@@ -62,13 +63,17 @@ export default function FlirtTab(props) {
             backgroundColor: Colors.white,
             marginEnd: 10,
             borderRadius: 4,
-            elevation:4
+            shadowColor: Colors.black,
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.1,
+            shadowRadius: 4,
+            elevation: 4,
           }}>
           <TextInput
-            style={{paddingStart: 10}}
+            style={{ paddingStart: 10, paddingVertical: Platform.OS === 'ios' ? 12 : 0 }}
             placeholder="Search..."
             value={search}
-            onChangeText={()=>{}}
+            onChangeText={() => { }}
           />
         </View>
         <TouchableOpacity
@@ -79,9 +84,13 @@ export default function FlirtTab(props) {
             justifyContent: 'center',
             backgroundColor: Colors.ui_primary,
             borderRadius: 4,
-            elevation:4
+            shadowColor: Colors.black,
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.1,
+            shadowRadius: 4,
+            elevation: 4,
           }}
-          onPress={() => {}}
+          onPress={() => { }}
           activeOpacity={0.5}>
           <Image
             source={Icons.search}
@@ -101,15 +110,15 @@ export default function FlirtTab(props) {
       <FlatList
         data={flirtsList}
         numColumns={2}
-        contentContainerStyle={{paddingBottom: 20}}
+        contentContainerStyle={{ paddingBottom: 20 }}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={render_FlatList_header}
-        renderItem={({item, index}) => (
+        renderItem={({ item, index }) => (
           <ModeratorListItem
             item={item}
             key={String(index)}
             onPress={() =>
-              navigation.navigate('ModeratorProfile', {item: item})
+              navigation.navigate('ModeratorProfile', { item: item })
             }
           />
         )}

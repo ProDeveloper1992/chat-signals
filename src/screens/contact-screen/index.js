@@ -1,13 +1,13 @@
 import * as React from 'react';
-import {Dimensions, View} from 'react-native';
-import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import {useDispatch} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
+import { Dimensions, View } from 'react-native';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 import styles from './style';
-import {Colors, Icons} from '../../constants';
-import {GeneralHeader} from '../../components/Headers';
-import {toggleLanguageModal} from '../../redux/actions/app-modals-actions';
+import { Colors, Icons } from '../../constants';
+import { GeneralHeader } from '../../components/Headers';
+import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 
 //Top Tabs
 import BookMarkTopTab from './bookmark-top-tab';
@@ -15,7 +15,7 @@ import FriendsTopTab from './friends-top-tab';
 import VisitorsTopTab from './visitors-top-tab';
 import BlockedTopTab from './blocked-top-tab';
 
-const initialLayout = {width: Dimensions.get('window').width};
+const initialLayout = { width: Dimensions.get('window').width };
 
 export default function Home() {
   const navigation = useNavigation();
@@ -23,10 +23,10 @@ export default function Home() {
 
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    {key: 'bookmarks', title: 'Bookmarks'},
-    {key: 'friends', title: 'Friends'},
-    {key: 'visitors', title: 'Visitors'},
-    {key: 'blocked', title: 'Blocked'},
+    { key: 'bookmarks', title: 'Favorites' },
+    { key: 'friends', title: 'Friends' },
+    { key: 'visitors', title: 'Visitors' },
+    { key: 'blocked', title: 'Blocked' },
   ]);
 
   const renderScene = SceneMap({
@@ -40,7 +40,7 @@ export default function Home() {
     <View style={styles.container}>
       <GeneralHeader
         leftIcon={Icons.user_profile}
-        onLeftPress={()=>navigation.navigate('UserProfile')}
+        onLeftPress={() => navigation.navigate('UserProfile')}
         // rightIcon={Icons.search}
         // onRightPress={() => {}}
         LanguageIcon={Icons.icon_languages}
@@ -49,7 +49,7 @@ export default function Home() {
       />
 
       <TabView
-        navigationState={{index, routes}}
+        navigationState={{ index, routes }}
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={initialLayout}

@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Image, View, ScrollView} from 'react-native';
+import { StyleSheet, Image, View, ScrollView } from 'react-native';
 
 import {
   GradientButton,
@@ -8,22 +8,22 @@ import {
   BackHeader,
   CountryPicker,
 } from '../../components';
-import {Images, Colors, Icons, Gifs} from '../../constants';
-import {globalStyle} from '../../styles/global-style';
+import { Colors, Icons, Gifs } from '../../constants';
+import { globalStyle } from '../../styles/global-style';
 import {
   LoginManager,
   AccessToken,
   GraphRequest,
   GraphRequestManager,
 } from 'react-native-fbsdk';
-import {useDispatch, useSelector} from 'react-redux';
-import {loginUser} from '../../redux/actions/user-actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '../../redux/actions/user-actions';
 
 const RegisterWithFacebook = (props) => {
-  const {navigation} = props;
+  const { navigation } = props;
   const dispatch = useDispatch();
 
-  const {appLabels} = useSelector((state) => state.appState);
+  const { appLabels } = useSelector((state) => state.appState);
 
   const [loading, setLoading] = React.useState(false);
 
@@ -76,7 +76,7 @@ const RegisterWithFacebook = (props) => {
       <BackHeader onBackPress={() => navigation.goBack()} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Image style={globalStyle.logo} source={Gifs.chat_signal_logo} />
-        <View style={{marginTop: '10%'}}>
+        <View style={{ marginTop: '10%' }}>
           <CountryPicker />
 
           <GradientButton

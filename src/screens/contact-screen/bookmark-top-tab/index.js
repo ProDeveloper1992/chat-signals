@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {View, FlatList, TouchableOpacity, TextInput, Image} from 'react-native';
-import {useSelector} from 'react-redux';
-import {ModeratorListItem, NoListData} from '../../../components';
+import React, { useEffect, useState } from 'react';
+import { View, FlatList, TouchableOpacity, TextInput, Image } from 'react-native';
+import { useSelector } from 'react-redux';
+import { ModeratorListItem, NoListData } from '../../../components';
 import styles from './style';
-import {useNavigation} from '@react-navigation/native';
-import {Colors, Icons} from '../../../constants';
+import { useNavigation } from '@react-navigation/native';
+import { Colors, Icons } from '../../../constants';
 
 export default function BookmarkTopTab(props) {
-  const {bookmarksList} = useSelector((state) => state.bookmarkState);
+  const { bookmarksList } = useSelector((state) => state.bookmarkState);
 
   const navigation = useNavigation();
   const [search, setSearch] = useState('');
@@ -33,10 +33,10 @@ export default function BookmarkTopTab(props) {
             elevation: 4,
           }}>
           <TextInput
-            style={{paddingStart: 10}}
+            style={{ paddingStart: 10 }}
             placeholder="Search..."
             value={search}
-            onChangeText={()=>{}}
+            onChangeText={() => { }}
           />
         </View>
         <TouchableOpacity
@@ -49,7 +49,7 @@ export default function BookmarkTopTab(props) {
             borderRadius: 4,
             elevation: 4,
           }}
-          onPress={() => {}}
+          onPress={() => { }}
           activeOpacity={0.5}>
           <Image
             source={Icons.search}
@@ -71,14 +71,14 @@ export default function BookmarkTopTab(props) {
         data={bookmarksList}
         numColumns={2}
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={render_FlatList_header}
-        renderItem={({item, index}) => (
+        // ListHeaderComponent={render_FlatList_header}
+        renderItem={({ item, index }) => (
           <ModeratorListItem
             key={String(index)}
             item={item}
             bookmarked
             onPress={() =>
-              navigation.navigate('ModeratorProfile', {item: item})
+              navigation.navigate('ModeratorProfile', { item: item })
             }
           />
         )}

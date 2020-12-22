@@ -1,4 +1,5 @@
-import CountryPicker from './CountryPicker';
+import LanguagePicker from './LanguagePicker';
 import GenderPicker from './GenderPicker';
+import CountryPicker from './CountryPicker';
 
-export {CountryPicker, GenderPicker};
+export { LanguagePicker, GenderPicker, CountryPicker };

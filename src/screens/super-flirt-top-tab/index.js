@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   FlatList,
@@ -6,20 +6,21 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
+  Platform,
 } from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {ModeratorListItem} from '../../components';
-import {useNavigation} from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { ModeratorListItem } from '../../components';
+import { useNavigation } from '@react-navigation/native';
 
 import styles from './style';
-import {Colors,Icons} from '../../constants';
-import {getFlirtsList} from '../../redux/actions/flirts-actions';
+import { Colors, Icons } from '../../constants';
+import { getFlirtsList } from '../../redux/actions/flirts-actions';
 
 export default function SuperFlirtTab(props) {
   const dispatch = useDispatch();
 
   const [search, setSearch] = useState('');
-  const {flirtsList, flirtsLoading} = useSelector((state) => state.flirtsState);
+  const { flirtsList, flirtsLoading } = useSelector((state) => state.flirtsState);
 
   useEffect(() => {
     let requestData = {
@@ -32,7 +33,7 @@ export default function SuperFlirtTab(props) {
 
   if (flirtsLoading) {
     return (
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size={'large'} color={Colors.ui_primary} />
       </View>
     );
@@ -56,13 +57,17 @@ export default function SuperFlirtTab(props) {
             backgroundColor: Colors.white,
             marginEnd: 10,
             borderRadius: 4,
+            shadowColor: Colors.black,
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.1,
+            shadowRadius: 4,
             elevation: 4,
           }}>
           <TextInput
-            style={{paddingStart: 10}}
+            style={{ paddingStart: 10, paddingVertical: Platform.OS === 'ios' ? 12 : 0 }}
             placeholder="Search..."
             value={search}
-            onChangeText={()=>{}}
+            onChangeText={() => { }}
           />
         </View>
         <TouchableOpacity
@@ -73,9 +78,13 @@ export default function SuperFlirtTab(props) {
             justifyContent: 'center',
             backgroundColor: Colors.ui_primary,
             borderRadius: 4,
+            shadowColor: Colors.black,
+            shadowOffset: { width: 0, height: 2 },
+            shadowOpacity: 0.1,
+            shadowRadius: 4,
             elevation: 4,
           }}
-          onPress={() => {}}
+          onPress={() => { }}
           activeOpacity={0.5}>
           <Image
             source={Icons.search}
@@ -95,15 +104,15 @@ export default function SuperFlirtTab(props) {
       <FlatList
         data={flirtsList}
         numColumns={2}
-        contentContainerStyle={{paddingBottom: 20}}
+        contentContainerStyle={{ paddingBottom: 20 }}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={render_FlatList_header}
-        renderItem={({item, index}) => (
+        renderItem={({ item, index }) => (
           <ModeratorListItem
             item={item}
             key={String(index)}
             onPress={() =>
-              navigation.navigate('ModeratorProfile', {item: item})
+              navigation.navigate('ModeratorProfile', { item: item })
             }
           />
         )}
