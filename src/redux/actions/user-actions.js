@@ -1,4 +1,4 @@
-import {ActionDispatcher} from './index';
+import { ActionDispatcher } from './index';
 import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
@@ -8,10 +8,22 @@ import {
   GET_USER_PROFILE_FAIL,
   GET_USER_CHAT_LIST_REQUEST,
   GET_USER_CHAT_LIST_SUCCESS,
-  GET_USER_CHAT_LIST_FAIL
+  GET_USER_CHAT_LIST_FAIL,
+  SET_SELECTED_USER_GENDER,
+  SET_SELECTED_LOOKING_GENDER,
+  SET_USER_COUNTRY
 } from './types';
-import {client} from '../../services/api-service';
-import {showToast} from './app-actions';
+import { client } from '../../services/api-service';
+import { showToast } from './app-actions';
+
+export const setSelectedGender = (genderData) => (dispatch) =>
+  dispatch(ActionDispatcher(SET_SELECTED_USER_GENDER, genderData));
+
+export const setSelectedLookingGender = (genderData) => (dispatch) =>
+  dispatch(ActionDispatcher(SET_SELECTED_LOOKING_GENDER, genderData));
+
+export const setUserCountry = (countryData) => (dispatch) =>
+  dispatch(ActionDispatcher(SET_USER_COUNTRY, countryData));
 
 export const registerUser = (requestData) => (dispatch) =>
   new Promise(function (resolve, reject) {
@@ -29,7 +41,7 @@ export const registerUser = (requestData) => (dispatch) =>
       .catch((err) => {
         console.log(err);
         dispatch(showToast('negative', 'Something went wrong!'));
-        resolve({data: {success: false}});
+        resolve({ data: { success: false } });
         reject(err);
       });
   });
@@ -52,7 +64,7 @@ export const loginUser = (requestData) => (dispatch) =>
       .catch((err) => {
         dispatch(ActionDispatcher(LOGIN_FAIL));
         dispatch(showToast('negative', 'Something went wrong!'));
-        resolve({data: {success: false}});
+        resolve({ data: { success: false } });
         reject(err);
       });
   });
@@ -73,7 +85,7 @@ export const forgotPassword = (requestData) => (dispatch) =>
       .catch((err) => {
         console.log(err);
         dispatch(showToast('negative', 'Something went wrong!'));
-        resolve({data: {success: false}});
+        resolve({ data: { success: false } });
         reject(err);
       });
   });
@@ -93,27 +105,27 @@ export const userProfileDetail = (requestData) => (dispatch) =>
       })
       .catch((err) => {
         dispatch(ActionDispatcher(GET_USER_PROFILE_FAIL));
-        resolve({data: {success: false}});
+        resolve({ data: { success: false } });
         reject(err);
       });
   });
 
-  export const getUserChatList = () => (dispatch, getState) =>
+export const getUserChatList = () => (dispatch, getState) =>
   new Promise(function (resolve, reject) {
     dispatch(ActionDispatcher(GET_USER_CHAT_LIST_REQUEST));
     const userData = getState().userState.userData;
     let userId = null;
-    if(userData){
+    if (userData) {
       userId = userData.id;
     }
     let requestData = {
-      customer_id:userId
+      customer_id: userId
     }
     client
       .post(`/chat_list`, requestData)
       .then((res) => {
         if (res.meta.status) {
-            dispatch(ActionDispatcher(GET_USER_CHAT_LIST_SUCCESS, res.data));
+          dispatch(ActionDispatcher(GET_USER_CHAT_LIST_SUCCESS, res.data));
         } else {
           dispatch(ActionDispatcher(GET_USER_CHAT_LIST_FAIL));
         }
@@ -121,7 +133,7 @@ export const userProfileDetail = (requestData) => (dispatch) =>
       })
       .catch((err) => {
         dispatch(ActionDispatcher(GET_USER_CHAT_LIST_FAIL));
-        resolve({data: {success: false}});
+        resolve({ data: { success: false } });
         reject(err);
       });
   });

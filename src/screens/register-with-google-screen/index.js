@@ -1,27 +1,27 @@
-import React, {useEffect} from 'react';
-import {StyleSheet, Image, View, ScrollView} from 'react-native';
+import React, { useEffect } from 'react';
+import { StyleSheet, Image, View, ScrollView } from 'react-native';
 
 import {
   GradientButton,
   Loading,
   AuthContainer,
   BackHeader,
-  CountryPicker,
   AppText,
+  CountryPicker,
 } from '../../components';
-import {Gifs, Icons, Images} from '../../constants';
-import {globalStyle} from '../../styles/global-style';
-import {GoogleSignin, statusCodes} from 'react-native-google-signin';
-import {Colors} from '../../constants';
-import {useDispatch, useSelector} from 'react-redux';
-import {loginUser} from '../../redux/actions/user-actions';
-import {showToast} from '../../redux/actions/app-actions';
+import { Gifs, Icons, Images } from '../../constants';
+import { globalStyle } from '../../styles/global-style';
+import { GoogleSignin, statusCodes } from 'react-native-google-signin';
+import { Colors } from '../../constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '../../redux/actions/user-actions';
+import { showToast } from '../../redux/actions/app-actions';
 
 const RegisterWithGoogle = (props) => {
-  const {navigation} = props;
+  const { navigation } = props;
   const dispatch = useDispatch();
 
-  const {appLabels} = useSelector((state) => state.appState);
+  const { appLabels } = useSelector((state) => state.appState);
 
   const [loading, setLoading] = React.useState(false);
   const [userInfo, setUserInfo] = React.useState(null);
@@ -106,7 +106,7 @@ const RegisterWithGoogle = (props) => {
       <BackHeader onBackPress={() => navigation.goBack()} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Image style={globalStyle.logo} source={Gifs.chat_signal_logo} />
-        <View style={{marginTop: '10%'}}>
+        <View style={{ marginTop: '10%' }}>
           <CountryPicker />
 
           <GradientButton

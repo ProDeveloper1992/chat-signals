@@ -1,4 +1,5 @@
-import {CountryItem} from './CountryItem';
-import {GenderItem} from './GenderItem';
+import { LaguageItem } from './LaguageItem';
+import { GenderItem } from './GenderItem';
+import { CountryItem } from './CountryItem';
 
-export {CountryItem, GenderItem};
+export { LaguageItem, GenderItem, CountryItem };

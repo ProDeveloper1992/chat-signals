@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, Image, ScrollView} from 'react-native';
+import { StyleSheet, View, Image, ScrollView } from 'react-native';
 import {
   TextButton,
   AuthContainer,
@@ -7,20 +7,20 @@ import {
   AuthInput,
   BackHeader,
 } from '../../components';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import {GradientButton} from '../../components';
-import {Images, mailformat, Color, Gifs} from '../../constants';
-import {globalStyle} from '../../styles/global-style';
-import {loginUser} from '../../redux/actions/user-actions';
+import { GradientButton } from '../../components';
+import { Images, mailformat, Color, Gifs } from '../../constants';
+import { globalStyle } from '../../styles/global-style';
+import { loginUser } from '../../redux/actions/user-actions';
 
 const LoginScreen = (props) => {
-  const {navigation} = props;
+  const { navigation } = props;
 
   //Actions to dispatch
   const dispatch = useDispatch();
 
-  const {appLabels} = useSelector((state) => state.appState);
+  const { appLabels } = useSelector((state) => state.appState);
 
   const [email, setEmail] = React.useState('');
   const [emailError, setEmailError] = React.useState(null);
@@ -65,18 +65,12 @@ const LoginScreen = (props) => {
     }
   };
 
-  const login = (email, password) => {
-    dispatch(loginUser('email'));
-    // setLoading(true);
-    //TODO: login method
-  };
-
   return (
     <AuthContainer blur>
       <BackHeader onBackPress={() => navigation.goBack()} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Image style={globalStyle.logo} source={Gifs.chat_signal_logo} />
-        <View style={{flex: 1, justifyContent: 'center'}}>
+        <View style={{ flex: 1, justifyContent: 'center' }}>
           <AuthInput
             style={styles.input}
             label={appLabels.email}
@@ -96,7 +90,7 @@ const LoginScreen = (props) => {
             error={passError}
           />
 
-          <View style={{alignSelf: 'flex-end'}}>
+          <View style={{ alignSelf: 'flex-end' }}>
             <TextButton
               fontType={'bold'}
               fontSize={14}

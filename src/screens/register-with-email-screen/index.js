@@ -1,7 +1,7 @@
 import React from 'react';
-import {StyleSheet, View, ScrollView, TouchableOpacity} from 'react-native';
+import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
 import StepIndicator from 'react-native-step-indicator';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   GradientButton,
@@ -9,18 +9,18 @@ import {
   Loading,
   AuthContainer,
   BackHeader,
-  CountryPicker,
   GenderPicker,
   AppText,
+  CountryPicker,
 } from '../../components';
-import {mailformat, Colors} from '../../constants';
-import {registerUser} from '../../redux/actions/user-actions';
+import { mailformat, Colors } from '../../constants';
+import { registerUser, setSelectedGender, setSelectedLookingGender } from '../../redux/actions/user-actions';
 
 const RegisterWithEmail = (props) => {
-  const {navigation} = props;
+  const { navigation } = props;
   const dispatch = useDispatch();
 
-  const {appLabels} = useSelector((state) => state.appState);
+  const { appLabels } = useSelector((state) => state.appState);
 
   const [userName, setUserName] = React.useState('');
   const [userNameError, setUsernameError] = React.useState(null);
@@ -63,9 +63,9 @@ const RegisterWithEmail = (props) => {
     setStepPosition(position);
   };
 
-  const onSkipPress = () => {
-    setStepPosition(1);
-  };
+  // const onSkipPress = () => {
+  //   setStepPosition(1);
+  // };
 
   const onBottomButtonPress = async () => {
     if (stepPosition == 0) {
@@ -134,7 +134,7 @@ const RegisterWithEmail = (props) => {
     }
   };
 
-  const SectionLable = ({title}) => {
+  const SectionLable = ({ title }) => {
     return (
       <AppText type={'bold'} size={16} color={Colors.greydark}>
         {title}
@@ -142,14 +142,22 @@ const RegisterWithEmail = (props) => {
     );
   };
 
+  const onSelectUserGenderItem = (genderItem) => {
+    dispatch(setSelectedGender(genderItem));
+  };
+
+  const onSelectLookingGenderItem = (genderItem) => {
+    dispatch(setSelectedLookingGender(genderItem));
+  };
+
   const renderPage = () => {
     if (stepPosition == 0) {
       return (
         <View>
           <SectionLable title={appLabels.i_am} />
-          <GenderPicker />
+          <GenderPicker type={'user'} onSelectGenderItem={(item) => onSelectUserGenderItem(item)} />
           <SectionLable title={appLabels.i_am_looking_for} />
-          <GenderPicker />
+          <GenderPicker type={'opponent'} onSelectGenderItem={(item) => onSelectLookingGenderItem(item)} />
           <SectionLable title={appLabels.country} />
           <CountryPicker />
           <AuthInput
@@ -212,29 +220,20 @@ const RegisterWithEmail = (props) => {
     <AuthContainer blur>
       <BackHeader
         onBackPress={() => onBackPress()}
-        rightContent={
-          stepPosition == 0 && (
-            <TouchableOpacity onPress={() => onSkipPress()}>
-              <AppText type={'bold'} size={16} color={Colors.ui_primary}>
-                {appLabels.skip}
-              </AppText>
-            </TouchableOpacity>
-          )
-        }
       />
       <StepIndicator
         stepCount={stepCount}
         customStyles={stepIndicatorStyle}
         currentPosition={stepPosition}
         labels={labels}
-        onPress={(position) => onStepPress(position)}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{paddingTop: 30}}>{renderPage()}</View>
+        <View style={{ paddingTop: 30 }}>{renderPage()}</View>
       </ScrollView>
       <GradientButton
+        disabled={postalCode.trim() === ''}
         title={stepPosition == 0 ? appLabels.next : appLabels.register}
-        style={{marginVertical: 20}}
+        style={{ marginVertical: 20 }}
         onPress={() => onBottomButtonPress()}
         loading={loading}
       />
