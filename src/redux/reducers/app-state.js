@@ -40,7 +40,7 @@ const initialState = {
     register_with_facebook: 'Register with facebook',
     register_with_google: 'Register with google',
     registration: 'Registration',
-    rigister: 'Register',
+    register: 'Register',
     settings: 'Settings',
     skip: 'Skip',
     support: 'Support',

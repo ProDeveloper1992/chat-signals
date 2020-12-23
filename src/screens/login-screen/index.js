@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Image, ScrollView } from 'react-native';
+import { StyleSheet, View, Image, ScrollView, TouchableOpacity } from 'react-native';
 import {
   TextButton,
   AuthContainer,
@@ -10,7 +10,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 
 import { GradientButton } from '../../components';
-import { Images, mailformat, Color, Gifs } from '../../constants';
+import { Images, mailformat, Color, Gifs, Icons } from '../../constants';
 import { globalStyle } from '../../styles/global-style';
 import { loginUser } from '../../redux/actions/user-actions';
 
@@ -65,6 +65,14 @@ const LoginScreen = (props) => {
     }
   };
 
+  const onGoogleIconPress = () => {
+    alert('Google Login')
+  }
+
+  const onFacebookIconPress = () => {
+    alert('Facebook Login')
+  }
+
   return (
     <AuthContainer blur>
       <BackHeader onBackPress={() => navigation.goBack()} />
@@ -109,6 +117,12 @@ const LoginScreen = (props) => {
             onPress={() => onLoginPress()}
             loading={loading}
           />
+
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+            <IconButton icon={Icons.google_icon} onPress={onGoogleIconPress} />
+            <IconButton icon={Icons.facebook_color_icon} onPress={onFacebookIconPress} />
+          </View>
+
           <TextButton
             fontType={'bold'}
             title={appLabels.dont_have_an_account + '  ' + appLabels.create_one}
@@ -121,6 +135,14 @@ const LoginScreen = (props) => {
     </AuthContainer>
   );
 };
+
+const IconButton = ({ icon, onPress }) => {
+  return (
+    <TouchableOpacity onPress={onPress} style={{ marginHorizontal: 10 }}>
+      <Image style={{ width: 30, height: 30, resizeMode: 'contain' }} source={icon} />
+    </TouchableOpacity>
+  )
+}
 
 const styles = StyleSheet.create({
   input: {
