@@ -1,4 +1,4 @@
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 
 export const Colors = {
   ui_primary: '#52b8bc',
@@ -47,8 +47,10 @@ export const Icons = {
   add_friend_icon: require('../assets/icons/add-friend.png'),
   chat_flat_icon: require('../assets/icons/chat-icon.png'),
   right_arrow: require('../assets/icons/right-chevron-arrow.png'),
-  facebook_icon: require('../assets/icons/facebook_24.png'),
+  facebook_icon: require('../assets/icons/facebook.png'),
+  facebook_color_icon: require('../assets/icons/facebook_color.png'),
   google_icon: require('../assets/icons/google.png'),
+  mail_icon: require('../assets/icons/mail.png'),
   heart_icon: require('../assets/icons/heart.png'),
   super_flirt_heart_icon: require('../assets/icons/super-flirt-heart.png'),
   coins_icon: require('../assets/icons/coins.png'),
@@ -66,7 +68,7 @@ export const Gifs = {
 export const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 // screen sizing
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 // orientation must fixed
 export const SCREEN_WIDTH = width < height ? width : height;
 export const SCREEN_HEIGHT = height > width ? height : width;

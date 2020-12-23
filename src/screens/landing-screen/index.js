@@ -88,7 +88,7 @@ const LandingScreen = (props) => {
         <View style={{ marginEnd: 8, flex: 1 }}>
           <GradientButton
             type={'light'}
-            title={appLabels.rigister}
+            title={appLabels.register}
             style={{ paddingVertical: Platform.OS === 'ios' ? 18 : 15 }}
             onPress={onRegister}
           />
