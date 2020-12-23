@@ -4,7 +4,7 @@ import {Colors} from '../../../constants';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    marginBottom:50
+    marginBottom: 50,
   },
 
   propertyContainer: {
@@ -38,5 +38,6 @@ export default StyleSheet.create({
   txtContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginLeft: 10,
   },
 });

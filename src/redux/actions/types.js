@@ -20,7 +20,7 @@ export const TOGGLE_LANGUAGE_SELECTION_MODAL =
 export const TOGGLE_GALLERY_SWIPER_MODAL =
   'TOGGLE_GALLERY_SWIPER_MODAL';
 
-//Flirts and Superflirts list Actions
+//Flirts and Proflirts list Actions
 export const GET_FLIRTS_REQUEST = 'GET_FLIRTS_REQUEST';
 export const GET_FLIRTS_SUCCESS = 'GET_FLIRTS_SUCCESS';
 export const GET_FLIRTS_FAILED = 'GET_FLIRTS_FAILED';

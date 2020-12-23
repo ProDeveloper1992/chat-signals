@@ -55,7 +55,7 @@ const initialState = {
     daily_coins: 'Daily Coins',
     purchase: 'Purchase',
     flirts: 'Flirts',
-    super_flirts: 'SuperFlirts',
+    super_flirts: 'ProFlirts',
     bookmarks: 'Bookmarks',
     bookmark: 'Bookmark',
     friends: 'Friends',

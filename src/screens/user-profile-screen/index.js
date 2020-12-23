@@ -110,7 +110,7 @@ export default function UserProfile(props) {
           </View>
 
           <TouchableOpacity
-            style={styles.superFlirtContainer}
+            style={styles.proFlirtContainer}
             activeOpacity={0.8}
             onPress={() => {}}>
             <Image

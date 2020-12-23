@@ -46,7 +46,7 @@ export default StyleSheet.create({
     marginEnd: 5,
   },
 
-  superFlirtContainer: {
+  proFlirtContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },

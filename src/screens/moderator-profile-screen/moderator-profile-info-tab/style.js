@@ -38,5 +38,6 @@ export default StyleSheet.create({
   txtContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginLeft:10,
   },
 });
