@@ -70,7 +70,7 @@ export default function FlirtTab(props) {
             elevation: 4,
           }}>
           <TextInput
-            style={{ paddingStart: 10, paddingVertical: Platform.OS === 'ios' ? 12 : 0 }}
+            style={{ paddingStart: 10, paddingVertical: Platform.OS === 'ios' ? 12 : 10 }}
             placeholder="Search..."
             value={search}
             onChangeText={() => { }}

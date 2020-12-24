@@ -16,7 +16,7 @@ import styles from './style';
 import { Colors, Icons } from '../../constants';
 import { getFlirtsList } from '../../redux/actions/flirts-actions';
 
-export default function SuperFlirtTab(props) {
+export default function ProFlirtTab(props) {
   const dispatch = useDispatch();
 
   const [search, setSearch] = useState('');
@@ -64,7 +64,7 @@ export default function SuperFlirtTab(props) {
             elevation: 4,
           }}>
           <TextInput
-            style={{ paddingStart: 10, paddingVertical: Platform.OS === 'ios' ? 12 : 0 }}
+            style={{ paddingStart: 10, paddingVertical: Platform.OS === 'ios' ? 12 : 10 }}
             placeholder="Search..."
             value={search}
             onChangeText={() => { }}

@@ -4,7 +4,7 @@ import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {useDispatch} from 'react-redux';
 
 import {Colors, Icons} from '../../constants';
-import {FlirtTab, SuperFlirtTab} from '../index';
+import {FlirtTab, ProFlirtTab} from '../index';
 import {GeneralHeader} from '../../components/Headers';
 import styles from './style';
 
@@ -24,7 +24,7 @@ export default function Home() {
   const [index, setIndex] = useState(0);
   const [routes] = useState([
     {key: 'flirt', title: 'Flirts'},
-    {key: 'superflirt', title: 'SuperFlirts'},
+    {key: 'proflirt', title: 'ProFlirts'},
   ]);
 
   useEffect(() => {
@@ -53,7 +53,7 @@ export default function Home() {
 
   const renderScene = SceneMap({
     flirt: FlirtTab,
-    superflirt: SuperFlirtTab,
+    proflirt: ProFlirtTab,
   });
 
   const onLogout = () => {
