@@ -6,11 +6,13 @@ import {
   Loading,
   AuthInput,
   BackHeader,
+  AppText,
+  IconButton,
 } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { GradientButton } from '../../components';
-import { Images, mailformat, Color, Gifs, Icons } from '../../constants';
+import { Images, mailformat, Color, Gifs, Icons, Colors } from '../../constants';
 import { globalStyle } from '../../styles/global-style';
 import { loginUser } from '../../redux/actions/user-actions';
 
@@ -66,11 +68,11 @@ const LoginScreen = (props) => {
   };
 
   const onGoogleIconPress = () => {
-    alert('Google Login')
+    navigation.navigate('RegisterWithGoogle');
   }
 
   const onFacebookIconPress = () => {
-    alert('Facebook Login')
+    navigation.navigate('RegisterWithFacebook');
   }
 
   return (
@@ -118,9 +120,24 @@ const LoginScreen = (props) => {
             loading={loading}
           />
 
-          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-            <IconButton icon={Icons.google_icon} onPress={onGoogleIconPress} />
-            <IconButton icon={Icons.facebook_color_icon} onPress={onFacebookIconPress} />
+
+          <AppText
+            color={Colors.white}
+            style={{ alignSelf: 'center', marginVertical: 15 }}
+          >{'Or Login with'}</AppText>
+
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 10 }}>
+            <IconButton
+              icon={Icons.google_icon}
+              buttonColor={Colors.google}
+              onPress={onGoogleIconPress}
+            />
+
+            <IconButton
+              icon={Icons.facebook_icon}
+              buttonColor={Colors.facebook}
+              onPress={onFacebookIconPress}
+            />
           </View>
 
           <TextButton
@@ -136,20 +153,12 @@ const LoginScreen = (props) => {
   );
 };
 
-const IconButton = ({ icon, onPress }) => {
-  return (
-    <TouchableOpacity onPress={onPress} style={{ marginHorizontal: 10 }}>
-      <Image style={{ width: 30, height: 30, resizeMode: 'contain' }} source={icon} />
-    </TouchableOpacity>
-  )
-}
-
 const styles = StyleSheet.create({
   input: {
     marginVertical: 5,
   },
   loginButton: {
-    marginVertical: 20,
+    marginTop: 10,
   },
 });
 
