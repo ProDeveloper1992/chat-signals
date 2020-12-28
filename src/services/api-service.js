@@ -27,6 +27,7 @@ export const client = axios.create({
 client.interceptors.request.use(
   async function (config) {
     var basicAuth = store.getState().userState.authToken;
+    console.log("Authentication Token... ", basicAuth)
     if (basicAuth && basicAuth != null) {
       config.headers.Authorization = `Bearer ${basicAuth}`;
     } else {
@@ -43,8 +44,8 @@ client.interceptors.request.use(
 client.interceptors.response.use(
   function (response) {
     console.log("API response...", response)
-    if (response.data){
-     return response.data;
+    if (response.data) {
+      return response.data;
     }
     else {
       return Promise.reject(response);
@@ -52,7 +53,7 @@ client.interceptors.response.use(
   },
   function (error) {
     console.log("API Error...", error.response)
-    if(error.response.status == 401){
+    if (error.response.status == 401) {
       store.dispatch(showToast('negative', "Session Expired! Login Again!"));
       store.dispatch(logoutUser())
       RootNavigation.navigate('auth-stack');

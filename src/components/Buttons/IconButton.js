@@ -1,24 +1,38 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
+import { StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Icon from 'react-native-ionicons';
-import {Colors} from '../../constants';
+import { Colors } from '../../constants';
 
-export function IconButton({iconName, iconColor, size, style, onPress}) {
+export function IconButton({ icon, onPress, buttonColor }) {
   return (
-    <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
-      <Icon
-        name={iconName}
-        color={iconColor || Colors.ui_primary}
-        size={size || 30}
-      />
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.container, {
+        backgroundColor: buttonColor
+      }]}>
+      <Image style={styles.icon} source={icon} />
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
+    width: 45,
+    height: 45,
+    borderRadius: 45 / 2,
+    justifyContent: 'center',
     alignItems: 'center',
-    padding: 5,
+    marginHorizontal: 10,
+    shadowColor: Colors.black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 4,
   },
+  icon: {
+    width: 24,
+    height: 24,
+    resizeMode: 'contain',
+    tintColor: Colors.white
+  }
 });

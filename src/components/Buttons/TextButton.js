@@ -15,9 +15,8 @@ export function TextButton({ title, style, titleColor, onPress, fontType, fontSi
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'center',
-    padding: 20,
+    paddingVertical: 15
   },
 });
