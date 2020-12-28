@@ -1,20 +1,22 @@
-import React, { useState } from 'react';
-import {Keyboard, View, TouchableWithoutFeedback, FlatList} from 'react-native';
-import {ChatDetailHeader} from '../../components/Headers';
-import {useNavigation} from '@react-navigation/native';
-import {useDispatch} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { Keyboard, View, TouchableWithoutFeedback, FlatList } from 'react-native';
+import { ChatDetailHeader } from '../../components/Headers';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './style';
 import { ChatBubble, ChatInput } from '../../components';
 import { Icons } from '../../constants';
+import { getChatConversation } from '../../redux/actions/user-actions';
 
 const ChatDetail = (props) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const userItem = props.route.params.item;
+  const customer = props.route.params.item;
 
-  const [messageText, setMessageText]= useState('');
+  const [messageText, setMessageText] = useState('');
+  const [messages, setMessages] = useState([]);
 
-  const [chatData, setChatData]=useState([
+  const [chatData, setChatData] = useState([
     {
       id: -2105076426,
       type: "Customer",
@@ -113,15 +115,29 @@ const ChatDetail = (props) => {
     }
   ])
 
-  const isMessageFromUser=(item)=>{
-    if(item.from_id == 1){
+  const { userData } = useSelector((state) => state.userState);
+
+  useEffect(() => {
+    getChatMessages();
+  }, []);
+
+  const getChatMessages = async () => {
+    const response = await dispatch(getChatConversation(customer.user.id));
+    if (response.meta.status) {
+      alert(JSON.stringify(response.data))
+      setMessages(response.data);
+    }
+  }
+
+  const isMessageFromUser = (item) => {
+    if (item.from_id == userData.id) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
 
-  const onSendTextMessage=()=>{
+  const onSendTextMessage = () => {
     let messageToSend = {
       id: -2105073226,
       type: "Customer",
@@ -133,7 +149,7 @@ const ChatDetail = (props) => {
       created_at: "2020-12-09T11:07:05.000000Z",
       updated_at: "2020-12-09T11:07:07.000000Z",
       moderator_id: 85
-    }; 
+    };
     chatData.push(messageToSend);
   }
 
@@ -143,18 +159,18 @@ const ChatDetail = (props) => {
       <ChatDetailHeader
         leftIcon={Icons.user_profile}
         onLeftPress={() => navigation.goBack()}
-        label={userItem.user.username}
+        label={customer.user.username}
       />
       <FlatList
-        data={chatData}
-        contentContainerStyle={{paddingTop: 20, paddingBottom:80}}
+        data={messages}
+        contentContainerStyle={{ paddingTop: 20, paddingBottom: 80 }}
         showsVerticalScrollIndicator={false}
-        renderItem={({item, index}) => (
-          <ChatBubble item={item} isFromUser={isMessageFromUser(item)}/>
+        renderItem={({ item, index }) => (
+          <ChatBubble item={item} isFromUser={isMessageFromUser(item)} />
         )}
         keyExtractor={(item, index) => String(index)}
       />
-      <ChatInput placeholder={'Send message'} onSendPress={()=>onSendTextMessage()} onChangeText={(text)=>setMessageText(text)}/>
+      <ChatInput placeholder={'Send message'} onSendPress={() => onSendTextMessage()} onChangeText={(text) => setMessageText(text)} />
     </View>
     // </TouchableWithoutFeedback>
   );

@@ -41,7 +41,7 @@ export const registerUser = (requestData) => (dispatch) =>
       .catch((err) => {
         console.log(err);
         dispatch(showToast('negative', 'Something went wrong!'));
-        resolve({ data: { success: false } });
+        resolve({ meta: { status: false } });
         reject(err);
       });
   });
@@ -64,7 +64,7 @@ export const loginUser = (requestData) => (dispatch) =>
       .catch((err) => {
         dispatch(ActionDispatcher(LOGIN_FAIL));
         dispatch(showToast('negative', 'Something went wrong!'));
-        resolve({ data: { success: false } });
+        resolve({ meta: { status: false } });
         reject(err);
       });
   });
@@ -85,7 +85,7 @@ export const forgotPassword = (requestData) => (dispatch) =>
       .catch((err) => {
         console.log(err);
         dispatch(showToast('negative', 'Something went wrong!'));
-        resolve({ data: { success: false } });
+        resolve({ meta: { status: false } });
         reject(err);
       });
   });
@@ -105,7 +105,7 @@ export const userProfileDetail = (requestData) => (dispatch) =>
       })
       .catch((err) => {
         dispatch(ActionDispatcher(GET_USER_PROFILE_FAIL));
-        resolve({ data: { success: false } });
+        resolve({ meta: { status: false } });
         reject(err);
       });
   });
@@ -133,7 +133,29 @@ export const getUserChatList = () => (dispatch, getState) =>
       })
       .catch((err) => {
         dispatch(ActionDispatcher(GET_USER_CHAT_LIST_FAIL));
-        resolve({ data: { success: false } });
+        resolve({ meta: { status: false } });
+        reject(err);
+      });
+  });
+
+export const getChatConversation = (customerId) => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    const userData = getState().userState.userData;
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      profile_id: userId,
+      customer_id: customerId
+    }
+    client
+      .post(`/get_chat_message`, requestData)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } });
         reject(err);
       });
   });

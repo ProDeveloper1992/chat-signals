@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -10,22 +10,22 @@ import {
 } from 'react-native';
 import Pusher from 'pusher-js/react-native';
 
-import {GeneralHeader} from '../../components/Headers';
-import {useNavigation} from '@react-navigation/native';
-import {toggleLanguageModal} from '../../redux/actions/app-modals-actions';
-import {useDispatch, useSelector} from 'react-redux';
-import {Colors, Icons} from '../../constants';
-import {AppText} from '../../components/app-text';
+import { GeneralHeader } from '../../components/Headers';
+import { useNavigation } from '@react-navigation/native';
+import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { Colors, Icons } from '../../constants';
+import { AppText } from '../../components/app-text';
 import styles from './style';
-import {ChatListItem} from '../../components/app-list-items';
-import { getUserChatList } from '../../redux/actions/user-actions';
+import { ChatListItem } from '../../components/app-list-items';
+import { getChatConversation, getUserChatList } from '../../redux/actions/user-actions';
 import { NoListData } from '../../components';
 
 const Chat = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const {userChatList, loadingChatList}= useSelector((state)=>state.userState);
+  const { userChatList, loadingChatList } = useSelector((state) => state.userState);
 
   useEffect(() => {
     Pusher.logToConsole = true;
@@ -75,6 +75,10 @@ const Chat = () => {
     );
   };
 
+  const onChatListItemPress = (customer) => {
+    navigation.navigate('ChatDetail', { item: customer });
+  }
+
   return (
     <View style={styles.container}>
       <GeneralHeader
@@ -84,30 +88,31 @@ const Chat = () => {
         onLanguagePress={() => dispatch(toggleLanguageModal(true))}
         label={'Chat'}
       />
-      {loadingChatList?(
-        <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
-            <ActivityIndicator size={'large'} color={Colors.ui_primary}/>
+      {loadingChatList ? (
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <ActivityIndicator size={'large'} color={Colors.ui_primary} />
         </View>
-      ):(
-        <FlatList
-          data={userChatList}
-          contentContainerStyle={{flexGrow:1,paddingBottom: 20}}
-          showsVerticalScrollIndicator={false}
-          renderItem={({item, index}) => (
-            <ChatListItem
-              onChatPress={() => navigation.navigate('ChatDetail', {item: item})}
-              profileImage={Icons.user_profile}
-              userName={item.user.username}
-              lastMessage={item.lastMessage.body}
-              lastMessageTime={item.lastMessage.created_at}
-            />
-          )}
-          ItemSeparatorComponent={ItemSeparatorView}
-          keyExtractor={(item, index) => index.toString()}
-          ListEmptyComponent={<NoListData title={"No Chats Found!"}/>}
-        />
-      )}
-      
+      ) : (
+          <FlatList
+            data={userChatList}
+            contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item, index }) => (
+              <ChatListItem
+                key={String(index)}
+                onChatPress={() => onChatListItemPress(item)}
+                profileImage={Icons.user_profile}
+                userName={item.user.username}
+                lastMessage={item.lastMessage.body}
+                lastMessageTime={item.lastMessage.created_at}
+              />
+            )}
+            ItemSeparatorComponent={ItemSeparatorView}
+            keyExtractor={(item, index) => index.toString()}
+            ListEmptyComponent={<NoListData title={"No Chats Found!"} />}
+          />
+        )}
+
     </View>
   );
 };
