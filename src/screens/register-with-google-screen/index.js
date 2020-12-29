@@ -14,7 +14,7 @@ import { globalStyle } from '../../styles/global-style';
 import { GoogleSignin, statusCodes } from 'react-native-google-signin';
 import { Colors } from '../../constants';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../../redux/actions/user-actions';
+import { loginUser, loginWithSocialMedia } from '../../redux/actions/user-actions';
 import { showToast } from '../../redux/actions/app-actions';
 
 const RegisterWithGoogle = (props) => {
@@ -40,7 +40,7 @@ const RegisterWithGoogle = (props) => {
     const isSignedIn = await GoogleSignin.isSignedIn();
     if (isSignedIn) {
       // alert('User is already signed in');
-      _getCurrentUserInfo;
+      _getCurrentUserInfo();
     } else {
       console.log('Please Login');
     }
@@ -70,12 +70,21 @@ const RegisterWithGoogle = (props) => {
       const userInfo = await GoogleSignin.signIn();
       console.log('User Info --> ', userInfo);
       setUserInfo(userInfo);
-      const response = await dispatch(loginUser());
+      let requestData = {
+        username: userInfo.user.name,
+        email: userInfo.user.email,
+        avatar: userInfo.user.photo,
+        provider: 'google',
+        provider_id: userInfo.user.id,
+        access_token: userInfo.user.id
+      }
+      const response = await dispatch(loginWithSocialMedia(requestData));
       setLoading(false);
       if (response.meta.status) {
         navigation.navigate('main-stack');
       }
     } catch (error) {
+      setLoading(false);
       console.log('Message', error.message);
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         console.log('User Cancelled the Login Flow');

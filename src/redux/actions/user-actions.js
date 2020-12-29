@@ -69,6 +69,29 @@ export const loginUser = (requestData) => (dispatch) =>
       });
   });
 
+export const loginWithSocialMedia = (requestData) => (dispatch) =>
+  new Promise(function (resolve, reject) {
+    dispatch(ActionDispatcher(LOGIN_REQUEST));
+    client
+      .post(`/social_login`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+          dispatch(ActionDispatcher(LOGIN_SUCCESS, res));
+          dispatch(showToast('positive', res.meta.message));
+        } else {
+          dispatch(ActionDispatcher(LOGIN_FAIL));
+          dispatch(showToast('negative', res.meta.message));
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        dispatch(ActionDispatcher(LOGIN_FAIL));
+        dispatch(showToast('negative', 'Something went wrong!'));
+        resolve({ meta: { status: false } });
+        reject(err);
+      });
+  });
+
 export const forgotPassword = (requestData) => (dispatch) =>
   new Promise(function (resolve, reject) {
     client

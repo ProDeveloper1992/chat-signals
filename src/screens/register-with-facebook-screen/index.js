@@ -17,7 +17,7 @@ import {
   GraphRequestManager,
 } from 'react-native-fbsdk';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../../redux/actions/user-actions';
+import { loginUser, loginWithSocialMedia } from '../../redux/actions/user-actions';
 
 const RegisterWithFacebook = (props) => {
   const { navigation } = props;
@@ -58,16 +58,24 @@ const RegisterWithFacebook = (props) => {
   }
 
   //Create response callback.
-  const _responseInfoCallback = async (error, result) => {
+  const _responseInfoCallback = async (error, userInfo) => {
     if (error) {
       console.log('ERROR:- ', error);
     } else {
-      const response = await dispatch(loginUser());
+      let requestData = {
+        username: userInfo.name,
+        email: "chatsignal@facebook.com",
+        avatar: userInfo.picture.data.url,
+        provider: 'facebook',
+        provider_id: userInfo.id,
+        access_token: userInfo.id
+      }
+      const response = await dispatch(loginWithSocialMedia(requestData));
       setLoading(false);
       if (response.meta.status) {
         navigation.navigate('main-stack');
       }
-      console.log('RESULT:- ', result);
+      console.log('RESULT:- ', userInfo);
     }
   };
 

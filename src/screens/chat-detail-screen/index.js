@@ -124,7 +124,6 @@ const ChatDetail = (props) => {
   const getChatMessages = async () => {
     const response = await dispatch(getChatConversation(customer.user.id));
     if (response.meta.status) {
-      alert(JSON.stringify(response.data))
       setMessages(response.data);
     }
   }
