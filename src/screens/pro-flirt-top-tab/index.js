@@ -106,7 +106,7 @@ export default function ProFlirtTab(props) {
         numColumns={2}
         contentContainerStyle={{ paddingBottom: 20 }}
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={render_FlatList_header}
+        // ListHeaderComponent={render_FlatList_header}
         renderItem={({ item, index }) => (
           <ModeratorListItem
             item={item}

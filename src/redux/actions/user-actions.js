@@ -11,7 +11,10 @@ import {
   GET_USER_CHAT_LIST_FAIL,
   SET_SELECTED_USER_GENDER,
   SET_SELECTED_LOOKING_GENDER,
-  SET_USER_COUNTRY
+  SET_USER_COUNTRY,
+  GET_BOOKMARKS_REQUEST,
+  GET_BOOKMARKS_SUCCESS,
+  GET_BOOKMARKS_FAILED
 } from './types';
 import { client } from '../../services/api-service';
 import { showToast } from './app-actions';
@@ -175,6 +178,61 @@ export const getChatConversation = (customerId) => (dispatch, getState) =>
     client
       .post(`/get_chat_message`, requestData)
       .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } });
+        reject(err);
+      });
+  });
+
+//Get Favorites
+export const getFavorites = () => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    const userData = getState().userState.userData;
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      // customer_id: 5
+      customer_id: userId
+    }
+    dispatch(ActionDispatcher(GET_BOOKMARKS_REQUEST));
+    client
+      .post(`/favorites`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+          dispatch(ActionDispatcher(GET_BOOKMARKS_SUCCESS, res.data));
+        } else {
+          dispatch(ActionDispatcher(GET_BOOKMARKS_FAILED));
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        dispatch(ActionDispatcher(GET_BOOKMARKS_FAILED));
+        resolve({ meta: { status: false } });
+        reject(err);
+      });
+  });
+
+//Get Favorites
+export const addToFavorite = (favoriteId, action) => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    const userData = getState().userState.userData;
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      action: action,
+      favorite_id: favoriteId,
+      customer_id: userId
+    }
+    client
+      .post(`/addfevorite`, requestData)
+      .then((res) => {
+        dispatch(getFavorites());
         resolve(res);
       })
       .catch((err) => {

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Image,
@@ -7,24 +7,37 @@ import {
   Switch,
   TouchableOpacity,
 } from 'react-native';
-import {NoListData, AppText} from '../../components';
-import {Icons, Colors} from '../../constants';
+import { NoListData, AppText } from '../../components';
+import { Icons, Colors } from '../../constants';
 import ImagePicker from 'react-native-image-picker';
 import styles from './style';
-import {ModeratorIconLabel, ModeratorHeader} from '../../components';
+import { ModeratorIconLabel, ModeratorHeader } from '../../components';
 import ModeratorProfileInfoTab from './moderator-profile-info-tab';
 import ModeratorProfilePhotosTab from './moderator-profile-photos-tab';
 import ModeratorProfileActionTab from './moderator-profile-action-tab';
-import {ModeratorActivityModal} from '../../components/app-modals';
+import { ModeratorActivityModal } from '../../components/app-modals';
+import { useDispatch } from 'react-redux';
+import { addToFavorite } from '../../redux/actions/user-actions';
 
 export default function ModeratorProfile(props) {
-  const {params} = props.route;
 
-  const [isEnabled, setIsEnabled] = useState(false);
+  const dispatch = useDispatch();
+
+  const { params } = props.route;
+
+  const [isFavorite, setIsFavorite] = useState(false);
   const [activityType, setActivityType] = useState('kisses');
   const [activityModalVisible, setActivityModalVisible] = useState(false);
   const [cuurentTab, setCurrentTab] = useState(0);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+
+  const toggleSwitch = async () => {
+    if (isFavorite) {
+      await dispatch(addToFavorite(params.item.id, 0));
+    } else {
+      await dispatch(addToFavorite(params.item.id, 1));
+    }
+    setIsFavorite(!isFavorite);
+  }
 
   const renderCurrentTab = () => {
     switch (cuurentTab) {
@@ -54,7 +67,7 @@ export default function ModeratorProfile(props) {
         <ImageBackground
           style={styles.imgBackground}
           resizeMode="cover"
-          source={{uri: params.item.picture}}>
+          source={{ uri: params.item.picture }}>
           <ModeratorHeader
             label={params.item.username}
             onBackPress={() => props.navigation.goBack()}
@@ -67,7 +80,7 @@ export default function ModeratorProfile(props) {
           <View>
             <View style={styles.moderatorNameContainer}>
               <View style={styles.onlineStatusSignal(params.item.is_online)} />
-              <AppText type={'bold'} size={16} style={{textAlign: 'center'}}>
+              <AppText type={'bold'} size={16} style={{ textAlign: 'center' }}>
                 {params.item.username}
               </AppText>
             </View>
@@ -87,11 +100,11 @@ export default function ModeratorProfile(props) {
 
           <View style={styles.switchViewContainer}>
             <Switch
-              trackColor={{false: '#e0e0e0', true: Colors.ui_primary_dark}}
-              thumbColor={isEnabled ? Colors.white : Colors.white}
+              trackColor={{ false: '#e0e0e0', true: Colors.ui_primary_dark }}
+              thumbColor={isFavorite ? Colors.white : Colors.white}
               ios_backgroundColor={Colors.white_80}
               onValueChange={toggleSwitch}
-              value={isEnabled}
+              value={isFavorite}
             />
             <AppText type={'bold'}>{'BOOKMARK'}</AppText>
           </View>
@@ -172,7 +185,7 @@ export default function ModeratorProfile(props) {
           </TouchableOpacity>
         </View>
 
-        <View style={{minHeight: 200}}>{renderCurrentTab()}</View>
+        <View style={{ minHeight: 200 }}>{renderCurrentTab()}</View>
         <ModeratorActivityModal
           visible={activityModalVisible}
           onHideModal={() => setActivityModalVisible(false)}
