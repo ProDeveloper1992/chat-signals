@@ -6,28 +6,7 @@ import {
 
 const initialState = {
   bookmarksLoading: false,
-  bookmarksList: [
-    {
-      id: 12,
-      picture:
-        'http://chat-signal.com/public/storage/uploads/users/EJAJtsPfo1bvO7TnZBz5CBD50UkFNRyXGviYLvhZ.jpeg',
-      username: 'chink',
-      dob: '1989-02-12',
-      city: 'barlin',
-      postcode_area: '11744',
-      country: 'de',
-    },
-    {
-      id: 6,
-      picture:
-        'http://chat-signal.com/public/storage/uploads/users/c31QKwgBqgnvscP1ddCT2wGPS5h7ZKj142jSyzPe.jpeg',
-      username: 'pinki',
-      dob: '1989-02-12',
-      city: 'barlin',
-      postcode_area: '11744',
-      country: 'de',
-    },
-  ],
+  bookmarksList: [],
 };
 
 export default function (state = initialState, action) {
@@ -42,6 +21,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         bookmarksLoading: false,
+        bookmarksList: action.payload
       };
 
     case GET_BOOKMARKS_FAILED:
