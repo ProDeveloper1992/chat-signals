@@ -1,5 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Image, ScrollView, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Image,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import {
   TextButton,
   AuthContainer,
@@ -9,20 +15,20 @@ import {
   AppText,
   IconButton,
 } from '../../components';
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
-import { GradientButton } from '../../components';
-import { Images, mailformat, Color, Gifs, Icons, Colors } from '../../constants';
-import { globalStyle } from '../../styles/global-style';
-import { loginUser } from '../../redux/actions/user-actions';
+import {GradientButton} from '../../components';
+import {Images, mailformat, Color, Gifs, Icons, Colors} from '../../constants';
+import {globalStyle} from '../../styles/global-style';
+import {loginUser} from '../../redux/actions/user-actions';
 
 const LoginScreen = (props) => {
-  const { navigation } = props;
+  const {navigation} = props;
 
   //Actions to dispatch
   const dispatch = useDispatch();
 
-  const { appLabels } = useSelector((state) => state.appState);
+  const {appLabels} = useSelector((state) => state.appState);
 
   const [email, setEmail] = React.useState('');
   const [emailError, setEmailError] = React.useState(null);
@@ -69,18 +75,18 @@ const LoginScreen = (props) => {
 
   const onGoogleIconPress = () => {
     navigation.navigate('RegisterWithGoogle');
-  }
+  };
 
   const onFacebookIconPress = () => {
     navigation.navigate('RegisterWithFacebook');
-  }
+  };
 
   return (
     <AuthContainer blur>
       <BackHeader onBackPress={() => navigation.goBack()} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Image style={globalStyle.logo} source={Gifs.chat_signal_logo} />
-        <View style={{ flex: 1, justifyContent: 'center' }}>
+        <View style={{flex: 1, justifyContent: 'center'}}>
           <AuthInput
             style={styles.input}
             label={appLabels.email}
@@ -100,7 +106,7 @@ const LoginScreen = (props) => {
             error={passError}
           />
 
-          <View style={{ alignSelf: 'flex-end' }}>
+          <View style={{alignSelf: 'flex-end'}}>
             <TextButton
               fontType={'bold'}
               fontSize={14}
@@ -120,13 +126,19 @@ const LoginScreen = (props) => {
             loading={loading}
           />
 
-
           <AppText
             color={Colors.white}
-            style={{ alignSelf: 'center', marginVertical: 15 }}
-          >{'Or Login with'}</AppText>
+            style={{alignSelf: 'center', marginVertical: 15}}>
+            {'Or Login with'}
+          </AppText>
 
-          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: 10 }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginBottom: 10,
+            }}>
             <IconButton
               icon={Icons.google_icon}
               buttonColor={Colors.google}
@@ -141,6 +153,7 @@ const LoginScreen = (props) => {
           </View>
 
           <TextButton
+            style={{alignSelf: 'center'}}
             fontType={'bold'}
             title={appLabels.dont_have_an_account + '  ' + appLabels.create_one}
             onPress={() => {
