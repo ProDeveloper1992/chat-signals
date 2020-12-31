@@ -29,7 +29,7 @@ const RegisterWithFacebook = (props) => {
 
   function onLoginWithFacebook() {
     setLoading(true);
-    LoginManager.logInWithPermissions(['public_profile']).then(
+    LoginManager.logInWithPermissions(['public_profile','email']).then(
       function (result) {
         if (result.isCancelled) {
           setLoading(false);
@@ -64,7 +64,7 @@ const RegisterWithFacebook = (props) => {
     } else {
       let requestData = {
         username: userInfo.name,
-        email: "chatsignal@facebook.com",
+        email: userInfo.email,
         avatar: userInfo.picture.data.url,
         provider: 'facebook',
         provider_id: userInfo.id,
