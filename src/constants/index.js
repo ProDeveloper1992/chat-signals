@@ -59,6 +59,9 @@ export const Icons = {
   send_icon: require('../assets/icons/send.png'),
   tick_icon: require('../assets/icons/tick_24.png'),
   double_tick_icon: require('../assets/icons/double_tick_24.png'),
+  icon_emoji_happy: require('../assets/icons/emoji_happy.png'),
+  icon_emoji_cool: require('../assets/icons/emoji_cool.png'),
+  icon_emoji_love: require('../assets/icons/emoji_love.png'),
 };
 
 export const Gifs = {
