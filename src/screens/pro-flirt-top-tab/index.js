@@ -9,7 +9,7 @@ import {
   Platform,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { ModeratorListItem } from '../../components';
+import { AppIndicatorLoader, ModeratorListItem } from '../../components';
 import { useNavigation } from '@react-navigation/native';
 
 import styles from './style';
@@ -30,14 +30,6 @@ export default function ProFlirtTab(props) {
   }, []);
 
   const navigation = useNavigation();
-
-  if (flirtsLoading) {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size={'large'} color={Colors.ui_primary} />
-      </View>
-    );
-  }
 
   const render_FlatList_header = () => {
     return (
@@ -101,23 +93,27 @@ export default function ProFlirtTab(props) {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={flirtsList}
-        numColumns={2}
-        contentContainerStyle={{ paddingBottom: 20 }}
-        showsVerticalScrollIndicator={false}
-        // ListHeaderComponent={render_FlatList_header}
-        renderItem={({ item, index }) => (
-          <ModeratorListItem
-            item={item}
-            key={String(index)}
-            onPress={() =>
-              navigation.navigate('ModeratorProfile', { item: item })
-            }
+      {flirtsLoading ? (
+        <AppIndicatorLoader />
+      ) : (
+          <FlatList
+            data={flirtsList}
+            numColumns={2}
+            contentContainerStyle={{ paddingBottom: 20 }}
+            showsVerticalScrollIndicator={false}
+            // ListHeaderComponent={render_FlatList_header}
+            renderItem={({ item, index }) => (
+              <ModeratorListItem
+                item={item}
+                key={String(index)}
+                onPress={() =>
+                  navigation.navigate('ModeratorProfile', { item: item })
+                }
+              />
+            )}
+            keyExtractor={(item, index) => index.toString()}
           />
         )}
-        keyExtractor={(item, index) => index.toString()}
-      />
     </View>
   );
 }

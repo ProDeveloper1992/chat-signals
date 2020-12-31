@@ -1,12 +1,12 @@
 import React from 'react';
-import {StyleSheet, View, SafeAreaView, Animated, Text} from 'react-native';
-import {GeneralHeader} from '../../components/Headers';
-import {useNavigation} from '@react-navigation/native';
-import {toggleLanguageModal} from '../../redux/actions/app-modals-actions';
-import {useDispatch} from 'react-redux';
-import {GradientButton, AppText, AuthContainer} from '../../components';
+import { StyleSheet, View, SafeAreaView, Animated, Text } from 'react-native';
+import { GeneralHeader } from '../../components/Headers';
+import { useNavigation } from '@react-navigation/native';
+import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
+import { useDispatch } from 'react-redux';
+import { GradientButton, AppText, AuthContainer } from '../../components';
 import CountDown from 'react-native-countdown-component';
-import {Images, mailformat, Colors, Gifs, Icons} from '../../constants';
+import { Images, mailformat, Colors, Gifs, Icons } from '../../constants';
 
 const DailyCoins = () => {
   const navigation = useNavigation();
@@ -15,7 +15,7 @@ const DailyCoins = () => {
   let animatedValue = new Animated.Value(0);
   let val = 0;
 
-  animatedValue.addListener(({value}) => {
+  animatedValue.addListener(({ value }) => {
     val = value;
   });
 
@@ -30,11 +30,11 @@ const DailyCoins = () => {
   });
 
   const frontAnimatedStyle = {
-    transform: [{rotateY: frontInterpolate}],
+    transform: [{ rotateY: frontInterpolate }],
   };
 
   const backAnimatedStyle = {
-    transform: [{rotateY: backInterpolate}],
+    transform: [{ rotateY: backInterpolate }],
   };
 
   const flipCard = () => {
@@ -56,7 +56,7 @@ const DailyCoins = () => {
   };
 
   return (
-    <SafeAreaView style={[styles.container, {}]}>
+    <View style={styles.container}>
       <GeneralHeader
         leftIcon={Icons.user_profile}
         onLeftPress={() => navigation.navigate('UserProfile')}
@@ -65,16 +65,16 @@ const DailyCoins = () => {
         label={'Daily Coins'}
       />
       <AuthContainer blur>
-        <View style={{flex: 1, padding: 24}}>
+        <View style={{ flex: 1, padding: 24 }}>
           <CountDown
             until={60 * 60}
             size={20}
             onFinish={() => alert('Finished')}
-            timeLabelStyle={{color: Colors.ui_primary}}
-            digitStyle={{backgroundColor: '#FFF'}}
-            digitTxtStyle={{color: Colors.ui_primary}}
+            timeLabelStyle={{ color: Colors.ui_primary }}
+            digitStyle={{ backgroundColor: '#FFF' }}
+            digitTxtStyle={{ color: Colors.ui_primary }}
             timeToShow={['H', 'M', 'S']}
-            timeLabels={{h: 'HH', m: 'MM', s: 'SS'}}
+            timeLabels={{ h: 'HH', m: 'MM', s: 'SS' }}
           />
           <AppText
             type={'medium'}
@@ -94,7 +94,7 @@ const DailyCoins = () => {
                 type={'bold'}
                 size={20}
                 color={Colors.white}
-                style={{textAlign: 'center'}}>
+                style={{ textAlign: 'center' }}>
                 {'Chat-Coins'}
               </AppText>
             </Animated.View>
@@ -105,7 +105,7 @@ const DailyCoins = () => {
                 type={'bold'}
                 size={20}
                 color={Colors.white}
-                style={{textAlign: 'center'}}>
+                style={{ textAlign: 'center' }}>
                 {'Hurrah...you got 25 chat-coins..!!!'}
               </AppText>
             </Animated.View>
@@ -118,7 +118,7 @@ const DailyCoins = () => {
           />
         </View>
       </AuthContainer>
-    </SafeAreaView>
+    </View>
   );
 };
 
