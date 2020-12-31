@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, TouchableOpacity, TextInput, Image } from 'react-native';
+import { View, FlatList, TouchableOpacity, TextInput, Image, ActivityIndicator } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { ModeratorListItem, NoListData } from '../../../components';
+import { AppIndicatorLoader, ModeratorListItem, NoListData } from '../../../components';
 import styles from './style';
 import { useNavigation } from '@react-navigation/native';
 import { Colors, Icons } from '../../../constants';
@@ -11,7 +11,7 @@ export default function BookmarkTopTab(props) {
 
   const dispatch = useDispatch();
 
-  const { bookmarksList } = useSelector((state) => state.bookmarkState);
+  const { bookmarksList, bookmarksLoading } = useSelector((state) => state.bookmarkState);
 
   const navigation = useNavigation();
 
@@ -22,22 +22,26 @@ export default function BookmarkTopTab(props) {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={bookmarksList}
-        numColumns={2}
-        showsVerticalScrollIndicator={false}
-        renderItem={({ item, index }) => (
-          <ModeratorListItem
-            key={String(index)}
-            item={item}
-            bookmarked
-            onPress={() =>
-              navigation.navigate('ModeratorProfile', { item: item })
-            }
+      {bookmarksLoading ? (
+        <AppIndicatorLoader />
+      ) : (
+          <FlatList
+            data={bookmarksList}
+            numColumns={2}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item, index }) => (
+              <ModeratorListItem
+                key={String(index)}
+                item={item}
+                bookmarked
+                onPress={() =>
+                  navigation.navigate('ModeratorProfile', { item: item })
+                }
+              />
+            )}
+            keyExtractor={(item, index) => index.toString()}
           />
         )}
-        keyExtractor={(item, index) => index.toString()}
-      />
     </View>
   );
 }

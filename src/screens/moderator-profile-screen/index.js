@@ -106,7 +106,7 @@ export default function ModeratorProfile(props) {
               onValueChange={toggleSwitch}
               value={isFavorite}
             />
-            <AppText type={'bold'}>{'BOOKMARK'}</AppText>
+            <AppText type={'bold'} uppercase style={{ marginHorizontal: 10 }}>{'Favourite'}</AppText>
           </View>
         </View>
 

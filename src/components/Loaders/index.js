@@ -1,3 +1,4 @@
-import {Loading} from './Loading';
+import { Loading } from './Loading';
+import AppIndicatorLoader from './app-indicator-loader';
 
-export {Loading};
+export { Loading, AppIndicatorLoader };
