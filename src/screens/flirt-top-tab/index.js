@@ -34,7 +34,7 @@ export default function FlirtTab(props) {
       id: userData.id,
     };
     dispatch(getFlirtsList(requestData));
-    dispatch(userProfileDetail(userId));
+    // dispatch(userProfileDetail(userId));
   }, []);
 
   const render_FlatList_header = () => {

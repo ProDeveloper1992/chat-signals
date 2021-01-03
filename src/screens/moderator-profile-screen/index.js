@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { NoListData, AppText } from '../../components';
-import { Icons, Colors } from '../../constants';
+import { Icons, Colors, DEFAULT_IMAGE_URL } from '../../constants';
 import ImagePicker from 'react-native-image-picker';
 import styles from './style';
 import { ModeratorIconLabel, ModeratorHeader } from '../../components';
@@ -16,7 +16,7 @@ import ModeratorProfileInfoTab from './moderator-profile-info-tab';
 import ModeratorProfilePhotosTab from './moderator-profile-photos-tab';
 import ModeratorProfileActionTab from './moderator-profile-action-tab';
 import { ModeratorActivityModal } from '../../components/app-modals';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToFavorite } from '../../redux/actions/user-actions';
 
 export default function ModeratorProfile(props) {
@@ -24,6 +24,8 @@ export default function ModeratorProfile(props) {
   const dispatch = useDispatch();
 
   const { params } = props.route;
+
+  const { appLabels } = useSelector((state) => state.appState);
 
   const [isFavorite, setIsFavorite] = useState(false);
   const [activityType, setActivityType] = useState('kisses');
@@ -61,13 +63,21 @@ export default function ModeratorProfile(props) {
     setActivityModalVisible(true);
   };
 
+  const getItemImage = (imageUrl) => {
+    if (imageUrl != null) {
+      return imageUrl;
+    } else {
+      return DEFAULT_IMAGE_URL;
+    }
+  }
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
         <ImageBackground
           style={styles.imgBackground}
           resizeMode="cover"
-          source={{ uri: params.item.picture }}>
+          source={{ uri: getItemImage(params.item.picture) }}>
           <ModeratorHeader
             label={params.item.username}
             onBackPress={() => props.navigation.goBack()}
@@ -106,7 +116,7 @@ export default function ModeratorProfile(props) {
               onValueChange={toggleSwitch}
               value={isFavorite}
             />
-            <AppText type={'bold'} uppercase style={{ marginHorizontal: 10 }}>{'Favourite'}</AppText>
+            <AppText type={'bold'} uppercase style={{ marginHorizontal: 10 }}>{appLabels.bookmark ? appLabels.bookmark : 'Favourite'}</AppText>
           </View>
         </View>
 
@@ -115,25 +125,25 @@ export default function ModeratorProfile(props) {
         <View style={styles.moderatorIconViewHolder}>
           <ModeratorIconLabel
             onIconPress={() => showActivityModal('kisses')}
-            IconName={'Kisses'}
+            IconName={appLabels.kisses}
             Icon={Icons.kiss_icon}
           />
 
           <ModeratorIconLabel
             onIconPress={() => showActivityModal('like')}
-            IconName={'Like'}
+            IconName={appLabels.likes}
             Icon={Icons.like_icon}
           />
 
           <ModeratorIconLabel
             onIconPress={() => showActivityModal('chat')}
-            IconName={'Chat'}
+            IconName={appLabels.chat}
             Icon={Icons.chat_flat_icon}
           />
 
           <ModeratorIconLabel
             onIconPress={() => showActivityModal('addfriend')}
-            IconName={'Add Friend'}
+            IconName={appLabels.add_friend}
             Icon={Icons.add_friend_icon}
           />
         </View>
@@ -147,10 +157,11 @@ export default function ModeratorProfile(props) {
             }}
             onPress={() => setCurrentTab(0)}>
             <AppText
+              numberOfLines={1}
               type={'bold'}
               size={16}
               color={cuurentTab === 0 ? Colors.white : Colors.black}>
-              {'Photos'}
+              {appLabels.photos}
             </AppText>
           </TouchableOpacity>
 
@@ -162,10 +173,11 @@ export default function ModeratorProfile(props) {
             }}
             onPress={() => setCurrentTab(1)}>
             <AppText
+              numberOfLines={1}
               type={'bold'}
               size={16}
               color={cuurentTab === 1 ? Colors.white : Colors.black}>
-              {'Profile-Info'}
+              {appLabels.profile_info}
             </AppText>
           </TouchableOpacity>
 
@@ -177,10 +189,11 @@ export default function ModeratorProfile(props) {
             }}
             onPress={() => setCurrentTab(2)}>
             <AppText
+              numberOfLines={1}
               type={'bold'}
               size={16}
               color={cuurentTab === 2 ? Colors.white : Colors.black}>
-              {'Action'}
+              {appLabels.action}
             </AppText>
           </TouchableOpacity>
         </View>

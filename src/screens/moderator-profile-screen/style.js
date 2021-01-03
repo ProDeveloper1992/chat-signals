@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {Colors} from '../../constants';
+import { StyleSheet } from 'react-native';
+import { Colors } from '../../constants';
 
 export default StyleSheet.create({
   container: {
@@ -53,7 +53,6 @@ export default StyleSheet.create({
   moderatorIconViewHolder: {
     flexDirection: 'row',
     flex: 1,
-    justifyContent: 'space-between',
     padding: 10,
   },
 
@@ -71,7 +70,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
 
-  centerTabView:{
+  centerTabView: {
     flex: 1,
     padding: 15,
     alignItems: 'center',

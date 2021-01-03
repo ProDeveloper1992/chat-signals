@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react';
-import {SafeAreaView, Alert, BackHandler} from 'react-native';
+import React, { useEffect } from 'react';
+import { SafeAreaView, Alert, BackHandler } from 'react-native';
 
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   Home,
   Contact,
@@ -15,23 +15,24 @@ import {
   ChatDetail
 } from '../screens';
 import BottomTabBar from '../components/BottomTabBar';
-import {Colors} from '../constants';
+import { Colors } from '../constants';
+import { useSelector } from 'react-redux';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const screenOptions = {
-  headerStyle: {backgroundColor: Colors.white},
+  headerStyle: { backgroundColor: Colors.white },
   headerTintColor: Colors.ui_primary_dark,
-  headerTitleStyle: {fontWeight: 'bold'},
+  headerTitleStyle: { fontWeight: 'bold' },
 };
 
 function HomeStack() {
   return (
     <Stack.Navigator
       initialRouteName="Home"
-      screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Home" component={Home} options={{title: 'Home'}} />
+      screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Home" component={Home} options={{ title: 'Home' }} />
     </Stack.Navigator>
   );
 }
@@ -40,11 +41,11 @@ function ContactStack() {
   return (
     <Stack.Navigator
       initialRouteName="Contact"
-      screenOptions={{headerShown: false}}>
+      screenOptions={{ headerShown: false }}>
       <Stack.Screen
         name="Contact"
         component={Contact}
-        options={{title: 'Contact'}}
+        options={{ title: 'Contact' }}
       />
     </Stack.Navigator>
   );
@@ -54,8 +55,8 @@ function ChatStack() {
   return (
     <Stack.Navigator
       initialRouteName="Chat"
-      screenOptions={{headerShown: false}}>
-      <Stack.Screen name="Chat" component={Chat} options={{title: 'Chat'}} />
+      screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Chat" component={Chat} options={{ title: 'Chat' }} />
     </Stack.Navigator>
   );
 }
@@ -64,11 +65,11 @@ function DailyCoinStack() {
   return (
     <Stack.Navigator
       initialRouteName="Daily Coins"
-      screenOptions={{headerShown: false}}>
+      screenOptions={{ headerShown: false }}>
       <Stack.Screen
         name="Daily Coins"
         component={DailyCoins}
-        options={{title: 'Daily Coins'}}
+        options={{ title: 'Daily Coins' }}
       />
     </Stack.Navigator>
   );
@@ -78,17 +79,19 @@ function CoinPurchaseStack() {
   return (
     <Stack.Navigator
       initialRouteName="Coin Purchase"
-      screenOptions={{headerShown: false}}>
+      screenOptions={{ headerShown: false }}>
       <Stack.Screen
         name="Coin Purchase"
         component={CoinPurchase}
-        options={{title: 'Coin Purchase'}}
+        options={{ title: 'Coin Purchase' }}
       />
     </Stack.Navigator>
   );
 }
 
 const BottomTabNavigator = () => {
+  const { appLabels } = useSelector((state) => state.appState);
+
   return (
     <Tab.Navigator
       // initialRouteName="FirstTabStack"
@@ -98,42 +101,42 @@ const BottomTabNavigator = () => {
       tabBar={(props) => (
         <>
           <BottomTabBar {...props} />
-          <SafeAreaView style={{backgroundColor: 'white'}} />
+          <SafeAreaView style={{ backgroundColor: 'white' }} />
         </>
       )}>
       <Tab.Screen
         name="FirstTabStack"
         component={HomeStack}
         options={{
-          tabBarLabel: 'Home',
+          tabBarLabel: appLabels.home,
         }}
       />
       <Tab.Screen
         name="SecondTabStack"
         component={ContactStack}
         options={{
-          tabBarLabel: 'Contact',
+          tabBarLabel: appLabels.contact,
         }}
       />
       <Tab.Screen
         name="ThirdTabStack"
         component={ChatStack}
         options={{
-          tabBarLabel: 'Chat',
+          tabBarLabel: appLabels.chat,
         }}
       />
       <Tab.Screen
         name="FourthTabStack"
         component={DailyCoinStack}
         options={{
-          tabBarLabel: 'Daily Coins',
+          tabBarLabel: appLabels.daily_coins,
         }}
       />
       <Tab.Screen
         name="FifthTabStack"
         component={CoinPurchaseStack}
         options={{
-          tabBarLabel: 'Purchase',
+          tabBarLabel: appLabels.purchase,
         }}
       />
     </Tab.Navigator>
@@ -144,28 +147,28 @@ export default function MainStackNavigator() {
   return (
     <Stack.Navigator
       initialRouteName="BottomTab"
-      screenOptions={{headerShown: false}}>
+      screenOptions={{ headerShown: false }}>
       <Stack.Screen
         name="BottomTab"
         component={BottomTabNavigator}
-        // options={{title: 'Home'}}
+      // options={{title: 'Home'}}
       />
       <Stack.Screen
         name="ModeratorProfile"
         component={ModeratorProfile}
-        options={{title: 'Moderator Profile'}}
+        options={{ title: 'Moderator Profile' }}
       />
 
       <Stack.Screen
         name="UserProfile"
         component={UserProfile}
-        options={{title: 'User Profile'}}
+        options={{ title: 'User Profile' }}
       />
 
       <Stack.Screen
         name="ChatDetail"
         component={ChatDetail}
-        options={{title: 'Chat Detail'}}
+        options={{ title: 'Chat Detail' }}
       />
     </Stack.Navigator>
   );

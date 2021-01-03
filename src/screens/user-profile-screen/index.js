@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { NoListData, AppText } from '../../components';
-import { Icons, Colors } from '../../constants';
+import { Icons, Colors, DEFAULT_IMAGE_URL } from '../../constants';
 import ImagePicker from 'react-native-image-picker';
 import styles from './style';
 import { ModeratorIconLabel, ModeratorHeader } from '../../components';
@@ -21,15 +21,12 @@ import { useSelector } from 'react-redux';
 export default function UserProfile(props) {
   const { params } = props.route;
 
-  const [isEnabled, setIsEnabled] = useState(false);
   const [activityType, setActivityType] = useState('kisses');
   const [activityModalVisible, setActivityModalVisible] = useState(false);
   const [cuurentTab, setCurrentTab] = useState(0);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
 
-  const { userData, userProfileDetailList } = useSelector(
-    (state) => state.userState,
-  );
+  const { userData } = useSelector((state) => state.userState);
+  const { appLabels } = useSelector((state) => state.appState);
 
   useEffect(() => { }, []);
 
@@ -56,17 +53,12 @@ export default function UserProfile(props) {
   };
 
   const getProfilePicture = () => {
-    var profilePic = null;
+    var profilePic = DEFAULT_IMAGE_URL;
     if (
-      userProfileDetailList &&
-      userProfileDetailList.profile_picture &&
-      userProfileDetailList.profile_picture.length > 0
+      userData &&
+      userData.avatar
     ) {
-      for (let item of userProfileDetailList.profile_picture) {
-        if (item.is_profile_photo == 1) {
-          profilePic = item.picture;
-        }
-      }
+      profilePic = userData.avatar;
     }
     return profilePic;
   };
@@ -79,7 +71,7 @@ export default function UserProfile(props) {
           resizeMode="cover"
           source={{ uri: getProfilePicture() }}>
           <ModeratorHeader
-            label={userProfileDetailList?.firstname + " " + userProfileDetailList?.lastname}
+            label={userData && userData.username}
             onBackPress={() => props.navigation.goBack()}
           />
         </ImageBackground>
@@ -87,11 +79,11 @@ export default function UserProfile(props) {
         <View style={styles.hrLine}></View>
 
         <View style={styles.moderatorSwitchContainer}>
-          <View>
+          <View style={styles.container}>
             <View style={styles.moderatorNameContainer}>
               <View style={styles.onlineStatusSignal(true)} />
               <AppText type={'bold'} size={16} style={{ textAlign: 'center' }}>
-                {userProfileDetailList?.firstname + " " + userProfileDetailList?.lastname}
+                {userData && userData.username}
               </AppText>
             </View>
 
@@ -105,7 +97,7 @@ export default function UserProfile(props) {
                 {'5'}
               </AppText>
               <AppText style={styles.mRight} size={14}>
-                {'Charge coins'}
+                {appLabels.charge_coins}
               </AppText>
             </View>
           </View>
@@ -123,8 +115,8 @@ export default function UserProfile(props) {
               }}
               source={Icons.super_flirt_heart_icon}
             />
-            <AppText type={'regular'} size={14} color={Colors.ui_primary}>
-              {'Get Super-Flirted now!'}
+            <AppText type={'regular'} size={14} color={Colors.ui_primary} style={{ marginHorizontal: 10 }}>
+              {appLabels.get_super_flirt}
             </AppText>
           </TouchableOpacity>
         </View>
@@ -134,25 +126,25 @@ export default function UserProfile(props) {
         <View style={styles.moderatorIconViewHolder}>
           <ModeratorIconLabel
             onIconPress={() => { }}
-            IconName={'0 Kisses'}
+            IconName={`0 ${appLabels.kisses}`}
             Icon={Icons.kiss_icon}
           />
 
           <ModeratorIconLabel
             onIconPress={() => { }}
-            IconName={'2 Likes'}
+            IconName={`2 ${appLabels.likes}`}
             Icon={Icons.like_icon}
           />
 
           <ModeratorIconLabel
             onIconPress={() => { }}
-            IconName={'0 Stickers'}
+            IconName={`0 ${appLabels.stickers}`}
             Icon={Icons.sticker_icon}
           />
 
           <ModeratorIconLabel
             onIconPress={() => { }}
-            IconName={'1 Heart'}
+            IconName={`1 ${appLabels.heart}`}
             Icon={Icons.heart_icon}
           />
         </View>
@@ -166,10 +158,11 @@ export default function UserProfile(props) {
             }}
             onPress={() => setCurrentTab(0)}>
             <AppText
+              numberOfLines={1}
               type={'bold'}
               size={16}
               color={cuurentTab === 0 ? Colors.white : Colors.black}>
-              {'Photos'}
+              {appLabels.photos}
             </AppText>
           </TouchableOpacity>
 
@@ -181,10 +174,11 @@ export default function UserProfile(props) {
             }}
             onPress={() => setCurrentTab(1)}>
             <AppText
+              numberOfLines={1}
               type={'bold'}
               size={16}
               color={cuurentTab === 1 ? Colors.white : Colors.black}>
-              {'Profile-Info'}
+              {appLabels.profile_info}
             </AppText>
           </TouchableOpacity>
 
@@ -196,10 +190,11 @@ export default function UserProfile(props) {
             }}
             onPress={() => setCurrentTab(2)}>
             <AppText
+              numberOfLines={1}
               type={'bold'}
               size={16}
               color={cuurentTab === 2 ? Colors.white : Colors.black}>
-              {'Action'}
+              {appLabels.action}
             </AppText>
           </TouchableOpacity>
         </View>

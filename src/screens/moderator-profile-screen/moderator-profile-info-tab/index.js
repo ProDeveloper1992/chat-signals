@@ -1,60 +1,64 @@
 import React from 'react';
-import {View, ScrollView, Image} from 'react-native';
-import {AppText} from '../../../components';
-import {Icons} from '../../../constants';
+import { View, ScrollView, Image } from 'react-native';
+import { useSelector } from 'react-redux';
+import { AppText } from '../../../components';
+import { Icons } from '../../../constants';
 import styles from './style';
 
 export default function ModeratorProfileInfoTab(props) {
+
+  const { appLabels } = useSelector((state) => state.appState);
+
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       <PropertyHolder
         // IconSource={Icons.chat_active}
-        Key={'Gender'}
+        Key={appLabels.gender}
         Value={'Frau'}
       />
       <PropertyHolder
         // IconSource={Icons.chat_active}
-        Key={'Country'}
+        Key={appLabels.country}
         Value={'DE'}
       />
       <PropertyHolder
         // IconSource={Icons.chat_active}
-        Key={'Distance'}
+        Key={appLabels.distance}
         Value={'25 km Radius'}
       />
       <PropertyHolder
         // IconSource={Icons.chat_active}
-        Key={'Age'}
+        Key={appLabels.age}
         Value={'35'}
       />
       <PropertyHolder
         // IconSource={Icons.chat_active}
-        Key={'Zodiac Sign'}
+        Key={appLabels.zodiac_sign}
         Value={'fish'}
       />
       <PropertyHolder
         // IconSource={Icons.chat_active}
-        Key={'Height'}
+        Key={appLabels.height}
         Value={'160cm - 170cm'}
       />
       <PropertyHolder
         // IconSource={Icons.chat_active}
-        Key={'Figure'}
+        Key={appLabels.figure}
         Value={'normal'}
       />
       <PropertyHolder
         // IconSource={Icons.chat_active}
-        Key={'Hair Color'}
+        Key={appLabels.hair_color}
         Value={'black'}
       />
       <PropertyHolder
         // IconSource={Icons.chat_active}
-        Key={'Eye color'}
+        Key={appLabels.eye_color}
         Value={'blue'}
       />
       <PropertyHolder
         // IconSource={Icons.chat_active}
-        Key={'Skin color'}
+        Key={appLabels.skin_color}
         Value={'bright'}
       />
     </ScrollView>
@@ -69,13 +73,13 @@ const PropertyHolder = (props) => {
           <Image source={props.IconSource} style={styles.iconSize} />
         </View> */}
         <View style={styles.txtContainer}>
-          <AppText type={'bold'} size={13} style={{textAlign: 'center'}}>
+          <AppText type={'bold'} size={13} style={{ textAlign: 'center' }}>
             {props.Key}
           </AppText>
         </View>
       </View>
       <View style={styles.subPropertyContainer}>
-        <AppText size={12} style={{textAlign: 'center'}}>
+        <AppText size={12} style={{ textAlign: 'center' }}>
           {props.Value}
         </AppText>
       </View>

@@ -1,24 +1,28 @@
 import React from 'react';
-import {Image, TouchableOpacity, View} from 'react-native';
+import { Image, TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
-import {Colors, Icons} from '../../../constants';
-import {GradientButton, AppText} from '../../index';
+import { useSelector } from 'react-redux';
+import { Colors, Icons } from '../../../constants';
+import { GradientButton, AppText } from '../../index';
 import styles from './style';
 
-export default function ActivityModal({visible, onHideModal, type}) {
+export default function ActivityModal({ visible, onHideModal, type }) {
+
+  const { appLabels } = useSelector((state) => state.appState);
+
   const getTitle = (type) => {
     switch (type) {
       case 'kisses':
-        return 'Kisses';
+        return appLabels.kisses;
 
       case 'like':
-        return 'Like';
+        return appLabels.like;
 
       case 'chat':
-        return 'Chat';
+        return appLabels.chat;
 
       case 'addfriend':
-        return 'Add Friend';
+        return appLabels.add_friend;
 
       default:
         return 'Title';
@@ -67,11 +71,11 @@ export default function ActivityModal({visible, onHideModal, type}) {
           source={getActivityImage(type)}
         />
         <AppText type={'bold'} size={16} color={Colors.black}>
-          {'4 Coins'}
+          {`4 ${appLabels.Coins}`}
         </AppText>
         <GradientButton
           title={'Send'}
-          style={{marginVertical: 10}}
+          style={{ marginVertical: 10 }}
           onPress={onHideModal}
         />
         <TouchableOpacity onPress={onHideModal}>
