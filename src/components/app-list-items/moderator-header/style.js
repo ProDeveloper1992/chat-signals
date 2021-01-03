@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {Colors} from '../../../constants';
+import { StyleSheet } from 'react-native';
+import { Colors } from '../../../constants';
 
 export default StyleSheet.create({
   headerContainer: {
@@ -10,7 +10,7 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
   },
 
-  backIconContainer:{
+  backIconContainer: {
     backgroundColor: Colors.black_30,
     alignSelf: 'flex-start',
     alignItems: 'center',
@@ -31,5 +31,8 @@ export default StyleSheet.create({
     letterSpacing: 0.5,
     textAlign: 'center',
     textTransform: 'uppercase',
+    textShadowColor: 'rgba(0, 0, 0, 0.50)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10
   },
 });

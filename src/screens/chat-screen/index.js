@@ -26,6 +26,7 @@ const Chat = () => {
   const dispatch = useDispatch();
 
   const { userChatList, loadingChatList } = useSelector((state) => state.userState);
+  const { appLabels } = useSelector((state) => state.appState);
 
   useEffect(() => {
     Pusher.logToConsole = true;
@@ -86,7 +87,7 @@ const Chat = () => {
         onLeftPress={() => navigation.navigate('UserProfile')}
         LanguageIcon={Icons.icon_languages}
         onLanguagePress={() => dispatch(toggleLanguageModal(true))}
-        label={'Chat'}
+        label={appLabels.chat}
       />
       {loadingChatList ? (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -108,11 +109,10 @@ const Chat = () => {
               />
             )}
             ItemSeparatorComponent={ItemSeparatorView}
-            keyExtractor={(item, index) => index.toString()}
-            ListEmptyComponent={<NoListData title={"No Chats Found!"} />}
+            keyExtractor={(item, index) => String(index)}
+            ListEmptyComponent={<NoListData title={"No chats found!"} />}
           />
         )}
-
     </View>
   );
 };

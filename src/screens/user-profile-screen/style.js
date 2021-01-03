@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {Colors} from '../../constants';
+import { StyleSheet } from 'react-native';
+import { Colors } from '../../constants';
 
 export default StyleSheet.create({
   container: {
@@ -19,7 +19,7 @@ export default StyleSheet.create({
   moderatorSwitchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     padding: 10,
   },
 
@@ -31,6 +31,7 @@ export default StyleSheet.create({
 
   moderatorLocationContainer: {
     flexDirection: 'row',
+    alignItems: 'center',
     marginVertical: 3,
   },
 
@@ -47,6 +48,7 @@ export default StyleSheet.create({
   },
 
   proFlirtContainer: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
   },

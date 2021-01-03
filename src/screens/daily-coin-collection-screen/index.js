@@ -3,14 +3,17 @@ import { StyleSheet, View, SafeAreaView, Animated, Text } from 'react-native';
 import { GeneralHeader } from '../../components/Headers';
 import { useNavigation } from '@react-navigation/native';
 import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { GradientButton, AppText, AuthContainer } from '../../components';
 import CountDown from 'react-native-countdown-component';
+import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
 import { Images, mailformat, Colors, Gifs, Icons } from '../../constants';
 
 const DailyCoins = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+
+  const { appLabels } = useSelector((state) => state.appState);
 
   let animatedValue = new Animated.Value(0);
   let val = 0;
@@ -62,7 +65,7 @@ const DailyCoins = () => {
         onLeftPress={() => navigation.navigate('UserProfile')}
         LanguageIcon={Icons.icon_languages}
         onLanguagePress={() => dispatch(toggleLanguageModal(true))}
-        label={'Daily Coins'}
+        label={appLabels.daily_coins}
       />
       <AuthContainer blur>
         <View style={{ flex: 1, padding: 24 }}>
@@ -90,22 +93,37 @@ const DailyCoins = () => {
           <View style={styles.cardContainer}>
             <Animated.View
               style={[frontAnimatedStyle, styles.cardStyle, styles.cardFront]}>
-              <AppText
-                type={'bold'}
-                size={20}
-                color={Colors.white}
-                style={{ textAlign: 'center' }}>
-                {'Chat-Coins'}
-              </AppText>
+              <CountdownCircleTimer
+                isPlaying
+                size={150}
+                duration={60 * 60}
+                isLinearGradient={true}
+                colors={[
+                  ["#C70039", 0.33],
+                  ["#FF5733", 0.33],
+                  [Colors.golden, 0.34],
+                ]}
+              >
+                {({ remainingTime, animatedColor }) => {
+                  const hours = Math.floor(remainingTime / 3600) < 10 ? "0" + Math.floor(remainingTime / 3600) : Math.floor(remainingTime / 3600);
+                  const minutes = Math.floor((remainingTime % 3600) / 60) < 10 ? "0" + Math.floor((remainingTime % 3600) / 60) : Math.floor((remainingTime % 3600) / 60);
+                  const seconds = remainingTime % 60 < 10 ? "0" + remainingTime % 60 : remainingTime % 60;
+                  return (
+                    <Animated.Text style={{ color: Colors.black, fontSize: 18, fontWeight: 'bold' }}>
+                      {`${hours}:${minutes}:${seconds}`}
+                    </Animated.Text>
+                  )
+                }}
+              </CountdownCircleTimer>
             </Animated.View>
 
             <Animated.View
-              style={[backAnimatedStyle, styles.cardStyle, , styles.cardBack]}>
+              style={[backAnimatedStyle, styles.cardStyle, styles.cardBack]}>
               <AppText
                 type={'bold'}
                 size={20}
                 color={Colors.white}
-                style={{ textAlign: 'center' }}>
+                style={{ textAlign: 'center', marginHorizontal: 30 }}>
                 {'Hurrah...you got 25 chat-coins..!!!'}
               </AppText>
             </Animated.View>
@@ -141,23 +159,36 @@ const styles = StyleSheet.create({
   },
 
   cardStyle: {
-    width: '75%',
-    height: '75%',
+    width: '90%',
+    height: '80%',
     alignSelf: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
     marginVertical: 10,
     borderRadius: 4,
     backfaceVisibility: 'hidden',
   },
 
   cardFront: {
-    backgroundColor: 'rgba(82,184,188,0.5)',
+    bottom: '10%',
+    position: 'absolute',
+    backgroundColor: 'rgba(255,255,255,0.7)',
+    shadowColor: Colors.black,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 8,
   },
 
   cardBack: {
-    top: 0,
+    bottom: '10%',
     position: 'absolute',
-    backgroundColor: Colors.ui_primary_dark,
+    backgroundColor: 'rgba(255,255,255,0.7)',
+    shadowColor: Colors.black,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 8,
   },
 });
 

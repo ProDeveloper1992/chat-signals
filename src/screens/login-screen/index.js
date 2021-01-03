@@ -15,20 +15,20 @@ import {
   AppText,
   IconButton,
 } from '../../components';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import {GradientButton} from '../../components';
-import {Images, mailformat, Color, Gifs, Icons, Colors} from '../../constants';
-import {globalStyle} from '../../styles/global-style';
-import {loginUser} from '../../redux/actions/user-actions';
+import { GradientButton } from '../../components';
+import { Images, mailformat, Color, Gifs, Icons, Colors } from '../../constants';
+import { globalStyle } from '../../styles/global-style';
+import { loginUser } from '../../redux/actions/user-actions';
 
 const LoginScreen = (props) => {
-  const {navigation} = props;
+  const { navigation } = props;
 
   //Actions to dispatch
   const dispatch = useDispatch();
 
-  const {appLabels} = useSelector((state) => state.appState);
+  const { appLabels } = useSelector((state) => state.appState);
 
   const [email, setEmail] = React.useState('');
   const [emailError, setEmailError] = React.useState(null);
@@ -65,7 +65,7 @@ const LoginScreen = (props) => {
         const response = await dispatch(loginUser(requestData));
         setLoading(false);
         if (response.meta.status) {
-          navigation.navigate('main-stack');
+          navigation.push('main-stack');
         }
       } catch (e) {
         setLoading(false);
@@ -86,7 +86,7 @@ const LoginScreen = (props) => {
       <BackHeader onBackPress={() => navigation.goBack()} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Image style={globalStyle.logo} source={Gifs.chat_signal_logo} />
-        <View style={{flex: 1, justifyContent: 'center'}}>
+        <View style={{ flex: 1, justifyContent: 'center' }}>
           <AuthInput
             style={styles.input}
             label={appLabels.email}
@@ -106,7 +106,7 @@ const LoginScreen = (props) => {
             error={passError}
           />
 
-          <View style={{alignSelf: 'flex-end'}}>
+          <View style={{ alignSelf: 'flex-end' }}>
             <TextButton
               fontType={'bold'}
               fontSize={14}
@@ -128,7 +128,7 @@ const LoginScreen = (props) => {
 
           <AppText
             color={Colors.white}
-            style={{alignSelf: 'center', marginVertical: 15}}>
+            style={{ alignSelf: 'center', marginVertical: 15 }}>
             {'Or Login with'}
           </AppText>
 
@@ -153,7 +153,7 @@ const LoginScreen = (props) => {
           </View>
 
           <TextButton
-            style={{alignSelf: 'center'}}
+            style={{ alignSelf: 'center' }}
             fontType={'bold'}
             title={appLabels.dont_have_an_account + '  ' + appLabels.create_one}
             onPress={() => {

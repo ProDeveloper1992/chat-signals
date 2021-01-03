@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Dimensions, View } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import styles from './style';
@@ -21,13 +21,15 @@ export default function Home() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
+  const { appLabels } = useSelector((state) => state.appState);
+
   const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
+  const routes = [
     { key: 'bookmarks', title: 'Favorites' },
-    { key: 'friends', title: 'Friends' },
-    { key: 'visitors', title: 'Visitors' },
-    { key: 'blocked', title: 'Blocked' },
-  ]);
+    { key: 'friends', title: appLabels.friends },
+    { key: 'visitors', title: appLabels.visitors },
+    { key: 'blocked', title: appLabels.blocked },
+  ]
 
   const renderScene = SceneMap({
     bookmarks: BookMarkTopTab,
@@ -45,7 +47,7 @@ export default function Home() {
         // onRightPress={() => {}}
         LanguageIcon={Icons.icon_languages}
         onLanguagePress={() => dispatch(toggleLanguageModal(true))}
-        label={'CONTACTS'}
+        label={appLabels.contact}
       />
 
       <TabView

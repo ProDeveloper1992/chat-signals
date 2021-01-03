@@ -7,15 +7,17 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import {GeneralHeader} from '../../components/Headers';
-import {useNavigation} from '@react-navigation/native';
-import {toggleLanguageModal} from '../../redux/actions/app-modals-actions';
-import {useDispatch} from 'react-redux';
-import {Icons} from '../../constants';
+import { GeneralHeader } from '../../components/Headers';
+import { useNavigation } from '@react-navigation/native';
+import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { Icons } from '../../constants';
 
 const CoinPurchase = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+
+  const { appLabels } = useSelector((state) => state.appState);
 
   return (
     <View style={styles.container}>
@@ -24,10 +26,10 @@ const CoinPurchase = () => {
         onLeftPress={() => navigation.navigate('UserProfile')}
         LanguageIcon={Icons.icon_languages}
         onLanguagePress={() => dispatch(toggleLanguageModal(true))}
-        label={'Purchase'}
+        label={appLabels.purchase}
       />
       <ScrollView
-        style={{paddingHorizontal: 10}}
+        style={{ paddingHorizontal: 10 }}
         showsVerticalScrollIndicator={false}>
         <PurchaseCoinBox
           style={{
@@ -104,7 +106,7 @@ const PurchaseCoinBox = (props) => {
         },
       ]}
       onPress={props.onPress}>
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <View
           style={{
             height: 50,
@@ -116,14 +118,14 @@ const PurchaseCoinBox = (props) => {
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-          <Image source={props.icon} style={{height: 24, width: 24}} />
+          <Image source={props.icon} style={{ height: 24, width: 24 }} />
         </View>
         <View style={{}}>
           <Text>{props.planName}</Text>
           <Text>{props.offerText}</Text>
         </View>
       </View>
-      <View style={{alignItems: 'center'}}>
+      <View style={{ alignItems: 'center' }}>
         <Text>{props.totalCoins}</Text>
         <Text>{props.coinPrice}</Text>
       </View>

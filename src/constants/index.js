@@ -9,6 +9,7 @@ export const Colors = {
   black_30: 'rgba(0,0,0,0.3)',
   green: 'green',
   red: '#CB4335',
+  golden: "#FFC300",
   positive: '#98ff67',
   ui_error: '#B22222',
   google: '#db4a39',
@@ -75,3 +76,6 @@ const { width, height } = Dimensions.get('window');
 // orientation must fixed
 export const SCREEN_WIDTH = width < height ? width : height;
 export const SCREEN_HEIGHT = height > width ? height : width;
+
+//Default Image
+export const DEFAULT_IMAGE_URL = 'https://rimatour.com/wp-content/uploads/2017/09/No-image-found.jpg';

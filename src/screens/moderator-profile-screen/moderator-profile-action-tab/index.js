@@ -1,10 +1,14 @@
 import React from 'react';
-import {View, ScrollView, Image, TouchableOpacity, Text} from 'react-native';
-import {AppText} from '../../../components';
-import {Icons, Colors} from '../../../constants';
+import { View, ScrollView, Image, TouchableOpacity, Text } from 'react-native';
+import { useSelector } from 'react-redux';
+import { AppText } from '../../../components';
+import { Icons, Colors } from '../../../constants';
 import styles from './style';
 
 export default function ModeratorProfileActionTab(props) {
+
+  const { appLabels } = useSelector((state) => state.appState);
+
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       <AppText
@@ -15,19 +19,19 @@ export default function ModeratorProfileActionTab(props) {
           textTransform: 'uppercase',
           padding: 10,
         }}>
-        {'settings'}
+        {appLabels.settings}
       </AppText>
 
       <ActionHolder
-        onPress={() => alert('Give away coins')}
-        label={'Give away coins'}
+        onPress={() => alert(appLabels.give_away_coins)}
+        label={appLabels.give_away_coins}
       />
       <ActionHolder
-        onPress={() => alert('Report user')}
-        label={'Report user'}
+        onPress={() => alert(appLabels.report_user)}
+        label={appLabels.report_user}
       />
 
-      <ActionHolder onPress={() => alert('Block user')} label={'Block user'} />
+      <ActionHolder onPress={() => alert(appLabels.block_user)} label={appLabels.block_user} />
     </ScrollView>
   );
 }
@@ -43,7 +47,7 @@ const ActionHolder = (props) => {
       </AppText>
       <Image
         source={Icons.right_arrow}
-        style={{height: 14, width: 14, resizeMode: 'cover'}}
+        style={{ height: 14, width: 14, resizeMode: 'cover' }}
       />
     </TouchableOpacity>
   );

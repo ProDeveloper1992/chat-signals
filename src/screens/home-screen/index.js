@@ -1,31 +1,33 @@
-import React, {useEffect, useState} from 'react';
-import {Alert, Dimensions, View, BackHandler} from 'react-native';
-import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import {useDispatch} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { Alert, Dimensions, View, BackHandler } from 'react-native';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { useDispatch, useSelector } from 'react-redux';
 
-import {Colors, Icons} from '../../constants';
-import {FlirtTab, ProFlirtTab} from '../index';
-import {GeneralHeader} from '../../components/Headers';
+import { Colors, Icons } from '../../constants';
+import { FlirtTab, ProFlirtTab } from '../index';
+import { GeneralHeader } from '../../components/Headers';
 import styles from './style';
 
-import {toggleLanguageModal} from '../../redux/actions/app-modals-actions';
-import {GoogleSignin, statusCodes} from 'react-native-google-signin';
-import {useIsFocused, useNavigation} from '@react-navigation/native';
+import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
+import { GoogleSignin, statusCodes } from 'react-native-google-signin';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import SplashScreen from 'react-native-splash-screen';
 
-const initialLayout = {width: Dimensions.get('window').width};
+const initialLayout = { width: Dimensions.get('window').width };
 
 export default function Home() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
 
+  const { appLabels } = useSelector((state) => state.appState);
+
   const [index, setIndex] = useState(0);
-  const [routes] = useState([
-    {key: 'flirt', title: 'Flirts'},
-    {key: 'proflirt', title: 'ProFlirts'},
-  ]);
+  const routes = [
+    { key: 'flirt', title: appLabels.flirts },
+    { key: 'proflirt', title: appLabels.super_flirts ? appLabels.super_flirts : 'ProFlirts' },
+  ];
 
   useEffect(() => {
     SplashScreen.hide();
@@ -37,7 +39,7 @@ export default function Home() {
             onPress: () => null,
             style: 'cancel',
           },
-          {text: 'YES', onPress: () => BackHandler.exitApp()},
+          { text: 'YES', onPress: () => BackHandler.exitApp() },
         ]);
         return true;
       };
@@ -83,16 +85,16 @@ export default function Home() {
     <View style={styles.container}>
       <GeneralHeader
         leftIcon={Icons.user_profile}
-        onLeftPress={()=>navigation.navigate('UserProfile')}
+        onLeftPress={() => navigation.navigate('UserProfile')}
         // rightIcon={Icons.search}
         // onRightPress={()=>navigation.navigate('SearchScreen')}
         LanguageIcon={Icons.icon_languages}
         onLanguagePress={() => dispatch(toggleLanguageModal(true))}
-        label={'Flirts'}
+        label={appLabels.home}
       />
 
       <TabView
-        navigationState={{index, routes}}
+        navigationState={{ index, routes }}
         renderScene={renderScene}
         onIndexChange={setIndex}
         initialLayout={initialLayout}
