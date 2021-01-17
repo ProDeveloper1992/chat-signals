@@ -5,15 +5,51 @@ export default StyleSheet.create({
   container: {
     flex: 1,
   },
-
-  imgBackground: {
-    height: 350,
-    width: '100%',
+  cardContainer: {
+    margin: 10,
+    padding: 10,
+    backgroundColor: Colors.white,
+    borderRadius: 5,
   },
-
-  hrLine: {
-    height: 0.3,
-    backgroundColor: 'grey',
+  cardHeaderContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginHorizontal: 10,
+    padding: 10,
+    backgroundColor: Colors.ui_primary,
+    borderRadius: 5,
+    marginTop: 10
+  },
+  profileImage: {
+    width: 100,
+    height: 100,
+    backgroundColor: Colors.grey,
+    borderRadius: 8
+  },
+  buttonWithIcon: function (color) {
+    return {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingHorizontal: 10,
+      paddingVertical: 5,
+      backgroundColor: color,
+      borderRadius: 5,
+      marginEnd: 5
+    }
+  },
+  smallIcon: {
+    width: 18,
+    height: 18,
+    resizeMode: 'contain',
+    tintColor: Colors.white,
+    marginEnd: 5
+  },
+  commonIcon: {
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
+    // tintColor: Colors.white,
   },
 
   moderatorSwitchContainer: {
@@ -63,8 +99,8 @@ export default StyleSheet.create({
   tabViewContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderTopWidth: 0.5,
-    borderBottomWidth: 0.5,
+    borderWidth: 0.5,
+    borderRadius: 5,
     borderColor: Colors.grey,
   },
 
@@ -72,6 +108,7 @@ export default StyleSheet.create({
     flex: 1,
     padding: 15,
     alignItems: 'center',
+    borderRadius: 5,
   },
 
   centerTabView: {

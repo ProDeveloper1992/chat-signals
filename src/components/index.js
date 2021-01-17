@@ -14,6 +14,7 @@ import {
   ChatBubble
 } from './app-list-items';
 import { AppText } from './app-text';
+import OwnPurchaseCard from './own-purchase-card';
 
 export {
   AppText,
@@ -37,5 +38,6 @@ export {
   ModeratorListItem,
   ModeratorIconLabel,
   ModeratorHeader,
-  ChatBubble
+  ChatBubble,
+  OwnPurchaseCard
 };

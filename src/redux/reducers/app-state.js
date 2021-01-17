@@ -7,11 +7,18 @@ import {
   GET_APP_STRINGS_FAIL,
   CHANGE_APP_LANGUAGE,
   SHOW_TOAST,
+  GET_PAYMENT_MODULE_REQUEST,
+  GET_PAYMENT_MODULE_SUCCESS,
+  GET_PAYMENT_MODULE_FAIL,
+  GET_GENERAL_SETTINGS_SUCCESS,
 } from '../actions/types';
 
 const initialState = {
   appLoading: true,
   selectedLanguage: 'en',
+  loadingPaymentGateways: false,
+  paymentGateways: [],
+  generalSettings: [],
   appLabels: {
     Thisistest: 'this is testing',
     at: 'AT',
@@ -162,6 +169,33 @@ export default function (state = initialState, action) {
       return {
         ...state,
       };
+
+    //Payment module
+    case GET_PAYMENT_MODULE_REQUEST:
+      return {
+        ...state,
+        loadingPaymentGateways: true
+      };
+
+    case GET_PAYMENT_MODULE_SUCCESS:
+      console.log('GET_PAYMENT_MODULE_SUCCESS...', action.payload)
+      return {
+        ...state,
+        paymentGateways: action.payload,
+        loadingPaymentGateways: false
+      };
+
+    case GET_PAYMENT_MODULE_FAIL:
+      return {
+        ...state,
+        loadingPaymentGateways: false
+      };
+
+    case GET_GENERAL_SETTINGS_SUCCESS:
+      return {
+        ...state,
+        generalSettings: action.payload
+      }
 
     default:
       return state;

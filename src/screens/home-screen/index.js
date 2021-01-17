@@ -13,6 +13,7 @@ import { GoogleSignin, statusCodes } from 'react-native-google-signin';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import SplashScreen from 'react-native-splash-screen';
+import { getGeneralSettings } from '../../redux/actions/app-actions';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
@@ -22,12 +23,19 @@ export default function Home() {
   const isFocused = useIsFocused();
 
   const { appLabels } = useSelector((state) => state.appState);
+  const { authToken } = useSelector((state) => state.userState);
 
   const [index, setIndex] = useState(0);
   const routes = [
     { key: 'flirt', title: appLabels.flirts },
     { key: 'proflirt', title: appLabels.super_flirts ? appLabels.super_flirts : 'ProFlirts' },
   ];
+
+  useEffect(() => {
+    if (authToken) {
+      dispatch(getGeneralSettings());
+    }
+  }, []);
 
   useEffect(() => {
     SplashScreen.hide();

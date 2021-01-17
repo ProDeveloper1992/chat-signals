@@ -20,26 +20,40 @@ import styles from './style';
 import { ChatListItem } from '../../components/app-list-items';
 import { getChatConversation, getUserChatList } from '../../redux/actions/user-actions';
 import { NoListData } from '../../components';
+import pusherConfig from '../../../pusher.json';
 
 const Chat = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const { userChatList, loadingChatList } = useSelector((state) => state.userState);
+  const { userChatList, loadingChatList, authToken } = useSelector((state) => state.userState);
   const { appLabels } = useSelector((state) => state.appState);
 
   useEffect(() => {
     Pusher.logToConsole = true;
 
     var pusher = new Pusher('2550b11480f5cba62c1e', {
+      authEndpoint: 'http://url.com/api/authtest',
+      auth: {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer ' + authToken
+        }
+      },
       cluster: 'ap2',
+      encrypted: true
     });
+
+    // var pusher = new Pusher(pusherConfig.key, pusherConfig);
 
     pusher.connection.bind('connected', function () {
       // alert('pusher connected');
     });
 
-    var channel = pusher.subscribe('my-channel');
+    var channel = pusher.subscribe('private-chatify');
+    channel.bind('pusher:subscription_error', function (err) {
+      console.log("subscription_error", err)
+    });
     channel.bind('pusher:subscription_succeeded', () => {
       channel.bind('join', (data) => {
         alert(data);
