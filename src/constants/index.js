@@ -10,7 +10,7 @@ export const Colors = {
   green: 'green',
   red: '#CB4335',
   golden: "#FFC300",
-  positive: '#98ff67',
+  positive: '#1D8348',
   ui_error: '#B22222',
   google: '#db4a39',
   facebook: '#3b5998',
@@ -63,6 +63,10 @@ export const Icons = {
   icon_emoji_happy: require('../assets/icons/emoji_happy.png'),
   icon_emoji_cool: require('../assets/icons/emoji_cool.png'),
   icon_emoji_love: require('../assets/icons/emoji_love.png'),
+  icon_drop_down: require('../assets/icons/arrow_drop_down.png'),
+  icon_drop_up: require('../assets/icons/arrow_drop_up.png'),
+  icon_purchase_active: require('../assets/icons/purchase-active.png'),
+  icon_purchase_inactive: require('../assets/icons/purchase-inactive.png'),
 };
 
 export const Gifs = {
@@ -79,3 +83,4 @@ export const SCREEN_HEIGHT = height > width ? height : width;
 
 //Default Image
 export const DEFAULT_IMAGE_URL = 'https://rimatour.com/wp-content/uploads/2017/09/No-image-found.jpg';
+export const DEFAULT_AVATAR_URL = 'https://lh3.googleusercontent.com/proxy/HLYvJt-yzp9mc7cjrcnoCUhG3V_ILvrh8kwuApWZZuNhOTO3gVMf7NAWBTw1VqWLfD-1SYbvxD1w7M4LBNQlzMRVX-CFacs';

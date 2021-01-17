@@ -1,21 +1,21 @@
 import React from 'react';
-import {View, TouchableOpacity, Image} from 'react-native';
-import {Colors, Icons} from '../../constants';
-import {AppText} from '../../components';
+import { View, TouchableOpacity, Image } from 'react-native';
+import { Colors, Icons } from '../../constants';
+import { AppText } from '../../components';
 import styles from './style';
 
-export default function BottomTabBar({state, descriptors, navigation}) {
+export default function BottomTabBar({ state, descriptors, navigation }) {
   return (
     <View style={styles.tabBarContainer}>
       {state.routes.map((route, index) => {
         // console.log('Route...', route);
-        const {options} = descriptors[route.key];
+        const { options } = descriptors[route.key];
         const label =
           options.tabBarLabel !== undefined
             ? options.tabBarLabel
             : options.title !== undefined
-            ? options.title
-            : route.name;
+              ? options.title
+              : route.name;
 
         const isFocused = state.index === index;
 
@@ -66,9 +66,9 @@ export default function BottomTabBar({state, descriptors, navigation}) {
 
             case 'FifthTabStack':
               if (isFocused) {
-                return Icons.home_active;
+                return Icons.icon_purchase_active;
               }
-              return Icons.home_inactive;
+              return Icons.icon_purchase_inactive;
 
             default:
               if (isFocused) {
@@ -88,11 +88,11 @@ export default function BottomTabBar({state, descriptors, navigation}) {
             testID={options.tabBarTestID}
             onPress={onPress}
             onLongPress={onLongPress}
-            style={{flex: 1, alignItems: 'center'}}>
+            style={{ flex: 1, alignItems: 'center' }}>
             <View
               style={[
                 styles.activeTabIconContainer(isFocused),
-                {borderRadius: 20},
+                { borderRadius: 20 },
               ]}>
               <Image style={styles.tabIcon(isFocused)} source={getTabIcon()} />
             </View>
