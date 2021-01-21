@@ -24,7 +24,8 @@ const CoinPurchase = () => {
 
   const [selectedPaymentGateway, setSelectedPaymentGateway] = useState(null);
   const [perEuroCredit, setPerEuroCredit] = useState(0);
-  const [selectedPurchase, setSelectedPurchase] = useState(null);
+  const [selectedPackage, setSelectedPackage] = useState(null);
+  const [ownPackagePrice, setOwnPackagePrice] = useState(0);
 
   useEffect(() => {
     if (isFocused) {
@@ -45,7 +46,20 @@ const CoinPurchase = () => {
   const onPaymentGatwayItemPress = (paymentItem) => {
     console.log("paymentItem", paymentItem);
     setSelectedPaymentGateway(paymentItem);
-    setSelectedPurchase(null);
+    setSelectedPackage(null);
+  }
+
+  const onSelectPackageModule = (item) => {
+    setSelectedPackage(item);
+    console.log(item);
+    let price = item.price * 1;
+    setOwnPackagePrice(price);
+  }
+
+  const onChangeOwnPackagePrice = (value) => {
+    let fixedValue = value.toFixed(0);
+    setOwnPackagePrice(fixedValue * 1);
+    setSelectedPackage(null);
   }
 
   return (
@@ -66,8 +80,6 @@ const CoinPurchase = () => {
                 style={[styles.paymetGatewayImage, { alignSelf: 'center' }]}
                 source={{ uri: selectedPaymentGateway.picture }} />
 
-              <OwnPurchaseCard />
-
               {selectedPaymentGateway.packagemodules && (
                 <>
                   <FlatList
@@ -77,7 +89,7 @@ const CoinPurchase = () => {
                       <TouchableOpacity
                         activeOpacity={1}
                         key={String(index)}
-                        onPress={() => setSelectedPurchase(item)}
+                        onPress={() => onSelectPackageModule(item)}
                         style={{
                           flex: 1,
                           flexDirection: 'row',
@@ -85,7 +97,7 @@ const CoinPurchase = () => {
                           justifyContent: 'space-between',
                           padding: 10,
                           marginBottom: 10,
-                          backgroundColor: selectedPurchase ? selectedPurchase.id === item.id ? Colors.ui_primary : Colors.white : Colors.white,
+                          backgroundColor: selectedPackage ? selectedPackage.id === item.id ? Colors.ui_primary : Colors.white : Colors.white,
                           borderRadius: 5
                         }}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -93,7 +105,7 @@ const CoinPurchase = () => {
                           <AppText
                             type={'bold'}
                             size={16}
-                            color={selectedPurchase ? selectedPurchase.id === item.id ? Colors.white : Colors.black : Colors.black}>
+                            color={selectedPackage ? selectedPackage.id === item.id ? Colors.white : Colors.black : Colors.black}>
                             {`${perEuroCredit * item.price} credits`}
                           </AppText>
                         </View>
@@ -101,26 +113,33 @@ const CoinPurchase = () => {
                           <AppText
                             type={'bold'}
                             size={16}
-                            color={selectedPurchase ? selectedPurchase.id === item.id ? Colors.white : Colors.black : Colors.black}>
-                            {`${item.price} €`}
+                            color={selectedPackage ? selectedPackage.id === item.id ? Colors.white : Colors.black : Colors.black}>
+                            {`${item.price}€`}
                           </AppText>
                         </View>
                       </TouchableOpacity>
                     )}
                     keyExtractor={(item, index) => String(index)}
                   />
-                  {selectedPurchase != null && (
+                  {/* {selectedPackage != null && (
                     <>
                       <GradientButton
                         type={'positive'}
                         style={{ marginTop: 20 }}
-                        title={`Order for ${selectedPurchase.price} euros for fee`}
+                        title={`Order for ${selectedPackage.price}€ for fee`}
                       />
-                      <AppText size={12} style={{ marginVertical: 10, textAlign: 'center' }}>{`You will be credited with ${perEuroCredit * selectedPurchase.price} credits after purchase.`}</AppText>
+                      <AppText size={12} style={{ marginVertical: 10, textAlign: 'center' }}>{`You will be credited with ${perEuroCredit * selectedPackage.price} credits after purchase.`}</AppText>
                     </>
-                  )}
+                  )} */}
                 </>
               )}
+              <OwnPurchaseCard
+                sliderCount={ownPackagePrice}
+                minimumSliderCount={0}
+                maximumSliderCount={500}
+                onChangeSliderValue={(value) => onChangeOwnPackagePrice(value)}
+                creditPerCurrency={perEuroCredit}
+                paymentUrl={selectedPaymentGateway.payment_url} />
             </View>
           </>
         ) : (

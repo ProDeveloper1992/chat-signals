@@ -5,7 +5,7 @@ export const Colors = {
   ui_primary_dark: '#3c8e92',
   white: '#ffffff',
   white_80: 'rgba(255,255,255,0.8)',
-  black: '#1f191b',
+  black: '#333333',
   black_30: 'rgba(0,0,0,0.3)',
   green: 'green',
   red: '#CB4335',

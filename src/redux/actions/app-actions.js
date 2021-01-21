@@ -8,7 +8,10 @@ import {
   GET_PAYMENT_MODULE_REQUEST,
   GET_PAYMENT_MODULE_SUCCESS,
   GET_PAYMENT_MODULE_FAIL,
-  GET_GENERAL_SETTINGS_SUCCESS
+  GET_GENERAL_SETTINGS_SUCCESS,
+  GET_SEAL_URL_REQUEST,
+  GET_SEAL_URL_SUCCESS,
+  GET_SEAL_URL_FAILED
 } from './types';
 import { client } from '../../services/api-service';
 import { store } from '../../redux/store';
@@ -76,3 +79,20 @@ export const getGeneralSettings = () => (dispatch) =>
       });
   });
 
+export const getSealUrl = (requestData) => (dispatch) =>
+  new Promise(function (resolve, reject) {
+    dispatch(ActionDispatcher(GET_SEAL_URL_REQUEST));
+    client
+      .post(`/sear_url`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+          dispatch(ActionDispatcher(GET_SEAL_URL_SUCCESS));
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        dispatch(ActionDispatcher(GET_SEAL_URL_FAILED));
+        resolve({ meta: { status: false } })
+        reject(err);
+      });
+  });

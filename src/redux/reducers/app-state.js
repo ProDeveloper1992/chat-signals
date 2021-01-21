@@ -11,12 +11,16 @@ import {
   GET_PAYMENT_MODULE_SUCCESS,
   GET_PAYMENT_MODULE_FAIL,
   GET_GENERAL_SETTINGS_SUCCESS,
+  GET_SEAL_URL_REQUEST,
+  GET_SEAL_URL_SUCCESS,
+  GET_SEAL_URL_FAILED
 } from '../actions/types';
 
 const initialState = {
   appLoading: true,
   selectedLanguage: 'en',
   loadingPaymentGateways: false,
+  gettingSealUrl: false,
   paymentGateways: [],
   generalSettings: [],
   appLabels: {
@@ -195,7 +199,29 @@ export default function (state = initialState, action) {
       return {
         ...state,
         generalSettings: action.payload
+      };
+
+    //Get Seal Url
+    case GET_SEAL_URL_REQUEST: {
+      return {
+        ...state,
+        gettingSealUrl: true,
       }
+    };
+
+    case GET_SEAL_URL_SUCCESS: {
+      return {
+        ...state,
+        gettingSealUrl: false,
+      }
+    };
+
+    case GET_SEAL_URL_FAILED: {
+      return {
+        ...state,
+        gettingSealUrl: false,
+      }
+    };
 
     default:
       return state;

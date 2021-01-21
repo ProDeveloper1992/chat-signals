@@ -5,8 +5,9 @@ import { toggleGallerySwiperModal, toggleLanguageModal } from '../../redux/actio
 import LanguageSelectionModal from './language-selection-modal';
 import ModeratorActivityModal from './moderator-activity-modal';
 import GallerySwiperModal from './gallery-swiper-modal';
+import WebViewModal from './webview-modal';
 
-export { ModeratorActivityModal };
+export { ModeratorActivityModal, WebViewModal };
 
 export default function AppModals(props) {
   const dispatch = useDispatch();

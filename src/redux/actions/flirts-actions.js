@@ -1,11 +1,10 @@
-import {ActionDispatcher} from './index';
+import { ActionDispatcher } from './index';
 import {
   GET_FLIRTS_REQUEST,
   GET_FLIRTS_SUCCESS,
   GET_FLIRTS_FAILED,
 } from './types';
-import {client} from '../../services/api-service';
-import {showToast} from './app-actions';
+import { client } from '../../services/api-service';
 
 export const getFlirtsList = (requestData) => (dispatch) =>
   new Promise(function (resolve, reject) {
@@ -17,14 +16,12 @@ export const getFlirtsList = (requestData) => (dispatch) =>
           dispatch(ActionDispatcher(GET_FLIRTS_SUCCESS, res.data));
         } else {
           dispatch(ActionDispatcher(GET_FLIRTS_FAILED));
-          dispatch(showToast('negative', res.meta.message));
         }
         resolve(res);
       })
       .catch((err) => {
         dispatch(ActionDispatcher(GET_FLIRTS_FAILED));
-        dispatch(showToast('negative', 'Something went wrong!'));
-        resolve({data: {success: false}});
+        resolve({ data: { success: false } });
         reject(err);
       });
   });
