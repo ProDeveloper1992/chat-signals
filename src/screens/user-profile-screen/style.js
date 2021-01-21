@@ -42,7 +42,6 @@ export default StyleSheet.create({
     width: 18,
     height: 18,
     resizeMode: 'contain',
-    tintColor: Colors.white,
     marginEnd: 5
   },
   commonIcon: {

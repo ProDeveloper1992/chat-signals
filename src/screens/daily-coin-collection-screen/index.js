@@ -170,9 +170,9 @@ const styles = StyleSheet.create({
   },
 
   cardFront: {
-    bottom: '10%',
+    bottom: '15%',
     position: 'absolute',
-    backgroundColor: 'rgba(255,255,255,0.7)',
+    backgroundColor: Colors.white,
     shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.3,
@@ -181,9 +181,9 @@ const styles = StyleSheet.create({
   },
 
   cardBack: {
-    bottom: '10%',
+    bottom: '15%',
     position: 'absolute',
-    backgroundColor: 'rgba(255,255,255,0.7)',
+    backgroundColor: Colors.golden,
     shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.3,

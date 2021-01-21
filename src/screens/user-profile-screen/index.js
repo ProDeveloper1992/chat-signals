@@ -69,15 +69,19 @@ export default function UserProfile(props) {
             <View style={{ padding: 15 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <View style={styles.onlineStatusSignal(true)} />
-                <AppText type={'bold'} size={16}>{userData ? userData.username : ''}</AppText>
+                <AppText type={'bold'} size={16}>{userData.username}</AppText>
+              </View>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <Image style={styles.smallIcon} source={Icons.coins_icon} />
+                <AppText size={16}>{userData.credit}</AppText>
               </View>
               <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 10 }}>
                 <View style={styles.buttonWithIcon(Colors.ui_primary)}>
-                  <Image style={styles.smallIcon} source={Icons.chat_inactive} />
+                  <Image style={[styles.smallIcon, { tintColor: Colors.white }]} source={Icons.chat_inactive} />
                   <AppText color={Colors.white} type={'medium'}>{"Chat"}</AppText>
                 </View>
                 <View style={styles.buttonWithIcon(Colors.red)}>
-                  <Image style={styles.smallIcon} source={Icons.kiss_icon} />
+                  <Image style={[styles.smallIcon, { tintColor: Colors.white }]} source={Icons.kiss_icon} />
                   <AppText color={Colors.white} type={'medium'}>{"Kiss"}</AppText>
                 </View>
               </View>
@@ -113,7 +117,7 @@ export default function UserProfile(props) {
           isExpanded={isAccountInfoExpanded}
           onPress={() => setAccountInfoExpanded(!isAccountInfoExpanded)} />
 
-        {isAccountInfoExpanded && (
+        {isAccountInfoExpanded && userData && (
           <View style={styles.cardContainer}>
             <AccountInfoItem
               title={'Email'}

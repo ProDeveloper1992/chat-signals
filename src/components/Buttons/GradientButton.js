@@ -51,6 +51,7 @@ export function GradientButton({ type, title, icon, style, onPress, loading, dis
   return (
     <TouchableOpacity
       disabled={disabled}
+      activeOpacity={0.9}
       style={[
         styles.container,
         style,
