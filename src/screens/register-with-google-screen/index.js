@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { StyleSheet, Image, View, ScrollView } from 'react-native';
 
 import {
-  GradientButton,
+  AppButton,
   Loading,
   AuthContainer,
   BackHeader,
@@ -118,7 +118,7 @@ const RegisterWithGoogle = (props) => {
         <View style={{ marginTop: '10%' }}>
           <CountryPicker />
 
-          <GradientButton
+          <AppButton
             type={'google'}
             title={appLabels.register_with_google}
             icon={

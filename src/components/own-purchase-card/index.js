@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity, Image, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { AppText, GradientButton } from '..';
+import { AppText, AppButton } from '..';
 import { Colors } from '../../constants';
 import { getSealUrl } from '../../redux/actions/app-actions';
 import OwnPackageSlider from '../own-package-slider'
@@ -85,7 +85,7 @@ export default function OwnPurchaseCard({
                     thumbTintColor={Colors.ui_primary}
                 />
             </View>
-            <GradientButton
+            <AppButton
                 disabled={sliderCount === 0 ? true : false}
                 type={'positive'}
                 style={{ marginTop: 20 }}

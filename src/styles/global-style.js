@@ -1,9 +1,9 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export const globalStyle = StyleSheet.create({
   logo: {
-    width: 200,
-    height: 100,
+    width: 150,
+    height: 80,
     resizeMode: 'contain',
     alignSelf: 'center',
   },

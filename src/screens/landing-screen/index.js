@@ -10,13 +10,15 @@ import {
 } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 
-import { GradientButton, AuthContainer } from '../../components';
+import { AppButton, AppText, AuthContainer } from '../../components';
 import { Colors, Icons, Images, Gifs } from '../../constants';
 import { isIphoneX } from '../../utils/common';
 import { globalStyle } from '../../styles/global-style';
 import { useIsFocused } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
+
+import LandingIntro from '../../assets/images/landing_intro.svg';
 
 const LandingScreen = (props) => {
   const { navigation } = props;
@@ -62,43 +64,48 @@ const LandingScreen = (props) => {
 
   return (
     <AuthContainer>
-      <TouchableOpacity
-        onPress={onLanguageIconPress}
-        style={{
-          backgroundColor: Colors.white,
-          width: 50,
-          height: 50,
-          borderRadius: 25,
-          alignItems: 'center',
-          justifyContent: 'center',
-          alignSelf: 'flex-end',
-          marginTop: 20,
-          elevation: 5,
-        }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
         <Image
-          style={{ width: 24, height: 24, tintColor: Colors.ui_primary }}
-          source={Icons.icon_languages}
+          style={[globalStyle.logo, { tintColor: Colors.black }]}
+          source={Gifs.chat_signal_logo}
         />
-      </TouchableOpacity>
-      <Image
-        style={[globalStyle.logo, { marginTop: isIphoneX() ? 20 : 10 }]}
-        source={Gifs.chat_signal_logo}
-      />
+        <TouchableOpacity
+          onPress={onLanguageIconPress}
+          style={{
+            backgroundColor: Colors.white,
+            width: 50,
+            height: 50,
+            borderRadius: 25,
+            alignItems: 'center',
+            justifyContent: 'center',
+            // alignSelf: 'flex-end',
+            // marginTop: 20,
+            elevation: 5,
+          }}>
+          <Image
+            style={{ width: 24, height: 24, tintColor: Colors.ui_primary }}
+            source={Icons.icon_languages}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <LandingIntro width={"100%"} height={"50%"} />
+      </View>
       <View style={styles.bottomView}>
         <View style={{ marginEnd: 8, flex: 1 }}>
-          <GradientButton
+          <AppButton
             type={'light'}
-            title={appLabels.register}
-            style={{ paddingVertical: Platform.OS === 'ios' ? 18 : 15 }}
-            onPress={onRegister}
+            title={appLabels.login}
+            // style={{ paddingVertical: Platform.OS === 'ios' ? 18 : 15 }}
+            onPress={onLogin}
           />
         </View>
         <View style={{ marginStart: 8, flex: 1 }}>
-          <GradientButton
-            type={'primary'}
-            title={appLabels.login}
-            style={{ paddingVertical: Platform.OS === 'ios' ? 18 : 15 }}
-            onPress={onLogin}
+          <AppButton
+            type={'transparent'}
+            title={appLabels.register}
+            // style={{ paddingVertical: Platform.OS === 'ios' ? 18 : 15 }}
+            onPress={onRegister}
           />
         </View>
       </View>

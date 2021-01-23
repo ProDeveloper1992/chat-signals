@@ -5,17 +5,17 @@ import PropTypes from 'prop-types';
 const getFontFamily = (type) => {
   switch (type) {
     case 'regular':
-      return 'Gilroy-Regular';
+      return 'Poppins-Regular';
     case 'medium':
-      return 'Gilroy-Medium';
+      return 'Poppins-Medium';
     case 'bold':
-      return 'Gilroy-Bold';
+      return 'Poppins-Bold';
     case 'heavy':
-      return 'Gilroy-Heavy';
+      return 'Poppins-Black';
     case 'light':
-      return 'Gilroy-Light';
+      return 'Poppins-Light';
     default:
-      return 'Gilroy-Regular';
+      return 'Poppins-Regular';
   }
 };
 
@@ -24,6 +24,7 @@ export const AppText = styled.Text`
   font-family: ${(props) => getFontFamily(props.type)}
   color: ${(props) => props.color};
   text-transform: ${(props) => props.uppercase ? 'uppercase' : 'none'};
+  top:2px;
 `;
 
 AppText.propTypes = {

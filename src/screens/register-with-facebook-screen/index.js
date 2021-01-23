@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Image, View, ScrollView } from 'react-native';
 
 import {
-  GradientButton,
+  AppButton,
   Loading,
   AuthContainer,
   BackHeader,
@@ -29,7 +29,7 @@ const RegisterWithFacebook = (props) => {
 
   function onLoginWithFacebook() {
     setLoading(true);
-    LoginManager.logInWithPermissions(['public_profile','email']).then(
+    LoginManager.logInWithPermissions(['public_profile', 'email']).then(
       function (result) {
         if (result.isCancelled) {
           setLoading(false);
@@ -87,7 +87,7 @@ const RegisterWithFacebook = (props) => {
         <View style={{ marginTop: '10%' }}>
           <CountryPicker />
 
-          <GradientButton
+          <AppButton
             type={'facebook'}
             title={appLabels.register_with_facebook}
             icon={

@@ -1,5 +1,5 @@
-import {GradientButton} from './GradientButton';
-import {IconButton} from './IconButton';
-import {TextButton} from './TextButton';
+import { AppButton } from './app-button';
+import { IconButton } from './IconButton';
+import { TextButton } from './TextButton';
 
-export {GradientButton, IconButton, TextButton};
+export { AppButton, IconButton, TextButton };

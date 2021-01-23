@@ -4,7 +4,7 @@ import { GeneralHeader } from '../../components/Headers';
 import { useNavigation } from '@react-navigation/native';
 import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { GradientButton, AppText, AuthContainer } from '../../components';
+import { AppButton, AppText, AuthContainer } from '../../components';
 import CountDown from 'react-native-countdown-component';
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
 import { Images, mailformat, Colors, Gifs, Icons } from '../../constants';
@@ -128,7 +128,7 @@ const DailyCoins = () => {
               </AppText>
             </Animated.View>
           </View>
-          <GradientButton
+          <AppButton
             type={'primary'}
             title={'Collect'}
             style={styles.btnstyle}

@@ -1,11 +1,12 @@
 import { Dimensions } from 'react-native';
 
 export const Colors = {
-  ui_primary: '#52b8bc',
+  ui_primary: '#31C9DD',
   ui_primary_dark: '#3c8e92',
-  white: '#ffffff',
+  ui_background: '#F2F4F5',
+  white: '#FFFFFF',
   white_80: 'rgba(255,255,255,0.8)',
-  black: '#333333',
+  black: '#0F2937',
   black_30: 'rgba(0,0,0,0.3)',
   green: 'green',
   red: '#CB4335',
@@ -14,8 +15,8 @@ export const Colors = {
   ui_error: '#B22222',
   google: '#db4a39',
   facebook: '#3b5998',
-  grey: 'grey',
-  greydark: '#4E586E',
+  grey: '#E2E4E6',
+  greydark: '#798992',
   gradient_1: '#6debef',
   gradient_2: '#52b8bc',
   gradient_3: '#3c8e92',

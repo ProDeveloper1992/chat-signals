@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { Colors } from '../../constants';
 import { AppText } from '..';
 
-export function GradientButton({ type, title, icon, style, onPress, loading, disabled }) {
+export function AppButton({ type, title, icon, style, onPress, loading, disabled }) {
   function getBgColor() {
     switch (type) {
       case 'primary':
@@ -38,7 +38,7 @@ export function GradientButton({ type, title, icon, style, onPress, loading, dis
       case 'transparent':
         return Colors.ui_primary;
       case 'light':
-        return Colors.black;
+        return Colors.ui_primary;
       case 'google':
         return Colors.white;
       case 'facebook':
@@ -70,7 +70,7 @@ export function GradientButton({ type, title, icon, style, onPress, loading, dis
       ) : (
           <>
             {icon && icon}
-            <AppText type={'bold'} color={getTextColor()} size={16} uppercase>
+            <AppText type={'medium'} color={getTextColor()} size={14}>
               {title}
             </AppText>
           </>
@@ -84,12 +84,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     alignItems: 'center',
-    padding: Platform.OS === 'ios' ? 15 : 15,
-    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 15,
+    borderRadius: 43,
   },
 });
 
-GradientButton.propTypes = {
+AppButton.propTypes = {
   title: PropTypes.string,
   icon: PropTypes.any,
   loading: PropTypes.bool,
@@ -107,7 +108,7 @@ GradientButton.propTypes = {
   onPress: PropTypes.func,
 };
 
-GradientButton.defaultProps = {
+AppButton.defaultProps = {
   type: 'primary',
   title: 'Submit',
   loading: false,

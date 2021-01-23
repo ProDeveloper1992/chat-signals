@@ -34,7 +34,7 @@ export function CountryItem({
                 style,
                 {
                     backgroundColor: country.country_id === userCountry.country_id ? Colors.ui_primary : Colors.white,
-                    borderColor: country.country_id === userCountry.country_id ? Colors.white : Colors.greydark,
+                    borderColor: country.country_id === userCountry.country_id ? Colors.ui_primary : Colors.ui_primary,
                 },
             ]}
             onPress={onPress}>
@@ -68,11 +68,11 @@ const styles = StyleSheet.create({
         margin: 5,
         borderRadius: 4,
         borderWidth: 0.5,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 5 },
-        shadowOpacity: 0.1,
-        shadowRadius: 10,
-        elevation: 8,
+        // shadowColor: '#000',
+        // shadowOffset: { width: 0, height: 5 },
+        // shadowOpacity: 0.1,
+        // shadowRadius: 10,
+        // elevation: 8,
     },
     title: {
         marginTop: 5,

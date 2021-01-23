@@ -17,7 +17,7 @@ import {
 } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { GradientButton } from '../../components';
+import { AppButton } from '../../components';
 import { Images, mailformat, Color, Gifs, Icons, Colors } from '../../constants';
 import { globalStyle } from '../../styles/global-style';
 import { loginUser } from '../../redux/actions/user-actions';
@@ -85,7 +85,7 @@ const LoginScreen = (props) => {
     <AuthContainer blur>
       <BackHeader onBackPress={() => navigation.goBack()} />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Image style={globalStyle.logo} source={Gifs.chat_signal_logo} />
+        <Image style={[globalStyle.logo, { tintColor: Colors.black }]} source={Gifs.chat_signal_logo} />
         <View style={{ flex: 1, justifyContent: 'center' }}>
           <AuthInput
             style={styles.input}
@@ -108,8 +108,9 @@ const LoginScreen = (props) => {
 
           <View style={{ alignSelf: 'flex-end' }}>
             <TextButton
-              fontType={'bold'}
+              fontType={'medium'}
               fontSize={14}
+              titleColor={Colors.black}
               title={appLabels.forgot_password}
               onPress={() => {
                 navigation.navigate('ForgotPassword');
@@ -117,7 +118,7 @@ const LoginScreen = (props) => {
             />
           </View>
 
-          <GradientButton
+          <AppButton
             type={'primary'}
             title={appLabels.login}
             style={styles.loginButton}
@@ -127,7 +128,7 @@ const LoginScreen = (props) => {
           />
 
           <AppText
-            color={Colors.white}
+            color={Colors.greydark}
             style={{ alignSelf: 'center', marginVertical: 15 }}>
             {'Or Login with'}
           </AppText>
@@ -155,6 +156,7 @@ const LoginScreen = (props) => {
           <TextButton
             style={{ alignSelf: 'center' }}
             fontType={'bold'}
+            titleColor={Colors.black}
             title={appLabels.dont_have_an_account + '  ' + appLabels.create_one}
             onPress={() => {
               navigation.navigate('RegisterLanding');
