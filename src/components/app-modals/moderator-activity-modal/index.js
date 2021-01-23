@@ -3,7 +3,7 @@ import { Image, TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { useSelector } from 'react-redux';
 import { Colors, Icons } from '../../../constants';
-import { GradientButton, AppText } from '../../index';
+import { AppButton, AppText } from '../../index';
 import styles from './style';
 
 export default function ActivityModal({ visible, onHideModal, type }) {
@@ -73,7 +73,7 @@ export default function ActivityModal({ visible, onHideModal, type }) {
         <AppText type={'bold'} size={16} color={Colors.black}>
           {`4 ${appLabels.Coins}`}
         </AppText>
-        <GradientButton
+        <AppButton
           title={'Send'}
           style={{ marginVertical: 10 }}
           onPress={onHideModal}

@@ -4,7 +4,7 @@ import StepIndicator from 'react-native-step-indicator';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
-  GradientButton,
+  AppButton,
   AuthInput,
   Loading,
   AuthContainer,
@@ -39,24 +39,24 @@ const RegisterWithEmail = (props) => {
   const stepIndicatorStyle = {
     stepIndicatorSize: 26,
     currentStepIndicatorSize: 30,
-    separatorStrokeWidth: 0.5,
+    separatorStrokeWidth: 1,
     separatorStrokeFinishedWidth: 3,
     currentStepStrokeWidth: 3,
     stepStrokeWidth: 1,
-    stepStrokeCurrentColor: Colors.ui_primary,
-    stepStrokeFinishedColor: Colors.ui_primary,
-    stepStrokeUnFinishedColor: Colors.ui_primary,
-    separatorFinishedColor: Colors.ui_primary,
-    separatorUnFinishedColor: Colors.greydark,
-    stepIndicatorFinishedColor: Colors.ui_primary,
+    stepStrokeCurrentColor: Colors.black,
+    stepStrokeFinishedColor: Colors.black,
+    stepStrokeUnFinishedColor: Colors.black,
+    separatorFinishedColor: Colors.black,
+    separatorUnFinishedColor: Colors.black,
+    stepIndicatorFinishedColor: Colors.black,
     stepIndicatorUnFinishedColor: Colors.white,
     stepIndicatorCurrentColor: Colors.white,
-    stepIndicatorLabelCurrentColor: Colors.ui_primary,
+    stepIndicatorLabelCurrentColor: Colors.black,
     stepIndicatorLabelFinishedColor: Colors.white,
     stepIndicatorLabelUnFinishedColor: Colors.greydark,
-    currentStepLabelColor: Colors.ui_primary,
+    currentStepLabelColor: Colors.black,
     labelSize: 12,
-    labelColor: Colors.greydark,
+    labelColor: Colors.black,
   };
 
   const onStepPress = (position) => {
@@ -136,7 +136,7 @@ const RegisterWithEmail = (props) => {
 
   const SectionLable = ({ title }) => {
     return (
-      <AppText type={'bold'} size={16} color={Colors.greydark}>
+      <AppText type={'regular'} size={14} color={Colors.black}>
         {title}
       </AppText>
     );
@@ -230,7 +230,7 @@ const RegisterWithEmail = (props) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ paddingTop: 30 }}>{renderPage()}</View>
       </ScrollView>
-      <GradientButton
+      <AppButton
         disabled={postalCode.trim() === ''}
         title={stepPosition == 0 ? appLabels.next : appLabels.register}
         style={{ marginVertical: 20 }}

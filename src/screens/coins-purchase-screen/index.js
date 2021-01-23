@@ -13,7 +13,7 @@ import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 import { getPaymentModule } from '../../redux/actions/app-actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Colors, Icons } from '../../constants';
-import { AppIndicatorLoader, AppText, GradientButton, OwnPurchaseCard } from '../../components';
+import { AppIndicatorLoader, AppText, AppButton, OwnPurchaseCard } from '../../components';
 
 const CoinPurchase = () => {
   const navigation = useNavigation();
@@ -123,7 +123,7 @@ const CoinPurchase = () => {
                   />
                   {/* {selectedPackage != null && (
                     <>
-                      <GradientButton
+                      <AppButton
                         type={'positive'}
                         style={{ marginTop: 20 }}
                         title={`Order for ${selectedPackage.price}€ for fee`}

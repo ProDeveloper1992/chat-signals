@@ -1,15 +1,15 @@
 import React from 'react';
-import {View, Platform} from 'react-native';
-import {useDispatch} from 'react-redux';
+import { View, Platform } from 'react-native';
+import { useDispatch } from 'react-redux';
 
-import {Icons, Colors} from '../../constants';
-import {AppText, AuthInput, GradientButton} from '../../components';
-import {GeneralHeader} from '../../components/Headers';
+import { Icons, Colors } from '../../constants';
+import { AppText, AuthInput, AppButton } from '../../components';
+import { GeneralHeader } from '../../components/Headers';
 import styles from './style';
 import Icon from 'react-native-ionicons';
 
-import {toggleLanguageModal} from '../../redux/actions/app-modals-actions';
-import {useNavigation} from '@react-navigation/native';
+import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
+import { useNavigation } from '@react-navigation/native';
 
 export default function SearchScreen() {
   const navigation = useNavigation();
@@ -34,11 +34,11 @@ export default function SearchScreen() {
           size={30}
           onPress={() => navigation.goBack()}
         />
-        <View style={{flex: 1, alignItems: 'center'}}>
+        <View style={{ flex: 1, alignItems: 'center' }}>
           <AppText
             type={'bold'}
             size={16}
-            style={{textTransform: 'uppercase'}}
+            style={{ textTransform: 'uppercase' }}
             color={Colors.white}>
             {'Search'}
           </AppText>
@@ -46,7 +46,7 @@ export default function SearchScreen() {
       </View>
       <View style={styles.insideContainer}>
         <AuthInput
-          style={{marginVertical: 5}}
+          style={{ marginVertical: 5 }}
           label={'Search'}
           placeholder={'Search...'}
           value={search}
@@ -61,11 +61,11 @@ export default function SearchScreen() {
           left: 0,
           right: 0,
         }}>
-        <GradientButton
+        <AppButton
           type={'primary'}
           title={'Search'}
-          style={{marginTop: 20}}
-          onPress={() => {}}
+          style={{ marginTop: 20 }}
+          onPress={() => { }}
           loading={loading}
         />
       </View>

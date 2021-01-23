@@ -1,22 +1,22 @@
-import React, {useState} from 'react';
-import {View, Image} from 'react-native';
+import React, { useState } from 'react';
+import { View, Image } from 'react-native';
 import {
-  GradientButton,
+  AppButton,
   AuthInput,
   AuthContainer,
   BackHeader,
   AppText,
 } from '../../components';
-import {Colors, Images, mailformat} from '../../constants';
-import {globalStyle} from '../../styles/global-style';
-import {forgotPassword} from '../../redux/actions/user-actions';
-import {useDispatch, useSelector} from 'react-redux';
+import { Colors, Images, mailformat } from '../../constants';
+import { globalStyle } from '../../styles/global-style';
+import { forgotPassword } from '../../redux/actions/user-actions';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ForgotPassword = (props) => {
-  const {navigation} = props;
+  const { navigation } = props;
   const dispatch = useDispatch();
 
-  const {appLabels} = useSelector((state) => state.appState);
+  const { appLabels } = useSelector((state) => state.appState);
 
   const [email, SetEmail] = useState('');
   const [emailError, setEmailError] = React.useState(null);
@@ -58,7 +58,7 @@ const ForgotPassword = (props) => {
     <AuthContainer blur>
       <BackHeader onBackPress={() => navigation.goBack()} />
       <Image style={globalStyle.logo} source={Images.forgot_heart_logo} />
-      <View style={{flex: 1, justifyContent: 'flex-end', paddingBottom: 20}}>
+      <View style={{ flex: 1, justifyContent: 'flex-end', paddingBottom: 20 }}>
         <AppText
           type={'medium'}
           color={Colors.white}
@@ -75,15 +75,15 @@ const ForgotPassword = (props) => {
           keyboardType={'email-address'}
           value={email}
           onChangeText={SetEmail}
-          style={{marginVertical: 8}}
+          style={{ marginVertical: 8 }}
           label={appLabels.email}
           placeholder={appLabels.email}
           error={emailError}
         />
-        <GradientButton
+        <AppButton
           type={'primary'}
           title={'Request New Password'}
-          style={{marginTop: 20}}
+          style={{ marginTop: 20 }}
           onPress={() => onForgotPasswordClick()}
           loading={loading}
         />
