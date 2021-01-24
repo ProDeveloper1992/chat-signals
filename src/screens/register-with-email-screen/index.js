@@ -161,7 +161,6 @@ const RegisterWithEmail = (props) => {
           <SectionLable title={appLabels.country} />
           <CountryPicker />
           <AuthInput
-            style={styles.input}
             label={appLabels.postal_code}
             placeholder={appLabels.postal_code}
             keyboardType={'number-pad'}
@@ -174,7 +173,6 @@ const RegisterWithEmail = (props) => {
       return (
         <View>
           <AuthInput
-            style={styles.input}
             label={appLabels.user_name}
             placeholder={appLabels.user_name}
             keyboardType={'email-address'}
@@ -183,7 +181,6 @@ const RegisterWithEmail = (props) => {
             error={userNameError}
           />
           <AuthInput
-            style={styles.input}
             label={appLabels.email}
             placeholder={appLabels.email}
             keyboardType={'email-address'}
@@ -194,7 +191,6 @@ const RegisterWithEmail = (props) => {
 
           <AuthInput
             label={appLabels.password}
-            style={styles.input}
             placeholder={appLabels.password}
             secureTextEntry
             value={password}
@@ -203,7 +199,6 @@ const RegisterWithEmail = (props) => {
           />
 
           <AuthInput
-            style={styles.input}
             label={appLabels.confirm_password}
             placeholder={appLabels.confirm_password}
             secureTextEntry
@@ -217,7 +212,7 @@ const RegisterWithEmail = (props) => {
   };
 
   return (
-    <AuthContainer blur>
+    <AuthContainer>
       <BackHeader
         onBackPress={() => onBackPress()}
       />

@@ -19,7 +19,7 @@ export default function ModeratorListItem({ item, onPress, bookmarked }) {
       <ImageBackground
         style={styles.listItemContainer}
         resizeMode={'cover'}
-        imageStyle={{ borderRadius: 5 }}
+        imageStyle={{ borderRadius: 20 }}
         source={{
           uri: getItemImage(item.picture),
         }}>
@@ -29,17 +29,13 @@ export default function ModeratorListItem({ item, onPress, bookmarked }) {
           </View>
         )}
         <View style={styles.bottomContainer}>
-          <View style={styles.onlineStatusSignal(item.is_online)} />
-          <AppText type={'bold'} color={Colors.white}>
-            {item.username}
-          </AppText>
-          <Image
-            source={{
-              uri:
-                'https://cdn.countryflags.com/thumbs/germany/flag-round-250.png',
-            }}
-            style={styles.flagIcon}
-          />
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <AppText type={'bold'} color={Colors.white}>
+              {item.username}
+            </AppText>
+            <View style={styles.onlineStatusSignal(item.is_online)} />
+          </View>
+          <AppText size={12} type={'regular'} color={Colors.white} uppercase>{item.city + ", " + item.country}</AppText>
         </View>
       </ImageBackground>
     </TouchableOpacity>

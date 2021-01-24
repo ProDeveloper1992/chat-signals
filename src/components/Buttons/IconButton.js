@@ -10,7 +10,7 @@ export function IconButton({ icon, onPress, buttonColor }) {
       style={[styles.container, {
         backgroundColor: buttonColor
       }]}>
-      <Image style={styles.icon} source={icon} />
+      {icon}
     </TouchableOpacity>
   );
 }

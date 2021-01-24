@@ -6,7 +6,7 @@ import { AppText } from '../../components';
 export function TextButton({ title, style, titleColor, onPress, fontType, fontSize }) {
   return (
     <TouchableOpacity style={[styles.container, style]} onPress={onPress}>
-      <AppText size={fontSize || 13} type={fontType || 'medium'} color={titleColor || Colors.white} uppercase>
+      <AppText size={fontSize || 13} type={fontType || 'regular'} color={titleColor || Colors.white}>
         {title}
       </AppText>
     </TouchableOpacity>

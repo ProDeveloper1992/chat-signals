@@ -32,7 +32,7 @@ export function GeneralHeader({
         </View>
 
         <View style={styles.flexOne}>
-          <AppText type={'bold'} size={16} style={styles.headerTitle}>
+          <AppText type={'bold'} size={14} style={styles.headerTitle}>
             {label}
           </AppText>
         </View>

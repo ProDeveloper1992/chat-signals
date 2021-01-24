@@ -6,6 +6,7 @@ import {
   ScrollView,
   Switch,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import { NoListData, AppText, BackHeader } from '../../components';
 import { Icons, Colors, DEFAULT_AVATAR_URL } from '../../constants';
@@ -17,6 +18,8 @@ import ModeratorProfilePhotosTab from './user-profile-photos-tab';
 import ModeratorProfileActionTab from './user-profile-action-tab';
 import { ModeratorActivityModal } from '../../components/app-modals';
 import { useSelector } from 'react-redux';
+import { GoogleSignin } from 'react-native-google-signin';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default function UserProfile(props) {
   const { params } = props.route;
@@ -57,11 +60,42 @@ export default function UserProfile(props) {
     return profilePic;
   };
 
+  const onLogout = () => {
+    Alert.alert('Confirm Logout!', 'Are you sure you want to logout?', [
+      {
+        text: 'No',
+        onPress: () => null,
+        style: 'cancel',
+      },
+      {
+        text: 'Yes',
+        onPress: async () => {
+          AsyncStorage.clear();
+          try {
+            await GoogleSignin.revokeAccess();
+            await GoogleSignin.signOut();
+          } catch (error) {
+            // console.error(error);
+          }
+          props.navigation.navigate('auth-stack');
+        },
+      },
+    ]);
+  }
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
-        <View style={{ paddingStart: 15, backgroundColor: Colors.white }}>
-          <BackHeader title={'My Profile'} onBackPress={() => props.navigation.goBack()} />
+        <View style={{ paddingStart: 15, backgroundColor: Colors.ui_primary }}>
+          <BackHeader
+            title={'My Profile'}
+            onBackPress={() => props.navigation.goBack()}
+            rightContent={
+              <TouchableOpacity style={{ paddingEnd: 15 }} onPress={onLogout}>
+                <AppText>{"Logout"}</AppText>
+              </TouchableOpacity>
+            }
+          />
         </View>
         <View style={[styles.cardContainer, { marginBottom: 0 }]}>
           <View style={{ flexDirection: 'row' }}>

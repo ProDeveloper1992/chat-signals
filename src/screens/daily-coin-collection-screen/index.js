@@ -6,8 +6,8 @@ import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppButton, AppText, AuthContainer } from '../../components';
 import CountDown from 'react-native-countdown-component';
-import { CountdownCircleTimer } from 'react-native-countdown-circle-timer'
 import { Images, mailformat, Colors, Gifs, Icons } from '../../constants';
+import GiftBoxImage from '../../assets/images/gift_box.svg';
 
 const DailyCoins = () => {
   const navigation = useNavigation();
@@ -67,54 +67,35 @@ const DailyCoins = () => {
         onLanguagePress={() => dispatch(toggleLanguageModal(true))}
         label={appLabels.daily_coins}
       />
-      <AuthContainer blur>
+      <AuthContainer>
+        <AppText
+          type={'bold'}
+          size={18}
+          style={{
+            marginTop: 10,
+            paddingVertical: 5,
+          }}>
+          {"Draw a card now!"}
+        </AppText>
+        <AppText size={12} type={'regular'}>
+          {"Here you can draw a card for free every 24 hours and receive exciting prizes!"}
+        </AppText>
         <View style={{ flex: 1, padding: 24 }}>
-          <CountDown
-            until={60 * 60}
-            size={20}
-            onFinish={() => alert('Finished')}
-            timeLabelStyle={{ color: Colors.ui_primary }}
-            digitStyle={{ backgroundColor: '#FFF' }}
-            digitTxtStyle={{ color: Colors.ui_primary }}
-            timeToShow={['H', 'M', 'S']}
-            timeLabels={{ h: 'HH', m: 'MM', s: 'SS' }}
-          />
-          <AppText
-            type={'medium'}
-            size={14}
-            style={{
-              textAlign: 'center',
-              marginTop: 10,
-              paddingVertical: 5,
-            }}>
-            {'Visit daily to collect Chat-Coins..!!!'}
-          </AppText>
 
           <View style={styles.cardContainer}>
             <Animated.View
               style={[frontAnimatedStyle, styles.cardStyle, styles.cardFront]}>
-              <CountdownCircleTimer
-                isPlaying
-                size={150}
-                duration={60 * 60}
-                isLinearGradient={true}
-                colors={[
-                  ["#C70039", 0.33],
-                  ["#FF5733", 0.33],
-                  [Colors.golden, 0.34],
-                ]}
-              >
-                {({ remainingTime, animatedColor }) => {
-                  const hours = Math.floor(remainingTime / 3600) < 10 ? "0" + Math.floor(remainingTime / 3600) : Math.floor(remainingTime / 3600);
-                  const minutes = Math.floor((remainingTime % 3600) / 60) < 10 ? "0" + Math.floor((remainingTime % 3600) / 60) : Math.floor((remainingTime % 3600) / 60);
-                  const seconds = remainingTime % 60 < 10 ? "0" + remainingTime % 60 : remainingTime % 60;
-                  return (
-                    <Animated.Text style={{ color: Colors.black, fontSize: 18, fontWeight: 'bold' }}>
-                      {`${hours}:${minutes}:${seconds}`}
-                    </Animated.Text>
-                  )
-                }}
-              </CountdownCircleTimer>
+              <GiftBoxImage width={150} height={150} />
+              <CountDown
+                until={60 * 60}
+                size={20}
+                onFinish={() => alert('Finished')}
+                digitStyle={{ backgroundColor: Colors.transparent }}
+                digitTxtStyle={{ color: Colors.black }}
+                timeToShow={['H', 'M', 'S']}
+                timeLabels={{ m: null, s: null }}
+                showSeparator
+              />
             </Animated.View>
 
             <Animated.View
@@ -173,22 +154,22 @@ const styles = StyleSheet.create({
     bottom: '15%',
     position: 'absolute',
     backgroundColor: Colors.white,
-    shadowColor: Colors.black,
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
-    elevation: 8,
+    // shadowColor: Colors.black,
+    // shadowOffset: { width: 0, height: 8 },
+    // shadowOpacity: 0.3,
+    // shadowRadius: 10,
+    // elevation: 8,
   },
 
   cardBack: {
     bottom: '15%',
     position: 'absolute',
     backgroundColor: Colors.golden,
-    shadowColor: Colors.black,
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
-    elevation: 8,
+    // shadowColor: Colors.black,
+    // shadowOffset: { width: 0, height: 8 },
+    // shadowOpacity: 0.3,
+    // shadowRadius: 10,
+    // elevation: 8,
   },
 });
 

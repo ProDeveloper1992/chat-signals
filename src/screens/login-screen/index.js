@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -20,7 +20,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppButton } from '../../components';
 import { Images, mailformat, Color, Gifs, Icons, Colors } from '../../constants';
 import { globalStyle } from '../../styles/global-style';
-import { loginUser } from '../../redux/actions/user-actions';
+import { loginUser, loginWithSocialMedia } from '../../redux/actions/user-actions';
+import GoogleIcon from '../../assets/icons/google.svg';
+import FacebookIcon from '../../assets/icons/facebook.svg';
+import { loginWithFacebook, loginWithGoogle } from '../../services/social-login-service';
+import { ForgotPasswordModal } from '../../components/app-modals';
 
 const LoginScreen = (props) => {
   const { navigation } = props;
@@ -30,11 +34,12 @@ const LoginScreen = (props) => {
 
   const { appLabels } = useSelector((state) => state.appState);
 
-  const [email, setEmail] = React.useState('');
-  const [emailError, setEmailError] = React.useState(null);
-  const [password, setPassword] = React.useState('');
-  const [passError, setPassError] = React.useState(null);
-  const [loading, setLoading] = React.useState(false);
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState(null);
+  const [password, setPassword] = useState('');
+  const [passError, setPassError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [forgotPasswordModalVisible, setForgotPasswordModalVisible] = useState(false);
 
   const onLoginPress = async () => {
     let isValid = true;
@@ -73,22 +78,21 @@ const LoginScreen = (props) => {
     }
   };
 
-  const onGoogleIconPress = () => {
-    navigation.navigate('RegisterWithGoogle');
+  const onGoogleIconPress = async () => {
+    await loginWithGoogle();
   };
 
-  const onFacebookIconPress = () => {
-    navigation.navigate('RegisterWithFacebook');
+  const onFacebookIconPress = async () => {
+    await loginWithFacebook();
   };
 
   return (
-    <AuthContainer blur>
+    <AuthContainer>
       <BackHeader onBackPress={() => navigation.goBack()} />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Image style={[globalStyle.logo, { tintColor: Colors.black }]} source={Gifs.chat_signal_logo} />
+        <Image style={globalStyle.logo} source={Gifs.chat_signal_logo} />
         <View style={{ flex: 1, justifyContent: 'center' }}>
           <AuthInput
-            style={styles.input}
             label={appLabels.email}
             placeholder={appLabels.email}
             keyboardType={'email-address'}
@@ -97,7 +101,6 @@ const LoginScreen = (props) => {
             error={emailError}
           />
           <AuthInput
-            style={styles.input}
             label={appLabels.password}
             placeholder={appLabels.password}
             secureTextEntry
@@ -112,9 +115,7 @@ const LoginScreen = (props) => {
               fontSize={14}
               titleColor={Colors.black}
               title={appLabels.forgot_password}
-              onPress={() => {
-                navigation.navigate('ForgotPassword');
-              }}
+              onPress={() => setForgotPasswordModalVisible(true)}
             />
           </View>
 
@@ -141,29 +142,30 @@ const LoginScreen = (props) => {
               marginBottom: 10,
             }}>
             <IconButton
-              icon={Icons.google_icon}
-              buttonColor={Colors.google}
+              icon={<GoogleIcon width={40} height={40} />}
+              buttonColor={Colors.white}
               onPress={onGoogleIconPress}
             />
 
             <IconButton
-              icon={Icons.facebook_icon}
-              buttonColor={Colors.facebook}
+              icon={<FacebookIcon width={40} height={40} />}
+              buttonColor={Colors.white}
               onPress={onFacebookIconPress}
             />
           </View>
 
           <TextButton
             style={{ alignSelf: 'center' }}
-            fontType={'bold'}
+            fontType={'medium'}
             titleColor={Colors.black}
             title={appLabels.dont_have_an_account + '  ' + appLabels.create_one}
             onPress={() => {
-              navigation.navigate('RegisterLanding');
+              navigation.navigate('RegisterWithEmail');
             }}
           />
         </View>
       </ScrollView>
+      <ForgotPasswordModal visible={forgotPasswordModalVisible} onHideModal={() => setForgotPasswordModalVisible(false)} />
     </AuthContainer>
   );
 };

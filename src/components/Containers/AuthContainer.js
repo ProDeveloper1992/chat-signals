@@ -8,9 +8,18 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-import { Images } from '../../constants';
+import { Colors, Images } from '../../constants';
 
-export function AuthContainer({ children, style, blur }) {
+export function AuthContainer({ children, style, gradientBackground }) {
+
+  const getGradientColors = () => {
+    if (gradientBackground) {
+      return ['#5CCBD0', '#7DFFEF'];
+    } else {
+      return [Colors.ui_background, Colors.ui_background];
+    }
+  }
+
   return (
     // <ImageBackground
     //   blurRadius={blur ? 15 : 0}
@@ -20,9 +29,8 @@ export function AuthContainer({ children, style, blur }) {
       angle={101.12}
       start={{ x: 0.0, y: 0.55 }}
       end={{ x: 1.0, y: 0.85 }}
-      // locations={[0.347, 1.364]}
       locations={[0, 0.5]}
-      colors={['#5CCBD0', '#7DFFEF']}
+      colors={getGradientColors()}
       style={styles.container}>
       <SafeAreaView style={[style, { flex: 1 }]}>{children}</SafeAreaView>
     </LinearGradient>
