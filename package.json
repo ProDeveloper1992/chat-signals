@@ -23,7 +23,6 @@
     "pusher-js": "^7.0.2",
     "react": "16.13.1",
     "react-native": "0.63.2",
-    "react-native-countdown-circle-timer": "^2.3.10",
     "react-native-countdown-component": "^2.7.1",
     "react-native-fbsdk": "^2.0.0",
     "react-native-gallery-swiper": "^1.26.4",

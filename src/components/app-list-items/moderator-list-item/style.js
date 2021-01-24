@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {Colors, SCREEN_HEIGHT, SCREEN_WIDTH} from '../../../constants';
+import { StyleSheet } from 'react-native';
+import { Colors, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants';
 
 const listColums = 2;
 const listRows = 3.5;
@@ -17,34 +17,31 @@ export default StyleSheet.create({
     width: listItemWidth,
     height: listItemHeight,
     backgroundColor: 'lightgrey',
-    borderRadius: 5,
+    borderRadius: 20,
     // justifyContent: 'flex-end',
   },
   onlineStatusSignal: function (isOnline) {
     return {
-      height: 14,
-      width: 14,
-      borderRadius: 7,
-      marginEnd: 5,
-      backgroundColor: isOnline ? Colors.green : Colors.red,
-      borderWidth: 2,
-      borderColor: Colors.white,
+      height: 10,
+      width: 10,
+      borderRadius: 5,
+      marginStart: 10,
+      backgroundColor: isOnline ? Colors.ui_user_active : Colors.ui_user_active,
+      // borderWidth: 2,
+      // borderColor: Colors.white
     };
   },
-  onlineStatusText: {color: Colors.black, fontSize: 12},
+  onlineStatusText: { color: Colors.black, fontSize: 12 },
   bottomContainer: {
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    backgroundColor: Colors.black_30,
-    borderBottomLeftRadius: 5,
-    borderBottomRightRadius: 5,
+    backgroundColor: "rgba(15, 41, 55, 0.75)",
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
     paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingBottom: 5,
   },
   bookmarkedContainer: {
     backgroundColor: Colors.white_80,

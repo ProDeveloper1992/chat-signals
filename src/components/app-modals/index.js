@@ -6,8 +6,10 @@ import LanguageSelectionModal from './language-selection-modal';
 import ModeratorActivityModal from './moderator-activity-modal';
 import GallerySwiperModal from './gallery-swiper-modal';
 import WebViewModal from './webview-modal';
+import RegisterLandingModal from './register-landing-modal';
+import ForgotPasswordModal from './forgot-password-modal';
 
-export { ModeratorActivityModal, WebViewModal };
+export { ModeratorActivityModal, WebViewModal, RegisterLandingModal, ForgotPasswordModal };
 
 export default function AppModals(props) {
   const dispatch = useDispatch();

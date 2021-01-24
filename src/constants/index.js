@@ -22,6 +22,9 @@ export const Colors = {
   gradient_3: '#3c8e92',
   gradient_4: '#337277',
   gradient_5: '#1d4044',
+  transparent: 'transparent',
+  ui_user_active: "#50DE8B",
+  ui_user_away: "#FFB649",
 };
 
 export const Images = {

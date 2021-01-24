@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 
 import LandingIntro from '../../assets/images/landing_intro.svg';
+import { RegisterLandingModal } from '../../components/app-modals';
 
 const LandingScreen = (props) => {
   const { navigation } = props;
@@ -26,6 +27,8 @@ const LandingScreen = (props) => {
   const dispatch = useDispatch();
 
   const { appLabels } = useSelector((state) => state.appState);
+
+  const [registerLandingModalVisible, setRegisterLandingModalVisible] = useState(false);
 
   useEffect(() => {
     SplashScreen.hide();
@@ -51,7 +54,7 @@ const LandingScreen = (props) => {
   }, [isFocused]);
 
   const onRegister = () => {
-    navigation.navigate('RegisterLanding');
+    setRegisterLandingModalVisible(true);
   };
 
   const onLogin = () => {
@@ -63,10 +66,10 @@ const LandingScreen = (props) => {
   };
 
   return (
-    <AuthContainer>
+    <AuthContainer gradientBackground>
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
         <Image
-          style={[globalStyle.logo, { tintColor: Colors.black }]}
+          style={globalStyle.logo}
           source={Gifs.chat_signal_logo}
         />
         <TouchableOpacity
@@ -88,7 +91,9 @@ const LandingScreen = (props) => {
           />
         </TouchableOpacity>
       </View>
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{ flex: 1, marginTop: '5%' }}>
+        <AppText size={15} color={Colors.white}>{"Find your match with our poweful algorithms"}</AppText>
+        <AppText type={'bold'} size={26} color={Colors.white} style={{ marginBottom: '5%' }}>{"Casual chatting and flirting"}</AppText>
         <LandingIntro width={"100%"} height={"50%"} />
       </View>
       <View style={styles.bottomView}>
@@ -96,7 +101,6 @@ const LandingScreen = (props) => {
           <AppButton
             type={'light'}
             title={appLabels.login}
-            // style={{ paddingVertical: Platform.OS === 'ios' ? 18 : 15 }}
             onPress={onLogin}
           />
         </View>
@@ -104,11 +108,11 @@ const LandingScreen = (props) => {
           <AppButton
             type={'transparent'}
             title={appLabels.register}
-            // style={{ paddingVertical: Platform.OS === 'ios' ? 18 : 15 }}
             onPress={onRegister}
           />
         </View>
       </View>
+      <RegisterLandingModal visible={registerLandingModalVisible} onHideModal={() => setRegisterLandingModalVisible(false)} />
     </AuthContainer>
   );
 };

@@ -21,9 +21,9 @@ export function AppButton({ type, title, icon, style, onPress, loading, disabled
       case 'light':
         return Colors.white;
       case 'google':
-        return Colors.google;
+        return Colors.transparent;
       case 'facebook':
-        return Colors.facebook;
+        return Colors.transparent;
       default:
         return Colors.ui_primary;
     }
@@ -36,41 +36,59 @@ export function AppButton({ type, title, icon, style, onPress, loading, disabled
       case 'positive':
         return Colors.white;
       case 'transparent':
-        return Colors.ui_primary;
+        return Colors.black;
       case 'light':
         return Colors.ui_primary;
       case 'google':
-        return Colors.white;
+        return Colors.greydark;
       case 'facebook':
-        return Colors.white;
+        return Colors.greydark;
       default:
         return Colors.white;
+    }
+  }
+
+  const getBorderColor = () => {
+    switch (type) {
+      case 'primary':
+        return Colors.transparent;
+      case 'positive':
+        return Colors.transparent;
+      case 'transparent':
+        return Colors.black;
+      case 'light':
+        return Colors.transparent;
+      case 'google':
+        return Colors.greydark;
+      case 'facebook':
+        return Colors.greydark;
+      default:
+        return Colors.transparent;
     }
   }
 
   return (
     <TouchableOpacity
       disabled={disabled}
-      activeOpacity={0.9}
+      activeOpacity={0.5}
       style={[
         styles.container,
         style,
         {
           opacity: disabled ? 0.5 : 1,
           backgroundColor: getBgColor(),
-          borderWidth: type == 'transparent' ? 1 : 0,
-          borderColor:
-            type == 'transparent' ? Colors.ui_primary : 'transparent',
-          justifyContent: icon && !loading ? 'flex-start' : 'center',
+          borderWidth: 1,
+          borderColor: getBorderColor(),
+          justifyContent: icon && !loading ? 'space-between' : 'center',
         },
       ]}
       onPress={onPress}>
       {loading ? (
-        <ActivityIndicator size={'small'} color={Colors.white} />
+        <ActivityIndicator size={'small'} color={getTextColor()} />
       ) : (
           <>
             {icon && icon}
-            <AppText type={'medium'} color={getTextColor()} size={14}>
+            <AppText type={'medium'} color={getTextColor()} style={{ flex: 1, textAlign: 'center' }} size={14}>
               {title}
             </AppText>
           </>

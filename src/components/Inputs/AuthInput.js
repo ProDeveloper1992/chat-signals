@@ -3,7 +3,7 @@ import { StyleSheet, TextInput, Platform, View } from 'react-native';
 import { Colors } from '../../constants';
 import { AppText } from '../../components';
 
-export function AuthInput({ style, label, error, ...props }) {
+export function AuthInput({ style, label, icon, error, ...props }) {
   return (
     <View>
       <View style={styles.labelContainer}>
@@ -17,20 +17,25 @@ export function AuthInput({ style, label, error, ...props }) {
           </AppText>
         )}
       </View>
-      <TextInput
-        {...props}
-        style={[
-          styles.input,
-          style,
-          {
-            backgroundColor: '#fff',
-            borderWidth: 0.5,
-            borderColor: error ? Colors.ui_error : "#E2E4E6",
-          },
-        ]}
-        placeholderTextColor={'darkgray'}
-        autoCapitalize={'none'}
-      />
+      <View style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: Colors.white,
+        borderWidth: 0.5,
+        borderRadius: 6,
+        borderColor: error ? Colors.ui_error : Colors.grey,
+      }}>
+        {icon}
+        <TextInput
+          {...props}
+          style={[
+            styles.input,
+            style
+          ]}
+          placeholderTextColor={Colors.greydark}
+          autoCapitalize={'none'}
+        />
+      </View>
       {error && (
         <AppText
           type={'regular'}
@@ -46,10 +51,10 @@ export function AuthInput({ style, label, error, ...props }) {
 
 const styles = StyleSheet.create({
   input: {
+    flex: 1,
     paddingHorizontal: 20,
     paddingVertical: Platform.OS === 'ios' ? 15 : 10,
-    borderRadius: 6,
-    color: 'black',
+    color: Colors.black,
     fontFamily: 'Poppins-Regular',
     // shadowColor: '#000',
     // shadowOffset: { width: 0, height: 2 },

@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import { Colors } from '../../constants';
 import PropTypes from 'prop-types';
+import { Platform } from 'react-native';
 
 const getFontFamily = (type) => {
   switch (type) {
@@ -24,7 +25,7 @@ export const AppText = styled.Text`
   font-family: ${(props) => getFontFamily(props.type)}
   color: ${(props) => props.color};
   text-transform: ${(props) => props.uppercase ? 'uppercase' : 'none'};
-  top:2px;
+  top:${Platform.OS === 'ios' ? 0 : 2}px;
 `;
 
 AppText.propTypes = {
