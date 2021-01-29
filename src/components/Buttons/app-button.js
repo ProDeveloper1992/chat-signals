@@ -36,7 +36,7 @@ export function AppButton({ type, title, icon, style, onPress, loading, disabled
       case 'positive':
         return Colors.white;
       case 'transparent':
-        return Colors.black;
+        return Colors.white;
       case 'light':
         return Colors.ui_primary;
       case 'google':
@@ -55,7 +55,7 @@ export function AppButton({ type, title, icon, style, onPress, loading, disabled
       case 'positive':
         return Colors.transparent;
       case 'transparent':
-        return Colors.black;
+        return Colors.white;
       case 'light':
         return Colors.transparent;
       case 'google':
@@ -77,18 +77,18 @@ export function AppButton({ type, title, icon, style, onPress, loading, disabled
         {
           opacity: disabled ? 0.5 : 1,
           backgroundColor: getBgColor(),
-          borderWidth: 1,
+          borderWidth: 1.5,
           borderColor: getBorderColor(),
           justifyContent: icon && !loading ? 'space-between' : 'center',
         },
       ]}
       onPress={onPress}>
       {loading ? (
-        <ActivityIndicator size={'small'} color={getTextColor()} />
+        <ActivityIndicator size={'small'} color={getTextColor()} style={{ padding: 12 }} />
       ) : (
           <>
             {icon && icon}
-            <AppText type={'medium'} color={getTextColor()} style={{ flex: 1, textAlign: 'center' }} size={14}>
+            <AppText type={'medium'} color={getTextColor()} style={{ flex: 1, textAlign: 'center', padding: 10 }} size={14}>
               {title}
             </AppText>
           </>
@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     alignItems: 'center',
-    paddingVertical: 12,
     paddingHorizontal: 15,
     borderRadius: 43,
   },

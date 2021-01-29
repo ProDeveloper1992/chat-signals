@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {Colors} from '../../../constants';
+import { StyleSheet } from 'react-native';
+import { Colors } from '../../../constants';
 
 export default StyleSheet.create({
   container: {
@@ -8,25 +8,44 @@ export default StyleSheet.create({
     backgroundColor: '#ffffff',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 12,
-    paddingVertical: 10,
+    padding: 15,
   },
 
-  profileImg:{
-    height: 50,
-    width: 50,
-    borderRadius: 8,
-    alignSelf: 'center',
-    resizeMode: 'cover',
-    tintColor:Colors.ui_primary_dark
+  profileImageContainer: {
+    width: 54,
+    height: 54,
+    borderRadius: 28,
+    backgroundColor: Colors.grey,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
 
-  userDetailContainer:{
+  activeStatusCircle: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    borderWidth: 2,
+    borderColor: Colors.white,
+    backgroundColor: Colors.ui_user_active,
+    position: 'absolute',
+    bottom: 3,
+    right: 0
+  },
+
+  profileImg: {
+    height: 54,
+    width: 54,
+    borderRadius: 28,
     alignSelf: 'center',
+  },
+
+  userDetailContainer: {
+    flex: 1,
     marginLeft: 15,
+    justifyContent: 'center'
   },
 
-  arrowRight:{
+  arrowRight: {
     height: 12,
     width: 13,
     resizeMode: 'cover',

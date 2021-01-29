@@ -16,7 +16,7 @@ export function AuthContainer({ children, style, gradientBackground }) {
     if (gradientBackground) {
       return ['#5CCBD0', '#7DFFEF'];
     } else {
-      return [Colors.ui_background, Colors.ui_background];
+      return [Colors.white, Colors.white];
     }
   }
 
@@ -41,6 +41,5 @@ export function AuthContainer({ children, style, gradientBackground }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 25,
   },
 });

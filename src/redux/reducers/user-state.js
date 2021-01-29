@@ -28,21 +28,21 @@ const initialState = {
   genderList: [
     {
       gender_id: 1,
-      gender: 'Male',
+      gender: 'Man',
       gender_icon:
         'https://img2.pngio.com/download-free-png-male-icon-png-102234-free-icons-library-male-logo-png-512_512.png',
     },
 
     {
       gender_id: 2,
-      gender: 'Female',
+      gender: 'Woman',
       gender_icon:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Female_symbol.svg/512px-Female_symbol.svg.png',
     },
 
     {
       gender_id: 3,
-      gender: 'Transgender',
+      gender: 'More',
       gender_icon:
         'https://img.pngio.com/gender-symbol-gender-wiki-fandom-powered-by-wikia-gender-symbol-png-300_300.png',
     }

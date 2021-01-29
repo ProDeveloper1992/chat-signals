@@ -86,7 +86,7 @@ export default function UserProfile(props) {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
-        <View style={{ paddingStart: 15, backgroundColor: Colors.ui_primary }}>
+        <View style={{ paddingStart: 15, backgroundColor: Colors.white }}>
           <BackHeader
             title={'My Profile'}
             onBackPress={() => props.navigation.goBack()}

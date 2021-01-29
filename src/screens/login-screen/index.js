@@ -25,6 +25,7 @@ import GoogleIcon from '../../assets/icons/google.svg';
 import FacebookIcon from '../../assets/icons/facebook.svg';
 import { loginWithFacebook, loginWithGoogle } from '../../services/social-login-service';
 import { ForgotPasswordModal } from '../../components/app-modals';
+import { EmailIcon, PasswordIcon } from '../../constants/svg-icons';
 
 const LoginScreen = (props) => {
   const { navigation } = props;
@@ -88,89 +89,99 @@ const LoginScreen = (props) => {
 
   return (
     <AuthContainer>
-      <BackHeader onBackPress={() => navigation.goBack()} />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Image style={globalStyle.logo} source={Gifs.chat_signal_logo} />
-        <View style={{ flex: 1, justifyContent: 'center' }}>
-          <AuthInput
-            label={appLabels.email}
-            placeholder={appLabels.email}
-            keyboardType={'email-address'}
-            value={email}
-            onChangeText={setEmail}
-            error={emailError}
-          />
-          <AuthInput
-            label={appLabels.password}
-            placeholder={appLabels.password}
-            secureTextEntry
-            value={password}
-            onChangeText={setPassword}
-            error={passError}
-          />
-
-          <View style={{ alignSelf: 'flex-end' }}>
-            <TextButton
-              fontType={'medium'}
-              fontSize={14}
-              titleColor={Colors.black}
-              title={appLabels.forgot_password}
-              onPress={() => setForgotPasswordModalVisible(true)}
+      {/* <BackHeader onBackPress={() => navigation.goBack()} /> */}
+      <View style={styles.container}>
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
+          showsVerticalScrollIndicator={false}>
+          {/* <Image style={globalStyle.logo} source={Gifs.chat_signal_logo} /> */}
+          <View style={{ flex: 1, justifyContent: 'center' }}>
+            <AppText
+              type={'bold'}
+              size={24}
+              style={{ textAlign: 'center', marginVertical: 20 }}>
+              {appLabels.login}
+            </AppText>
+            <AuthInput
+              label={appLabels.email}
+              placeholder={appLabels.email}
+              keyboardType={'email-address'}
+              value={email}
+              onChangeText={setEmail}
+              error={emailError}
+              icon={<EmailIcon width={24} height={24} />}
             />
-          </View>
+            <AuthInput
+              label={appLabels.password}
+              placeholder={appLabels.password}
+              secureTextEntry
+              value={password}
+              onChangeText={setPassword}
+              error={passError}
+              icon={<PasswordIcon width={24} height={24} />}
+            />
 
-          <AppButton
-            type={'primary'}
-            title={appLabels.login}
-            style={styles.loginButton}
-            // onPress={() => login()}
-            onPress={() => onLoginPress()}
-            loading={loading}
-          />
+            <View style={{ alignSelf: 'flex-end' }}>
+              <TextButton
+                fontType={'bold'}
+                fontSize={14}
+                titleColor={Colors.black}
+                title={appLabels.forgot_password}
+                onPress={() => setForgotPasswordModalVisible(true)}
+              />
+            </View>
 
-          <AppText
-            color={Colors.greydark}
-            style={{ alignSelf: 'center', marginVertical: 15 }}>
-            {'Or Login with'}
-          </AppText>
+            <AppButton
+              type={'primary'}
+              title={appLabels.login}
+              style={styles.loginButton}
+              // onPress={() => login()}
+              onPress={() => onLoginPress()}
+              loading={loading}
+            />
 
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: 10,
-            }}>
-            <IconButton
-              icon={<GoogleIcon width={40} height={40} />}
-              buttonColor={Colors.white}
+            <AppText
+              color={Colors.black}
+              style={{ alignSelf: 'center', marginBottom: 10, marginTop: 20 }}>
+              {'or'}
+            </AppText>
+
+            <AppButton
+              type={'facebook'}
+              title={"Log in with Facebook"}
+              icon={<FacebookIcon width={30} height={30} />}
+              onPress={onFacebookIconPress}
+            />
+            <View style={{ marginTop: 15 }} />
+            <AppButton
+              type={'google'}
+              title={"Log in with Google"}
+              icon={<GoogleIcon width={30} height={30} />}
               onPress={onGoogleIconPress}
             />
 
-            <IconButton
-              icon={<FacebookIcon width={40} height={40} />}
-              buttonColor={Colors.white}
-              onPress={onFacebookIconPress}
+            <TextButton
+              style={{ alignSelf: 'center', marginTop: 10 }}
+              fontType={'bold'}
+              titleColor={Colors.black}
+              title={appLabels.dont_have_an_account + '  ' + appLabels.create_one}
+              onPress={() => {
+                navigation.navigate('RegisterWithEmail');
+              }}
             />
           </View>
-
-          <TextButton
-            style={{ alignSelf: 'center' }}
-            fontType={'medium'}
-            titleColor={Colors.black}
-            title={appLabels.dont_have_an_account + '  ' + appLabels.create_one}
-            onPress={() => {
-              navigation.navigate('RegisterWithEmail');
-            }}
-          />
-        </View>
-      </ScrollView>
-      <ForgotPasswordModal visible={forgotPasswordModalVisible} onHideModal={() => setForgotPasswordModalVisible(false)} />
+        </ScrollView>
+        <ForgotPasswordModal visible={forgotPasswordModalVisible} onHideModal={() => setForgotPasswordModalVisible(false)} />
+      </View>
     </AuthContainer>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginHorizontal: 25,
+  },
   input: {
     marginVertical: 5,
   },

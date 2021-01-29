@@ -104,7 +104,6 @@ export default function FlirtTab(props) {
       ) : (
           <FlatList
             data={flirtsList}
-            numColumns={2}
             contentContainerStyle={{ paddingBottom: 20 }}
             showsVerticalScrollIndicator={false}
             // ListHeaderComponent={render_FlatList_header}

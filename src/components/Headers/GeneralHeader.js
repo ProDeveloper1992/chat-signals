@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View, Image, SafeAreaView } from 'react-native';
-import { Colors } from '../../constants';
+import { Colors, Images } from '../../constants';
 import { AppText } from '../../components';
 
 export function GeneralHeader({
@@ -17,56 +17,35 @@ export function GeneralHeader({
     <>
       <SafeAreaView style={{ backgroundColor: Colors.ui_primary }} />
       <View style={[styles.container, style]}>
-        <View style={styles.flexOne}>
-          <TouchableOpacity onPress={onLeftPress}>
-            <Image
-              style={{
-                height: 25,
-                width: 25,
-                resizeMode: 'cover',
-                tintColor: 'white',
-              }}
-              source={leftIcon}
-            />
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.flexOne}>
-          <AppText type={'bold'} size={14} style={styles.headerTitle}>
-            {label}
-          </AppText>
-        </View>
 
         <View
           style={{
             flexDirection: 'row',
             flex: 1,
-            justifyContent: 'flex-end',
+            justifyContent: 'flex-start',
             alignItems: 'center',
           }}>
-          {/* <TouchableOpacity
-          onPress={onRightPress}>
-          <Image
-            style={{
-              height: 20,
-              width: 20,
-              resizeMode: 'contain',
-              tintColor: 'white',
-            }}
-            source={rightIcon}
-          />
-        </TouchableOpacity> */}
-          <TouchableOpacity style={{ marginStart: 20 }} onPress={onLanguagePress}>
+          <TouchableOpacity onPress={onLanguagePress}>
             <Image
               style={{
                 height: 24,
                 width: 24,
                 resizeMode: 'contain',
-                tintColor: 'white',
+                tintColor: Colors.white,
               }}
               source={LanguageIcon}
             />
           </TouchableOpacity>
+        </View>
+
+        <View style={styles.flexOne}>
+          <AppText type={'bold'} size={18} color={Colors.white} style={styles.headerTitle}>
+            {label}
+          </AppText>
+        </View>
+
+        <View style={[styles.flexOne, { alignItems: 'flex-end' }]}>
+          {rightIcon}
         </View>
       </View>
     </>
@@ -77,17 +56,30 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 15,
-    paddingHorizontal: 20,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
     backgroundColor: Colors.ui_primary,
+    marginBottom: 2
   },
   flexOne: {
     flex: 1,
   },
   headerTitle: {
-    color: 'white',
     letterSpacing: 0.5,
     textAlign: 'center',
-    textTransform: 'uppercase',
   },
+  profileImageContainer: {
+    width: 46,
+    height: 46,
+    borderRadius: 23,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.grey
+  },
+  profileImage: {
+    height: 46,
+    width: 46,
+    borderRadius: 23,
+    resizeMode: 'cover',
+  }
 });

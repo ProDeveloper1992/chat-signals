@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {Colors} from '../../constants';
+import { StyleSheet } from 'react-native';
+import { Colors } from '../../constants';
 
 export default StyleSheet.create({
   container: {
@@ -17,6 +17,6 @@ export default StyleSheet.create({
   topTabLabel: {
     fontSize: 12,
     fontWeight: '700',
-    letterSpacing:1
+    letterSpacing: 1
   },
 });

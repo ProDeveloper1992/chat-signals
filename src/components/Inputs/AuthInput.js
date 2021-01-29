@@ -21,11 +21,16 @@ export function AuthInput({ style, label, icon, error, ...props }) {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: Colors.white,
-        borderWidth: 0.5,
+        borderWidth: 1,
         borderRadius: 6,
+        paddingHorizontal: 15,
         borderColor: error ? Colors.ui_error : Colors.grey,
       }}>
-        {icon}
+        {icon && (
+          <View style={{ marginEnd: 10 }}>
+            {icon}
+          </View>
+        )}
         <TextInput
           {...props}
           style={[
@@ -52,7 +57,7 @@ export function AuthInput({ style, label, icon, error, ...props }) {
 const styles = StyleSheet.create({
   input: {
     flex: 1,
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
     paddingVertical: Platform.OS === 'ios' ? 15 : 10,
     color: Colors.black,
     fontFamily: 'Poppins-Regular',

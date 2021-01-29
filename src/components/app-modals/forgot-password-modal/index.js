@@ -12,6 +12,7 @@ import FacebookIcon from '../../../assets/icons/facebook.svg';
 import CloseIcon from '../../../assets/icons/close.svg';
 import { loginWithFacebook, loginWithGoogle } from '../../../services/social-login-service';
 import { forgotPassword } from '../../../redux/actions/user-actions';
+import { EmailIcon } from '../../../constants/svg-icons';
 
 export default function ForgotPasswordModal({ visible, onHideModal }) {
 
@@ -74,8 +75,13 @@ export default function ForgotPasswordModal({ visible, onHideModal }) {
                 </View>
                 <AppText
                     size={20}
-                    type={'bold'}
-                    style={{ textAlign: 'center', marginBottom: '10%' }}>{"Enter your email"}</AppText>
+                    type={'bold'}>{"Did you forgot your password?"}</AppText>
+                <AppText
+                    type={'regular'}
+                    color={Colors.greydark}
+                    style={{ marginVertical: 10 }}>
+                    {"Please enter your email address you are using for your account bellow and we will send you a password reset link."}
+                </AppText>
                 <AuthInput
                     placeholder={'Email'}
                     keyboardType={'email-address'}
@@ -84,11 +90,12 @@ export default function ForgotPasswordModal({ visible, onHideModal }) {
                     label={appLabels.email}
                     placeholder={appLabels.email}
                     error={emailError}
+                    icon={<EmailIcon width={24} height={24} />}
                 />
                 <AppButton
                     type={'primary'}
                     title={'Request New Password'}
-                    style={{ marginTop: 20 }}
+                    style={{ marginTop: 30 }}
                     onPress={() => onForgotPasswordClick()}
                     loading={loading}
                 />

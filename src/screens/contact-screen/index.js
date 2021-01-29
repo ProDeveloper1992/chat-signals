@@ -25,14 +25,14 @@ export default function Home() {
 
   const [index, setIndex] = React.useState(0);
   const routes = [
-    { key: 'bookmarks', title: 'Favorites' },
+    { key: 'favourites', title: 'Favorites' },
     { key: 'friends', title: appLabels.friends },
     { key: 'visitors', title: appLabels.visitors },
     { key: 'blocked', title: appLabels.blocked },
   ]
 
   const renderScene = SceneMap({
-    bookmarks: BookMarkTopTab,
+    favourites: BookMarkTopTab,
     friends: FriendsTopTab,
     visitors: VisitorsTopTab,
     blocked: BlockedTopTab,

@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
 import { Colors, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants';
 
-const listColums = 2;
-const listRows = 3.5;
-const listItemMargin = 10;
+const listColums = 1;
+const listRows = 2.5;
+const listItemMargin = 20;
 const listItemWidth =
-  (SCREEN_WIDTH - (listColums + 1) * listItemMargin) / listColums;
+  (SCREEN_WIDTH - (listColums + 1) * listItemMargin);
 const listItemHeight =
   (SCREEN_HEIGHT - (listRows + 1) * listItemMargin) / listRows;
 
@@ -13,7 +13,7 @@ export default StyleSheet.create({
   listItemContainer: {
     flex: 1,
     marginLeft: listItemMargin,
-    marginTop: 10,
+    marginTop: 20,
     width: listItemWidth,
     height: listItemHeight,
     backgroundColor: 'lightgrey',
@@ -22,13 +22,13 @@ export default StyleSheet.create({
   },
   onlineStatusSignal: function (isOnline) {
     return {
-      height: 10,
-      width: 10,
-      borderRadius: 5,
+      height: 12,
+      width: 12,
+      borderRadius: 6,
       marginStart: 10,
       backgroundColor: isOnline ? Colors.ui_user_active : Colors.ui_user_active,
-      // borderWidth: 2,
-      // borderColor: Colors.white
+      borderWidth: 2,
+      borderColor: Colors.white
     };
   },
   onlineStatusText: { color: Colors.black, fontSize: 12 },
@@ -37,11 +37,16 @@ export default StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: "rgba(15, 41, 55, 0.75)",
+    // backgroundColor: "rgba(15, 41, 55, 0.1)",
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
-    paddingHorizontal: 10,
-    paddingBottom: 5,
+    padding: 28,
+    alignItems: 'flex-start'
+  },
+  popupContainer: {
+    flex: 1,
+    borderRadius: 20,
+    backgroundColor: "rgba(15, 41, 55, 0.75)",
   },
   bookmarkedContainer: {
     backgroundColor: Colors.white_80,
@@ -61,4 +66,10 @@ export default StyleSheet.create({
     height: 18,
     resizeMode: 'contain',
   },
+  userName: {
+    textTransform: 'capitalize',
+    textShadowColor: 'rgba(0, 0, 0, 0.50)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10
+  }
 });
