@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, Dimensions, View, BackHandler } from 'react-native';
+import { Alert, Dimensions, View, BackHandler, TouchableOpacity } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -14,6 +14,8 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 import SplashScreen from 'react-native-splash-screen';
 import { getGeneralSettings } from '../../redux/actions/app-actions';
+
+import FilterIcon from '../../assets/icons/filter.svg';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
@@ -94,11 +96,13 @@ export default function Home() {
       <GeneralHeader
         leftIcon={Icons.user_profile}
         onLeftPress={() => navigation.navigate('UserProfile')}
-        // rightIcon={Icons.search}
+        rightIcon={<TouchableOpacity activeOpacity={0.8}>
+          <FilterIcon width={24} height={24} />
+        </TouchableOpacity>}
         // onRightPress={()=>navigation.navigate('SearchScreen')}
         LanguageIcon={Icons.icon_languages}
         onLanguagePress={() => dispatch(toggleLanguageModal(true))}
-        label={appLabels.home}
+        label={appLabels.flirts}
       />
 
       <TabView

@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-ionicons';
 import { Colors } from '../../constants';
 import { AppText } from '../../components';
+import { useNavigation } from '@react-navigation/native';
 
 export function BackHeader({
   title,
@@ -12,18 +13,25 @@ export function BackHeader({
   onBackPress,
   rightContent,
 }) {
+
+  const navigation = useNavigation();
+
+  const _navigateToBack = () => {
+    navigation.goBack();
+  }
+
   return (
     <>
-      <SafeAreaView style={{ backgroundColor: Colors.ui_primary }} />
-      <View style={[styles.container, style]}>
+      <SafeAreaView style={{ backgroundColor: color || Colors.white }} />
+      <View style={[styles.container, style, { backgroundColor: color || Colors.white }]}>
         <Icon
           name={'arrow-back'}
-          color={Colors.black}
+          color={color ? Colors.white : Colors.black}
           size={size || 30}
-          onPress={onBackPress}
+          onPress={onBackPress ? onBackPress : _navigateToBack}
         />
         <View style={styles.titleContainer}>
-          <AppText type={'bold'} size={16}>
+          <AppText type={'bold'} size={16} color={color ? Colors.white : Colors.black}>
             {title}
           </AppText>
         </View>
@@ -34,7 +42,12 @@ export function BackHeader({
 }
 
 const styles = StyleSheet.create({
-  container: { flexDirection: 'row', alignItems: 'center', paddingVertical: 12 },
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 15
+  },
   titleContainer: {
     flex: 1,
     alignItems: 'center',

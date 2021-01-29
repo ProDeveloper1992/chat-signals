@@ -14,6 +14,7 @@ import {
   CountryPicker,
 } from '../../components';
 import { mailformat, Colors } from '../../constants';
+import { EmailIcon, PasswordIcon, ProfileIcon } from '../../constants/svg-icons';
 import { registerUser, setSelectedGender, setSelectedLookingGender } from '../../redux/actions/user-actions';
 
 const RegisterWithEmail = (props) => {
@@ -33,39 +34,6 @@ const RegisterWithEmail = (props) => {
   const [confPassError, setConfPassError] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const [stepPosition, setStepPosition] = React.useState(0);
-  const [stepCount, setStepCount] = React.useState(2);
-
-  const labels = [appLabels.user_details, appLabels.registration];
-  const stepIndicatorStyle = {
-    stepIndicatorSize: 26,
-    currentStepIndicatorSize: 30,
-    separatorStrokeWidth: 1,
-    separatorStrokeFinishedWidth: 3,
-    currentStepStrokeWidth: 3,
-    stepStrokeWidth: 1,
-    stepStrokeCurrentColor: Colors.black,
-    stepStrokeFinishedColor: Colors.black,
-    stepStrokeUnFinishedColor: Colors.black,
-    separatorFinishedColor: Colors.black,
-    separatorUnFinishedColor: Colors.black,
-    stepIndicatorFinishedColor: Colors.black,
-    stepIndicatorUnFinishedColor: Colors.white,
-    stepIndicatorCurrentColor: Colors.white,
-    stepIndicatorLabelCurrentColor: Colors.black,
-    stepIndicatorLabelFinishedColor: Colors.white,
-    stepIndicatorLabelUnFinishedColor: Colors.greydark,
-    currentStepLabelColor: Colors.black,
-    labelSize: 12,
-    labelColor: Colors.black,
-  };
-
-  const onStepPress = (position) => {
-    setStepPosition(position);
-  };
-
-  // const onSkipPress = () => {
-  //   setStepPosition(1);
-  // };
 
   const onBottomButtonPress = async () => {
     if (stepPosition == 0) {
@@ -153,33 +121,13 @@ const RegisterWithEmail = (props) => {
   const renderPage = () => {
     if (stepPosition == 0) {
       return (
-        <View>
-          <SectionLable title={appLabels.i_am} />
-          <GenderPicker type={'user'} onSelectGenderItem={(item) => onSelectUserGenderItem(item)} />
-          <SectionLable title={appLabels.i_am_looking_for} />
-          <GenderPicker type={'opponent'} onSelectGenderItem={(item) => onSelectLookingGenderItem(item)} />
-          <SectionLable title={appLabels.country} />
-          <CountryPicker />
-          <AuthInput
-            label={appLabels.postal_code}
-            placeholder={appLabels.postal_code}
-            keyboardType={'number-pad'}
-            value={postalCode}
-            onChangeText={setPostalCode}
-          />
-        </View>
-      );
-    } else {
-      return (
-        <View>
-          <AuthInput
-            label={appLabels.user_name}
-            placeholder={appLabels.user_name}
-            keyboardType={'email-address'}
-            value={userName}
-            onChangeText={setUserName}
-            error={userNameError}
-          />
+        <View style={{ flex: 1, justifyContent: 'center' }}>
+          <AppText
+            type={'bold'}
+            size={24}
+            style={{ textAlign: 'center', marginVertical: 20 }}>
+            {"Create account"}
+          </AppText>
           <AuthInput
             label={appLabels.email}
             placeholder={appLabels.email}
@@ -187,6 +135,7 @@ const RegisterWithEmail = (props) => {
             value={email}
             onChangeText={setEmail}
             error={emailError}
+            icon={<EmailIcon width={24} height={24} />}
           />
 
           <AuthInput
@@ -196,6 +145,7 @@ const RegisterWithEmail = (props) => {
             value={password}
             onChangeText={setPassword}
             error={passError}
+            icon={<PasswordIcon width={24} height={24} />}
           />
 
           <AuthInput
@@ -205,6 +155,54 @@ const RegisterWithEmail = (props) => {
             value={confpassword}
             onChangeText={setConfPassword}
             error={confPassError}
+            icon={<PasswordIcon width={24} height={24} />}
+          />
+          <AppButton
+            // disabled={postalCode.trim() === ''}
+            title={appLabels.next}
+            style={{ marginBottom: 20, marginTop: "20%" }}
+            onPress={() => onBottomButtonPress()}
+            loading={loading}
+          />
+        </View>
+      );
+    } else {
+      return (
+        <View style={{ flex: 1, justifyContent: 'center' }}>
+          <AppText
+            type={'bold'}
+            size={24}
+            style={{ textAlign: 'center', marginVertical: 20 }}>
+            {"Create account"}
+          </AppText>
+          <AuthInput
+            label={appLabels.user_name}
+            placeholder={appLabels.user_name}
+            keyboardType={'email-address'}
+            value={userName}
+            onChangeText={setUserName}
+            error={userNameError}
+            icon={<ProfileIcon width={24} height={24} />}
+          />
+          <AuthInput
+            label={appLabels.postal_code}
+            placeholder={appLabels.postal_code}
+            keyboardType={'number-pad'}
+            value={postalCode}
+            onChangeText={setPostalCode}
+          />
+          <SectionLable title={appLabels.i_am} />
+          <GenderPicker type={'user'} onSelectGenderItem={(item) => onSelectUserGenderItem(item)} />
+          <SectionLable title={appLabels.i_am_looking_for} />
+          <GenderPicker type={'opponent'} onSelectGenderItem={(item) => onSelectLookingGenderItem(item)} />
+          {/* <SectionLable title={appLabels.country} /> */}
+          {/* <CountryPicker /> */}
+          <AppButton
+            // disabled={postalCode.trim() === ''}
+            title={appLabels.register}
+            style={{ marginBottom: 20, marginTop: "20%" }}
+            onPress={() => onBottomButtonPress()}
+            loading={loading}
           />
         </View>
       );
@@ -213,25 +211,29 @@ const RegisterWithEmail = (props) => {
 
   return (
     <AuthContainer>
-      <BackHeader
+      {/* <BackHeader
         onBackPress={() => onBackPress()}
-      />
-      <StepIndicator
+      /> */}
+      {/* <StepIndicator
         stepCount={stepCount}
         customStyles={stepIndicatorStyle}
         currentPosition={stepPosition}
         labels={labels}
-      />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ paddingTop: 30 }}>{renderPage()}</View>
-      </ScrollView>
-      <AppButton
-        disabled={postalCode.trim() === ''}
-        title={stepPosition == 0 ? appLabels.next : appLabels.register}
-        style={{ marginVertical: 20 }}
-        onPress={() => onBottomButtonPress()}
-        loading={loading}
-      />
+      /> */}
+      <View style={styles.container}>
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
+          showsVerticalScrollIndicator={false}>
+          <View style={{ flex: 1, justifyContent: 'center' }}>{renderPage()}</View>
+        </ScrollView>
+        {/* <AppButton
+          // disabled={postalCode.trim() === ''}
+          title={stepPosition == 0 ? appLabels.next : appLabels.register}
+          style={{ marginVertical: 20 }}
+          onPress={() => onBottomButtonPress()}
+          loading={loading}
+        /> */}
+      </View>
     </AuthContainer>
   );
 };

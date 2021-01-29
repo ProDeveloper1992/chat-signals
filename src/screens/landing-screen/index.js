@@ -67,52 +67,52 @@ const LandingScreen = (props) => {
 
   return (
     <AuthContainer gradientBackground>
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-        <Image
-          style={globalStyle.logo}
-          source={Gifs.chat_signal_logo}
-        />
-        <TouchableOpacity
-          onPress={onLanguageIconPress}
-          style={{
-            backgroundColor: Colors.white,
-            width: 50,
-            height: 50,
-            borderRadius: 25,
-            alignItems: 'center',
-            justifyContent: 'center',
-            // alignSelf: 'flex-end',
-            // marginTop: 20,
-            elevation: 5,
-          }}>
+      <View style={styles.container}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
           <Image
-            style={{ width: 24, height: 24, tintColor: Colors.ui_primary }}
-            source={Icons.icon_languages}
+            style={[globalStyle.logo, { tintColor: Colors.black }]}
+            source={Gifs.chat_signal_logo}
           />
-        </TouchableOpacity>
-      </View>
-      <View style={{ flex: 1, marginTop: '5%' }}>
-        <AppText size={15} color={Colors.white}>{"Find your match with our poweful algorithms"}</AppText>
-        <AppText type={'bold'} size={26} color={Colors.white} style={{ marginBottom: '5%' }}>{"Casual chatting and flirting"}</AppText>
-        <LandingIntro width={"100%"} height={"50%"} />
-      </View>
-      <View style={styles.bottomView}>
-        <View style={{ marginEnd: 8, flex: 1 }}>
+          <TouchableOpacity
+            onPress={onLanguageIconPress}
+            style={{
+              backgroundColor: Colors.white,
+              width: 50,
+              height: 50,
+              borderRadius: 25,
+              alignItems: 'center',
+              justifyContent: 'center',
+              // alignSelf: 'flex-end',
+              // marginTop: 20,
+              elevation: 5,
+            }}>
+            <Image
+              style={{ width: 24, height: 24, tintColor: Colors.ui_primary }}
+              source={Icons.icon_languages}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={{ flex: 1, marginTop: '5%' }}>
+          <AppText size={15} color={Colors.white}>{"Find your match with our poweful algorithms"}</AppText>
+          <AppText type={'bold'} size={24} color={Colors.white} style={{ marginBottom: '5%' }}>{"Casual chatting and flirting"}</AppText>
+          {/* <LandingIntro width={"100%"} height={"65%"} /> */}
+          <Image style={{ width: '100%', height: '70%', resizeMode: 'contain' }} source={require('../../assets/images/landing_intro.png')} />
+        </View>
+        <View style={styles.bottomView}>
           <AppButton
             type={'light'}
             title={appLabels.login}
             onPress={onLogin}
           />
-        </View>
-        <View style={{ marginStart: 8, flex: 1 }}>
           <AppButton
+            style={{ marginTop: 10 }}
             type={'transparent'}
             title={appLabels.register}
             onPress={onRegister}
           />
         </View>
+        <RegisterLandingModal visible={registerLandingModalVisible} onHideModal={() => setRegisterLandingModalVisible(false)} />
       </View>
-      <RegisterLandingModal visible={registerLandingModalVisible} onHideModal={() => setRegisterLandingModalVisible(false)} />
     </AuthContainer>
   );
 };
@@ -120,12 +120,14 @@ const LandingScreen = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 25,
+    marginHorizontal: 25,
   },
   bottomView: {
-    bottom: 25,
-    position: 'absolute',
-    flexDirection: 'row',
+    width: '100%',
+    // bottom: 25,
+    // position: 'absolute',
+    // flexDirection: 'row',
+    marginBottom: 20,
     alignSelf: 'center',
   },
 });

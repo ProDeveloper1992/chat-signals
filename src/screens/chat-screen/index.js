@@ -14,7 +14,7 @@ import { GeneralHeader } from '../../components/Headers';
 import { useNavigation } from '@react-navigation/native';
 import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { Colors, Icons } from '../../constants';
+import { Colors, Icons, Images } from '../../constants';
 import { AppText } from '../../components/app-text';
 import styles from './style';
 import { ChatListItem } from '../../components/app-list-items';
@@ -116,7 +116,7 @@ const Chat = () => {
               <ChatListItem
                 key={String(index)}
                 onChatPress={() => onChatListItemPress(item)}
-                profileImage={Icons.user_profile}
+                profileImage={Images.app_logo}
                 userName={item.user.username}
                 lastMessage={item.lastMessage.body}
                 lastMessageTime={item.lastMessage.created_at}

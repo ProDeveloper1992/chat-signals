@@ -7,7 +7,7 @@ export default StyleSheet.create({
   },
 
   imgBackground: {
-    height: 350,
+    height: 300,
     width: '100%',
   },
 

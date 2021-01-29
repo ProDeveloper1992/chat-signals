@@ -30,11 +30,12 @@ export default function GenderPicker({ type, onSelectGenderItem }) {
   return (
     <View style={{ flexDirection: 'row', paddingVertical: 5 }}>
       {genderList.map((item, index) => (
-        <View style={{ flex: 1 }} key={String(index)}>
+        <View style={{ flex: 1, marginHorizontal: index === 1 ? 10 : 0 }} key={String(index)}>
           <GenderItem
             isSelected={isSelected(item)}
             imageUrl={item.gender_icon}
             onPress={() => onGenderItemPress(item)}
+            gender={item.gender}
           />
         </View>
       ))}

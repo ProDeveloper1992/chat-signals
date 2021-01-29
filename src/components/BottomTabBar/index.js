@@ -46,35 +46,19 @@ export default function BottomTabBar({ state, descriptors, navigation }) {
             //   return Icons.home_inactive;
 
             case 'SecondTabStack':
-              if (isFocused) {
-                return Icons.group_active;
-                group_active;
-              }
-              return Icons.group_inactive;
+              return Icons.notification;
 
             case 'ThirdTabStack':
-              if (isFocused) {
-                return Icons.chat_active;
-              }
-              return Icons.chat_inactive;
+              return Icons.chat;
 
             case 'FourthTabStack':
-              if (isFocused) {
-                return Icons.coin_active;
-              }
-              return Icons.coin_inactive;
+              return Icons.dollar_circle;
 
             case 'FifthTabStack':
-              if (isFocused) {
-                return Icons.icon_purchase_active;
-              }
-              return Icons.icon_purchase_inactive;
+              return Icons.profile;
 
             default:
-              if (isFocused) {
-                return Icons.home_active;
-              }
-              return Icons.home_inactive;
+              return Icons.home;
           }
         };
 
@@ -89,19 +73,13 @@ export default function BottomTabBar({ state, descriptors, navigation }) {
             onPress={onPress}
             onLongPress={onLongPress}
             style={{ flex: 1, alignItems: 'center' }}>
-            <View
-              style={[
-                styles.activeTabIconContainer(isFocused),
-                { borderRadius: 20 },
-              ]}>
-              <Image style={styles.tabIcon(isFocused)} source={getTabIcon()} />
-            </View>
+            <Image style={styles.tabIcon(isFocused)} source={getTabIcon()} />
 
-            <AppText
+            {/* <AppText
               size={isFocused ? 13 : 12}
               color={isFocused ? Colors.black : Colors.greydark}>
               {label}
-            </AppText>
+            </AppText> */}
           </TouchableOpacity>
         );
       })}
