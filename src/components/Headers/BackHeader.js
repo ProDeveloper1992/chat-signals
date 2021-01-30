@@ -4,6 +4,7 @@ import Icon from 'react-native-ionicons';
 import { Colors } from '../../constants';
 import { AppText } from '../../components';
 import { useNavigation } from '@react-navigation/native';
+import { ArrowLeftIcon } from '../../constants/svg-icons';
 
 export function BackHeader({
   title,
@@ -24,12 +25,9 @@ export function BackHeader({
     <>
       <SafeAreaView style={{ backgroundColor: color || Colors.white }} />
       <View style={[styles.container, style, { backgroundColor: color || Colors.white }]}>
-        <Icon
-          name={'arrow-back'}
-          color={color ? Colors.white : Colors.black}
-          size={size || 30}
-          onPress={onBackPress ? onBackPress : _navigateToBack}
-        />
+        <TouchableOpacity onPress={onBackPress ? onBackPress : _navigateToBack}>
+          <ArrowLeftIcon width={size || 30} height={size || 30} />
+        </TouchableOpacity>
         <View style={styles.titleContainer}>
           <AppText type={'bold'} size={16} color={color ? Colors.white : Colors.black}>
             {title}

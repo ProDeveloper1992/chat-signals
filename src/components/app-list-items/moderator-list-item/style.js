@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { Colors, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants';
 
 const listColums = 1;
-const listRows = 2.5;
+const listRows = 2;
 const listItemMargin = 20;
 const listItemWidth =
   (SCREEN_WIDTH - (listColums + 1) * listItemMargin);

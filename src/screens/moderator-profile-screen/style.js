@@ -4,6 +4,7 @@ import { Colors } from '../../constants';
 export default StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Colors.white
   },
 
   imgBackground: {
@@ -20,13 +21,11 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: 10,
   },
 
   moderatorNameContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 5,
   },
 
   moderatorLocationContainer: {
@@ -53,7 +52,6 @@ export default StyleSheet.create({
   moderatorIconViewHolder: {
     flexDirection: 'row',
     flex: 1,
-    padding: 10,
   },
 
   tabViewContainer: {
@@ -81,10 +79,10 @@ export default StyleSheet.create({
 
   onlineStatusSignal: function (isOnline) {
     return {
-      height: 14,
-      width: 14,
-      borderRadius: 7,
-      marginEnd: 5,
+      height: 12,
+      width: 12,
+      borderRadius: 6,
+      marginStart: 5,
       backgroundColor: isOnline ? Colors.green : Colors.red,
       borderWidth: 2,
       borderColor: Colors.white,

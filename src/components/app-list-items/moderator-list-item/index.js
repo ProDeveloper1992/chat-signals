@@ -21,7 +21,7 @@ export default function ModeratorListItem({ item, onPress, bookmarked }) {
   }
 
   return (
-    <TouchableOpacity onPress={onItemPress} activeOpacity={0.8}>
+    <TouchableOpacity onPress={onPress} activeOpacity={0.8}>
       <ImageBackground
         style={styles.listItemContainer}
         resizeMode={'cover'}
@@ -29,23 +29,27 @@ export default function ModeratorListItem({ item, onPress, bookmarked }) {
         source={{
           uri: getItemImage(item.picture),
         }}>
-        {contentVisible ? (
+        {/* {contentVisible ? (
           <TouchableOpacity style={styles.popupContainer} onPress={() => setContentVisible(false)}>
             <TouchableOpacity onPress={onPress} style={styles.bottomContainer}>
               <AppText size={12} type={'medium'} color={Colors.white} style={{ textAlign: 'center' }}>{"View Profile"}</AppText>
             </TouchableOpacity>
           </TouchableOpacity>
-        ) : (
-            <View style={styles.bottomContainer}>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <AppText type={'bold'} color={Colors.white} size={20} style={styles.userName}>
-                  {item.username}
-                </AppText>
-                <View style={styles.onlineStatusSignal(item.is_online)} />
-              </View>
-              <AppText size={16} type={'regular'} color={Colors.white} style={{ textTransform: 'capitalize' }}>{item.city + ", " + item.country}</AppText>
-            </View>
-          )}
+        ) : ( */}
+        <View style={styles.bottomContainer}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <AppText type={'bold'} color={Colors.white} size={20} style={styles.userName}>
+              {item.username}
+            </AppText>
+            <View style={styles.onlineStatusSignal(item.is_online)} />
+          </View>
+          <AppText
+            size={16}
+            type={'regular'}
+            color={Colors.white}
+            style={[styles.userName, { textTransform: 'capitalize' }]}>{item.city + ", " + item.country}</AppText>
+        </View>
+        {/* )} */}
       </ImageBackground>
     </TouchableOpacity>
   );

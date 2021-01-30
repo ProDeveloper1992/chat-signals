@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import { NoListData, AppText, BackHeader } from '../../components';
 import { Icons, Colors, DEFAULT_AVATAR_URL } from '../../constants';
-import ImagePicker from 'react-native-image-picker';
 import styles from './style';
 import { ModeratorIconLabel, ModeratorHeader } from '../../components';
 import ModeratorProfileInfoTab from './user-profile-info-tab';

@@ -1,10 +1,25 @@
 import React from 'react';
 import { View, TouchableOpacity, Image } from 'react-native';
-import { Colors, Icons } from '../../constants';
+import { Colors, DEFAULT_AVATAR_URL, Icons } from '../../constants';
 import { AppText } from '../../components';
 import styles from './style';
+import { useSelector } from 'react-redux';
 
 export default function BottomTabBar({ state, descriptors, navigation }) {
+
+  const { userData } = useSelector((state) => state.userState);
+
+  const getProfilePicture = () => {
+    var profilePic = DEFAULT_AVATAR_URL;
+    if (
+      userData &&
+      userData.avatar != null
+    ) {
+      profilePic = userData.avatar;
+    }
+    return profilePic;
+  };
+
   return (
     <View style={styles.tabBarContainer}>
       {state.routes.map((route, index) => {
@@ -73,7 +88,13 @@ export default function BottomTabBar({ state, descriptors, navigation }) {
             onPress={onPress}
             onLongPress={onLongPress}
             style={{ flex: 1, alignItems: 'center' }}>
-            <Image style={styles.tabIcon(isFocused)} source={getTabIcon()} />
+            {route.name === 'FifthTabStack' ? (
+              <Image
+                source={{ uri: getProfilePicture() }}
+                style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: Colors.grey }} />
+            ) : (
+                <Image style={styles.tabIcon(isFocused)} source={getTabIcon()} />
+              )}
 
             {/* <AppText
               size={isFocused ? 13 : 12}
