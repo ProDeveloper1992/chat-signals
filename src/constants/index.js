@@ -92,4 +92,4 @@ export const SCREEN_HEIGHT = height > width ? height : width;
 
 //Default Image
 export const DEFAULT_IMAGE_URL = 'https://rimatour.com/wp-content/uploads/2017/09/No-image-found.jpg';
-export const DEFAULT_AVATAR_URL = 'https://lh3.googleusercontent.com/proxy/HLYvJt-yzp9mc7cjrcnoCUhG3V_ILvrh8kwuApWZZuNhOTO3gVMf7NAWBTw1VqWLfD-1SYbvxD1w7M4LBNQlzMRVX-CFacs';
+export const DEFAULT_AVATAR_URL = 'https://www.oneworldplayproject.com/wp-content/uploads/2016/03/avatar-1024x1024.jpg';
