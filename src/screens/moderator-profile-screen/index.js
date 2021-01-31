@@ -7,7 +7,7 @@ import {
   Switch,
   TouchableOpacity,
 } from 'react-native';
-import { NoListData, AppText, BackHeader } from '../../components';
+import { NoListData, AppText, BackHeader, TagItem } from '../../components';
 import { Icons, Colors, DEFAULT_IMAGE_URL } from '../../constants';
 import styles from './style';
 import { ModeratorIconLabel, ModeratorHeader } from '../../components';
@@ -17,7 +17,16 @@ import ModeratorProfileActionTab from './moderator-profile-action-tab';
 import { ModeratorActivityModal } from '../../components/app-modals';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToFavorite } from '../../redux/actions/user-actions';
-import { ChatGradientIcon, LikeGradientIcon, FriendGradientIcon, KissGradientIcon, StickerGradientIcon } from '../../constants/svg-icons';
+import {
+  ChatGradientIcon,
+  LikeGradientIcon,
+  FriendGradientIcon,
+  KissGradientIcon,
+  StickerGradientIcon,
+  StarOutlineIcon,
+  StarFilledIcon,
+  DotsCircleIcon
+} from '../../constants/svg-icons';
 
 export default function ModeratorProfile(props) {
 
@@ -32,12 +41,12 @@ export default function ModeratorProfile(props) {
   const [activityModalVisible, setActivityModalVisible] = useState(false);
 
   const toggleSwitch = async () => {
+    setIsFavorite(!isFavorite);
     if (isFavorite) {
       await dispatch(addToFavorite(params.item.id, 0));
     } else {
       await dispatch(addToFavorite(params.item.id, 1));
     }
-    setIsFavorite(!isFavorite);
   }
 
   const showActivityModal = (type) => {
@@ -55,7 +64,7 @@ export default function ModeratorProfile(props) {
 
   return (
     <View style={styles.container}>
-      <BackHeader title={params.item.username} color={Colors.ui_primary} />
+      <BackHeader title={'Flirts'} color={Colors.ui_primary} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
           <ImageBackground
@@ -70,9 +79,9 @@ export default function ModeratorProfile(props) {
 
           <View style={{ padding: 15 }}>
             <View style={styles.moderatorSwitchContainer}>
-              <View>
+              <View style={{ flex: 0.7 }}>
                 <View style={styles.moderatorNameContainer}>
-                  <AppText type={'bold'} size={16} style={{ textTransform: 'capitalize' }}>
+                  <AppText type={'bold'} size={18} style={{ textTransform: 'capitalize' }}>
                     {params.item.username}
                   </AppText>
                   <View style={styles.onlineStatusSignal(params.item.is_online)} />
@@ -80,18 +89,17 @@ export default function ModeratorProfile(props) {
                 <AppText type={'regular'} style={{ textTransform: 'capitalize' }}>
                   {params.item.city + ", " + params.item.country}
                 </AppText>
+              </View>
 
-                {/* <View style={styles.moderatorLocationContainer}>
-                <AppText style={styles.mRight}>{'5 km'}</AppText>
-                <AppText style={styles.mRight}>{'Germany'}</AppText>
-                <Image
-                  source={{
-                    uri:
-                      'https://cdn.countryflags.com/thumbs/germany/flag-round-250.png',
-                  }}
-                  style={styles.flagImage}
-                />
-              </View> */}
+              <View style={{ flex: 0.3, flexDirection: 'row' }}>
+                <TouchableOpacity onPress={toggleSwitch}>
+                  {isFavorite ? (
+                    <StarFilledIcon width={24} height={24} />
+                  ) : (
+                      <StarOutlineIcon width={24} height={24} />
+                    )}
+                </TouchableOpacity>
+                <DotsCircleIcon />
               </View>
 
               {/* <View style={styles.switchViewContainer}>
@@ -131,6 +139,17 @@ export default function ModeratorProfile(props) {
                 onIconPress={() => showActivityModal('sticker')}
                 Icon={<StickerGradientIcon />}
               />
+            </View>
+            <View style={{ marginHorizontal: 10 }}>
+              <AppText type={'bold'} size={18}>{"Interests"}</AppText>
+              <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 15 }}>
+                <TagItem title={"Netflix"} />
+                <TagItem title={"Music"} />
+                <TagItem title={"Walking"} />
+                <TagItem title={"Traveling"} />
+              </View>
+              <AppText type={'bold'} size={18}>{"Details"}</AppText>
+              <AppText type={'regular'} color={Colors.greydark}>{"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias"}</AppText>
             </View>
           </View>
           <ModeratorActivityModal

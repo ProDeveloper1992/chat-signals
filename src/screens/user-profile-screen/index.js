@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import { NoListData, AppText, BackHeader } from '../../components';
+import { NoListData, AppText, BackHeader, GeneralHeader } from '../../components';
 import { Icons, Colors, DEFAULT_AVATAR_URL } from '../../constants';
 import styles from './style';
 import { ModeratorIconLabel, ModeratorHeader } from '../../components';
@@ -19,6 +19,16 @@ import { ModeratorActivityModal } from '../../components/app-modals';
 import { useSelector } from 'react-redux';
 import { GoogleSignin } from 'react-native-google-signin';
 import AsyncStorage from '@react-native-community/async-storage';
+import {
+  EditPenCircleIcon,
+  BoostIcon,
+  KissGradientIcon32,
+  StickerGradientIcon32,
+  LikeGradientIcon32,
+  HeartGradientIcon,
+  FriendGradientIcon32,
+  CoinGradientIcon
+} from '../../constants/svg-icons';
 
 export default function UserProfile(props) {
   const { params } = props.route;
@@ -83,160 +93,136 @@ export default function UserProfile(props) {
   }
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.container}>
-        <View style={{ paddingStart: 15, backgroundColor: Colors.white }}>
-          <BackHeader
-            title={'My Profile'}
-            onBackPress={() => props.navigation.goBack()}
-            rightContent={
-              <TouchableOpacity style={{ paddingEnd: 15 }} onPress={onLogout}>
-                <AppText>{"Logout"}</AppText>
+    <View style={styles.container}>
+      <GeneralHeader label={"Profile"} />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.container}>
+          <View style={{ alignItems: 'center', marginTop: 30 }}>
+            <View style={styles.profileImageContainer}>
+              <Image style={styles.profileImage} source={{ uri: getProfilePicture() }} />
+              <TouchableOpacity
+                onPress={() => { }}
+                style={styles.editPenContainer}>
+                <EditPenCircleIcon width={18} height={18} />
               </TouchableOpacity>
-            }
-          />
-        </View>
-        <View style={[styles.cardContainer, { marginBottom: 0 }]}>
-          <View style={{ flexDirection: 'row' }}>
-            <Image style={styles.profileImage} source={{ uri: getProfilePicture() }} />
+            </View>
+
             <View style={{ padding: 15 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <View style={styles.onlineStatusSignal(true)} />
-                <AppText type={'bold'} size={16}>{userData.username}</AppText>
-              </View>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Image style={styles.smallIcon} source={Icons.coins_icon} />
-                <AppText size={16}>{userData.credit}</AppText>
-              </View>
-              <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 10 }}>
-                <View style={styles.buttonWithIcon(Colors.ui_primary)}>
-                  <Image style={[styles.smallIcon, { tintColor: Colors.white }]} source={Icons.chat_inactive} />
-                  <AppText color={Colors.white} type={'medium'}>{"Chat"}</AppText>
-                </View>
-                <View style={styles.buttonWithIcon(Colors.red)}>
-                  <Image style={[styles.smallIcon, { tintColor: Colors.white }]} source={Icons.kiss_icon} />
-                  <AppText color={Colors.white} type={'medium'}>{"Kiss"}</AppText>
-                </View>
+                <AppText type={'bold'} size={16}>{`${userData.username}, ${24}`}</AppText>
               </View>
             </View>
+
+            <TouchableOpacity style={styles.boostButton}>
+              <View style={styles.boostIconContainer}>
+                <BoostIcon />
+              </View>
+              <AppText type={'bold'} size={12} uppercase>{"Boost Profile"}</AppText>
+            </TouchableOpacity>
           </View>
-        </View>
 
-        <View style={{ flexDirection: 'row', alignItems: 'center', margin: 5 }}>
-          <View style={{ flex: 1 }}>
-            <CounterCard
-              title={'Kiss'}
-              count={0}
-              icon={Icons.kiss_icon} />
-            <CounterCard
-              title={'Stickers'}
-              count={0}
-              icon={Icons.sticker_icon} />
+          <View style={{ flex: 1, padding: 15 }}>
+            <View style={{ flexDirection: 'row' }}>
+              <CounterCard
+                title={'Coins'}
+                count={userData && userData.credit || 0}
+                icon={<CoinGradientIcon width={50} height={50} />} />
+              <CounterCard
+                title={'Hearts'}
+                count={121}
+                icon={<HeartGradientIcon width={50} height={50} />} />
+              <CounterCard
+                title={'Kisses'}
+                count={21}
+                icon={<KissGradientIcon32 width={50} height={50} />} />
+            </View>
+            <View style={{ flexDirection: 'row' }}>
+              <CounterCard
+                title={'Likes'}
+                count={1021}
+                icon={<LikeGradientIcon32 width={50} height={50} />} />
+              <CounterCard
+                title={'Friends'}
+                count={3542}
+                icon={<FriendGradientIcon32 width={50} height={50} />} />
+              <CounterCard
+                title={'Stickers'}
+                count={201}
+                icon={<StickerGradientIcon32 width={50} height={50} />} />
+            </View>
           </View>
-          <View style={{ flex: 1 }}>
-            <CounterCard
-              title={'Likes'}
-              count={0}
-              icon={Icons.like_icon} />
-            <CounterCard
-              title={'Visits'}
-              count={0}
-              icon={Icons.heart_icon} />
-          </View>
-        </View>
 
-        <CardHeader
-          title={"Account Information"}
-          isExpanded={isAccountInfoExpanded}
-          onPress={() => setAccountInfoExpanded(!isAccountInfoExpanded)} />
+          <CardHeader
+            title={"Account Information"}
+            isExpanded={isAccountInfoExpanded}
+            onPress={() => setAccountInfoExpanded(!isAccountInfoExpanded)} />
 
-        {isAccountInfoExpanded && userData && (
-          <View style={styles.cardContainer}>
-            <AccountInfoItem
-              title={'Email'}
-              value={userData.email}
-              icon={Icons.mail_icon} />
-            <AccountInfoItem
-              title={'Nickname'}
-              value={userData.username}
-              icon={Icons.user_profile} />
-            <AccountInfoItem
-              title={'Gender'}
-              value={userData.gender}
-              icon={Icons.group_active} />
-            <AccountInfoItem
-              title={'Language'}
-              value={userData.language}
-              icon={Icons.icon_languages} />
-            <AccountInfoItem
-              title={'Referral Code'}
-              value={userData.referral_code}
-              icon={Icons.chat_inactive} />
-            <AccountInfoItem
-              title={'Credit'}
-              value={userData.credit}
-              icon={Icons.chat_inactive} />
-          </View>
-        )}
+          {isAccountInfoExpanded && userData && (
+            <View>
+              <AccountInfoItem
+                title={'Email'}
+                value={userData.email}
+                icon={Icons.mail_icon} />
+              <AccountInfoItem
+                title={'Nickname'}
+                value={userData.username}
+                icon={Icons.user_profile} />
+              <AccountInfoItem
+                title={'Gender'}
+                value={userData.gender}
+                icon={Icons.group_active} />
+              <AccountInfoItem
+                title={'Language'}
+                value={userData.language}
+                icon={Icons.icon_languages} />
+              <AccountInfoItem
+                title={'Referral Code'}
+                value={userData.referral_code}
+                icon={Icons.chat_inactive} />
+              <AccountInfoItem
+                title={'Credit'}
+                value={userData.credit}
+                icon={Icons.chat_inactive} />
+            </View>
+          )}
 
-        <CardHeader
-          title={"My photos"}
-          isExpanded={isMyPhotosExpanded}
-          onPress={() => setMyPhotosExpanded(!isMyPhotosExpanded)} />
+          <CardHeader
+            title={"My photos"}
+            isExpanded={isMyPhotosExpanded}
+            onPress={() => setMyPhotosExpanded(!isMyPhotosExpanded)} />
 
-        {isMyPhotosExpanded && (
-          <View style={styles.cardContainer}>
+          {isMyPhotosExpanded && (
             <ModeratorProfilePhotosTab
             // photosList={params.item.moderator_photos}
             />
-          </View>
-        )}
+          )}
 
-        {/* <View style={styles.cardContainer}>
-          <View style={styles.tabViewContainer}>
+          <AppText
+            onPress={onLogout}
+            type={'bold'}
+            size={18}
+            style={{ margin: 20, textAlign: 'center' }}>{"Logout"}</AppText>
 
-            <TouchableOpacity
-              activeOpacity={0.8}
-              style={{
-                ...styles.tabView,
-                backgroundColor:
-                  cuurentTab === 1 ? Colors.ui_primary_dark : Colors.white,
-                borderTopLeftRadius: 0,
-                borderBottomLeftRadius: 0
-              }}
-              onPress={() => setCurrentTab(1)}>
-              <AppText
-                numberOfLines={1}
-                type={'bold'}
-                size={16}
-                color={cuurentTab === 1 ? Colors.white : Colors.black}>
-                {appLabels.profile_info}
-              </AppText>
-            </TouchableOpacity>
-
-          </View>
-          <View style={{ minHeight: 200 }}>{renderCurrentTab()}</View>
-        </View> */}
-
-        <ModeratorActivityModal
-          visible={activityModalVisible}
-          onHideModal={() => setActivityModalVisible(false)}
-          type={activityType}
-        />
-      </View>
-    </ScrollView>
+          <ModeratorActivityModal
+            visible={activityModalVisible}
+            onHideModal={() => setActivityModalVisible(false)}
+            type={activityType}
+          />
+        </View>
+      </ScrollView>
+    </View>
   );
 }
 
 const CounterCard = ({ title, count, icon }) => {
   return (
     <View style={[styles.cardContainer, { flex: 1, margin: 5 }]}>
-      <Image style={[styles.commonIcon, { marginVertical: 5 }]} source={icon} />
-      <AppText color={Colors.grey}>{"Receive"}</AppText>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <AppText type={'bold'} size={16} style={{ marginEnd: 5 }}>{count}</AppText>
-        <AppText type={'bold'} size={16}>{title}</AppText>
+      {/* <Image style={[styles.commonIcon, { marginVertical: 5 }]} source={icon} /> */}
+      <View style={{ marginBottom: -15 }}>
+        {icon}
       </View>
+      <AppText type={'bold'} size={16}>{count}</AppText>
+      <AppText type={'regular'} size={12} style={{ marginTop: -8 }}>{title}</AppText>
     </View>
   )
 }

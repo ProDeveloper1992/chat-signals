@@ -134,7 +134,8 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="FifthTabStack"
-        component={CoinPurchaseStack}
+        // component={CoinPurchaseStack}
+        component={UserProfile}
         options={{
           tabBarLabel: appLabels.purchase,
         }}

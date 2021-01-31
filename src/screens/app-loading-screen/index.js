@@ -1,15 +1,17 @@
-import React, {Component, useEffect} from 'react';
-import {View, StyleSheet, ActivityIndicator} from 'react-native';
+import React, { Component, useEffect } from 'react';
+import { View, StyleSheet, ActivityIndicator, Image } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
-import {Colors} from '../../constants';
-import {useDispatch, useSelector} from 'react-redux';
-import {getAppStrings} from '../../redux/actions/app-actions';
-import {wait} from '../../utils/common';
+import { Colors, Images } from '../../constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAppStrings } from '../../redux/actions/app-actions';
+import { wait } from '../../utils/common';
+import { AuthContainer } from '../../components';
+import { globalStyle } from '../../styles/global-style';
 
 const AppLoading = (props) => {
   const dispatch = useDispatch();
-  const {navigation} = props;
-  const {isLoggedIn} = useSelector((state) => state.userState);
+  const { navigation } = props;
+  const { isLoggedIn } = useSelector((state) => state.userState);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -27,18 +29,28 @@ const AppLoading = (props) => {
   }
 
   return (
-    <View style={[styles.container, {backgroundColor: 'transparent'}]}>
-      <ActivityIndicator size={'large'} color={Colors.ui_primary} />
-    </View>
+    <AuthContainer gradientBackground>
+      <View style={[styles.container, { backgroundColor: 'transparent' }]}>
+        <Image style={[globalStyle.logo, { tintColor: Colors.white }]} source={Images.app_logo} />
+      </View>
+      <View style={styles.bottomContainer}>
+        <ActivityIndicator size={'large'} color={Colors.white} />
+      </View>
+    </AuthContainer>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 0.8,
     justifyContent: 'center',
     alignItems: 'center',
   },
+  bottomContainer: {
+    flex: 0.2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 });
 
 export default AppLoading;

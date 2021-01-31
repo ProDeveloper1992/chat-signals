@@ -3,6 +3,7 @@ import { Dimensions } from 'react-native';
 export const Colors = {
   ui_primary: '#31C9DD',
   ui_primary_dark: '#3c8e92',
+  ui_primary_10: 'rgba(49, 201, 221, 0.1)',
   ui_background: '#F2F4F5',
   white: '#FFFFFF',
   white_80: 'rgba(255,255,255,0.8)',
@@ -31,6 +32,7 @@ export const Images = {
   login_bg_2: require('../assets/images/login_bg2.jpg'),
   app_logo: require('../assets/images/app_logo.png'),
   forgot_heart_logo: require('../assets/images/heart_logo.png'),
+  app_bg: require('../assets/images/app_bg.png')
 };
 
 export const Icons = {
