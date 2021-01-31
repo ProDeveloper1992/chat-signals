@@ -11,7 +11,8 @@ import {
   ModeratorListItem,
   ModeratorIconLabel,
   ModeratorHeader,
-  ChatBubble
+  ChatBubble,
+  TagItem
 } from './app-list-items';
 import { AppText } from './app-text';
 import OwnPurchaseCard from './own-purchase-card';
@@ -32,6 +33,7 @@ export {
   LaguageItem,
   GenderItem,
   CountryItem,
+  TagItem,
   LanguagePicker,
   GenderPicker,
   CountryPicker,

@@ -19,8 +19,7 @@ export default StyleSheet.create({
 
   moderatorSwitchContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    marginStart: 10
   },
 
   moderatorNameContainer: {

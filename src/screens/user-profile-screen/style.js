@@ -4,12 +4,16 @@ import { Colors } from '../../constants';
 export default StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Colors.white
   },
   cardContainer: {
-    margin: 10,
+    margin: 11,
     padding: 10,
+    alignItems: 'center',
     backgroundColor: Colors.white,
-    borderRadius: 5,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: Colors.grey,
   },
   cardHeaderContainer: {
     flexDirection: 'row',
@@ -21,78 +25,28 @@ export default StyleSheet.create({
     borderRadius: 5,
     marginTop: 10
   },
+  profileImageContainer: {
+    width: 100,
+    height: 100,
+    borderRadius: 100 / 2,
+    shadowColor: Colors.black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 4,
+  },
   profileImage: {
     width: 100,
     height: 100,
     backgroundColor: Colors.grey,
-    borderRadius: 8
-  },
-  buttonWithIcon: function (color) {
-    return {
-      flexDirection: 'row',
-      alignItems: 'center',
-      paddingHorizontal: 10,
-      paddingVertical: 5,
-      backgroundColor: color,
-      borderRadius: 5,
-      marginEnd: 5
-    }
-  },
-  smallIcon: {
-    width: 18,
-    height: 18,
-    resizeMode: 'contain',
-    marginEnd: 5
+    borderRadius: 100 / 2,
+    borderWidth: 3,
+    borderColor: Colors.white,
   },
   commonIcon: {
     width: 30,
     height: 30,
     resizeMode: 'contain',
-    // tintColor: Colors.white,
-  },
-
-  moderatorSwitchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    // justifyContent: 'space-between',
-    padding: 10,
-  },
-
-  moderatorNameContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 5,
-  },
-
-  moderatorLocationContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginVertical: 3,
-  },
-
-  mRight: {
-    marginRight: 5,
-  },
-
-  flagImage: {
-    height: 16,
-    width: 16,
-    resizeMode: 'cover',
-    alignSelf: 'center',
-    marginEnd: 5,
-  },
-
-  proFlirtContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  moderatorIconViewHolder: {
-    flexDirection: 'row',
-    flex: 1,
-    justifyContent: 'space-between',
-    padding: 10,
   },
 
   tabViewContainer: {
@@ -119,15 +73,34 @@ export default StyleSheet.create({
     borderColor: Colors.grey,
   },
 
-  onlineStatusSignal: function (isOnline) {
-    return {
-      height: 14,
-      width: 14,
-      borderRadius: 7,
-      marginEnd: 5,
-      backgroundColor: isOnline ? Colors.green : Colors.red,
-      borderWidth: 2,
-      borderColor: Colors.white,
-    };
+  editPenContainer: {
+    height: 27,
+    width: 27,
+    borderRadius: 27 / 2,
+    backgroundColor: Colors.white,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 0,
+    right: 5,
+    shadowColor: Colors.black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 4,
   },
+
+  boostButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 15,
+    borderWidth: 1,
+    borderColor: Colors.grey,
+    borderRadius: 46
+  },
+
+  boostIconContainer: {
+    marginBottom: -10,
+    marginStart: -10
+  }
 });

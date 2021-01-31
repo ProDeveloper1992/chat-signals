@@ -20,26 +20,34 @@ export function AuthContainer({ children, style, gradientBackground }) {
     }
   }
 
+  if (!gradientBackground) {
+    return (
+      <View style={styles.container}>
+        <SafeAreaView style={[style, { flex: 1 }]}>{children}</SafeAreaView>
+      </View>
+    )
+  }
+
   return (
-    // <ImageBackground
-    //   blurRadius={blur ? 15 : 0}
-    //   style={styles.container}
-    //   source={Images.login_bg_2}>
-    <LinearGradient
+    <ImageBackground
+      style={styles.container}
+      source={Images.app_bg}>
+      {/* <LinearGradient
       angle={101.12}
       start={{ x: 0.0, y: 0.55 }}
       end={{ x: 1.0, y: 0.85 }}
       locations={[0, 0.5]}
       colors={getGradientColors()}
-      style={styles.container}>
+      style={styles.container}> */}
       <SafeAreaView style={[style, { flex: 1 }]}>{children}</SafeAreaView>
-    </LinearGradient>
-    // </ImageBackground>
+      {/* </LinearGradient> */}
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Colors.white
   },
 });

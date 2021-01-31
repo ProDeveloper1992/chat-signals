@@ -54,7 +54,8 @@ const LandingScreen = (props) => {
   }, [isFocused]);
 
   const onRegister = () => {
-    setRegisterLandingModalVisible(true);
+    // setRegisterLandingModalVisible(true);
+    navigation.navigate('RegisterWithEmail');
   };
 
   const onLogin = () => {
