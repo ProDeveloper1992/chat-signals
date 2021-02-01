@@ -8,8 +8,9 @@ import GallerySwiperModal from './gallery-swiper-modal';
 import WebViewModal from './webview-modal';
 import RegisterLandingModal from './register-landing-modal';
 import ForgotPasswordModal from './forgot-password-modal';
+import DeleteAccountModal from './delete-account-modal';
 
-export { ModeratorActivityModal, WebViewModal, RegisterLandingModal, ForgotPasswordModal };
+export { ModeratorActivityModal, WebViewModal, RegisterLandingModal, ForgotPasswordModal, DeleteAccountModal };
 
 export default function AppModals(props) {
   const dispatch = useDispatch();

@@ -15,7 +15,7 @@ import { ModeratorIconLabel, ModeratorHeader } from '../../components';
 import ModeratorProfileInfoTab from './user-profile-info-tab';
 import ModeratorProfilePhotosTab from './user-profile-photos-tab';
 import ModeratorProfileActionTab from './user-profile-action-tab';
-import { ModeratorActivityModal } from '../../components/app-modals';
+import { DeleteAccountModal, ModeratorActivityModal } from '../../components/app-modals';
 import { useSelector } from 'react-redux';
 import { GoogleSignin } from 'react-native-google-signin';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -27,7 +27,8 @@ import {
   LikeGradientIcon32,
   HeartGradientIcon,
   FriendGradientIcon32,
-  CoinGradientIcon
+  CoinGradientIcon,
+  ArrowRightIcon
 } from '../../constants/svg-icons';
 
 export default function UserProfile(props) {
@@ -36,7 +37,7 @@ export default function UserProfile(props) {
   const [activityType, setActivityType] = useState('kisses');
   const [activityModalVisible, setActivityModalVisible] = useState(false);
   const [cuurentTab, setCurrentTab] = useState(1);
-  const [isAccountInfoExpanded, setAccountInfoExpanded] = useState(true);
+  const [deleteAccountModalVisible, setDeleteAccountModalVisible] = useState(false);
   const [isMyPhotosExpanded, setMyPhotosExpanded] = useState(true);
 
   const { userData } = useSelector((state) => state.userState);
@@ -109,7 +110,7 @@ export default function UserProfile(props) {
 
             <View style={{ padding: 15 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <AppText type={'bold'} size={16}>{`${userData.username}, ${24}`}</AppText>
+                <AppText type={'bold'} size={16}>{`${userData && userData.username}, ${24}`}</AppText>
               </View>
             </View>
 
@@ -152,7 +153,7 @@ export default function UserProfile(props) {
             </View>
           </View>
 
-          <CardHeader
+          {/* <CardHeader
             title={"Account Information"}
             isExpanded={isAccountInfoExpanded}
             onPress={() => setAccountInfoExpanded(!isAccountInfoExpanded)} />
@@ -184,10 +185,10 @@ export default function UserProfile(props) {
                 value={userData.credit}
                 icon={Icons.chat_inactive} />
             </View>
-          )}
-
+          )} */}
+          <View style={{ borderBottomWidth: 1, borderColor: Colors.grey, marginHorizontal: 10 }} />
           <CardHeader
-            title={"My photos"}
+            title={"Photos"}
             isExpanded={isMyPhotosExpanded}
             onPress={() => setMyPhotosExpanded(!isMyPhotosExpanded)} />
 
@@ -197,16 +198,53 @@ export default function UserProfile(props) {
             />
           )}
 
+          <CardHeader
+            title={"Account Details"}
+            isExpanded={false}
+            onPress={() => { }} />
+
+          <CardHeader
+            title={"Notifications"}
+            isExpanded={false}
+            onPress={() => { }} />
+
+          <CardHeader
+            title={"Language"}
+            isExpanded={false}
+            onPress={() => { }} />
+
+          <CardHeader
+            title={"Privacy Policy"}
+            isExpanded={false}
+            onPress={() => { }} />
+
+          <CardHeader
+            title={"Help & Support"}
+            isExpanded={false}
+            onPress={() => { }} />
+
+          <AppText
+            onPress={onLogout}
+            type={'bold'}
+            color={Colors.red}
+            size={18}
+            onPress={() => setDeleteAccountModalVisible(true)}
+            style={{ marginTop: 40, marginBottom: 10, textAlign: 'center' }}>{"Delete Account"}</AppText>
+
           <AppText
             onPress={onLogout}
             type={'bold'}
             size={18}
-            style={{ margin: 20, textAlign: 'center' }}>{"Logout"}</AppText>
+            style={{ marginBottom: 20, textAlign: 'center' }}>{"Logout"}</AppText>
 
           <ModeratorActivityModal
             visible={activityModalVisible}
             onHideModal={() => setActivityModalVisible(false)}
             type={activityType}
+          />
+          <DeleteAccountModal
+            visible={deleteAccountModalVisible}
+            onHideModal={() => setDeleteAccountModalVisible(false)}
           />
         </View>
       </ScrollView>
@@ -230,8 +268,9 @@ const CounterCard = ({ title, count, icon }) => {
 const CardHeader = ({ title, onPress, isExpanded }) => {
   return (
     <TouchableOpacity activeOpacity={0.8} onPress={onPress} style={styles.cardHeaderContainer}>
-      <AppText type={'medium'} size={16} color={Colors.white}>{title}</AppText>
-      <Image style={[styles.commonIcon, { tintColor: Colors.white }]} source={isExpanded ? Icons.icon_drop_up : Icons.icon_drop_down} />
+      <AppText type={'medium'} size={16} color={Colors.black}>{title}</AppText>
+      {/* <Image style={[styles.commonIcon, { tintColor: Colors.ui_primary }]} source={isExpanded ? Icons.icon_drop_up : Icons.icon_drop_down} /> */}
+      <ArrowRightIcon width={24} height={24} />
     </TouchableOpacity>
   )
 }

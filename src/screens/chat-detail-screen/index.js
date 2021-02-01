@@ -169,7 +169,7 @@ const ChatDetail = (props) => {
         )}
         keyExtractor={(item, index) => String(index)}
       />
-      <ChatInput placeholder={'Send message'} onSendPress={() => onSendTextMessage()} onChangeText={(text) => setMessageText(text)} />
+      <ChatInput placeholder={'Type message...'} onSendPress={() => onSendTextMessage()} onChangeText={(text) => setMessageText(text)} />
     </View>
     // </TouchableWithoutFeedback>
   );

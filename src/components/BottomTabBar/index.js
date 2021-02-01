@@ -91,7 +91,7 @@ export default function BottomTabBar({ state, descriptors, navigation }) {
             {route.name === 'FifthTabStack' ? (
               <Image
                 source={{ uri: getProfilePicture() }}
-                style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: Colors.grey }} />
+                style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: Colors.grey, borderWidth: 2, borderColor: isFocused ? Colors.black : Colors.white }} />
             ) : (
                 <Image style={styles.tabIcon(isFocused)} source={getTabIcon()} />
               )}

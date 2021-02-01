@@ -20,10 +20,12 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginHorizontal: 10,
-    padding: 10,
-    backgroundColor: Colors.ui_primary,
+    paddingVertical: 20,
+    paddingHorizontal: 10,
     borderRadius: 5,
-    marginTop: 10
+    // borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: Colors.grey,
   },
   profileImageContainer: {
     width: 100,

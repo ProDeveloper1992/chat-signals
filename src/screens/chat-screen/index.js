@@ -76,20 +76,6 @@ const Chat = () => {
     dispatch(getUserChatList());
   }, []);
 
-  const ItemSeparatorView = () => {
-    return (
-      // FlatList Item Separator
-      <View
-        style={{
-          flexGrow: 1,
-          height: 0.5,
-          marginHorizontal: 12,
-          backgroundColor: Colors.ui_primary_dark,
-        }}
-      />
-    );
-  };
-
   const onChatListItemPress = (customer) => {
     navigation.navigate('ChatDetail', { item: customer });
   }
@@ -122,7 +108,6 @@ const Chat = () => {
                 lastMessageTime={item.lastMessage.created_at}
               />
             )}
-            ItemSeparatorComponent={ItemSeparatorView}
             keyExtractor={(item, index) => String(index)}
             ListEmptyComponent={<NoListData title={"No chats found!"} />}
           />

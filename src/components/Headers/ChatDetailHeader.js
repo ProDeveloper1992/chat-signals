@@ -3,6 +3,7 @@ import { StyleSheet, TouchableOpacity, View, Image, SafeAreaView } from 'react-n
 import { Colors, Icons } from '../../constants';
 import { AppText } from '..';
 import Icon from 'react-native-ionicons';
+import { ArrowLeftIcon } from '../../constants/svg-icons';
 
 export function ChatDetailHeader({
   style,
@@ -18,27 +19,16 @@ export function ChatDetailHeader({
     <>
       <SafeAreaView style={{ backgroundColor: Colors.ui_primary }} />
       <View style={[styles.container, style]}>
-        <Icon
-          style={{ marginRight: 10 }}
-          name={'arrow-back'}
-          color={Colors.white}
-          size={25}
-          onPress={onLeftPress}
-        />
-        <Image
-          style={{
-            height: 40,
-            width: 40,
-            borderRadius: 20,
-            resizeMode: 'cover',
-            tintColor: Colors.white
-          }}
-          source={leftIcon}
-        />
-
-        <AppText type={'bold'} size={16} style={styles.headerTitle}>
-          {label}
-        </AppText>
+        <View style={styles.flexOne}>
+          <TouchableOpacity onPress={onLeftPress}>
+            <ArrowLeftIcon width={30} height={30} />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.flexOne}>
+          <AppText type={'bold'} size={16} style={styles.headerTitle}>
+            {"Messages"}
+          </AppText>
+        </View>
 
         <View
           style={{
@@ -68,8 +58,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 8,
-    paddingHorizontal: 20,
+    paddingVertical: 12,
+    paddingHorizontal: 15,
     backgroundColor: Colors.ui_primary,
   },
   flexOne: {
