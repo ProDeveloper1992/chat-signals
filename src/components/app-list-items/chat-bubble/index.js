@@ -26,10 +26,12 @@ export default function ChatBubble({ item, isFromUser }) {
   return (
     <TouchableOpacity style={styles.container(isFromUser)}>
       <View style={styles.textMsgContainer}>
-        <AppText type={'medium'} color={isFromUser ? Colors.white : Colors.ui_primary}>{item.message}</AppText>
-        {isFromUser && (
-          <Image style={styles.seenIcon} source={getTickIcon(item.seen)} />
-        )}
+        <AppText type={'regular'} color={isFromUser ? Colors.black : Colors.white}>{item.message}</AppText>
+        <View>
+          {isFromUser && (
+            <Image style={styles.seenIcon} source={getTickIcon(item.seen)} />
+          )}
+        </View>
       </View>
     </TouchableOpacity>
   );

@@ -10,10 +10,7 @@ import {
 import { NoListData, AppText, BackHeader, TagItem } from '../../components';
 import { Icons, Colors, DEFAULT_IMAGE_URL } from '../../constants';
 import styles from './style';
-import { ModeratorIconLabel, ModeratorHeader } from '../../components';
-import ModeratorProfileInfoTab from './moderator-profile-info-tab';
-import ModeratorProfilePhotosTab from './moderator-profile-photos-tab';
-import ModeratorProfileActionTab from './moderator-profile-action-tab';
+import { ModeratorIconLabel } from '../../components';
 import { ModeratorActivityModal } from '../../components/app-modals';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToFavorite } from '../../redux/actions/user-actions';

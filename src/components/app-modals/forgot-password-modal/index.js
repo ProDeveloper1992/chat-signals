@@ -1,16 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { View, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { Colors, mailformat } from '../../../constants';
 import { AppButton, AppText, AuthInput } from '../../index';
 import styles from './style';
 
-import GoogleIcon from '../../../assets/icons/google.svg';
-import FacebookIcon from '../../../assets/icons/facebook.svg';
 import CloseIcon from '../../../assets/icons/close.svg';
-import { loginWithFacebook, loginWithGoogle } from '../../../services/social-login-service';
 import { forgotPassword } from '../../../redux/actions/user-actions';
 import { EmailIcon } from '../../../constants/svg-icons';
 
@@ -74,7 +71,7 @@ export default function ForgotPasswordModal({ visible, onHideModal }) {
                     </TouchableOpacity>
                 </View>
                 <AppText
-                    size={20}
+                    size={24}
                     type={'bold'}>{"Did you forgot your password?"}</AppText>
                 <AppText
                     type={'regular'}
@@ -95,10 +92,15 @@ export default function ForgotPasswordModal({ visible, onHideModal }) {
                 <AppButton
                     type={'primary'}
                     title={'Request New Password'}
-                    style={{ marginTop: 30 }}
+                    style={{ marginTop: "20%" }}
                     onPress={() => onForgotPasswordClick()}
                     loading={loading}
                 />
+                <AppText
+                    style={{ textAlign: 'center', marginTop: 25 }}
+                    size={16}
+                    onPress={onHideModal}
+                    type={'bold'}>{"Back to login"}</AppText>
             </View>
         </Modal>
     );

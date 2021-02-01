@@ -20,6 +20,7 @@ import StarOutlineIcon from '../assets/icons/star_outline.svg';
 import StarFilledIcon from '../assets/icons/star_filled.svg';
 import DotsCircleIcon from '../assets/icons/three_dots_circle.svg';
 import BoostIcon from '../assets/icons/boost.svg';
+import ArrowRightIcon from '../assets/icons/arrow_right.svg';
 
 export {
     EmailIcon,
@@ -43,5 +44,6 @@ export {
     StarOutlineIcon,
     StarFilledIcon,
     DotsCircleIcon,
-    BoostIcon
+    BoostIcon,
+    ArrowRightIcon
 }
