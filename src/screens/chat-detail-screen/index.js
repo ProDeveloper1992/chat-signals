@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Keyboard, View, TouchableWithoutFeedback, FlatList } from 'react-native';
+import { Keyboard, View, TouchableWithoutFeedback, FlatList, TouchableOpacity } from 'react-native';
 import { ChatDetailHeader } from '../../components/Headers';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './style';
-import { ChatBubble, ChatInput } from '../../components';
-import { Icons } from '../../constants';
+import { AppText, ChatBubble, ChatInput, CommonImage } from '../../components';
+import { Colors, Icons } from '../../constants';
 import { getChatConversation } from '../../redux/actions/user-actions';
+import { InfoIcon } from '../../constants/svg-icons';
 
 const ChatDetail = (props) => {
   const navigation = useNavigation();
@@ -160,6 +161,16 @@ const ChatDetail = (props) => {
         onLeftPress={() => navigation.goBack()}
         label={customer.user.username}
       />
+      <View style={styles.userDetailHeader}>
+        <CommonImage size={44} borderColor={Colors.white} />
+        <View style={{ flex: 1, paddingHorizontal: 12 }}>
+          <AppText type={'bold'} size={18}>{customer.user.username}</AppText>
+          <AppText type={'regular'} size={12} color={Colors.greydark}>{"Last seen 15 min ago"}</AppText>
+        </View>
+        <TouchableOpacity style={{ marginBottom: -10 }}>
+          <InfoIcon width={40} height={40} />
+        </TouchableOpacity>
+      </View>
       <FlatList
         data={messages}
         contentContainerStyle={{ paddingTop: 20, paddingBottom: 80 }}

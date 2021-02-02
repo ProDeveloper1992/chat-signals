@@ -17,6 +17,7 @@ import {
 import { AppText } from './app-text';
 import OwnPurchaseCard from './own-purchase-card';
 import DatePicker from './app-date-picker';
+import CommonImage from './app-common-image';
 
 export {
   AppText,
@@ -43,5 +44,6 @@ export {
   ModeratorHeader,
   ChatBubble,
   OwnPurchaseCard,
-  DatePicker
+  DatePicker,
+  CommonImage
 };

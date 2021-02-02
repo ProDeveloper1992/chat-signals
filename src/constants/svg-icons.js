@@ -14,13 +14,16 @@ import KissGradientIcon from '../assets/icons/kiss_gradient.svg';
 import KissGradientIcon32 from '../assets/icons/kiss_gradient_32.svg';
 import StickerGradientIcon from '../assets/icons/sticker_gradient.svg';
 import StickerGradientIcon32 from '../assets/icons/sticker_gradient_32.svg';
-import HeartGradientIcon from '../assets/icons/heart_gradient.svg';
+import HeartGradientIcon32 from '../assets/icons/heart_gradient_32.svg';
 import CoinGradientIcon from '../assets/icons/coin_gradient.svg';
 import StarOutlineIcon from '../assets/icons/star_outline.svg';
 import StarFilledIcon from '../assets/icons/star_filled.svg';
 import DotsCircleIcon from '../assets/icons/three_dots_circle.svg';
 import BoostIcon from '../assets/icons/boost.svg';
 import ArrowRightIcon from '../assets/icons/arrow_right.svg';
+import SendMessageIcon from '../assets/icons/send_message.svg';
+import AttachIcon from '../assets/icons/attach.svg';
+import InfoIcon from '../assets/icons/info.svg';
 
 export {
     EmailIcon,
@@ -39,11 +42,14 @@ export {
     KissGradientIcon32,
     StickerGradientIcon,
     StickerGradientIcon32,
-    HeartGradientIcon,
+    HeartGradientIcon32,
     CoinGradientIcon,
     StarOutlineIcon,
     StarFilledIcon,
     DotsCircleIcon,
     BoostIcon,
-    ArrowRightIcon
+    ArrowRightIcon,
+    SendMessageIcon,
+    AttachIcon,
+    InfoIcon
 }
