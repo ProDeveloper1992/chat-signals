@@ -25,7 +25,7 @@ import {
   KissGradientIcon32,
   StickerGradientIcon32,
   LikeGradientIcon32,
-  HeartGradientIcon,
+  HeartGradientIcon32,
   FriendGradientIcon32,
   CoinGradientIcon,
   ArrowRightIcon
@@ -131,7 +131,7 @@ export default function UserProfile(props) {
               <CounterCard
                 title={'Hearts'}
                 count={121}
-                icon={<HeartGradientIcon width={50} height={50} />} />
+                icon={<HeartGradientIcon32 width={50} height={50} />} />
               <CounterCard
                 title={'Kisses'}
                 count={21}
