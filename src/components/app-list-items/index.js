@@ -4,5 +4,14 @@ import ModeratorHeader from './moderator-header';
 import ChatListItem from './chat-list-item';
 import ChatBubble from './chat-bubble';
 import TagItem from './tag-item';
+import NotificationItem from './notification-item';
 
-export { ModeratorListItem, ModeratorIconLabel, ModeratorHeader, ChatListItem, ChatBubble, TagItem };
+export {
+    ModeratorListItem,
+    ModeratorIconLabel,
+    ModeratorHeader,
+    ChatListItem,
+    ChatBubble,
+    TagItem,
+    NotificationItem
+};

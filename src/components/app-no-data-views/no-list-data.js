@@ -6,7 +6,7 @@ import { AppText } from '../../components';
 export default function NoListData({ title }) {
   return (
     <View style={styles.container}>
-      <AppText type={'bold'} color={Colors.greydark} size={18}>
+      <AppText type={'medium'} color={Colors.greydark} size={18}>
         {title || "No data found!"}
       </AppText>
     </View>

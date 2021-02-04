@@ -1,11 +1,10 @@
 import moment from 'moment';
 import React from 'react';
-import { TouchableOpacity, View, Image } from 'react-native';
+import { View, Image, TouchableHighlight } from 'react-native';
 import PropTypes from 'prop-types';
 
-import { Colors, Icons, Images } from '../../../constants';
+import { Colors, Images } from '../../../constants';
 import { AppText } from '../../index';
-import style from '../moderator-list-item/style';
 import styles from './style';
 
 export default function ChatListItem({
@@ -16,8 +15,8 @@ export default function ChatListItem({
   lastMessageTime,
 }) {
   return (
-    <TouchableOpacity
-      activeOpacity={0.8}
+    <TouchableHighlight
+      underlayColor={'rgba(15, 41, 55, 0.1)'}
       style={styles.container}
       onPress={onChatPress}>
       <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -50,7 +49,7 @@ export default function ChatListItem({
           </AppText>
         </View>
       </View>
-    </TouchableOpacity>
+    </TouchableHighlight>
   );
 }
 

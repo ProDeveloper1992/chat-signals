@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
+import moment from 'moment';
 import { Colors, Icons } from '../../../constants';
 import { AppText } from '../../index';
 import styles from './style';
@@ -24,15 +25,20 @@ export default function ChatBubble({ item, isFromUser }) {
   }
 
   return (
-    <TouchableOpacity style={styles.container(isFromUser)}>
-      <View style={styles.textMsgContainer}>
-        <AppText type={'regular'} color={isFromUser ? Colors.black : Colors.white}>{item.message}</AppText>
-        <View>
-          {isFromUser && (
-            <Image style={styles.seenIcon} source={getTickIcon(item.seen)} />
-          )}
+    <View>
+      <TouchableOpacity style={styles.container(isFromUser)}>
+        <View style={styles.textMsgContainer}>
+          <AppText type={'regular'} color={isFromUser ? Colors.black : Colors.white}>{item.message}</AppText>
         </View>
+      </TouchableOpacity>
+      <View style={styles.seenTimeContainer}>
+        {isFromUser && (
+          <>
+            <AppText size={12}>{moment(item.fullTime).format("HH:mm")}</AppText>
+            <Image style={styles.seenIcon} source={getTickIcon(item.seen)} />
+          </>
+        )}
       </View>
-    </TouchableOpacity>
+    </View>
   );
 }

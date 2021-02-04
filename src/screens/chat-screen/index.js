@@ -87,7 +87,7 @@ const Chat = () => {
         onLeftPress={() => navigation.navigate('UserProfile')}
         LanguageIcon={Icons.icon_languages}
         onLanguagePress={() => dispatch(toggleLanguageModal(true))}
-        label={appLabels.chat}
+        label={'Messages'}
       />
       {loadingChatList ? (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>

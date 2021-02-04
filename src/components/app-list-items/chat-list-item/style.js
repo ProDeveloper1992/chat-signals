@@ -5,10 +5,12 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#ffffff',
+    backgroundColor: Colors.white,
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 15,
+    borderBottomWidth: 1,
+    borderColor: Colors.grey
   },
 
   profileImageContainer: {

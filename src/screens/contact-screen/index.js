@@ -10,10 +10,11 @@ import { GeneralHeader } from '../../components/Headers';
 import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 
 //Top Tabs
-import BookMarkTopTab from './bookmark-top-tab';
+import NotificationsTab from './notifications-tab';
 import FriendsTopTab from './friends-top-tab';
-import VisitorsTopTab from './visitors-top-tab';
-import BlockedTopTab from './blocked-top-tab';
+import BookMarkTopTab from './bookmark-top-tab';
+// import VisitorsTopTab from './visitors-top-tab';
+// import BlockedTopTab from './blocked-top-tab';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
@@ -25,17 +26,19 @@ export default function Home() {
 
   const [index, setIndex] = React.useState(0);
   const routes = [
-    { key: 'favourites', title: 'Favorites' },
-    { key: 'friends', title: appLabels.friends },
-    { key: 'visitors', title: appLabels.visitors },
-    { key: 'blocked', title: appLabels.blocked },
+    { key: 'notifications', title: 'Notifications' },
+    { key: 'friends', title: 'Friend Requests' },
+    // { key: 'favourites', title: 'Favourites' },
+    // { key: 'visitors', title: appLabels.visitors },
+    // { key: 'blocked', title: appLabels.blocked },
   ]
 
   const renderScene = SceneMap({
-    favourites: BookMarkTopTab,
+    notifications: NotificationsTab,
     friends: FriendsTopTab,
-    visitors: VisitorsTopTab,
-    blocked: BlockedTopTab,
+    // favourites: BookMarkTopTab,
+    // visitors: VisitorsTopTab,
+    // blocked: BlockedTopTab,
   });
 
   return (
@@ -47,7 +50,7 @@ export default function Home() {
         // onRightPress={() => {}}
         LanguageIcon={Icons.icon_languages}
         onLanguagePress={() => dispatch(toggleLanguageModal(true))}
-        label={appLabels.contact}
+        label={"Notifications"}
       />
 
       <TabView
@@ -58,7 +61,7 @@ export default function Home() {
         renderTabBar={(props) => (
           <TabBar
             {...props}
-            scrollEnabled
+            // scrollEnabled
             indicatorStyle={styles.topTabIndicator}
             style={styles.topTabContainer}
             labelStyle={styles.topTabLabel}
