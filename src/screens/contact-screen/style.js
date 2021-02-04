@@ -1,5 +1,5 @@
-import {StyleSheet} from 'react-native';
-import {Colors} from '../../constants';
+import { StyleSheet } from 'react-native';
+import { Colors } from '../../constants';
 
 export default StyleSheet.create({
   container: {
@@ -15,8 +15,8 @@ export default StyleSheet.create({
     borderRadius: 30,
   },
   topTabLabel: {
-    fontSize: 12,
-    fontWeight: '700',
-    letterSpacing:1
+    fontSize: 14,
+    fontFamily: 'Poppins-Medium',
+    textTransform: 'capitalize'
   },
 });

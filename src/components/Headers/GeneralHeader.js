@@ -18,7 +18,7 @@ export function GeneralHeader({
       <SafeAreaView style={{ backgroundColor: Colors.ui_primary }} />
       <View style={[styles.container, style]}>
 
-        <View
+        {/* <View
           style={{
             flexDirection: 'row',
             flex: 1,
@@ -36,15 +36,15 @@ export function GeneralHeader({
               source={LanguageIcon}
             />
           </TouchableOpacity>
-        </View>
+        </View> */}
 
         <View style={styles.flexOne}>
-          <AppText type={'bold'} size={18} color={Colors.white} style={styles.headerTitle}>
+          <AppText type={'bold'} size={16} color={Colors.white} style={styles.headerTitle}>
             {label}
           </AppText>
         </View>
 
-        <View style={[styles.flexOne, { alignItems: 'flex-end' }]}>
+        <View style={{ alignItems: 'flex-end' }}>
           {rightIcon}
         </View>
       </View>

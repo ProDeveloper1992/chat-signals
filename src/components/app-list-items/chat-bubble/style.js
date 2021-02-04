@@ -13,7 +13,7 @@ export default StyleSheet.create({
             borderBottomRightRadius: isFromUser ? 0 : 20,
             borderBottomLeftRadius: 20,
             marginHorizontal: 10,
-            marginTop: 5,
+            // marginTop: 5,
             maxWidth: '70%'
         }
     },
@@ -27,4 +27,11 @@ export default StyleSheet.create({
         resizeMode: 'contain',
         marginStart: 5
     },
+    seenTimeContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 5,
+        marginHorizontal: 15,
+        alignSelf: 'flex-end'
+    }
 })
