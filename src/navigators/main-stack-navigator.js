@@ -127,7 +127,7 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="FourthTabStack"
-        component={DailyCoinStack}
+        component={CoinPurchaseStack}
         options={{
           tabBarLabel: appLabels.daily_coins,
         }}

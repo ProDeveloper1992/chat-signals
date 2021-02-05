@@ -2,7 +2,6 @@ import React from 'react';
 import { View, FlatList } from 'react-native';
 import { useSelector } from 'react-redux';
 import { NoListData, NotificationItem } from '../../../components';
-import { DEFAULT_AVATAR_URL } from '../../../constants';
 import styles from './style';
 
 export default function NotificationsTab(props) {
