@@ -44,7 +44,6 @@ export default StyleSheet.create({
     userDetailContainer: {
         flex: 1,
         marginLeft: 15,
-        justifyContent: 'center',
     },
 
     arrowRight: {
@@ -53,5 +52,15 @@ export default StyleSheet.create({
         resizeMode: 'cover',
         marginTop: 10,
         alignSelf: 'flex-end',
+    },
+
+    buttonContainer: function (isAccept) {
+        return {
+            paddingHorizontal: 22,
+            paddingVertical: 7,
+            borderRadius: 43,
+            marginEnd: 7,
+            backgroundColor: isAccept ? Colors.ui_primary : Colors.ui_background
+        }
     }
 });

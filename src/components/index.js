@@ -13,7 +13,8 @@ import {
   ModeratorHeader,
   ChatBubble,
   TagItem,
-  NotificationItem
+  NotificationItem,
+  FriendRequestItem
 } from './app-list-items';
 import { AppText } from './app-text';
 import OwnPurchaseCard from './own-purchase-card';
@@ -32,20 +33,21 @@ export {
   ChatInput,
   BackHeader,
   GeneralHeader,
-  LaguageItem,
-  GenderItem,
-  CountryItem,
   TagItem,
-  NotificationItem,
   LanguagePicker,
   GenderPicker,
   CountryPicker,
   NoListData,
-  ModeratorListItem,
   ModeratorIconLabel,
   ModeratorHeader,
   ChatBubble,
   OwnPurchaseCard,
   DatePicker,
-  CommonImage
+  CommonImage,
+  LaguageItem,
+  GenderItem,
+  CountryItem,
+  NotificationItem,
+  ModeratorListItem,
+  FriendRequestItem
 };

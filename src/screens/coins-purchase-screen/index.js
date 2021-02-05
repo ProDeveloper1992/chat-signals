@@ -147,7 +147,7 @@ const CoinPurchase = () => {
               {loadingPaymentGateways && paymentGateways.length === 0 ? (<AppIndicatorLoader />) : (
                 <FlatList
                   data={paymentGateways}
-                  numColumns={2}
+                  numColumns={3}
                   contentContainerStyle={{ paddingTop: 20 }}
                   renderItem={({ item, index }) => (
                     <PaymentGatwayItem
@@ -169,7 +169,7 @@ const CoinPurchase = () => {
 const PaymentGatwayItem = ({ onPress, imageUrl }) => {
   return (
     <TouchableOpacity
-      style={{ flex: 1, alignItems: 'center', marginTop: 10 }}
+      style={{ flex: 1, alignItems: 'center', margin: 10, padding: 10, borderWidth: 1, borderColor: Colors.grey, borderRadius: 15 }}
       onPress={onPress}>
       <Image style={styles.paymetGatewayImage} source={{ uri: imageUrl }} />
     </TouchableOpacity>
@@ -181,8 +181,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   paymetGatewayImage: {
-    width: 100,
-    height: 100,
+    width: 70,
+    height: 70,
     resizeMode: 'contain'
   },
   coinIcon: {

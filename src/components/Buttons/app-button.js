@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { Colors } from '../../constants';
 import { AppText } from '..';
 
-export function AppButton({ type, title, icon, style, onPress, loading, disabled }) {
+export function AppButton({ type, title, icon, style, onPress, loading, disabled, indicatorPadding, padding }) {
   function getBgColor() {
     switch (type) {
       case 'primary':
@@ -84,11 +84,11 @@ export function AppButton({ type, title, icon, style, onPress, loading, disabled
       ]}
       onPress={onPress}>
       {loading ? (
-        <ActivityIndicator size={'small'} color={getTextColor()} style={{ padding: 12 }} />
+        <ActivityIndicator size={'small'} color={getTextColor()} style={{ padding: indicatorPadding }} />
       ) : (
           <>
             {icon && icon}
-            <AppText type={'medium'} color={getTextColor()} style={{ flex: 1, textAlign: 'center', padding: 10 }} size={14}>
+            <AppText type={'medium'} color={getTextColor()} style={{ flex: 1, textAlign: 'center', padding: padding }} size={14}>
               {title}
             </AppText>
           </>
@@ -112,6 +112,8 @@ AppButton.propTypes = {
   icon: PropTypes.any,
   loading: PropTypes.bool,
   disabled: PropTypes.bool,
+  padding: PropTypes.number,
+  indicatorPadding: PropTypes.number,
   type: PropTypes.oneOf([
     'primary',
     'positive',
@@ -130,5 +132,7 @@ AppButton.defaultProps = {
   title: 'Submit',
   loading: false,
   disabled: false,
+  padding: 10,
+  indicatorPadding: 12,
   onPress: () => { },
 };

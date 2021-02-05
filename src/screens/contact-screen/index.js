@@ -11,8 +11,8 @@ import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 
 //Top Tabs
 import NotificationsTab from './notifications-tab';
-import FriendsTopTab from './friends-top-tab';
-import BookMarkTopTab from './bookmark-top-tab';
+import FriendsTopTab from './friend-requests-tab';
+// import BookMarkTopTab from './bookmark-top-tab';
 // import VisitorsTopTab from './visitors-top-tab';
 // import BlockedTopTab from './blocked-top-tab';
 
