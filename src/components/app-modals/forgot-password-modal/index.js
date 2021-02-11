@@ -92,12 +92,12 @@ export default function ForgotPasswordModal({ visible, onHideModal }) {
                 <AppButton
                     type={'primary'}
                     title={'Request New Password'}
-                    style={{ marginTop: "20%" }}
+                    style={{ marginTop: "40%" }}
                     onPress={() => onForgotPasswordClick()}
                     loading={loading}
                 />
                 <AppText
-                    style={{ textAlign: 'center', marginTop: 25 }}
+                    style={{ textAlign: 'center', marginTop: 25, marginBottom: 25 }}
                     size={16}
                     onPress={onHideModal}
                     type={'bold'}>{"Back to login"}</AppText>

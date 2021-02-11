@@ -74,7 +74,7 @@ export default function OwnPurchaseCard({
         <>
             <View style={styles.container}>
                 <AppText type={'bold'} size={18} style={{ textAlign: 'center' }}>{'Own Package'}</AppText>
-                <AppText size={12} style={{ textAlign: 'center' }}>{"How many credits would you like to have? - Here you have it in your own hands!"}</AppText>
+                <AppText size={16} style={{ textAlign: 'center', marginVertical: 36 }}>{"How many credits would you like to have? - Here you have it in your own hands!"}</AppText>
                 <OwnPackageSlider
                     value={sliderCount}
                     minimumValue={minimumSliderCount}
@@ -104,9 +104,8 @@ export default function OwnPurchaseCard({
 
 var customStyles4 = StyleSheet.create({
     track: {
-        height: 15,
-        borderRadius: 15 / 2,
-        backgroundColor: Colors.white,
+        height: 1,
+        backgroundColor: Colors.grey,
         borderWidth: 0.5,
         borderColor: Colors.grey,
         shadowColor: 'black',
@@ -115,12 +114,12 @@ var customStyles4 = StyleSheet.create({
         shadowOpacity: 0.15,
     },
     thumb: {
-        width: 30,
-        height: 30,
-        borderRadius: 15,
-        backgroundColor: 'white',
-        borderColor: Colors.ui_primary_dark,
-        borderWidth: 3,
+        width: 58,
+        height: 36,
+        borderRadius: 18,
+        backgroundColor: Colors.ui_primary,
+        borderColor: Colors.white,
+        borderWidth: 2,
         shadowColor: 'black',
         shadowOffset: { width: 0, height: 2 },
         shadowRadius: 2,
@@ -131,9 +130,5 @@ var customStyles4 = StyleSheet.create({
 const styles = StyleSheet.create({
     container: {
         padding: 15,
-        borderWidth: 0.5,
-        borderRadius: 5,
-        borderColor: Colors.grey,
-        backgroundColor: Colors.white
     },
 });
