@@ -71,49 +71,79 @@ const CoinPurchase = () => {
         onLanguagePress={() => dispatch(toggleLanguageModal(true))}
         label={appLabels.purchase}
       />
-      <ScrollView>
-        {selectedPaymentGateway != null ? (
+      <ScrollView contentContainerStyle={{ padding: 20 }}>
+        {loadingPaymentGateways && paymentGateways.length === 0 ? (<AppIndicatorLoader />) : (
+          <View>
+            <AppText type={'bold'} size={16}>{"step 1 - Payment method"}</AppText>
+            <FlatList
+              data={paymentGateways}
+              numColumns={3}
+              contentContainerStyle={{ paddingTop: 20 }}
+              renderItem={({ item, index }) => (
+                <PaymentGatwayItem
+                  key={String(index)}
+                  imageUrl={item.picture}
+                  onPress={() => onPaymentGatwayItemPress(item)}
+                  isSelected={item == selectedPaymentGateway ? true : false}
+                />
+              )}
+              keyExtractor={(item, index) => String(index)}
+            />
+          </View>
+        )}
+        {selectedPaymentGateway != null && (
           <>
-            <View style={{ paddingHorizontal: 15 }}>
-              <BackHeader title={"Choose your package size"} onBackPress={() => setSelectedPaymentGateway(null)} />
-              <Image
-                style={[styles.paymetGatewayImage, { alignSelf: 'center' }]}
-                source={{ uri: selectedPaymentGateway.picture }} />
+            <View>
+              <AppText type={'bold'} size={16}>{"step 2 - Choose your package size"}</AppText>
+              <OwnPurchaseCard
+                sliderCount={ownPackagePrice}
+                minimumSliderCount={0}
+                maximumSliderCount={500}
+                onChangeSliderValue={(value) => onChangeOwnPackagePrice(value)}
+                creditPerCurrency={perEuroCredit}
+                paymentUrl={selectedPaymentGateway.payment_url} />
 
               {selectedPaymentGateway.packagemodules && (
                 <>
                   <FlatList
                     data={selectedPaymentGateway.packagemodules}
                     contentContainerStyle={{ paddingTop: 20 }}
+                    numColumns={3}
                     renderItem={({ item, index }) => (
                       <TouchableOpacity
                         activeOpacity={1}
                         key={String(index)}
                         onPress={() => onSelectPackageModule(item)}
                         style={{
-                          flex: 1,
-                          flexDirection: 'row',
+                          width: 110,
+                          height: 110,
                           alignItems: 'center',
                           justifyContent: 'space-between',
                           padding: 10,
-                          marginBottom: 10,
-                          backgroundColor: selectedPackage ? selectedPackage.id === item.id ? Colors.ui_primary : Colors.white : Colors.white,
-                          borderRadius: 5
+                          margin: 10,
+                          backgroundColor: Colors.white,
+                          borderRadius: 20,
+                          borderWidth: 3,
+                          borderColor: selectedPackage ? selectedPackage.id === item.id ? Colors.ui_primary : Colors.transparent : Colors.transparent,
+                          shadowColor: 'black',
+                          shadowOffset: { width: 0, height: 1 },
+                          shadowRadius: 2,
+                          shadowOpacity: 0.2,
                         }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <View style={{ alignItems: 'center' }}>
                           <Image style={styles.coinIcon} source={Icons.coins_icon} />
                           <AppText
-                            type={'bold'}
-                            size={16}
-                            color={selectedPackage ? selectedPackage.id === item.id ? Colors.white : Colors.black : Colors.black}>
-                            {`${perEuroCredit * item.price} credits`}
+                            type={'medium'}
+                            size={12}
+                            color={Colors.black}>
+                            {`${perEuroCredit * item.price} Coins`}
                           </AppText>
                         </View>
                         <View>
                           <AppText
                             type={'bold'}
-                            size={16}
-                            color={selectedPackage ? selectedPackage.id === item.id ? Colors.white : Colors.black : Colors.black}>
+                            size={14}
+                            color={Colors.black}>
                             {`${item.price}€`}
                           </AppText>
                         </View>
@@ -133,43 +163,18 @@ const CoinPurchase = () => {
                   )} */}
                 </>
               )}
-              <OwnPurchaseCard
-                sliderCount={ownPackagePrice}
-                minimumSliderCount={0}
-                maximumSliderCount={500}
-                onChangeSliderValue={(value) => onChangeOwnPackagePrice(value)}
-                creditPerCurrency={perEuroCredit}
-                paymentUrl={selectedPaymentGateway.payment_url} />
             </View>
           </>
-        ) : (
-            <>
-              {loadingPaymentGateways && paymentGateways.length === 0 ? (<AppIndicatorLoader />) : (
-                <FlatList
-                  data={paymentGateways}
-                  numColumns={3}
-                  contentContainerStyle={{ paddingTop: 20 }}
-                  renderItem={({ item, index }) => (
-                    <PaymentGatwayItem
-                      key={String(index)}
-                      imageUrl={item.picture}
-                      onPress={() => onPaymentGatwayItemPress(item)}
-                    />
-                  )}
-                  keyExtractor={(item, index) => String(index)}
-                />
-              )}
-            </>
-          )}
+        )}
       </ScrollView>
     </View>
   );
 };
 
-const PaymentGatwayItem = ({ onPress, imageUrl }) => {
+const PaymentGatwayItem = ({ onPress, imageUrl, isSelected }) => {
   return (
     <TouchableOpacity
-      style={{ flex: 1, alignItems: 'center', margin: 10, padding: 10, borderWidth: 1, borderColor: Colors.grey, borderRadius: 15 }}
+      style={{ width: '28%', alignItems: 'center', margin: 10, padding: 10, borderWidth: isSelected ? 3 : 1, borderColor: isSelected ? Colors.ui_primary : Colors.grey, borderRadius: 15 }}
       onPress={onPress}>
       <Image style={styles.paymetGatewayImage} source={{ uri: imageUrl }} />
     </TouchableOpacity>
@@ -179,6 +184,7 @@ const PaymentGatwayItem = ({ onPress, imageUrl }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Colors.white
   },
   paymetGatewayImage: {
     width: 70,

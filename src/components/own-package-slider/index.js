@@ -559,7 +559,7 @@ export default class Slider extends PureComponent {
     _renderThumbImage = () => {
         const { thumbImage, value } = this.props;
 
-        return <Animated.Text style={{ fontWeight: 'bold', fontSize: 10 }}>{value}</Animated.Text>;
+        return <Animated.Text style={{ fontWeight: 'bold', fontSize: 16, color: Colors.white }}>{value}</Animated.Text>;
     };
 }
 
