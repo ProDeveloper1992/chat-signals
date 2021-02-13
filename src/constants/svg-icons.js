@@ -24,6 +24,8 @@ import ArrowRightIcon from '../assets/icons/arrow_right.svg';
 import SendMessageIcon from '../assets/icons/send_message.svg';
 import AttachIcon from '../assets/icons/attach.svg';
 import InfoIcon from '../assets/icons/info.svg';
+import SearchIcon from '../assets/icons/search.svg';
+import CloseIcon from '../assets/icons/close.svg';
 
 export {
     EmailIcon,
@@ -51,5 +53,7 @@ export {
     ArrowRightIcon,
     SendMessageIcon,
     AttachIcon,
-    InfoIcon
+    InfoIcon,
+    SearchIcon,
+    CloseIcon
 }

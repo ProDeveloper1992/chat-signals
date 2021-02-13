@@ -16,7 +16,7 @@ import ModeratorProfileInfoTab from './user-profile-info-tab';
 import ModeratorProfilePhotosTab from './user-profile-photos-tab';
 import ModeratorProfileActionTab from './user-profile-action-tab';
 import { DeleteAccountModal, ModeratorActivityModal } from '../../components/app-modals';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { GoogleSignin } from 'react-native-google-signin';
 import AsyncStorage from '@react-native-community/async-storage';
 import {
@@ -30,9 +30,12 @@ import {
   CoinGradientIcon,
   ArrowRightIcon
 } from '../../constants/svg-icons';
+import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 
 export default function UserProfile(props) {
   const { params } = props.route;
+
+  const dispatch = useDispatch();
 
   const [activityType, setActivityType] = useState('kisses');
   const [activityModalVisible, setActivityModalVisible] = useState(false);
@@ -91,6 +94,10 @@ export default function UserProfile(props) {
         },
       },
     ]);
+  }
+
+  const onLanguagePress = () => {
+    dispatch(toggleLanguageModal(true));
   }
 
   return (
@@ -211,7 +218,7 @@ export default function UserProfile(props) {
           <CardHeader
             title={"Language"}
             isExpanded={false}
-            onPress={() => { }} />
+            onPress={onLanguagePress} />
 
           <CardHeader
             title={"Privacy Policy"}
@@ -256,11 +263,11 @@ const CounterCard = ({ title, count, icon }) => {
   return (
     <View style={[styles.cardContainer, { flex: 1, margin: 5 }]}>
       {/* <Image style={[styles.commonIcon, { marginVertical: 5 }]} source={icon} /> */}
-      <View style={{ marginBottom: -15 }}>
+      <View style={{ marginBottom: -10 }}>
         {icon}
       </View>
       <AppText type={'bold'} size={16}>{count}</AppText>
-      <AppText type={'regular'} size={12} style={{ marginTop: -8 }}>{title}</AppText>
+      <AppText type={'regular'} size={12} style={{ marginTop: -3 }}>{title}</AppText>
     </View>
   )
 }

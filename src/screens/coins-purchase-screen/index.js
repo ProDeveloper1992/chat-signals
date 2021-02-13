@@ -14,6 +14,7 @@ import { getPaymentModule } from '../../redux/actions/app-actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Colors, Icons } from '../../constants';
 import { AppIndicatorLoader, AppText, AppButton, OwnPurchaseCard } from '../../components';
+import { CoinGradientIcon } from '../../constants/svg-icons';
 
 const CoinPurchase = () => {
   const navigation = useNavigation();
@@ -131,7 +132,7 @@ const CoinPurchase = () => {
                           shadowOpacity: 0.2,
                         }}>
                         <View style={{ alignItems: 'center' }}>
-                          <Image style={styles.coinIcon} source={Icons.coins_icon} />
+                          <CoinGradientIcon />
                           <AppText
                             type={'medium'}
                             size={12}

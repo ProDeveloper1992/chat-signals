@@ -5,12 +5,18 @@ import PropTypes from 'prop-types';
 import { Colors, Icons, Images } from '../../../constants';
 import { AppText } from '../../index';
 
-export default function TagItem({ title, disabled }) {
+export default function TagItem({ title, disabled, onPress, selected }) {
 
-    const [isSelected, setIsSelected] = useState(false);
+    const [isSelected, setIsSelected] = useState(selected);
 
     const onTagPress = () => {
-        setIsSelected(!isSelected);
+        if (isSelected) {
+            setIsSelected(false);
+            onPress(false);
+        } else {
+            setIsSelected(true);
+            onPress(true);
+        }
     }
 
     return (
@@ -39,10 +45,14 @@ const styles = StyleSheet.create({
 
 TagItem.propTypes = {
     title: PropTypes.string,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    selected: PropTypes.bool,
+    onPress: PropTypes.func
 };
 
 TagItem.defaultProps = {
     title: "Tag title",
-    disabled: false
+    disabled: false,
+    selected: false,
+    onPress: () => { }
 };

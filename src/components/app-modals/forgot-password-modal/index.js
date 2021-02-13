@@ -7,9 +7,8 @@ import { Colors, mailformat } from '../../../constants';
 import { AppButton, AppText, AuthInput } from '../../index';
 import styles from './style';
 
-import CloseIcon from '../../../assets/icons/close.svg';
 import { forgotPassword } from '../../../redux/actions/user-actions';
-import { EmailIcon } from '../../../constants/svg-icons';
+import { EmailIcon, CloseIcon } from '../../../constants/svg-icons';
 
 export default function ForgotPasswordModal({ visible, onHideModal }) {
 

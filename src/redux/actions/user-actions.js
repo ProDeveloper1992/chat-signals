@@ -12,6 +12,7 @@ import {
   SET_SELECTED_USER_GENDER,
   SET_SELECTED_LOOKING_GENDER,
   SET_USER_COUNTRY,
+  SET_USER_PASSIONS,
   GET_BOOKMARKS_REQUEST,
   GET_BOOKMARKS_SUCCESS,
   GET_BOOKMARKS_FAILED
@@ -27,6 +28,9 @@ export const setSelectedLookingGender = (genderData) => (dispatch) =>
 
 export const setUserCountry = (countryData) => (dispatch) =>
   dispatch(ActionDispatcher(SET_USER_COUNTRY, countryData));
+
+export const setUserPassions = (passions) => (dispatch) =>
+  dispatch(ActionDispatcher(SET_USER_PASSIONS, passions));
 
 export const registerUser = (requestData) => (dispatch) =>
   new Promise(function (resolve, reject) {

@@ -128,7 +128,7 @@ export default function ModeratorProfile(props) {
               />
 
               <ModeratorIconLabel
-                onIconPress={() => showActivityModal('kisses')}
+                onIconPress={() => showActivityModal('kiss')}
                 Icon={<KissGradientIcon />}
               />
 
@@ -140,10 +140,10 @@ export default function ModeratorProfile(props) {
             <View style={{ marginHorizontal: 10 }}>
               <AppText type={'bold'} size={18}>{"Interests"}</AppText>
               <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 15 }}>
-                <TagItem title={"Netflix"} />
-                <TagItem title={"Music"} />
-                <TagItem title={"Walking"} />
-                <TagItem title={"Traveling"} />
+                <TagItem title={"Netflix"} disabled />
+                <TagItem title={"Music"} disabled />
+                <TagItem title={"Walking"} disabled />
+                <TagItem title={"Traveling"} disabled />
               </View>
               <AppText type={'bold'} size={18}>{"Details"}</AppText>
               <AppText type={'regular'} color={Colors.greydark}>{"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias"}</AppText>

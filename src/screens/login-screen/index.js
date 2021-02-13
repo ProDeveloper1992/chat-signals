@@ -87,6 +87,10 @@ const LoginScreen = (props) => {
     await loginWithFacebook();
   };
 
+  const onBackPress = () => {
+    navigation.goBack();
+  }
+
   return (
     <AuthContainer>
       {/* <BackHeader onBackPress={() => navigation.goBack()} /> */}
@@ -170,6 +174,12 @@ const LoginScreen = (props) => {
               }}
             />
           </View>
+          <TextButton
+            style={{ alignSelf: 'center' }}
+            title={'Back'}
+            fontType={'bold'}
+            titleColor={Colors.black}
+            onPress={onBackPress} />
         </ScrollView>
         <ForgotPasswordModal visible={forgotPasswordModalVisible} onHideModal={() => setForgotPasswordModalVisible(false)} />
       </View>
