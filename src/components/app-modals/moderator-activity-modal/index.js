@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { Colors, Icons } from '../../../constants';
 import { AppButton, AppText } from '../../index';
 import styles from './style';
+import { CloseIcon, FriendGradientIcon32, KissGradientIcon32, LikeGradientIcon32, ChatGradientIcon, StickerGradientIcon32 } from '../../../constants/svg-icons'
 
 export default function ActivityModal({ visible, onHideModal, type }) {
 
@@ -12,7 +13,7 @@ export default function ActivityModal({ visible, onHideModal, type }) {
 
   const getTitle = (type) => {
     switch (type) {
-      case 'kisses':
+      case 'kiss':
         return appLabels.kisses;
 
       case 'like':
@@ -22,7 +23,10 @@ export default function ActivityModal({ visible, onHideModal, type }) {
         return appLabels.chat;
 
       case 'addfriend':
-        return appLabels.add_friend;
+        return "Friend request";
+
+      case 'sticker':
+        return "Sticker";
 
       default:
         return 'Title';
@@ -31,20 +35,23 @@ export default function ActivityModal({ visible, onHideModal, type }) {
 
   const getActivityImage = (type) => {
     switch (type) {
-      case 'kisses':
-        return Icons.kiss_icon;
+      case 'kiss':
+        return <KissGradientIcon32 width={150} height={150} />;
 
       case 'like':
-        return Icons.like_icon;
+        return <LikeGradientIcon32 width={150} height={150} />;
 
       case 'chat':
-        return Icons.chat_flat_icon;
+        return <ChatGradientIcon width={150} height={150} />;
 
       case 'addfriend':
-        return Icons.add_friend_icon;
+        return <FriendGradientIcon32 width={150} height={150} />;
+
+      case 'sticker':
+        return <StickerGradientIcon32 width={150} height={150} />;
 
       default:
-        return Icons.kiss_icon;
+        return null;
     }
   };
 
@@ -58,29 +65,44 @@ export default function ActivityModal({ visible, onHideModal, type }) {
       onBackButtonPress={onHideModal}
       style={styles.modalContainer}>
       <View style={styles.modalSubContainer}>
-        <AppText type={'bold'} size={18} color={Colors.ui_primary_dark}>
-          {getTitle(type)}
-        </AppText>
-        <Image
-          style={{
-            width: 60,
-            height: 60,
-            borderRadius: 5,
-            marginVertical: 10,
-          }}
-          source={getActivityImage(type)}
-        />
-        <AppText type={'bold'} size={16} color={Colors.black}>
-          {`4 ${appLabels.Coins}`}
-        </AppText>
+        <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+          <TouchableOpacity onPress={onHideModal}>
+            <CloseIcon width={28} height={28} />
+          </TouchableOpacity>
+        </View>
+        <View style={{ alignItems: 'center', marginTop: '5%', marginBottom: '20%' }}>
+          <AppText type={'bold'} size={24} color={Colors.black}>
+            {type != 'chat' && 'Send '}{getTitle(type)}
+          </AppText>
+          {/* <Image
+            style={{
+              width: 60,
+              height: 60,
+              borderRadius: 5,
+              marginVertical: 10,
+            }}
+            source={getActivityImage(type)}
+          /> */}
+          {getActivityImage(type)}
+          <AppText
+            type={'bold'}
+            size={16}
+            color={Colors.black}
+            style={{ marginTop: -30 }}>
+            <AppText>{'Cost '}</AppText>
+            {`4 ${appLabels.Coins}`}
+          </AppText>
+        </View>
         <AppButton
           title={'Send'}
           style={{ marginVertical: 10 }}
           onPress={onHideModal}
         />
-        <TouchableOpacity onPress={onHideModal}>
-          <AppText color={Colors.grey}>{'Back'}</AppText>
-        </TouchableOpacity>
+        <AppButton
+          type={'light'}
+          title={'Cancel'}
+          onPress={onHideModal}
+        />
       </View>
     </Modal>
   );

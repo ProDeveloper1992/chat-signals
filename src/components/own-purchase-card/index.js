@@ -87,9 +87,9 @@ export default function OwnPurchaseCard({
             </View>
             <AppButton
                 disabled={sliderCount === 0 ? true : false}
-                type={'positive'}
+                type={'primary'}
                 style={{ marginTop: 20 }}
-                title={`Order for ${sliderCount}€ for fee`}
+                title={`Order now`}
                 onPress={onOrderPurchasePress}
                 loading={gettingSealUrl}
             />

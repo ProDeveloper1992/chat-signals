@@ -12,7 +12,8 @@ import {
   GET_USER_CHAT_LIST_FAIL,
   SET_SELECTED_USER_GENDER,
   SET_SELECTED_LOOKING_GENDER,
-  SET_USER_COUNTRY
+  SET_USER_COUNTRY,
+  SET_USER_PASSIONS
 } from '../actions/types';
 
 const initialState = {
@@ -23,6 +24,7 @@ const initialState = {
   userProfileDetailList: null,
   userChatList: [],
   loadingChatList: false,
+  userPassions: [],
 
   //Gender
   genderList: [
@@ -143,6 +145,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         userCountry: action.payload
+      }
+
+    case SET_USER_PASSIONS:
+      return {
+        ...state,
+        userPassions: action.payload
       }
 
     default:

@@ -15,16 +15,19 @@ import {
   CountryPicker,
   DatePicker,
   TextButton,
+  TagItem,
 } from '../../components';
 import { mailformat, Colors, Images } from '../../constants';
 import { EmailIcon, PasswordIcon, ProfileIcon, CameraIcon, EditPenCircleIcon } from '../../constants/svg-icons';
 import { registerUser, setSelectedGender, setSelectedLookingGender } from '../../redux/actions/user-actions';
+import { toggleAddPassionsModal } from '../../redux/actions/app-modals-actions';
 
 const RegisterWithEmail = (props) => {
   const { navigation } = props;
   const dispatch = useDispatch();
 
   const { appLabels } = useSelector((state) => state.appState);
+  const { userPassions } = useSelector((state) => state.userState);
 
   const [postalCode, setPostalCode] = useState('');
   const [loading, setLoading] = useState(false);
@@ -184,6 +187,10 @@ const RegisterWithEmail = (props) => {
     });
   }
 
+  const onShowAddPassionsModal = () => {
+    dispatch(toggleAddPassionsModal(true));
+  }
+
   const renderPage = () => {
     switch (stepPosition) {
       case 0:
@@ -231,6 +238,12 @@ const RegisterWithEmail = (props) => {
               onPress={onGoToFirstPosition}
               loading={loading}
             />
+            <TextButton
+              style={{ alignSelf: 'center' }}
+              title={'Back'}
+              fontType={'bold'}
+              titleColor={Colors.black}
+              onPress={onBackPress} />
           </View>
         );
 
@@ -270,8 +283,14 @@ const RegisterWithEmail = (props) => {
             <AddItem
               title={'Passions'}
               subtitle={'Add passions'}
-              onAddPress={() => { }}
+              onAddPress={onShowAddPassionsModal}
             />
+
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 15 }}>
+              {userPassions.map((item, index) => {
+                return <TagItem key={String(index)} title={item.title} disabled selected={true} />
+              })}
+            </View>
 
             <AddItem
               title={'Sexual orientation'}

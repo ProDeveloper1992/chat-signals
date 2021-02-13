@@ -12,12 +12,8 @@ import CloseIcon from '../../../assets/icons/close.svg';
 export default function DeleteAccountModal({ visible, onHideModal }) {
 
     const dispatch = useDispatch();
-    const navigation = useNavigation();
     const { appLabels } = useSelector((state) => state.appState);
 
-
-    const [email, SetEmail] = useState('');
-    const [emailError, setEmailError] = useState(null);
     const [loading, setLoading] = useState(false);
 
     return (

@@ -8,10 +8,10 @@ export default StyleSheet.create({
             backgroundColor: isFromUser ? Colors.grey_light : Colors.black,
             paddingHorizontal: 10,
             paddingVertical: 8,
-            borderTopLeftRadius: isFromUser ? 20 : 0,
+            borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
             borderBottomRightRadius: isFromUser ? 0 : 20,
-            borderBottomLeftRadius: 20,
+            borderBottomLeftRadius: isFromUser ? 20 : 0,
             marginHorizontal: 10,
             // marginTop: 5,
             maxWidth: '70%'

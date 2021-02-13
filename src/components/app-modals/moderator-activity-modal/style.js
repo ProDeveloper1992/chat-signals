@@ -1,18 +1,17 @@
-import {StyleSheet} from 'react-native';
-import {Colors} from '../../../constants';
+import { StyleSheet } from 'react-native';
+import { Colors } from '../../../constants';
 
 export default StyleSheet.create({
   modalContainer: {
     padding: 0,
-    marginHorizontal: 50,
-    marginVertical: 20,
-    justifyContent: 'center',
+    margin: 0,
+    justifyContent: 'flex-end',
   },
   modalSubContainer: {
     backgroundColor: Colors.white,
     borderRadius: 15,
     padding: 20,
-    alignItems: 'center',
+    paddingBottom: 40,
   },
   modalTitle: {
     color: Colors.ui_primary_dark,
