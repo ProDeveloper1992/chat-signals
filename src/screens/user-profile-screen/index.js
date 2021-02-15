@@ -31,11 +31,13 @@ import {
   ArrowRightIcon
 } from '../../constants/svg-icons';
 import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
+import { useIsFocused } from '@react-navigation/native';
 
 export default function UserProfile(props) {
   const { params } = props.route;
 
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
 
   const [activityType, setActivityType] = useState('kisses');
   const [activityModalVisible, setActivityModalVisible] = useState(false);
@@ -47,8 +49,10 @@ export default function UserProfile(props) {
   const { appLabels } = useSelector((state) => state.appState);
 
   useEffect(() => {
-    console.log("userData...", userData)
-  }, []);
+    if (isFocused) {
+      console.log("userData...", userData)
+    }
+  }, [isFocused]);
 
   const renderCurrentTab = () => {
     switch (cuurentTab) {
@@ -195,15 +199,15 @@ export default function UserProfile(props) {
           )} */}
           <View style={{ borderBottomWidth: 1, borderColor: Colors.grey, marginHorizontal: 10 }} />
           <CardHeader
-            title={"Photos"}
+            title={appLabels.photos}
             isExpanded={isMyPhotosExpanded}
             onPress={() => setMyPhotosExpanded(!isMyPhotosExpanded)} />
 
-          {isMyPhotosExpanded && (
+          {/* {isMyPhotosExpanded && (
             <ModeratorProfilePhotosTab
             // photosList={params.item.moderator_photos}
             />
-          )}
+          )} */}
 
           <CardHeader
             title={"Account Details"}

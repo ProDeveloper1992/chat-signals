@@ -91,7 +91,7 @@ export default function ForgotPasswordModal({ visible, onHideModal }) {
                 <AppButton
                     type={'primary'}
                     title={'Request New Password'}
-                    style={{ marginTop: "40%" }}
+                    style={{ marginTop: "20%" }}
                     onPress={() => onForgotPasswordClick()}
                     loading={loading}
                 />

@@ -21,62 +21,64 @@ export function ChatInput({ style, onSendPress, ...props }) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.topHorizontal}>
-                <IconWithValue
-                    icon={<EmailIcon width={18} height={18} />}
-                    minimumValue={0}
-                    maximumValue={6}
-                />
-                <IconWithValue
-                    icon={<AppText type={'bold'} size={17}>{"Aa"}</AppText>}
-                    minimumValue={messageText.length}
-                    maximumValue={250}
-                />
-                {userData && (
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <View style={{ marginBottom: -10, marginStart: -15 }}>
-                            <StickerGradientIcon32 />
-                        </View>
+            <View style={{ margin: 14 }}>
+                <View style={styles.topHorizontal}>
+                    <IconWithValue
+                        icon={<EmailIcon width={18} height={18} />}
+                        minimumValue={0}
+                        maximumValue={6}
+                    />
+                    <IconWithValue
+                        icon={<AppText type={'bold'} size={17}>{"Aa"}</AppText>}
+                        minimumValue={messageText.length}
+                        maximumValue={250}
+                    />
+                    {userData && (
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <AppText type={'bold'} size={15}>{userData.credit}</AppText>
-                            <AppText type={'regular'} size={15}>{' Coins'}</AppText>
+                            <View style={{ marginBottom: -10, marginStart: -15 }}>
+                                <StickerGradientIcon32 />
+                            </View>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <AppText type={'bold'} size={15}>{userData.credit}</AppText>
+                                <AppText type={'regular'} size={15}>{' Coins'}</AppText>
+                            </View>
                         </View>
+                    )}
+                </View>
+                <View style={styles.inputContainer}>
+                    <AttachIcon width={24} height={24} />
+                    <TextInput
+                        {...props}
+                        style={[
+                            styles.input,
+                            style
+                        ]}
+                        placeholderTextColor={'darkgray'}
+                        autoCapitalize={'none'}
+                        maxLength={250}
+                        onChangeText={(text) => setMessageText(text)}
+                    />
+                    <TouchableOpacity activeOpacity={0.8} style={styles.sendIconContainer} onPress={onSendPress}>
+                        <SendMessageIcon width={24} height={24} />
+                    </TouchableOpacity>
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
+                    <TouchableIcon
+                        icon={<StickerGradientIcon32 />}
+                        onPress={() => { }} />
+                    <TouchableIcon
+                        icon={<KissGradientIcon32 />}
+                        onPress={() => { }} />
+                    <TouchableIcon
+                        icon={<LikeGradientIcon32 />}
+                        onPress={() => { }} />
+                    <TouchableIcon
+                        icon={<HeartGradientIcon32 />}
+                        onPress={() => { }} />
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginStart: 15 }}>
+                        <AppText size={12}>{`Send message for `}</AppText>
+                        <AppText size={12} type={'bold'}>{`${8} coins`}</AppText>
                     </View>
-                )}
-            </View>
-            <View style={styles.inputContainer}>
-                <AttachIcon width={24} height={24} />
-                <TextInput
-                    {...props}
-                    style={[
-                        styles.input,
-                        style
-                    ]}
-                    placeholderTextColor={'darkgray'}
-                    autoCapitalize={'none'}
-                    maxLength={250}
-                    onChangeText={(text) => setMessageText(text)}
-                />
-                <TouchableOpacity activeOpacity={0.8} style={styles.sendIconContainer} onPress={onSendPress}>
-                    <SendMessageIcon width={24} height={24} />
-                </TouchableOpacity>
-            </View>
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
-                <TouchableIcon
-                    icon={<StickerGradientIcon32 />}
-                    onPress={() => { }} />
-                <TouchableIcon
-                    icon={<KissGradientIcon32 />}
-                    onPress={() => { }} />
-                <TouchableIcon
-                    icon={<LikeGradientIcon32 />}
-                    onPress={() => { }} />
-                <TouchableIcon
-                    icon={<HeartGradientIcon32 />}
-                    onPress={() => { }} />
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginStart: 15 }}>
-                    <AppText size={12}>{`Send message for `}</AppText>
-                    <AppText size={12} type={'bold'}>{`${8} coins`}</AppText>
                 </View>
             </View>
         </SafeAreaView>
@@ -102,7 +104,6 @@ const TouchableIcon = ({ icon, onPress }) => {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 14,
         backgroundColor: Colors.white,
         // paddingBottom: 30,
         shadowColor: Colors.black,
