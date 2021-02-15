@@ -4,7 +4,7 @@ import { Loading, AppIndicatorLoader } from './Loaders';
 import { AppButton, IconButton } from './Buttons';
 import { AuthInput, ChatInput } from './Inputs';
 import { BackHeader, GeneralHeader } from './Headers';
-import { LaguageItem, GenderItem, CountryItem } from './Radios';
+import { LaguageItem, GenderItem, CountryItem, MoreGenderItem } from './Radios';
 import { LanguagePicker, GenderPicker, CountryPicker } from './Pickers';
 import { NoListData } from './app-no-data-views';
 import {
@@ -47,6 +47,7 @@ export {
   LaguageItem,
   GenderItem,
   CountryItem,
+  MoreGenderItem,
   NotificationItem,
   ModeratorListItem,
   FriendRequestItem

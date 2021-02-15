@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, ScrollView, TouchableOpacity, ImageBackground } from 'react-native';
 import StepIndicator from 'react-native-step-indicator';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,7 +20,7 @@ import {
 import { mailformat, Colors, Images } from '../../constants';
 import { EmailIcon, PasswordIcon, ProfileIcon, CameraIcon, EditPenCircleIcon } from '../../constants/svg-icons';
 import { registerUser, setSelectedGender, setSelectedLookingGender } from '../../redux/actions/user-actions';
-import { toggleAddPassionsModal } from '../../redux/actions/app-modals-actions';
+import { toggleAddPassionsModal, toggleMoreGenderModal } from '../../redux/actions/app-modals-actions';
 
 const RegisterWithEmail = (props) => {
   const { navigation } = props;
@@ -44,11 +44,15 @@ const RegisterWithEmail = (props) => {
   //First Position Page
   const [userName, setUserName] = useState('');
   const [userNameError, setUsernameError] = useState(null);
-  const [birthDate, setBirthDate] = useState('01/01/1990');
+  const [birthDate, setBirthDate] = useState(null);
   const [birthDateError, setBirthDateError] = useState(null);
 
   //Second Position Page
   const [profileImage, setProfileImage] = useState({ uri: null });
+
+
+  useEffect(() => {
+  }, [])
 
   const onBottomButtonPress = async () => {
     if (stepPosition == 0) {
@@ -95,7 +99,12 @@ const RegisterWithEmail = (props) => {
   };
 
   const onSelectUserGenderItem = (genderItem) => {
-    dispatch(setSelectedGender(genderItem));
+    if (genderItem.gender_id != 3) {
+      dispatch(setSelectedGender(genderItem));
+    } else {
+      //Open More Gender Modal
+      dispatch(toggleMoreGenderModal(true));
+    }
   };
 
   const onSelectLookingGenderItem = (genderItem) => {
@@ -268,7 +277,8 @@ const RegisterWithEmail = (props) => {
             <DatePicker
               title={'Birthday'}
               error={birthDateError}
-              value={birthDate} />
+              value={birthDate}
+              onChangeDate={(date) => setBirthDate(date)} />
             <SectionLable title={appLabels.i_am} />
             <GenderPicker
               type={'user'}
@@ -346,9 +356,17 @@ const RegisterWithEmail = (props) => {
                 </TouchableOpacity>
               )}
             </TouchableOpacity>
-            <AppButton
-              title={'Continue'}
-              style={{ bottom: 20, position: 'absolute' }} />
+            <View style={{ width: '100%', bottom: 20, position: 'absolute' }}>
+              <AppButton
+                title={'Continue'} />
+
+              <TextButton
+                style={{ alignSelf: 'center' }}
+                title={'Back'}
+                fontType={'bold'}
+                titleColor={Colors.black}
+                onPress={() => setStepPosition(1)} />
+            </View>
           </View>
         )
     }

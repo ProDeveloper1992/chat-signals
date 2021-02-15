@@ -1,5 +1,5 @@
 import { ActionDispatcher } from ".";
-import { TOGGLE_LANGUAGE_SELECTION_MODAL, TOGGLE_GALLERY_SWIPER_MODAL, TOGGLE_ADD_PASSIONS_MODAL } from "./types";
+import { TOGGLE_LANGUAGE_SELECTION_MODAL, TOGGLE_GALLERY_SWIPER_MODAL, TOGGLE_ADD_PASSIONS_MODAL, TOGGLE_MORE_GENDER_MODAL } from "./types";
 
 
 export const toggleLanguageModal = (visible) => (dispatch) =>
@@ -10,3 +10,6 @@ export const toggleGallerySwiperModal = (visible, images, initialImageIndex) => 
 
 export const toggleAddPassionsModal = (visible) => (dispatch) =>
     dispatch(ActionDispatcher(TOGGLE_ADD_PASSIONS_MODAL, visible));
+
+export const toggleMoreGenderModal = (visible) => (dispatch) =>
+    dispatch(ActionDispatcher(TOGGLE_MORE_GENDER_MODAL, visible));

@@ -62,18 +62,22 @@ export default function AddPassionsModal({ visible, onHideModal }) {
         return false;
     }
 
+    const onCloseModal = () => {
+        onHideModal();
+    }
+
     return (
         <Modal
             isVisible={visible}
             backdropOpacity={0.5}
             animationInTiming={500}
             animationOutTiming={500}
-            onBackdropPress={onHideModal}
-            onBackButtonPress={onHideModal}
+            onBackdropPress={onCloseModal}
+            onBackButtonPress={onCloseModal}
             style={styles.modalContainer}>
             <View style={styles.modalSubContainer}>
                 <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-                    <TouchableOpacity onPress={onHideModal}>
+                    <TouchableOpacity onPress={onCloseModal}>
                         <CloseIcon width={28} height={28} />
                     </TouchableOpacity>
                 </View>

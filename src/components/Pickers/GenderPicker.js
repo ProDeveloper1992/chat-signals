@@ -12,18 +12,10 @@ export default function GenderPicker({ type, onSelectGenderItem }) {
   };
 
   const isSelected = (genderItem) => {
-    if (type === 'user') {
-      if (selectedUserGender.gender_id === genderItem.gender_id) {
-        return true;
-      } else {
-        return false;
-      }
-    } else if (type === 'opponent') {
-      if (selectedLookingGender.gender_id === genderItem.gender_id) {
-        return true;
-      } else {
-        return false;
-      }
+    if (selectedUserGender.gender_id === genderItem.gender_id) {
+      return true;
+    } else {
+      return false;
     }
   }
 

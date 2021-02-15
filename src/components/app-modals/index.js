@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleAddPassionsModal, toggleGallerySwiperModal, toggleLanguageModal } from '../../redux/actions/app-modals-actions';
+import { toggleAddPassionsModal, toggleGallerySwiperModal, toggleLanguageModal, toggleMoreGenderModal } from '../../redux/actions/app-modals-actions';
 import LanguageSelectionModal from './language-selection-modal';
 import ModeratorActivityModal from './moderator-activity-modal';
 import GallerySwiperModal from './gallery-swiper-modal';
@@ -10,6 +10,7 @@ import RegisterLandingModal from './register-landing-modal';
 import ForgotPasswordModal from './forgot-password-modal';
 import DeleteAccountModal from './delete-account-modal';
 import AddPassionsModal from './add-passions-modal';
+import MoreGenderModal from './more-gender-modal';
 
 export { ModeratorActivityModal, WebViewModal, RegisterLandingModal, ForgotPasswordModal, DeleteAccountModal };
 
@@ -18,11 +19,13 @@ export default function AppModals(props) {
 
   const { isLanguageModalVisible,
     isGAllerySwiperModalVisible,
-    isAddPassionsModalVisible } = useSelector((state) => state.appModalState);
+    isAddPassionsModalVisible,
+    isMoreGenderModalVisible } = useSelector((state) => state.appModalState);
 
   const LANGUAGE_MODAL = 'LANGUAGE_MODAL';
   const GALLERY_SWIPER_MODAL = 'GALLERY_SWIPER_MODAL';
   const ADD_PASSIONS_MODAL = 'ADD_PASSIONS_MODAL';
+  const MORE_GENDER_MODAL = 'MORE_GENDER_MODAL';
 
   const onCloseModal = (modal) => {
     switch (modal) {
@@ -34,6 +37,9 @@ export default function AppModals(props) {
         break;
       case ADD_PASSIONS_MODAL:
         dispatch(toggleAddPassionsModal(false));
+        break;
+      case MORE_GENDER_MODAL:
+        dispatch(toggleMoreGenderModal(false));
         break;
       default:
         break;
@@ -53,6 +59,10 @@ export default function AppModals(props) {
       <AddPassionsModal
         visible={isAddPassionsModalVisible}
         onHideModal={() => onCloseModal(ADD_PASSIONS_MODAL)}
+      />
+      <MoreGenderModal
+        visible={isMoreGenderModalVisible}
+        onHideModal={() => onCloseModal(MORE_GENDER_MODAL)}
       />
     </>
   );

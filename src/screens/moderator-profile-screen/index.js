@@ -30,6 +30,7 @@ export default function ModeratorProfile(props) {
   const dispatch = useDispatch();
 
   const { params } = props.route;
+  const { navigation } = props;
 
   const { appLabels } = useSelector((state) => state.appState);
 
@@ -57,6 +58,10 @@ export default function ModeratorProfile(props) {
     } else {
       return DEFAULT_IMAGE_URL;
     }
+  }
+
+  const onChatPress = () => {
+    // navigation.navigate('ChatDetail', { item: params.item });
   }
 
   return (
@@ -113,7 +118,7 @@ export default function ModeratorProfile(props) {
 
             <View style={styles.moderatorIconViewHolder}>
               <ModeratorIconLabel
-                onIconPress={() => showActivityModal('chat')}
+                onIconPress={onChatPress}
                 Icon={<ChatGradientIcon />}
               />
 
