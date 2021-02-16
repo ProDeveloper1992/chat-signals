@@ -26,40 +26,84 @@ const initialState = {
   loadingChatList: false,
   userPassions: [],
 
+  passions: [
+    {
+      title: 'Netflix'
+    },
+    {
+      title: 'Walking'
+    },
+    {
+      title: 'Traveling'
+    },
+    {
+      title: 'Gym'
+    },
+    {
+      title: 'Music'
+    }
+  ],
+
+  otherGenders: [
+    {
+      gender_id: 4,
+      gender: 'Agender',
+    },
+    {
+      gender_id: 5,
+      gender: 'Androgyne',
+    },
+    {
+      gender_id: 6,
+      gender: 'Androgynous',
+    },
+    {
+      gender_id: 7,
+      gender: 'Bigender',
+    },
+    {
+      gender_id: 8,
+      gender: 'Female to Male',
+    },
+    {
+      gender_id: 9,
+      gender: 'FTM',
+    },
+    {
+      gender_id: 10,
+      gender: 'Gender Fluid',
+    },
+    {
+      gender_id: 11,
+      gender: 'Gender Nonconforming',
+    },
+  ],
+
   //Gender
   genderList: [
     {
       gender_id: 1,
       gender: 'Man',
-      gender_icon:
-        'https://img2.pngio.com/download-free-png-male-icon-png-102234-free-icons-library-male-logo-png-512_512.png',
     },
 
     {
       gender_id: 2,
       gender: 'Woman',
-      gender_icon:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Female_symbol.svg/512px-Female_symbol.svg.png',
     },
 
     {
       gender_id: 3,
       gender: 'More',
-      gender_icon:
-        'https://img.pngio.com/gender-symbol-gender-wiki-fandom-powered-by-wikia-gender-symbol-png-300_300.png',
     }
   ],
+
   selectedUserGender: {
     gender_id: 1,
     gender: 'Male',
-    gender_icon:
-      'https://img2.pngio.com/download-free-png-male-icon-png-102234-free-icons-library-male-logo-png-512_512.png'
   },
   selectedLookingGender: {
     gender_id: 2,
     gender: 'Female',
-    gender_icon:
-      'https://img2.pngio.com/download-free-png-male-icon-png-102234-free-icons-library-male-logo-png-512_512.png'
   },
 
   userCountry: {

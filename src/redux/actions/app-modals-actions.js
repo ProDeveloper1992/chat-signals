@@ -1,5 +1,11 @@
 import { ActionDispatcher } from ".";
-import { TOGGLE_LANGUAGE_SELECTION_MODAL, TOGGLE_GALLERY_SWIPER_MODAL, TOGGLE_ADD_PASSIONS_MODAL, TOGGLE_MORE_GENDER_MODAL } from "./types";
+import {
+    TOGGLE_LANGUAGE_SELECTION_MODAL,
+    TOGGLE_GALLERY_SWIPER_MODAL,
+    TOGGLE_ADD_PASSIONS_MODAL,
+    TOGGLE_MORE_GENDER_MODAL,
+    TOGGLE_SEXUAL_ORIENTATION_MODAL
+} from "./types";
 
 
 export const toggleLanguageModal = (visible) => (dispatch) =>
@@ -13,3 +19,6 @@ export const toggleAddPassionsModal = (visible) => (dispatch) =>
 
 export const toggleMoreGenderModal = (visible) => (dispatch) =>
     dispatch(ActionDispatcher(TOGGLE_MORE_GENDER_MODAL, visible));
+
+export const toggleSexualOrientationModal = (visible) => (dispatch) =>
+    dispatch(ActionDispatcher(TOGGLE_SEXUAL_ORIENTATION_MODAL, visible));

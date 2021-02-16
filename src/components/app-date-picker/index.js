@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { TextInputMask } from 'react-native-masked-text';
 
 import { AppText } from '..';
@@ -18,7 +18,7 @@ export default function DatePicker({ title, value, error, onChangeDate }) {
     return (
         <View style={{ marginVertical: 5 }}>
             {title && (
-                <AppText color={error ? Colors.ui_error : Colors.black}>{title}</AppText>
+                <AppText color={error ? Colors.ui_error : Colors.black} style={{ paddingBottom: 5, paddingTop: 5 }}>{title}</AppText>
             )}
             <View
                 style={[styles.container, { borderColor: error ? Colors.ui_error : Colors.grey }]}
@@ -26,7 +26,7 @@ export default function DatePicker({ title, value, error, onChangeDate }) {
                 <CalenderIcon width={24} height={24} />
                 {/* <AppText style={{ marginStart: 15 }} color={Colors.greydark}>{birthDate || "MM/DD/YYYY"}</AppText> */}
                 <TextInputMask
-                    style={{ width: '100%', marginStart: 10 }}
+                    style={{ width: '100%', marginStart: 10, paddingVertical: Platform.OS === 'ios' ? 15 : 0 }}
                     type={'datetime'}
                     options={{
                         format: 'MM/DD/YYYY'

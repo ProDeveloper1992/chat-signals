@@ -16,18 +16,19 @@ import {
   DatePicker,
   TextButton,
   TagItem,
+  GenderItem,
 } from '../../components';
 import { mailformat, Colors, Images } from '../../constants';
 import { EmailIcon, PasswordIcon, ProfileIcon, CameraIcon, EditPenCircleIcon } from '../../constants/svg-icons';
 import { registerUser, setSelectedGender, setSelectedLookingGender } from '../../redux/actions/user-actions';
-import { toggleAddPassionsModal, toggleMoreGenderModal } from '../../redux/actions/app-modals-actions';
+import { toggleAddPassionsModal, toggleMoreGenderModal, toggleSexualOrientationModal } from '../../redux/actions/app-modals-actions';
 
 const RegisterWithEmail = (props) => {
   const { navigation } = props;
   const dispatch = useDispatch();
 
   const { appLabels } = useSelector((state) => state.appState);
-  const { userPassions } = useSelector((state) => state.userState);
+  const { userPassions, selectedUserGender, passions } = useSelector((state) => state.userState);
 
   const [postalCode, setPostalCode] = useState('');
   const [loading, setLoading] = useState(false);
@@ -200,6 +201,10 @@ const RegisterWithEmail = (props) => {
     dispatch(toggleAddPassionsModal(true));
   }
 
+  const onShowSexualOrientationModal = () => {
+    dispatch(toggleSexualOrientationModal(true));
+  }
+
   const renderPage = () => {
     switch (stepPosition) {
       case 0:
@@ -283,29 +288,33 @@ const RegisterWithEmail = (props) => {
             <GenderPicker
               type={'user'}
               onSelectGenderItem={(item) => onSelectUserGenderItem(item)} />
-
+            {selectedUserGender.gender_id != 1 && selectedUserGender.gender_id != 2 && (
+              <GenderItem style={{ alignSelf: 'flex-start', marginTop: 10 }} gender={selectedUserGender.gender} isSelected={true} />
+            )}
             <AppText
-              style={{ marginTop: 10 }}
-              color={Colors.greydark}>
+              style={{ marginTop: 20 }}
+              color={Colors.greydark}
+              size={16}>
               {'Optional'}
             </AppText>
 
-            <AddItem
-              title={'Passions'}
-              subtitle={'Add passions'}
-              onAddPress={onShowAddPassionsModal}
-            />
+            <AppText type={'bold'} size={16} style={{ marginTop: 10 }}>{"Passions " + `${userPassions.length}/${passions.length}`}</AppText>
 
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 15 }}>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 10 }}>
               {userPassions.map((item, index) => {
                 return <TagItem key={String(index)} title={item.title} disabled selected={true} />
               })}
             </View>
 
             <AddItem
-              title={'Sexual orientation'}
+              subtitle={'Add passions'}
+              onAddPress={onShowAddPassionsModal}
+            />
+
+            <AppText type={'bold'} size={16} style={{ marginTop: 10, marginBottom: 5 }}>{"Sexual orientation"}</AppText>
+            <AddItem
               subtitle={'Add sexual orientation'}
-              onAddPress={() => { }}
+              onAddPress={onShowSexualOrientationModal}
             />
 
             <AppButton
@@ -411,12 +420,7 @@ const SectionLable = ({ title }) => {
 
 const AddItem = ({ title, subtitle, onAddPress }) => {
   return (
-    <View style={{ marginTop: 10 }}>
-      <AppText
-        type={'bold'}
-        color={Colors.black}>
-        {title}
-      </AppText>
+    <View>
       <TouchableOpacity style={{ paddingVertical: 5 }} onPress={onAddPress}>
         <AppText
           type={'regular'}
