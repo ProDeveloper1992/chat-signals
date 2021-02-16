@@ -16,35 +16,18 @@ export default function AddPassionsModal({ visible, onHideModal }) {
 
     const dispatch = useDispatch();
     const { appLabels } = useSelector((state) => state.appState);
-    const { userPassions } = useSelector((state) => state.userState);
+    const { userPassions, passions } = useSelector((state) => state.userState);
 
     const [loading, setLoading] = useState(false);
 
-    const USER_PASSIONS = userPassions;
-
-    const PASSIONS = [
-        {
-            title: 'Netflix'
-        },
-        {
-            title: 'Walking'
-        },
-        {
-            title: 'Traveling'
-        },
-        {
-            title: 'Gym'
-        },
-        {
-            title: 'Music'
-        }
-    ];
+    var USER_PASSIONS = userPassions;
 
     const onTagItemPress = (isSelected, tag) => {
         if (isSelected) {
             USER_PASSIONS.push(tag);
         } else {
-            USER_PASSIONS.pop(tag);
+            const updatedPassions = USER_PASSIONS.filter(item => item.title != tag.title);
+            USER_PASSIONS = updatedPassions;
         }
     };
 
@@ -91,8 +74,8 @@ export default function AddPassionsModal({ visible, onHideModal }) {
                     icon={<SearchIcon width={24} height={24} />}
                     placeholder={"Search"}
                 />
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 15 }}>
-                    {PASSIONS.map((item, index) => {
+                <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', marginTop: 15 }}>
+                    {passions.map((item, index) => {
                         return <TagItem
                             key={String(index)}
                             title={item.title}
@@ -104,7 +87,7 @@ export default function AddPassionsModal({ visible, onHideModal }) {
                 <AppButton
                     type={'primary'}
                     title={'Save'}
-                    style={{ marginTop: "20%", marginBottom: 10 }}
+                    style={{ marginBottom: 30 }}
                     onPress={onSavePassions}
                     loading={loading}
                 />

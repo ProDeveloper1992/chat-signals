@@ -1,10 +1,17 @@
-import { TOGGLE_GALLERY_SWIPER_MODAL, TOGGLE_LANGUAGE_SELECTION_MODAL, TOGGLE_ADD_PASSIONS_MODAL, TOGGLE_MORE_GENDER_MODAL } from '../actions/types';
+import {
+    TOGGLE_GALLERY_SWIPER_MODAL,
+    TOGGLE_LANGUAGE_SELECTION_MODAL,
+    TOGGLE_ADD_PASSIONS_MODAL,
+    TOGGLE_MORE_GENDER_MODAL,
+    TOGGLE_SEXUAL_ORIENTATION_MODAL
+} from '../actions/types';
 
 const initialState = {
     isLanguageModalVisible: false,
     isGAllerySwiperModalVisible: false,
     isAddPassionsModalVisible: false,
     isMoreGenderModalVisible: false,
+    isSexualOrientationModalVisible: false,
     gallerySwiperImages: [],
     initialGalleryImageIndex: 0
 };
@@ -35,6 +42,12 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 isMoreGenderModalVisible: action.payload
+            }
+
+        case TOGGLE_SEXUAL_ORIENTATION_MODAL:
+            return {
+                ...state,
+                isSexualOrientationModalVisible: action.payload
             }
 
         default:

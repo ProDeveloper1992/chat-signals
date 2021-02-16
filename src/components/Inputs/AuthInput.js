@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
   },
   label: {
     paddingTop: 5,
+    paddingBottom: 5
   },
   labelContainer: {
     flexDirection: 'row',

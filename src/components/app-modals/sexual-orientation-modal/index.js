@@ -9,7 +9,7 @@ import { CloseIcon } from '../../../constants/svg-icons';
 import { MoreGenderItem } from '../../../components';
 import { setSelectedGender } from '../../../redux/actions/user-actions';
 
-export default function MoreGenderModal({ visible, onHideModal }) {
+export default function SexualOrientationModal({ visible, onHideModal }) {
     const dispatch = useDispatch();
 
     const { otherGenders } = useSelector((state) => state.userState);
@@ -40,7 +40,7 @@ export default function MoreGenderModal({ visible, onHideModal }) {
                         <CloseIcon width={28} height={28} />
                     </TouchableOpacity>
                 </View>
-                <AppText type={'bold'} size={24} style={{ alignSelf: 'center' }}>{"Select Gender"}</AppText>
+                <AppText type={'bold'} size={24} style={{ alignSelf: 'center' }}>{"Sexual orientation"}</AppText>
                 <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                     {otherGenders.map((item, index) => {
                         return <MoreGenderItem
