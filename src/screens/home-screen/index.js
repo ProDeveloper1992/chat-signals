@@ -8,7 +8,7 @@ import { FlirtTab, ProFlirtTab } from '../index';
 import { GeneralHeader } from '../../components/Headers';
 import styles from './style';
 
-import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
+import { toggleFlirtFilterModal, toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 import { GoogleSignin, statusCodes } from 'react-native-google-signin';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -16,6 +16,7 @@ import SplashScreen from 'react-native-splash-screen';
 import { getGeneralSettings } from '../../redux/actions/app-actions';
 
 import FilterIcon from '../../assets/icons/filter.svg';
+import { BoostIcon, KissGradientIcon32 } from '../../constants/svg-icons';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
@@ -30,7 +31,7 @@ export default function Home() {
   const [index, setIndex] = useState(0);
   const routes = [
     { key: 'flirt', title: appLabels.flirts },
-    { key: 'proflirt', title: appLabels.super_flirts ? appLabels.super_flirts : 'ProFlirts' },
+    { key: 'proflirt', title: 'Spotlight' },
   ];
 
   useEffect(() => {
@@ -91,17 +92,19 @@ export default function Home() {
     ]);
   };
 
+  const onShowFlirtFilterModal = () => {
+    dispatch(toggleFlirtFilterModal(true));
+  }
+
   return (
     <View style={styles.container}>
       <GeneralHeader
         leftIcon={Icons.user_profile}
         onLeftPress={() => navigation.navigate('UserProfile')}
-        rightIcon={<TouchableOpacity activeOpacity={0.8}>
+        rightIcon={<TouchableOpacity activeOpacity={0.8} onPress={onShowFlirtFilterModal}>
           <FilterIcon width={24} height={24} />
         </TouchableOpacity>}
-        // onRightPress={()=>navigation.navigate('SearchScreen')}
         LanguageIcon={Icons.icon_languages}
-        onLanguagePress={() => dispatch(toggleLanguageModal(true))}
         label={appLabels.flirts}
       />
 
@@ -117,7 +120,18 @@ export default function Home() {
             style={styles.topTabContainer}
             labelStyle={styles.topTabLabel}
             activeColor={Colors.ui_primary}
-            inactiveColor={Colors.black}
+            inactiveColor={Colors.greydark}
+            tabStyle={{ flexDirection: 'row' }}
+            renderIcon={({ route, focused, color }) => {
+              if (route.key == 'proflirt') {
+                return (
+                  <View style={{ marginBottom: -15, marginTop: -5 }}>
+                    <BoostIcon width={50} height={50} />
+                  </View>
+                )
+              }
+            }
+            }
           />
         )}
       />

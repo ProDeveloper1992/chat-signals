@@ -7,21 +7,21 @@ import styles from './style';
 import { AppButton, AppText } from '../..';
 import { CloseIcon } from '../../../constants/svg-icons';
 import { MoreGenderItem } from '../../../components';
-import { setSelectedGender } from '../../../redux/actions/user-actions';
+import { setSexualOrientation } from '../../../redux/actions/user-actions';
 
 export default function SexualOrientationModal({ visible, onHideModal }) {
     const dispatch = useDispatch();
 
-    const { otherGenders } = useSelector((state) => state.userState);
+    const { sexualOrientations } = useSelector((state) => state.userState);
 
-    const [selectedGender, setGenderItem] = useState(otherGenders[0]);
+    const [selectedSexualOrientation, setSelectedSexualOrientation] = useState(sexualOrientations[0]);
 
     const onGenderItemPress = (item) => {
-        setGenderItem(item);
+        setSelectedSexualOrientation(item);
     }
 
     const onSavePress = () => {
-        dispatch(setSelectedGender(selectedGender));
+        dispatch(setSexualOrientation(selectedSexualOrientation));
         onHideModal();
     }
 
@@ -40,14 +40,14 @@ export default function SexualOrientationModal({ visible, onHideModal }) {
                         <CloseIcon width={28} height={28} />
                     </TouchableOpacity>
                 </View>
-                <AppText type={'bold'} size={24} style={{ alignSelf: 'center' }}>{"Sexual orientation"}</AppText>
+                <AppText type={'bold'} size={24} style={{ alignSelf: 'center', marginBottom: 20 }}>{"Sexual orientation"}</AppText>
                 <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                    {otherGenders.map((item, index) => {
+                    {sexualOrientations.map((item, index) => {
                         return <MoreGenderItem
                             key={String(index)}
-                            gender={item.gender}
+                            gender={item.title}
                             onPress={() => onGenderItemPress(item)}
-                            isSelected={selectedGender == item} />
+                            isSelected={selectedSexualOrientation == item} />
                     })}
                 </ScrollView>
                 <View style={styles.bottomButton}>

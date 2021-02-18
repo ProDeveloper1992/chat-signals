@@ -57,7 +57,7 @@ export function AppButton({ type, title, icon, style, onPress, loading, disabled
       case 'transparent':
         return Colors.white;
       case 'light':
-        return Colors.transparent;
+        return Colors.ui_primary;
       case 'google':
         return Colors.greydark;
       case 'facebook':
