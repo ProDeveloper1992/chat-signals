@@ -9,7 +9,7 @@ import {
   Platform,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppIndicatorLoader, ModeratorListItem } from '../../components';
+import { AppIndicatorLoader, ModeratorListItem, NoListData } from '../../components';
 import { useNavigation } from '@react-navigation/native';
 
 import styles from './style';
@@ -19,8 +19,7 @@ import { getFlirtsList } from '../../redux/actions/flirts-actions';
 export default function ProFlirtTab(props) {
   const dispatch = useDispatch();
 
-  const [search, setSearch] = useState('');
-  const { flirtsList, flirtsLoading } = useSelector((state) => state.flirtsState);
+  const { proFlirtsList, proFlirtsLoading } = useSelector((state) => state.flirtsState);
 
   useEffect(() => {
     let requestData = {
@@ -31,77 +30,16 @@ export default function ProFlirtTab(props) {
 
   const navigation = useNavigation();
 
-  const render_FlatList_header = () => {
-    return (
-      <View
-        style={{
-          flex: 1,
-          marginTop: 15,
-          marginBottom: 5,
-          marginHorizontal: 10,
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <View
-          style={{
-            flex: 0.85,
-            backgroundColor: Colors.white,
-            marginEnd: 10,
-            borderRadius: 4,
-            shadowColor: Colors.black,
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.1,
-            shadowRadius: 4,
-            elevation: 4,
-          }}>
-          <TextInput
-            style={{ paddingStart: 10, paddingVertical: Platform.OS === 'ios' ? 12 : 10 }}
-            placeholder="Search..."
-            value={search}
-            onChangeText={() => { }}
-          />
-        </View>
-        <TouchableOpacity
-          style={{
-            flex: 0.15,
-            height: '100%',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: Colors.ui_primary,
-            borderRadius: 4,
-            shadowColor: Colors.black,
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.1,
-            shadowRadius: 4,
-            elevation: 4,
-          }}
-          onPress={() => { }}
-          activeOpacity={0.5}>
-          <Image
-            source={Icons.search}
-            style={{
-              height: 24,
-              width: 24,
-              tintColor: Colors.white,
-            }}
-          />
-        </TouchableOpacity>
-      </View>
-    );
-  };
-
   return (
     <View style={styles.container}>
-      {flirtsLoading ? (
+      {proFlirtsLoading ? (
         <AppIndicatorLoader />
       ) : (
           <FlatList
-            data={flirtsList}
+            data={proFlirtsList}
             numColumns={2}
-            contentContainerStyle={{ paddingBottom: 20 }}
+            contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
             showsVerticalScrollIndicator={false}
-            // ListHeaderComponent={render_FlatList_header}
             renderItem={({ item, index }) => (
               <ModeratorListItem
                 item={item}
@@ -111,6 +49,7 @@ export default function ProFlirtTab(props) {
                 }
               />
             )}
+            ListEmptyComponent={<NoListData title={"No Pro Flirts Found!"} />}
             keyExtractor={(item, index) => index.toString()}
           />
         )}

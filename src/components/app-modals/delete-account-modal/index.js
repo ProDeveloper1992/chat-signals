@@ -54,7 +54,6 @@ export default function DeleteAccountModal({ visible, onHideModal }) {
                     type={'light'}
                     title={'Cancel'}
                     onPress={onHideModal}
-                    loading={loading}
                 />
             </View>
         </Modal>

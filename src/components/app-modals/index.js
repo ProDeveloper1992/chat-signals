@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   toggleAddPassionsModal,
+  toggleFlirtFilterModal,
   toggleGallerySwiperModal,
   toggleLanguageModal,
   toggleMoreGenderModal,
@@ -18,6 +19,7 @@ import DeleteAccountModal from './delete-account-modal';
 import AddPassionsModal from './add-passions-modal';
 import MoreGenderModal from './more-gender-modal';
 import SexualOrientationModal from './sexual-orientation-modal';
+import FlirtFilterModal from './filter-flirts-modal';
 
 export { ModeratorActivityModal, WebViewModal, RegisterLandingModal, ForgotPasswordModal, DeleteAccountModal };
 
@@ -28,13 +30,15 @@ export default function AppModals(props) {
     isGAllerySwiperModalVisible,
     isAddPassionsModalVisible,
     isMoreGenderModalVisible,
-    isSexualOrientationModalVisible } = useSelector((state) => state.appModalState);
+    isSexualOrientationModalVisible,
+    isFlirtFilterModalVisible } = useSelector((state) => state.appModalState);
 
   const LANGUAGE_MODAL = 'LANGUAGE_MODAL';
   const GALLERY_SWIPER_MODAL = 'GALLERY_SWIPER_MODAL';
   const ADD_PASSIONS_MODAL = 'ADD_PASSIONS_MODAL';
   const MORE_GENDER_MODAL = 'MORE_GENDER_MODAL';
   const SEXUAL_ORIENTATION_MODAL = 'SEXUAL_ORIENTATION_MODAL';
+  const FLIRT_FILTER_MODAL = 'FLIRT_FILTER_MODAL';
 
   const onCloseModal = (modal) => {
     switch (modal) {
@@ -52,6 +56,9 @@ export default function AppModals(props) {
         break;
       case SEXUAL_ORIENTATION_MODAL:
         dispatch(toggleSexualOrientationModal(false));
+        break;
+      case FLIRT_FILTER_MODAL:
+        dispatch(toggleFlirtFilterModal(false));
         break;
       default:
         break;
@@ -79,6 +86,10 @@ export default function AppModals(props) {
       <SexualOrientationModal
         visible={isSexualOrientationModalVisible}
         onHideModal={() => onCloseModal(SEXUAL_ORIENTATION_MODAL)}
+      />
+      <FlirtFilterModal
+        visible={isFlirtFilterModalVisible}
+        onHideModal={() => onCloseModal(FLIRT_FILTER_MODAL)}
       />
     </>
   );

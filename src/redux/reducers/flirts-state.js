@@ -6,7 +6,9 @@ import {
 
 const initialState = {
   flirtsLoading: false,
+  proFlirtsLoading: false,
   flirtsList: [],
+  proFlirtsList: [],
 };
 
 export default function (state = initialState, action) {

@@ -11,6 +11,7 @@ import {
   GET_USER_CHAT_LIST_FAIL,
   SET_SELECTED_USER_GENDER,
   SET_SELECTED_LOOKING_GENDER,
+  SET_SEXUAL_ORIENTATION,
   SET_USER_COUNTRY,
   SET_USER_PASSIONS,
   GET_BOOKMARKS_REQUEST,
@@ -22,6 +23,9 @@ import { showToast } from './app-actions';
 
 export const setSelectedGender = (genderData) => (dispatch) =>
   dispatch(ActionDispatcher(SET_SELECTED_USER_GENDER, genderData));
+
+export const setSexualOrientation = (sexualOrientation) => (dispatch) =>
+  dispatch(ActionDispatcher(SET_SEXUAL_ORIENTATION, sexualOrientation));
 
 export const setSelectedLookingGender = (genderData) => (dispatch) =>
   dispatch(ActionDispatcher(SET_SELECTED_LOOKING_GENDER, genderData));

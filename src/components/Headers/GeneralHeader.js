@@ -5,39 +5,13 @@ import { AppText } from '../../components';
 
 export function GeneralHeader({
   style,
-  leftIcon,
-  onLeftPress,
   label,
   rightIcon,
-  onRightPress,
-  LanguageIcon,
-  onLanguagePress,
 }) {
   return (
     <>
       <SafeAreaView style={{ backgroundColor: Colors.ui_primary }} />
       <View style={[styles.container, style]}>
-
-        {/* <View
-          style={{
-            flexDirection: 'row',
-            flex: 1,
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-          }}>
-          <TouchableOpacity onPress={onLanguagePress}>
-            <Image
-              style={{
-                height: 24,
-                width: 24,
-                resizeMode: 'contain',
-                tintColor: Colors.white,
-              }}
-              source={LanguageIcon}
-            />
-          </TouchableOpacity>
-        </View> */}
-
         <View style={styles.flexOne}>
           <AppText type={'bold'} size={16} color={Colors.white} style={styles.headerTitle}>
             {label}

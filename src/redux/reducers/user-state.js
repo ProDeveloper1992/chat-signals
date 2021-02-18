@@ -13,7 +13,8 @@ import {
   SET_SELECTED_USER_GENDER,
   SET_SELECTED_LOOKING_GENDER,
   SET_USER_COUNTRY,
-  SET_USER_PASSIONS
+  SET_USER_PASSIONS,
+  SET_SEXUAL_ORIENTATION
 } from '../actions/types';
 
 const initialState = {
@@ -25,6 +26,36 @@ const initialState = {
   userChatList: [],
   loadingChatList: false,
   userPassions: [],
+  userSexualOrientation: {
+    title: 'Straight'
+  },
+
+  sexualOrientations: [
+    {
+      title: 'Straight'
+    },
+    {
+      title: 'Gay'
+    },
+    {
+      title: 'Lesbian'
+    },
+    {
+      title: 'Bisexual'
+    },
+    {
+      title: 'Asexual'
+    },
+    {
+      title: 'Demisexual'
+    },
+    {
+      title: 'Pansexual'
+    },
+    {
+      title: 'Queer'
+    },
+  ],
 
   passions: [
     {
@@ -195,6 +226,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         userPassions: action.payload
+      }
+
+    case SET_SEXUAL_ORIENTATION:
+      return {
+        ...state,
+        userSexualOrientation: action.payload
       }
 
     default:

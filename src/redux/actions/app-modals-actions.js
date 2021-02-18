@@ -4,7 +4,8 @@ import {
     TOGGLE_GALLERY_SWIPER_MODAL,
     TOGGLE_ADD_PASSIONS_MODAL,
     TOGGLE_MORE_GENDER_MODAL,
-    TOGGLE_SEXUAL_ORIENTATION_MODAL
+    TOGGLE_SEXUAL_ORIENTATION_MODAL,
+    TOGGLE_FLIRT_FILTER_MODAL
 } from "./types";
 
 
@@ -22,3 +23,6 @@ export const toggleMoreGenderModal = (visible) => (dispatch) =>
 
 export const toggleSexualOrientationModal = (visible) => (dispatch) =>
     dispatch(ActionDispatcher(TOGGLE_SEXUAL_ORIENTATION_MODAL, visible));
+
+export const toggleFlirtFilterModal = (visible) => (dispatch) =>
+    dispatch(ActionDispatcher(TOGGLE_FLIRT_FILTER_MODAL, visible));

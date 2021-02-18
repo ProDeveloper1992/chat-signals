@@ -4,6 +4,7 @@ import { Colors } from '../../constants';
 export default StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: Colors.white
   },
   //Top Tab Bar
   topTabContainer: {
@@ -11,12 +12,13 @@ export default StyleSheet.create({
   },
   topTabIndicator: {
     backgroundColor: Colors.ui_primary,
-    height: 3,
+    height: 2,
     borderRadius: 30,
   },
   topTabLabel: {
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: '700',
-    letterSpacing: 1
+    letterSpacing: 1,
+    textTransform: 'capitalize'
   },
 });

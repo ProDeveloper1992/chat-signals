@@ -28,7 +28,7 @@ const RegisterWithEmail = (props) => {
   const dispatch = useDispatch();
 
   const { appLabels } = useSelector((state) => state.appState);
-  const { userPassions, selectedUserGender, passions } = useSelector((state) => state.userState);
+  const { userPassions, selectedUserGender, passions, userSexualOrientation } = useSelector((state) => state.userState);
 
   const [postalCode, setPostalCode] = useState('');
   const [loading, setLoading] = useState(false);
@@ -55,7 +55,7 @@ const RegisterWithEmail = (props) => {
   useEffect(() => {
   }, [])
 
-  const onBottomButtonPress = async () => {
+  const onRegisterUser = async () => {
     if (stepPosition == 0) {
       setStepPosition(1);
     } else {
@@ -317,6 +317,10 @@ const RegisterWithEmail = (props) => {
               onAddPress={onShowSexualOrientationModal}
             />
 
+            {userSexualOrientation && (
+              <AppText size={16}>{userSexualOrientation.title}</AppText>
+            )}
+
             <AppButton
               // disabled={postalCode.trim() === ''}
               title={'Continue'}
@@ -367,7 +371,9 @@ const RegisterWithEmail = (props) => {
             </TouchableOpacity>
             <View style={{ width: '100%', bottom: 20, position: 'absolute' }}>
               <AppButton
-                title={'Continue'} />
+                title={'Continue'}
+                onPress={onRegisterUser}
+                loading={loading} />
 
               <TextButton
                 style={{ alignSelf: 'center' }}
