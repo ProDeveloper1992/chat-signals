@@ -26,7 +26,7 @@ export default function DatePicker({ title, value, error, onChangeDate }) {
                 <CalenderIcon width={24} height={24} />
                 {/* <AppText style={{ marginStart: 15 }} color={Colors.greydark}>{birthDate || "MM/DD/YYYY"}</AppText> */}
                 <TextInputMask
-                    style={{ width: '100%', marginStart: 10, paddingVertical: Platform.OS === 'ios' ? 15 : 0 }}
+                    style={{ width: '100%', marginStart: 10, paddingVertical: Platform.OS === 'ios' ? 15 : 10 }}
                     type={'datetime'}
                     options={{
                         format: 'MM/DD/YYYY'

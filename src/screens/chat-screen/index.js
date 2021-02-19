@@ -50,24 +50,25 @@ const Chat = () => {
       // alert('pusher connected');
     });
 
-    var channel = pusher.subscribe('private-chatify');
-    channel.bind('pusher:subscription_error', function (err) {
-      console.log("subscription_error", err)
-    });
-    channel.bind('pusher:subscription_succeeded', () => {
-      channel.bind('join', (data) => {
-        alert(data);
-        // this.handleJoin(data.name);
-      });
-      channel.bind('part', (data) => {
-        alert(data);
-        // this.handlePart(data.name);
-      });
-      channel.bind('message', (data) => {
-        alert(data);
-        // this.handleMessage(data.name, data.message);
-      });
-    });
+    // var channel = pusher.subscribe('private-chatify');
+    // channel.bind('pusher:subscription_error', function (err) {
+    //   console.log("subscription_error", err)
+    // });
+    // channel.bind('pusher:subscription_succeeded', () => {
+    //   channel.bind('join', (data) => {
+    //     alert(data);
+    //     // this.handleJoin(data.name);
+    //   });
+    //   channel.bind('part', (data) => {
+    //     alert(data);
+    //     // this.handlePart(data.name);
+    //   });
+    //   channel.bind('message', (data) => {
+    //     alert(data);
+    //     // this.handleMessage(data.name, data.message);
+    //   });
+    // });
+
     // channel.bind('my-event', function (data) {
     //   alert(JSON.stringify(data));
     // });
@@ -89,7 +90,7 @@ const Chat = () => {
         onLanguagePress={() => dispatch(toggleLanguageModal(true))}
         label={'Messages'}
       />
-      {loadingChatList ? (
+      {loadingChatList && userChatList.length == 0 ? (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <ActivityIndicator size={'large'} color={Colors.ui_primary} />
         </View>

@@ -40,8 +40,10 @@ export default function SexualOrientationModal({ visible, onHideModal }) {
                         <CloseIcon width={28} height={28} />
                     </TouchableOpacity>
                 </View>
-                <AppText type={'bold'} size={24} style={{ alignSelf: 'center', marginBottom: 20 }}>{"Sexual orientation"}</AppText>
-                <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                <AppText type={'bold'} size={24} style={{ alignSelf: 'center' }}>{"Sexual orientation"}</AppText>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={{ flexGrow: 1 }}>
                     {sexualOrientations.map((item, index) => {
                         return <MoreGenderItem
                             key={String(index)}

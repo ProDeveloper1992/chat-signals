@@ -67,7 +67,7 @@ export default function AddPassionsModal({ visible, onHideModal }) {
                 <AppText
                     size={24}
                     type={'bold'}
-                    style={{ marginBottom: "5%" }}>{"Add Passions"}</AppText>
+                    style={{ marginBottom: "1%" }}>{"Add Passions"}</AppText>
 
                 <AuthInput
                     label={'Search for passions'}
@@ -87,7 +87,6 @@ export default function AddPassionsModal({ visible, onHideModal }) {
                 <AppButton
                     type={'primary'}
                     title={'Save'}
-                    style={{ marginBottom: 30 }}
                     onPress={onSavePassions}
                     loading={loading}
                 />

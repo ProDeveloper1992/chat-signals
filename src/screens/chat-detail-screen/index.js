@@ -8,6 +8,7 @@ import { AppText, ChatBubble, ChatInput, CommonImage } from '../../components';
 import { Colors, Icons } from '../../constants';
 import { getChatConversation } from '../../redux/actions/user-actions';
 import { InfoIcon } from '../../constants/svg-icons';
+import { sendMessage } from '../../redux/actions/chat-actions';
 
 const ChatDetail = (props) => {
   const navigation = useNavigation();
@@ -16,105 +17,6 @@ const ChatDetail = (props) => {
 
   const [messageText, setMessageText] = useState('');
   const [messages, setMessages] = useState([]);
-
-  const [chatData, setChatData] = useState([
-    {
-      id: -2105076426,
-      type: "Customer",
-      from_id: 5,
-      to_id: 1,
-      body: "Hello",
-      attachment: "51cc51b6-6fe5-44f5-a34c-34820b59431c.png,Gift",
-      seen: "0",
-      created_at: "2020-12-09T11:07:05.000000Z",
-      updated_at: "2020-12-09T11:07:07.000000Z",
-      moderator_id: 85
-    },
-    {
-      id: -2105073226,
-      type: "Customer",
-      from_id: 1,
-      to_id: 5,
-      body: "Hey, whasup???",
-      attachment: "51cc51b6-6fe5-44f5-a34c-34820b59431c.png,Gift",
-      seen: "1",
-      created_at: "2020-12-09T11:07:05.000000Z",
-      updated_at: "2020-12-09T11:07:07.000000Z",
-      moderator_id: 85
-    },
-    {
-      id: -2105076426,
-      type: "Customer",
-      from_id: 5,
-      to_id: 1,
-      body: "Nothing, enjoying party!!",
-      attachment: "51cc51b6-6fe5-44f5-a34c-34820b59431c.png,Gift",
-      seen: "0",
-      created_at: "2020-12-09T11:07:05.000000Z",
-      updated_at: "2020-12-09T11:07:07.000000Z",
-      moderator_id: 85
-    },
-    {
-      id: -2105073226,
-      type: "Customer",
-      from_id: 1,
-      to_id: 5,
-      body: "Great!!!",
-      attachment: "51cc51b6-6fe5-44f5-a34c-34820b59431c.png,Gift",
-      seen: "1",
-      created_at: "2020-12-09T11:07:05.000000Z",
-      updated_at: "2020-12-09T11:07:07.000000Z",
-      moderator_id: 85
-    },
-    {
-      id: -2105076426,
-      type: "Customer",
-      from_id: 5,
-      to_id: 1,
-      body: "What about you?",
-      attachment: "51cc51b6-6fe5-44f5-a34c-34820b59431c.png,Gift",
-      seen: "0",
-      created_at: "2020-12-09T11:07:05.000000Z",
-      updated_at: "2020-12-09T11:07:07.000000Z",
-      moderator_id: 85
-    },
-    {
-      id: -2105073226,
-      type: "Customer",
-      from_id: 1,
-      to_id: 5,
-      body: "I'm going to weekend trip..!",
-      attachment: "51cc51b6-6fe5-44f5-a34c-34820b59431c.png,Gift",
-      seen: "1",
-      created_at: "2020-12-09T11:07:05.000000Z",
-      updated_at: "2020-12-09T11:07:07.000000Z",
-      moderator_id: 85
-    },
-    {
-      id: -2105076426,
-      type: "Customer",
-      from_id: 5,
-      to_id: 1,
-      body: "Wow!!! Woohoo!!!",
-      attachment: "51cc51b6-6fe5-44f5-a34c-34820b59431c.png,Gift",
-      seen: "0",
-      created_at: "2020-12-09T11:07:05.000000Z",
-      updated_at: "2020-12-09T11:07:07.000000Z",
-      moderator_id: 85
-    },
-    {
-      id: -2105073226,
-      type: "Customer",
-      from_id: 1,
-      to_id: 5,
-      body: "Yeah:)",
-      attachment: "51cc51b6-6fe5-44f5-a34c-34820b59431c.png,Gift",
-      seen: "1",
-      created_at: "2020-12-09T11:07:05.000000Z",
-      updated_at: "2020-12-09T11:07:07.000000Z",
-      moderator_id: 85
-    }
-  ])
 
   const { userData } = useSelector((state) => state.userState);
 
@@ -137,20 +39,20 @@ const ChatDetail = (props) => {
     }
   }
 
-  const onSendTextMessage = () => {
+  const onSendTextMessage = async () => {
     let messageToSend = {
-      id: -2105073226,
-      type: "Customer",
-      from_id: 1,
-      to_id: 5,
-      body: messageText,
-      attachment: "51cc51b6-6fe5-44f5-a34c-34820b59431c.png,Gift",
-      seen: "1",
-      created_at: "2020-12-09T11:07:05.000000Z",
-      updated_at: "2020-12-09T11:07:07.000000Z",
-      moderator_id: 85
+      id: 109,
+      customer_id: customer.user.id,
+      message: messageText,
+      // file:'',
+      // gift_id:null
     };
-    chatData.push(messageToSend);
+    await dispatch(sendMessage(messageToSend));
+    setMessageText('')
+    const response = await dispatch(getChatConversation(customer.user.id));
+    if (response.meta.status) {
+      setMessages(response.data);
+    }
   }
 
   return (
@@ -165,7 +67,7 @@ const ChatDetail = (props) => {
         <CommonImage size={44} borderColor={Colors.white} />
         <View style={{ flex: 1, paddingHorizontal: 12 }}>
           <AppText type={'bold'} size={18}>{customer.user.username}</AppText>
-          <AppText type={'regular'} size={12} color={Colors.greydark}>{"Last seen 15 min ago"}</AppText>
+          <AppText type={'regular'} size={12} color={Colors.greydark}>{"Online"}</AppText>
         </View>
         <TouchableOpacity style={{ marginBottom: -10 }}>
           <InfoIcon width={40} height={40} />
@@ -180,7 +82,11 @@ const ChatDetail = (props) => {
         )}
         keyExtractor={(item, index) => String(index)}
       />
-      <ChatInput placeholder={'Type message...'} onSendPress={() => onSendTextMessage()} onChangeText={(text) => setMessageText(text)} />
+      <ChatInput
+        value={messageText}
+        placeholder={'Type message...'}
+        onSendPress={() => onSendTextMessage()}
+        onChangeMessage={(text) => setMessageText(text)} />
     </View>
     // </TouchableWithoutFeedback>
   );

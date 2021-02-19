@@ -21,7 +21,7 @@ export const getFlirtsList = (requestData) => (dispatch) =>
       })
       .catch((err) => {
         dispatch(ActionDispatcher(GET_FLIRTS_FAILED));
-        resolve({ data: { success: false } });
+        resolve({ meta: { status: false } });
         reject(err);
       });
   });

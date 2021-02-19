@@ -120,16 +120,16 @@ const CoinPurchase = () => {
                           height: 110,
                           alignItems: 'center',
                           justifyContent: 'space-between',
-                          padding: 10,
                           margin: 10,
                           backgroundColor: Colors.white,
                           borderRadius: 20,
                           borderWidth: 3,
-                          borderColor: selectedPackage ? selectedPackage.id === item.id ? Colors.ui_primary : Colors.transparent : Colors.transparent,
+                          borderColor: selectedPackage ? selectedPackage.id === item.id ? Colors.ui_primary : Colors.grey_light : Colors.grey_light,
                           shadowColor: 'black',
                           shadowOffset: { width: 0, height: 1 },
                           shadowRadius: 2,
                           shadowOpacity: 0.2,
+                          elevation: 2
                         }}>
                         <View style={{ alignItems: 'center' }}>
                           <CoinGradientIcon />

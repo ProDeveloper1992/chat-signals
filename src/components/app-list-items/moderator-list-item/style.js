@@ -16,20 +16,9 @@ export default StyleSheet.create({
     marginTop: 20,
     width: listItemWidth,
     height: listItemHeight,
-    backgroundColor: 'lightgrey',
+    backgroundColor: Colors.grey,
     borderRadius: 20,
     // justifyContent: 'flex-end',
-  },
-  onlineStatusSignal: function (isOnline) {
-    return {
-      height: 12,
-      width: 12,
-      borderRadius: 6,
-      marginStart: 10,
-      backgroundColor: isOnline ? Colors.ui_user_active : Colors.ui_user_active,
-      borderWidth: 2,
-      borderColor: Colors.white
-    };
   },
   onlineStatusText: { color: Colors.black, fontSize: 12 },
   bottomContainer: {
@@ -70,6 +59,7 @@ export default StyleSheet.create({
     textTransform: 'capitalize',
     textShadowColor: 'rgba(0, 0, 0, 0.50)',
     textShadowOffset: { width: -1, height: 1 },
-    textShadowRadius: 10
+    textShadowRadius: 10,
+    marginEnd: 10
   }
 });

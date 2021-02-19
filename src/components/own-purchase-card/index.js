@@ -124,6 +124,7 @@ var customStyles4 = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowRadius: 2,
         shadowOpacity: 0.35,
+        elevation: 2
     }
 });
 

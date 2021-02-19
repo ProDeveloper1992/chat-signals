@@ -21,6 +21,7 @@ import OwnPurchaseCard from './own-purchase-card';
 import DatePicker from './app-date-picker';
 import CommonImage from './app-common-image';
 import AppDropDown from './app-drop-down';
+import { OnlineStatusCircle } from './user-online-status';
 
 export {
   AppText,
@@ -52,5 +53,6 @@ export {
   NotificationItem,
   ModeratorListItem,
   FriendRequestItem,
-  AppDropDown
+  AppDropDown,
+  OnlineStatusCircle
 };

@@ -7,7 +7,7 @@ import {
   Switch,
   TouchableOpacity,
 } from 'react-native';
-import { NoListData, AppText, BackHeader, TagItem } from '../../components';
+import { NoListData, AppText, BackHeader, TagItem, OnlineStatusCircle } from '../../components';
 import { Icons, Colors, DEFAULT_IMAGE_URL } from '../../constants';
 import styles from './style';
 import { ModeratorIconLabel } from '../../components';
@@ -83,10 +83,10 @@ export default function ModeratorProfile(props) {
             <View style={styles.moderatorSwitchContainer}>
               <View style={{ flex: 0.7 }}>
                 <View style={styles.moderatorNameContainer}>
-                  <AppText type={'bold'} size={18} style={{ textTransform: 'capitalize' }}>
+                  <AppText type={'bold'} size={18} style={{ textTransform: 'capitalize', marginEnd: 10 }}>
                     {params.item.username}
                   </AppText>
-                  <View style={styles.onlineStatusSignal(params.item.is_online)} />
+                  <OnlineStatusCircle isOnline={true} size={12} />
                 </View>
                 <AppText type={'regular'} style={{ textTransform: 'capitalize' }}>
                   {params.item.city + ", " + params.item.country}

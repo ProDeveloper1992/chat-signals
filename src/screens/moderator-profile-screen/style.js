@@ -75,16 +75,4 @@ export default StyleSheet.create({
     borderLeftWidth: 0.5,
     borderColor: Colors.grey,
   },
-
-  onlineStatusSignal: function (isOnline) {
-    return {
-      height: 12,
-      width: 12,
-      borderRadius: 6,
-      marginStart: 5,
-      backgroundColor: isOnline ? Colors.green : Colors.red,
-      borderWidth: 2,
-      borderColor: Colors.white,
-    };
-  },
 });
