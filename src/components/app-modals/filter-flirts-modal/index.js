@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, ScrollView } from 'react-native';
 import Modal from 'react-native-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { Colors } from '../../../constants';
@@ -32,11 +32,13 @@ export default function FlirtFilterModal({ visible, onHideModal }) {
                         <CloseIcon width={28} height={28} />
                     </TouchableOpacity>
                 </View>
-                <View style={{ flex: 1 }}>
-                    <AppText
-                        size={24}
-                        type={'bold'}
-                        style={{ marginBottom: 20 }}>{"Filter Flirt suggestions"}</AppText>
+                <AppText
+                    size={24}
+                    type={'bold'}
+                    style={{ marginBottom: 20 }}>{"Filter Flirt suggestions"}</AppText>
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    style={{ flex: 1 }}>
                     <AppDropDown
                         title={appLabels.i_am_looking_for}
                         value={'Women'} />
@@ -53,20 +55,22 @@ export default function FlirtFilterModal({ visible, onHideModal }) {
                     <AppDropDown
                         title={"Sexual orientation"}
                         value={userSexualOrientation.title} />
-                </View>
-                <AppButton
-                    type={'primary'}
-                    title={'Save'}
-                    style={{ marginTop: "20%", marginBottom: 10 }}
-                    onPress={() => { }}
-                    loading={loading}
-                />
+                </ScrollView>
+                <View style={{ backgroundColor: Colors.white }}>
+                    <AppButton
+                        type={'primary'}
+                        title={'Save'}
+                        style={{ marginVertical: 10 }}
+                        onPress={() => { }}
+                        loading={loading}
+                    />
 
-                <AppButton
-                    type={'light'}
-                    title={'Reset Filters'}
-                    onPress={onHideModal}
-                />
+                    <AppButton
+                        type={'light'}
+                        title={'Reset Filters'}
+                        onPress={onHideModal}
+                    />
+                </View>
             </View>
         </Modal>
     );

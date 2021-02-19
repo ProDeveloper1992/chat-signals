@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TouchableOpacity, ImageBackground, View, Image } from 'react-native';
 import { Colors, DEFAULT_IMAGE_URL, Icons } from '../../../constants';
 import styles from './style';
-import { AppText } from '../../index';
+import { AppText, OnlineStatusCircle } from '../../index';
 
 export default function ModeratorListItem({ item, onPress, bookmarked }) {
 
@@ -41,7 +41,7 @@ export default function ModeratorListItem({ item, onPress, bookmarked }) {
             <AppText type={'bold'} color={Colors.white} size={20} style={styles.userName}>
               {item.username}
             </AppText>
-            <View style={styles.onlineStatusSignal(item.is_online)} />
+            <OnlineStatusCircle isOnline={true} size={12} />
           </View>
           <AppText
             size={16}

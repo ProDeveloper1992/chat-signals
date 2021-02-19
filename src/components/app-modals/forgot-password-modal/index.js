@@ -96,7 +96,7 @@ export default function ForgotPasswordModal({ visible, onHideModal }) {
                     loading={loading}
                 />
                 <AppText
-                    style={{ textAlign: 'center', marginTop: 25, marginBottom: 25 }}
+                    style={{ textAlign: 'center', marginTop: 25 }}
                     size={16}
                     onPress={onHideModal}
                     type={'bold'}>{"Back to login"}</AppText>

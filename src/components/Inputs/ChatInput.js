@@ -13,9 +13,7 @@ import {
 } from '../../constants/svg-icons';
 import { useSelector } from 'react-redux';
 
-export function ChatInput({ style, onSendPress, ...props }) {
-
-    const [messageText, setMessageText] = useState('');
+export function ChatInput({ style, value, onChangeMessage, onSendPress, ...props }) {
 
     const { userData } = useSelector((state) => state.userState);
 
@@ -30,7 +28,7 @@ export function ChatInput({ style, onSendPress, ...props }) {
                     />
                     <IconWithValue
                         icon={<AppText type={'bold'} size={17}>{"Aa"}</AppText>}
-                        minimumValue={messageText.length}
+                        minimumValue={value.length}
                         maximumValue={250}
                     />
                     {userData && (
@@ -53,10 +51,11 @@ export function ChatInput({ style, onSendPress, ...props }) {
                             styles.input,
                             style
                         ]}
+                        value={value}
                         placeholderTextColor={'darkgray'}
                         autoCapitalize={'none'}
                         maxLength={250}
-                        onChangeText={(text) => setMessageText(text)}
+                        onChangeText={onChangeMessage}
                     />
                     <TouchableOpacity activeOpacity={0.8} style={styles.sendIconContainer} onPress={onSendPress}>
                         <SendMessageIcon width={24} height={24} />
