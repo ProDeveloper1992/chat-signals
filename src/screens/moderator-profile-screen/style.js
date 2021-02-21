@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import { Colors } from '../../constants';
 
 export default StyleSheet.create({
@@ -75,4 +75,18 @@ export default StyleSheet.create({
     borderLeftWidth: 0.5,
     borderColor: Colors.grey,
   },
+  inactiveViewPaggerDot: function (pages) {
+    return {
+      width: Dimensions.get('window').width / (pages + (pages / 3)),
+      height: 4,
+      backgroundColor: 'rgba(255,255,255,0.4)'
+    }
+  },
+  activeViewPaggerDot: function (pages) {
+    return {
+      width: Dimensions.get('window').width / (pages + (pages / 3)),
+      height: 4,
+      backgroundColor: Colors.white
+    }
+  }
 });

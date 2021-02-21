@@ -28,6 +28,7 @@ import SearchIcon from '../assets/icons/search.svg';
 import CloseIcon from '../assets/icons/close.svg';
 import DropDownIcon from '../assets/icons/drop_down.svg';
 import DropUpIcon from '../assets/icons/drop_up.svg';
+import XXXCoinIcon from '../assets/icons/xxx-coin.svg';
 
 export {
     EmailIcon,
@@ -59,5 +60,6 @@ export {
     SearchIcon,
     CloseIcon,
     DropDownIcon,
-    DropUpIcon
+    DropUpIcon,
+    XXXCoinIcon
 }

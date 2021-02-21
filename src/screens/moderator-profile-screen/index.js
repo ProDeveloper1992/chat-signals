@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Image,
@@ -6,7 +6,11 @@ import {
   ScrollView,
   Switch,
   TouchableOpacity,
+  Text,
+  Dimensions,
 } from 'react-native';
+import { PagerTabIndicator, IndicatorViewPager, PagerTitleIndicator, PagerDotIndicator } from 'rn-viewpager';
+
 import { NoListData, AppText, BackHeader, TagItem, OnlineStatusCircle } from '../../components';
 import { Icons, Colors, DEFAULT_IMAGE_URL } from '../../constants';
 import styles from './style';
@@ -22,8 +26,11 @@ import {
   StickerGradientIcon,
   StarOutlineIcon,
   StarFilledIcon,
-  DotsCircleIcon
+  DotsCircleIcon,
+  XXXCoinIcon,
+  CoinGradientIcon
 } from '../../constants/svg-icons';
+import { showToast } from '../../redux/actions/app-actions';
 
 export default function ModeratorProfile(props) {
 
@@ -37,6 +44,45 @@ export default function ModeratorProfile(props) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [activityType, setActivityType] = useState('kisses');
   const [activityModalVisible, setActivityModalVisible] = useState(false);
+
+  const IMAGES = [
+    {
+      image_url: params.item.picture,
+      is_locked: false
+    },
+    {
+      image_url: params.item.picture,
+      is_locked: true
+    },
+    {
+      image_url: params.item.picture,
+      is_locked: false
+    },
+    {
+      image_url: params.item.picture,
+      is_locked: true
+    },
+    {
+      image_url: params.item.picture,
+      is_locked: false
+    },
+    {
+      image_url: params.item.picture,
+      is_locked: true
+    },
+    {
+      image_url: params.item.picture,
+      is_locked: false
+    },
+    {
+      image_url: params.item.picture,
+      is_locked: false
+    }
+  ];
+
+  useEffect(() => {
+    console.log("Mederator Detail...", params.item)
+  }, [])
 
   const toggleSwitch = async () => {
     setIsFavorite(!isFavorite);
@@ -64,20 +110,73 @@ export default function ModeratorProfile(props) {
     // navigation.navigate('ChatDetail', { item: params.item });
   }
 
+  const _renderDotIndicator = (pages) => {
+    return <PagerDotIndicator
+      pageCount={pages}
+      dotStyle={styles.inactiveViewPaggerDot(pages)}
+      selectedDotStyle={styles.activeViewPaggerDot(pages)} />;
+  }
+
+  const onUnlockEroticImage = () => {
+    dispatch(showToast('negative', 'This feature is under development!'))
+  }
+
   return (
     <View style={styles.container}>
       <BackHeader title={'Flirts'} color={Colors.ui_primary} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
-          <ImageBackground
-            style={styles.imgBackground}
-            resizeMode="cover"
-            source={{ uri: getItemImage(params.item.picture) }}>
-            {/* <ModeratorHeader
-            label={params.item.username}
-            onBackPress={() => props.navigation.goBack()}
-          /> */}
-          </ImageBackground>
+
+
+          <IndicatorViewPager
+            style={{ height: 300 }}
+            indicator={_renderDotIndicator(IMAGES.length)}
+          >
+            {IMAGES.map((item, index) => {
+              return <ImageBackground
+                key={String(index)}
+                blurRadius={item.is_locked ? 20 : 0}
+                style={styles.imgBackground}
+                resizeMode="cover"
+                source={{ uri: getItemImage(item.image_url) }}>
+                {item.is_locked && (
+                  <View style={{
+                    flex: 1,
+                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
+                    <XXXCoinIcon width={60} height={60} />
+                    <AppText
+                      type={'black-italic'}
+                      size={16}
+                      style={{ marginTop: -10 }}
+                      color={Colors.white}>{"EROTIC IMAGE"}</AppText>
+                    <TouchableOpacity
+                      onPress={onUnlockEroticImage}
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        paddingHorizontal: 15,
+                        paddingVertical: 12,
+                        borderWidth: 1,
+                        borderColor: Colors.white,
+                        borderRadius: 46,
+                        paddingBottom: -10,
+                        paddingTop: -10,
+                        marginTop: 15
+                      }}>
+                      <View style={{ marginBottom: -5, marginTop: 5, marginStart: -10 }}>
+                        <CoinGradientIcon width={40} height={40} />
+                      </View>
+                      <AppText type={'black-italic'} size={12} color={Colors.white} uppercase>{`Unlock for ${10} coins`}</AppText>
+                    </TouchableOpacity>
+                  </View>
+                )}
+              </ImageBackground>
+            })}
+
+          </IndicatorViewPager>
 
           <View style={{ padding: 15 }}>
             <View style={styles.moderatorSwitchContainer}>

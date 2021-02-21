@@ -15,6 +15,10 @@ const getFontFamily = (type) => {
       return 'Poppins-Black';
     case 'light':
       return 'Poppins-Light';
+    case 'bold-italic':
+      return 'Poppins-BoldItalic';
+    case 'black-italic':
+      return 'Poppins-BlackItalic';
     default:
       return 'Poppins-Regular';
   }
@@ -33,7 +37,7 @@ AppText.propTypes = {
   color: PropTypes.string,
   uppercase: PropTypes.bool,
 
-  type: PropTypes.oneOf(['regular', 'medium', 'bold', 'heavy', 'light']),
+  type: PropTypes.oneOf(['regular', 'medium', 'bold', 'heavy', 'light', 'bold-italic', 'black-italic']),
 };
 
 AppText.defaultProps = {
