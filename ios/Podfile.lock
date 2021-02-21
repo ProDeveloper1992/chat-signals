@@ -354,6 +354,8 @@ PODS:
     - React
   - react-native-splash-screen (3.2.0):
     - React
+  - react-native-viewpager (4.2.3):
+    - React-Core
   - react-native-webview (11.2.0):
     - React-Core
   - React-RCTActionSheet (0.63.2):
@@ -482,6 +484,7 @@ DEPENDENCIES:
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
+  - "react-native-viewpager (from `../node_modules/@react-native-community/viewpager`)"
   - react-native-webview (from `../node_modules/react-native-webview`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -578,6 +581,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-splash-screen:
     :path: "../node_modules/react-native-splash-screen"
+  react-native-viewpager:
+    :path: "../node_modules/@react-native-community/viewpager"
   react-native-webview:
     :path: "../node_modules/react-native-webview"
   React-RCTActionSheet:
@@ -669,6 +674,7 @@ SPEC CHECKSUMS:
   react-native-netinfo: 0212ce8604e88edf686f1481b925b17a42a52449
   react-native-safe-area-context: 344b969c45af3d8464d36e8dea264942992ef033
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
+  react-native-viewpager: 936c67cba6e9ca19793d04321427a44cb8e43395
   react-native-webview: 944b6b607b3e362437dfdaf3ba979e47f4e1c939
   React-RCTActionSheet: 910163b6b09685a35c4ebbc52b66d1bfbbe39fc5
   React-RCTAnimation: 9a883bbe1e9d2e158d4fb53765ed64c8dc2200c6

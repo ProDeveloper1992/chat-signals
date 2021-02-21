@@ -47,7 +47,9 @@ const CoinPurchase = () => {
   const onPaymentGatwayItemPress = (paymentItem) => {
     console.log("paymentItem", paymentItem);
     setSelectedPaymentGateway(paymentItem);
-    setSelectedPackage(null);
+    setSelectedPackage(paymentItem.packagemodules[0]);
+    let price = paymentItem.packagemodules[0].price * 1;
+    setOwnPackagePrice(price);
   }
 
   const onSelectPackageModule = (item) => {
@@ -96,14 +98,6 @@ const CoinPurchase = () => {
           <>
             <View>
               <AppText type={'bold'} size={16}>{"step 2 - Choose your package size"}</AppText>
-              <OwnPurchaseCard
-                sliderCount={ownPackagePrice}
-                minimumSliderCount={0}
-                maximumSliderCount={500}
-                onChangeSliderValue={(value) => onChangeOwnPackagePrice(value)}
-                creditPerCurrency={perEuroCredit}
-                paymentUrl={selectedPaymentGateway.payment_url} />
-
               {selectedPaymentGateway.packagemodules && (
                 <>
                   <FlatList
@@ -164,6 +158,13 @@ const CoinPurchase = () => {
                   )} */}
                 </>
               )}
+              <OwnPurchaseCard
+                sliderCount={ownPackagePrice}
+                minimumSliderCount={0}
+                maximumSliderCount={500}
+                onChangeSliderValue={(value) => onChangeOwnPackagePrice(value)}
+                creditPerCurrency={perEuroCredit}
+                paymentUrl={selectedPaymentGateway.payment_url} />
             </View>
           </>
         )}
