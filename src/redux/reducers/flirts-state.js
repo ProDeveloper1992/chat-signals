@@ -24,6 +24,7 @@ export default function (state = initialState, action) {
         ...state,
         flirtsLoading: false,
         flirtsList: action.payload,
+        proFlirtsList: action.payload
       };
 
     case GET_FLIRTS_FAILED:

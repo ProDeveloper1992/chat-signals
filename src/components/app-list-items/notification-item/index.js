@@ -90,7 +90,7 @@ export default function NotificationItem({
 NotificationItem.propTypes = {
     profileImage: PropTypes.any,
     userName: PropTypes.string,
-    time: PropTypes.string,
+    time: PropTypes.any,
     type: PropTypes.string,
     onChatPress: PropTypes.func,
 };

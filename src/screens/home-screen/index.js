@@ -17,6 +17,7 @@ import { getGeneralSettings } from '../../redux/actions/app-actions';
 
 import FilterIcon from '../../assets/icons/filter.svg';
 import { BoostIcon, KissGradientIcon32 } from '../../constants/svg-icons';
+import { SpotlightModal } from '../../components/app-modals';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
@@ -28,6 +29,7 @@ export default function Home() {
   const { appLabels } = useSelector((state) => state.appState);
   const { authToken } = useSelector((state) => state.userState);
 
+  const [isSpotlightModalVisible, setSpolightModalVisible] = useState(false);
   const [index, setIndex] = useState(0);
   const routes = [
     { key: 'flirt', title: appLabels.flirts },
@@ -69,31 +71,21 @@ export default function Home() {
     proflirt: ProFlirtTab,
   });
 
-  const onLogout = () => {
-    Alert.alert('Confirm Logout!', 'Are you sure you want to logout?', [
-      {
-        text: 'No',
-        onPress: () => null,
-        style: 'cancel',
-      },
-      {
-        text: 'Yes',
-        onPress: async () => {
-          AsyncStorage.clear();
-          try {
-            await GoogleSignin.revokeAccess();
-            await GoogleSignin.signOut();
-          } catch (error) {
-            // console.error(error);
-          }
-          navigation.navigate('auth-stack');
-        },
-      },
-    ]);
-  };
-
   const onShowFlirtFilterModal = () => {
     dispatch(toggleFlirtFilterModal(true));
+  }
+
+  const onChangeTab = (index) => {
+    if (index === 1) {
+      setSpolightModalVisible(true);
+    } else {
+      setIndex(index)
+    }
+  }
+
+  const onGoToSpotlightTab = () => {
+    setSpolightModalVisible(false);
+    setIndex(1);
   }
 
   return (
@@ -111,7 +103,8 @@ export default function Home() {
       <TabView
         navigationState={{ index, routes }}
         renderScene={renderScene}
-        onIndexChange={setIndex}
+        onIndexChange={onChangeTab}
+        swipeEnabled={false}
         initialLayout={initialLayout}
         renderTabBar={(props) => (
           <TabBar
@@ -135,6 +128,10 @@ export default function Home() {
           />
         )}
       />
+      <SpotlightModal
+        visible={isSpotlightModalVisible}
+        onContinue={onGoToSpotlightTab}
+        onHideModal={() => setSpolightModalVisible(false)} />
     </View>
   );
 }

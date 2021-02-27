@@ -22,6 +22,8 @@ import DatePicker from './app-date-picker';
 import CommonImage from './app-common-image';
 import AppDropDown from './app-drop-down';
 import { OnlineStatusCircle } from './user-online-status';
+import AppGiftBadge from './app-gift-badge';
+import { GenderMenu } from './app-menus';
 
 export {
   AppText,
@@ -54,5 +56,8 @@ export {
   ModeratorListItem,
   FriendRequestItem,
   AppDropDown,
-  OnlineStatusCircle
+  OnlineStatusCircle,
+  AppGiftBadge,
+  //Menus
+  GenderMenu
 };
