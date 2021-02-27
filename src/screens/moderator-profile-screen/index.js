@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Text,
   Dimensions,
+  Platform,
 } from 'react-native';
 import { PagerTabIndicator, IndicatorViewPager, PagerTitleIndicator, PagerDotIndicator } from 'rn-viewpager';
 
@@ -135,7 +136,7 @@ export default function ModeratorProfile(props) {
             {IMAGES.map((item, index) => {
               return <ImageBackground
                 key={String(index)}
-                blurRadius={item.is_locked ? 20 : 0}
+                blurRadius={item.is_locked ? Platform.OS == 'ios' ? 20 : 5 : 0}
                 style={styles.imgBackground}
                 resizeMode="cover"
                 source={{ uri: getItemImage(item.image_url) }}>

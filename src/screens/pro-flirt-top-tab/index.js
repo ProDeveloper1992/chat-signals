@@ -42,6 +42,7 @@ export default function ProFlirtTab(props) {
             showsVerticalScrollIndicator={false}
             renderItem={({ item, index }) => (
               <ModeratorListItem
+                isBoosted
                 item={item}
                 key={String(index)}
                 onPress={() =>

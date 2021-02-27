@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   toggleAddPassionsModal,
+  toggleCoinsEarningModal,
   toggleFlirtFilterModal,
   toggleGallerySwiperModal,
   toggleLanguageModal,
@@ -20,8 +21,17 @@ import AddPassionsModal from './add-passions-modal';
 import MoreGenderModal from './more-gender-modal';
 import SexualOrientationModal from './sexual-orientation-modal';
 import FlirtFilterModal from './filter-flirts-modal';
+import SpotlightModal from './spotlight-modal';
+import CoinsEarningModal from './coins-earning-modal';
 
-export { ModeratorActivityModal, WebViewModal, RegisterLandingModal, ForgotPasswordModal, DeleteAccountModal };
+export {
+  ModeratorActivityModal,
+  WebViewModal,
+  RegisterLandingModal,
+  ForgotPasswordModal,
+  DeleteAccountModal,
+  SpotlightModal,
+};
 
 export default function AppModals(props) {
   const dispatch = useDispatch();
@@ -31,7 +41,8 @@ export default function AppModals(props) {
     isAddPassionsModalVisible,
     isMoreGenderModalVisible,
     isSexualOrientationModalVisible,
-    isFlirtFilterModalVisible } = useSelector((state) => state.appModalState);
+    isFlirtFilterModalVisible,
+    isCoinsEarningModalVisible } = useSelector((state) => state.appModalState);
 
   const LANGUAGE_MODAL = 'LANGUAGE_MODAL';
   const GALLERY_SWIPER_MODAL = 'GALLERY_SWIPER_MODAL';
@@ -39,6 +50,7 @@ export default function AppModals(props) {
   const MORE_GENDER_MODAL = 'MORE_GENDER_MODAL';
   const SEXUAL_ORIENTATION_MODAL = 'SEXUAL_ORIENTATION_MODAL';
   const FLIRT_FILTER_MODAL = 'FLIRT_FILTER_MODAL';
+  const COINS_EARNING_MODAL = 'COINS_EARNING_MODAL';
 
   const onCloseModal = (modal) => {
     switch (modal) {
@@ -59,6 +71,9 @@ export default function AppModals(props) {
         break;
       case FLIRT_FILTER_MODAL:
         dispatch(toggleFlirtFilterModal(false));
+        break;
+      case COINS_EARNING_MODAL:
+        dispatch(toggleCoinsEarningModal(false));
         break;
       default:
         break;
@@ -90,6 +105,10 @@ export default function AppModals(props) {
       <FlirtFilterModal
         visible={isFlirtFilterModalVisible}
         onHideModal={() => onCloseModal(FLIRT_FILTER_MODAL)}
+      />
+      <CoinsEarningModal
+        visible={isCoinsEarningModalVisible}
+        onHideModal={() => onCloseModal(COINS_EARNING_MODAL)}
       />
     </>
   );

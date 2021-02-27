@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { SafeAreaView, Alert, BackHandler } from 'react-native';
+import { SafeAreaView, Alert, BackHandler, View } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -17,6 +17,7 @@ import {
 import BottomTabBar from '../components/BottomTabBar';
 import { Colors } from '../constants';
 import { useSelector } from 'react-redux';
+import { AppGiftBadge, AppText } from '../components';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -101,6 +102,10 @@ const BottomTabNavigator = () => {
       tabBar={(props) => (
         <>
           <BottomTabBar {...props} />
+
+          <View style={{ position: 'absolute', bottom: "18%" }}>
+            <AppGiftBadge />
+          </View>
           <SafeAreaView style={{ backgroundColor: 'white' }} />
         </>
       )}>

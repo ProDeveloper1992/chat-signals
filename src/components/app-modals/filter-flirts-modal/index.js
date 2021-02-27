@@ -4,15 +4,16 @@ import { View, TouchableOpacity, ScrollView } from 'react-native';
 import Modal from 'react-native-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { Colors } from '../../../constants';
-import { AppButton, AppDropDown, AppText, AuthInput } from '../../index';
+import { AppButton, AppDropDown, AppText, AuthInput, GenderMenu } from '../../index';
 import styles from './style';
 
 import CloseIcon from '../../../assets/icons/close.svg';
+import { toggleLanguageModal, toggleSexualOrientationModal } from '../../../redux/actions/app-modals-actions';
 
 export default function FlirtFilterModal({ visible, onHideModal }) {
 
     const dispatch = useDispatch();
-    const { appLabels } = useSelector((state) => state.appState);
+    const { appLabels, selectedLanguage } = useSelector((state) => state.appState);
     const { userSexualOrientation } = useSelector((state) => state.userState);
 
     const [loading, setLoading] = useState(false);
@@ -39,22 +40,23 @@ export default function FlirtFilterModal({ visible, onHideModal }) {
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     style={{ flex: 1 }}>
-                    <AppDropDown
-                        title={appLabels.i_am_looking_for}
-                        value={'Women'} />
+                    <GenderMenu
+                        onSelectGender={(genderItem) => { }} />
                     <AuthInput
                         label={"City"}
                         placeholder={"City"}
                         style={{ paddingHorizontal: 5, fontWeight: 'bold', fontSize: 16 }} />
                     <FilterItem
                         title={'Languages'}
-                        value={'English'} />
+                        value={selectedLanguage}
+                        onPress={() => dispatch(toggleLanguageModal(true))} />
                     <FilterItem
                         title={'Passions'}
                         value={'Choose'} />
                     <AppDropDown
                         title={"Sexual orientation"}
-                        value={userSexualOrientation.title} />
+                        value={userSexualOrientation.title}
+                        onPress={() => dispatch(toggleSexualOrientationModal(true))} />
                 </ScrollView>
                 <View style={{ backgroundColor: Colors.white }}>
                     <AppButton
@@ -76,13 +78,14 @@ export default function FlirtFilterModal({ visible, onHideModal }) {
     );
 }
 
-const FilterItem = ({ title, value }) => {
+const FilterItem = ({ title, value, onPress }) => {
     return (
         <View style={{ marginVertical: 5 }}>
             {title && (
                 <AppText color={Colors.black} style={{ paddingBottom: 5, paddingTop: 5 }}>{title}</AppText>
             )}
             <TouchableOpacity
+                onPress={onPress}
                 style={{
                     flexDirection: 'row',
                     alignItems: 'center',

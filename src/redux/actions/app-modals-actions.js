@@ -5,7 +5,8 @@ import {
     TOGGLE_ADD_PASSIONS_MODAL,
     TOGGLE_MORE_GENDER_MODAL,
     TOGGLE_SEXUAL_ORIENTATION_MODAL,
-    TOGGLE_FLIRT_FILTER_MODAL
+    TOGGLE_FLIRT_FILTER_MODAL,
+    TOGGLE_COINS_EARNING_MODAL
 } from "./types";
 
 
@@ -26,3 +27,6 @@ export const toggleSexualOrientationModal = (visible) => (dispatch) =>
 
 export const toggleFlirtFilterModal = (visible) => (dispatch) =>
     dispatch(ActionDispatcher(TOGGLE_FLIRT_FILTER_MODAL, visible));
+
+export const toggleCoinsEarningModal = (visible) => (dispatch) =>
+    dispatch(ActionDispatcher(TOGGLE_COINS_EARNING_MODAL, visible));

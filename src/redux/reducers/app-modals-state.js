@@ -4,7 +4,8 @@ import {
     TOGGLE_ADD_PASSIONS_MODAL,
     TOGGLE_MORE_GENDER_MODAL,
     TOGGLE_SEXUAL_ORIENTATION_MODAL,
-    TOGGLE_FLIRT_FILTER_MODAL
+    TOGGLE_FLIRT_FILTER_MODAL,
+    TOGGLE_COINS_EARNING_MODAL
 } from '../actions/types';
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
     isMoreGenderModalVisible: false,
     isSexualOrientationModalVisible: false,
     isFlirtFilterModalVisible: false,
+    isCoinsEarningModalVisible: false,
     gallerySwiperImages: [],
     initialGalleryImageIndex: 0
 };
@@ -56,6 +58,12 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 isFlirtFilterModalVisible: action.payload
+            }
+
+        case TOGGLE_COINS_EARNING_MODAL:
+            return {
+                ...state,
+                isCoinsEarningModalVisible: action.payload
             }
 
         default:

@@ -5,7 +5,7 @@ import { AppText } from '..';
 import { Colors } from '../../constants';
 import { DropDownIcon, DropUpIcon } from '../../constants/svg-icons';
 
-export default function AppDropDown({ title, value }) {
+export default function AppDropDown({ title, value, onPress }) {
 
     const [isOpened, setIsOpened] = useState(false);
 
@@ -16,6 +16,7 @@ export default function AppDropDown({ title, value }) {
             )}
             <TouchableOpacity
                 style={styles.container}
+                onPress={onPress}
             >
                 <AppText type={'bold'} size={16} style={styles.value}>{value}</AppText>
                 {isOpened ? (

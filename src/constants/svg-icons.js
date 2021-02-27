@@ -30,6 +30,8 @@ import DropDownIcon from '../assets/icons/drop_down.svg';
 import DropUpIcon from '../assets/icons/drop_up.svg';
 import XXXCoinIcon from '../assets/icons/xxx-coin.svg';
 
+import GiftBoxIcon from '../assets/images/gift_box.svg';
+
 export {
     EmailIcon,
     PasswordIcon,
@@ -61,5 +63,6 @@ export {
     CloseIcon,
     DropDownIcon,
     DropUpIcon,
-    XXXCoinIcon
+    XXXCoinIcon,
+    GiftBoxIcon
 }
