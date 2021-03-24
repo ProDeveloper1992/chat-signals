@@ -29,6 +29,8 @@ export default function FlirtTab(props) {
   useEffect(() => {
     let requestData = {
       page: 1,
+      customer_id: userData.id,
+      gender: ''
     };
     let userId = {
       id: userData.id,
@@ -42,23 +44,23 @@ export default function FlirtTab(props) {
       {flirtsLoading ? (
         <AppIndicatorLoader />
       ) : (
-          <FlatList
-            data={flirtsList}
-            contentContainerStyle={{ paddingBottom: 20 }}
-            showsVerticalScrollIndicator={false}
-            // ListHeaderComponent={render_FlatList_header}
-            renderItem={({ item, index }) => (
-              <ModeratorListItem
-                item={item}
-                key={String(index)}
-                onPress={() =>
-                  navigation.navigate('ModeratorProfile', { item: item })
-                }
-              />
-            )}
-            keyExtractor={(item, index) => index.toString()}
-          />
-        )}
+        <FlatList
+          data={flirtsList}
+          contentContainerStyle={{ paddingBottom: 20 }}
+          showsVerticalScrollIndicator={false}
+          // ListHeaderComponent={render_FlatList_header}
+          renderItem={({ item, index }) => (
+            <ModeratorListItem
+              item={item}
+              key={String(index)}
+              onPress={() =>
+                navigation.navigate('ModeratorProfile', { item: item })
+              }
+            />
+          )}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      )}
     </View>
   );
 }
