@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,7 +19,12 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="OCs-WB-dqf">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="app_logo" translatesAutoresizingMaskIntoConstraints="NO" id="KRo-VK-IvL">
+                                <rect key="frame" x="106" y="424" width="203" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="heX-JN-Aa8"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="OCs-WB-dqf" secondAttribute="bottom" id="KSC-bT-rag"/>
@@ -34,6 +40,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="splash" width="213" height="319.5"/>
+        <image name="app_logo" width="203" height="49"/>
+        <image name="splash" width="375" height="812"/>
     </resources>
 </document>

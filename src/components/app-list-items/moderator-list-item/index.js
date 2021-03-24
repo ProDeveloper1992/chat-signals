@@ -9,9 +9,9 @@ export default function ModeratorListItem({ item, onPress, isBoosted }) {
 
   const [contentVisible, setContentVisible] = useState(false);
 
-  const getItemImage = (imageUrl) => {
-    if (imageUrl != null) {
-      return imageUrl;
+  const getItemImage = (imageUrls) => {
+    if (imageUrls && imageUrls.length > 0) {
+      return imageUrls[0].picture;
     } else {
       return DEFAULT_IMAGE_URL;
     }
@@ -36,7 +36,7 @@ export default function ModeratorListItem({ item, onPress, isBoosted }) {
         resizeMode={'cover'}
         imageStyle={{ borderRadius: 20 }}
         source={{
-          uri: getItemImage(item.picture),
+          uri: getItemImage(item.profilepicture),
         }}>
         <LinearGradient
           colors={getGradientColors()}

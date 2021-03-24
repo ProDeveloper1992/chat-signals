@@ -131,16 +131,16 @@ export default function ModeratorProfile(props) {
 
           <IndicatorViewPager
             style={{ height: 300 }}
-            indicator={_renderDotIndicator(IMAGES.length)}
+            indicator={_renderDotIndicator(params.item.profilepicture.length)}
           >
-            {IMAGES.map((item, index) => {
+            {params.item.profilepicture.map((item, index) => {
               return <ImageBackground
                 key={String(index)}
-                blurRadius={item.is_locked ? Platform.OS == 'ios' ? 20 : 5 : 0}
+                blurRadius={item.is_erotic == "1" ? Platform.OS == 'ios' ? 40 : 5 : 0}
                 style={styles.imgBackground}
                 resizeMode="cover"
-                source={{ uri: getItemImage(item.image_url) }}>
-                {item.is_locked && (
+                source={{ uri: getItemImage(item.picture) }}>
+                {item.is_erotic == "1" && (
                   <View style={{
                     flex: 1,
                     backgroundColor: 'rgba(0, 0, 0, 0.6)',
@@ -198,8 +198,8 @@ export default function ModeratorProfile(props) {
                   {isFavorite ? (
                     <StarFilledIcon width={24} height={24} />
                   ) : (
-                      <StarOutlineIcon width={24} height={24} />
-                    )}
+                    <StarOutlineIcon width={24} height={24} />
+                  )}
                 </TouchableOpacity>
                 <DotsCircleIcon />
               </View>
