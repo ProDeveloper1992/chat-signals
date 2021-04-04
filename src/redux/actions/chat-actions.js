@@ -1,9 +1,3 @@
-import { ActionDispatcher } from './index';
-import {
-    GET_FLIRTS_REQUEST,
-    GET_FLIRTS_SUCCESS,
-    GET_FLIRTS_FAILED,
-} from './types';
 import { client } from '../../services/api-service';
 
 export const sendMessage = (messageData) => (dispatch) =>

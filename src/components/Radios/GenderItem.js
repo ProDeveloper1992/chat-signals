@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Colors } from '../../constants';
 import { AppText } from '..';
 
-export function GenderItem({ isSelected, imageUrl, gender, size, style, onPress }) {
+export function GenderItem({ isSelected, gender, style, onPress }) {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
@@ -17,15 +17,6 @@ export function GenderItem({ isSelected, imageUrl, gender, size, style, onPress 
         },
       ]}
       onPress={onPress}>
-      {/* <Image
-        source={{ uri: imageUrl }}
-        style={{
-          width: size,
-          height: size,
-          resizeMode: 'contain',
-          tintColor: isSelected ? Colors.white : Colors.ui_primary,
-        }}
-      /> */}
       <AppText type={isSelected ? 'bold' : 'medium'} size={12} color={isSelected ? Colors.white : Colors.black}>{gender}</AppText>
     </TouchableOpacity>
   );

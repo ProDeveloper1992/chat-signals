@@ -1,23 +1,35 @@
-import React from 'react';
-import { View, Image, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types';
 import { Colors, Images } from '../../../constants';
 import { AppText } from '../../index';
 import styles from './style';
 import { FriendGradientIcon32 } from '../../../constants/svg-icons';
+import { useDispatch } from 'react-redux';
+import { acceptRejectFriendRequest } from '../../../redux/actions/user-actions';
 
 export default function FriendRequestItem({
     onChatPress,
     profileImage,
     userName,
+    item
 }) {
 
-    const onAcceptPress = () => {
+    const dispatch = useDispatch();
 
+    const [isAccepting, setIsAccepting] = useState(false);
+    const [isRejecting, setIsRejecting] = useState(false);
+
+    const onAcceptPress = async () => {
+        setIsAccepting(true);
+        await dispatch(acceptRejectFriendRequest(item.id, 3));
+        setIsAccepting(false);
     }
 
-    const onRejectPress = () => {
-
+    const onRejectPress = async () => {
+        setIsRejecting(true);
+        await dispatch(acceptRejectFriendRequest(item.id, 4));
+        setIsRejecting(false);
     }
 
     return (
@@ -42,11 +54,13 @@ export default function FriendRequestItem({
                         <Button
                             isAccept
                             title={'Accept'}
-                            onPress={onAcceptPress} />
+                            onPress={onAcceptPress}
+                            loading={isAccepting} />
 
                         <Button
                             title={'Reject'}
-                            onPress={onRejectPress} />
+                            onPress={onRejectPress}
+                            loading={isRejecting} />
                     </View>
                 </View>
             </View>
@@ -54,13 +68,17 @@ export default function FriendRequestItem({
     );
 }
 
-const Button = ({ isAccept, title, onPress }) => {
+const Button = ({ isAccept, title, onPress, loading }) => {
     return (
         <TouchableOpacity
             activeOpacity={0.8}
             onPress={onPress}
             style={styles.buttonContainer(isAccept)}>
-            <AppText color={isAccept ? Colors.white : Colors.black}>{title}</AppText>
+            {loading ? (
+                <ActivityIndicator size={'small'} color={isAccept ? Colors.white : Colors.black} style={{ width: 14, height: 14 }} />
+            ) : (
+                <AppText color={isAccept ? Colors.white : Colors.black}>{title}</AppText>
+            )}
         </TouchableOpacity>
     )
 }
@@ -69,10 +87,12 @@ FriendRequestItem.propTypes = {
     profileImage: PropTypes.any,
     userName: PropTypes.string,
     onChatPress: PropTypes.func,
+    item: PropTypes.object
 };
 
 FriendRequestItem.defaultProps = {
     profileImage: Images.forgot_heart_logo,
     userName: 'Username',
+    item: {},
     onChatPress: () => { },
 };

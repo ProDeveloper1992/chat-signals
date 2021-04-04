@@ -12,9 +12,10 @@ import { setSexualOrientation } from '../../../redux/actions/user-actions';
 export default function SexualOrientationModal({ visible, onHideModal }) {
     const dispatch = useDispatch();
 
-    const { sexualOrientations } = useSelector((state) => state.userState);
+    const { sexualOrientations } = useSelector((state) => state.appState);
+    const { userSexualOrientation } = useSelector((state) => state.userState);
 
-    const [selectedSexualOrientation, setSelectedSexualOrientation] = useState(sexualOrientations[0]);
+    const [selectedSexualOrientation, setSelectedSexualOrientation] = useState(userSexualOrientation);
 
     const onGenderItemPress = (item) => {
         setSelectedSexualOrientation(item);
@@ -44,12 +45,12 @@ export default function SexualOrientationModal({ visible, onHideModal }) {
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{ flexGrow: 1 }}>
-                    {sexualOrientations.map((item, index) => {
+                    {sexualOrientations && sexualOrientations.map((item, index) => {
                         return <MoreGenderItem
                             key={String(index)}
-                            gender={item.title}
+                            gender={item.name}
                             onPress={() => onGenderItemPress(item)}
-                            isSelected={selectedSexualOrientation == item} />
+                            isSelected={selectedSexualOrientation.id == item.id} />
                     })}
                 </ScrollView>
                 <View style={styles.bottomButton}>

@@ -20,6 +20,7 @@ import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 
 import LandingIntro from '../../assets/images/landing_intro.svg';
 import { RegisterLandingModal } from '../../components/app-modals';
+import { getGenderList, getPassionList, getSexualOrientationList } from '../../redux/actions/app-actions';
 
 const LandingScreen = (props) => {
   const { navigation } = props;
@@ -33,6 +34,9 @@ const LandingScreen = (props) => {
   useEffect(() => {
     SplashScreen.hide();
     if (isFocused) {
+      dispatch(getPassionList());
+      dispatch(getSexualOrientationList());
+      dispatch(getGenderList());
       const backAction = () => {
         Alert.alert('Hold on!', 'Are you sure you want to exit?', [
           {

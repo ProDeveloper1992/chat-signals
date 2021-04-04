@@ -14,18 +14,21 @@ import { useNavigation } from '@react-navigation/native';
 
 import styles from './style';
 import { Colors, Icons } from '../../constants';
-import { getFlirtsList } from '../../redux/actions/flirts-actions';
+import { getFlirtsList, getProFlirtsList } from '../../redux/actions/flirts-actions';
 
 export default function ProFlirtTab(props) {
   const dispatch = useDispatch();
 
-  const { proFlirtsList, proFlirtsLoading } = useSelector((state) => state.flirtsState);
+  const { spotLightsList, proFlirtsLoading } = useSelector((state) => state.flirtsState);
+  const { userData } = useSelector((state) => state.userState);
 
   useEffect(() => {
     let requestData = {
       page: 1,
+      customer_id: userData.id,
+      gender: ''
     };
-    dispatch(getFlirtsList(requestData));
+    dispatch(getProFlirtsList(requestData));
   }, []);
 
   const navigation = useNavigation();
@@ -35,25 +38,25 @@ export default function ProFlirtTab(props) {
       {proFlirtsLoading ? (
         <AppIndicatorLoader />
       ) : (
-          <FlatList
-            data={proFlirtsList}
-            numColumns={2}
-            contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item, index }) => (
-              <ModeratorListItem
-                isBoosted
-                item={item}
-                key={String(index)}
-                onPress={() =>
-                  navigation.navigate('ModeratorProfile', { item: item })
-                }
-              />
-            )}
-            ListEmptyComponent={<NoListData title={"No Pro Flirts Found!"} />}
-            keyExtractor={(item, index) => index.toString()}
-          />
-        )}
+        <FlatList
+          data={spotLightsList}
+          numColumns={2}
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item, index }) => (
+            <ModeratorListItem
+              isBoosted
+              item={item}
+              key={String(index)}
+              onPress={() =>
+                navigation.navigate('ModeratorProfile', { item: item })
+              }
+            />
+          )}
+          ListEmptyComponent={<NoListData title={"No Spotlights Found!"} />}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      )}
     </View>
   );
 }

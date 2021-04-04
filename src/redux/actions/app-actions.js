@@ -11,7 +11,10 @@ import {
   GET_GENERAL_SETTINGS_SUCCESS,
   GET_SEAL_URL_REQUEST,
   GET_SEAL_URL_SUCCESS,
-  GET_SEAL_URL_FAILED
+  GET_SEAL_URL_FAILED,
+  GET_PASSION_LIST_SUCCESS,
+  GET_SEXUAL_ORIENTATION_LIST_SUCCESS,
+  GET_GENDERS_LIST_SUCCESS
 } from './types';
 import { client } from '../../services/api-service';
 import { store } from '../../redux/store';
@@ -92,6 +95,73 @@ export const getSealUrl = (requestData) => (dispatch) =>
       })
       .catch((err) => {
         dispatch(ActionDispatcher(GET_SEAL_URL_FAILED));
+        resolve({ meta: { status: false } })
+        reject(err);
+      });
+  });
+
+//Passions list
+export const getPassionList = (query = '') => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    let state = getState();
+    let selectedLanguage = state.appState.selectedLanguage;
+    let requestData = {
+      language: selectedLanguage,
+      search: query
+    }
+    client
+      .post(`/passion_list`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+          dispatch(ActionDispatcher(GET_PASSION_LIST_SUCCESS, res.data));
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } })
+        reject(err);
+      });
+  });
+
+//Sexual orientations list
+export const getSexualOrientationList = () => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    let state = getState();
+    let selectedLanguage = state.appState.selectedLanguage;
+    let requestData = {
+      language: selectedLanguage,
+    }
+    client
+      .post(`/sexual_orientation`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+          dispatch(ActionDispatcher(GET_SEXUAL_ORIENTATION_LIST_SUCCESS, res.data));
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } })
+        reject(err);
+      });
+  });
+
+//Gender List
+export const getGenderList = () => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    let state = getState();
+    let selectedLanguage = state.appState.selectedLanguage;
+    let requestData = {
+      language: selectedLanguage,
+    }
+    client
+      .post(`/genders_list`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+          dispatch(ActionDispatcher(GET_GENDERS_LIST_SUCCESS, res.data));
+        }
+        resolve(res);
+      })
+      .catch((err) => {
         resolve({ meta: { status: false } })
         reject(err);
       });

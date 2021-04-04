@@ -16,7 +16,8 @@ import {
   SET_USER_PASSIONS,
   GET_BOOKMARKS_REQUEST,
   GET_BOOKMARKS_SUCCESS,
-  GET_BOOKMARKS_FAILED
+  GET_BOOKMARKS_FAILED,
+  GET_FRIENDS_LIST_SUCCESS
 } from './types';
 import { client } from '../../services/api-service';
 import { showToast } from './app-actions';
@@ -124,11 +125,20 @@ export const forgotPassword = (requestData) => (dispatch) =>
       });
   });
 
-export const userProfileDetail = (requestData) => (dispatch) =>
+export const userProfileDetail = () => (dispatch, getState) =>
   new Promise(function (resolve, reject) {
     dispatch(ActionDispatcher(GET_USER_PROFILE_REQUEST));
+    let state = getState();
+    let userData = state.userState.userData
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      customer_id: userId
+    }
     client
-      .post(`/profile_detail`, requestData)
+      .post(`/customer_profile`, requestData)
       .then((res) => {
         if (res.meta.status) {
           dispatch(ActionDispatcher(GET_USER_PROFILE_SUCCESS, res.data));
@@ -172,7 +182,7 @@ export const getUserChatList = () => (dispatch, getState) =>
       });
   });
 
-export const getChatConversation = (customerId) => (dispatch, getState) =>
+export const getChatConversation = (moderatorId) => (dispatch, getState) =>
   new Promise(function (resolve, reject) {
     const userData = getState().userState.userData;
     let userId = null;
@@ -181,11 +191,12 @@ export const getChatConversation = (customerId) => (dispatch, getState) =>
     }
     let requestData = {
       profile_id: userId,
-      customer_id: customerId
+      customer_id: moderatorId
     }
     client
       .post(`/get_chat_message`, requestData)
       .then((res) => {
+        dispatch(userProfileDetail());
         resolve(res);
       })
       .catch((err) => {
@@ -224,7 +235,7 @@ export const getFavorites = () => (dispatch, getState) =>
       });
   });
 
-//Get Favorites
+//Add to Favorite
 export const addToFavorite = (favoriteId, action) => (dispatch, getState) =>
   new Promise(function (resolve, reject) {
     const userData = getState().userState.userData;
@@ -241,6 +252,52 @@ export const addToFavorite = (favoriteId, action) => (dispatch, getState) =>
       .post(`/addfevorite`, requestData)
       .then((res) => {
         dispatch(getFavorites());
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } });
+        reject(err);
+      });
+  });
+
+//Get Friends
+export const getFriendsList = () => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    const userData = getState().userState.userData;
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      customer_id: userId
+    }
+    client
+      .post(`/get_friend_list`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+          dispatch(ActionDispatcher(GET_FRIENDS_LIST_SUCCESS, res.data))
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } });
+        reject(err);
+      });
+  });
+
+//Get Friends
+export const acceptRejectFriendRequest = (friendId, type) => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    let requestData = {
+      id: friendId,
+      type: type
+    }
+    client
+      .post(`/get_friend_accept_reject`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+          dispatch(getFriendsList())
+        }
         resolve(res);
       })
       .catch((err) => {

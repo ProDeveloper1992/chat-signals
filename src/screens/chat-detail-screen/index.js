@@ -40,15 +40,16 @@ const ChatDetail = (props) => {
   }
 
   const onSendTextMessage = async () => {
+    // console.log("userData", userData)
     let messageToSend = {
-      id: 109,
-      customer_id: customer.user.id,
+      id: customer.user.id,
+      customer_id: userData.id,
       message: messageText,
       // file:'',
       // gift_id:null
     };
     await dispatch(sendMessage(messageToSend));
-    setMessageText('')
+    setMessageText('');
     const response = await dispatch(getChatConversation(customer.user.id));
     if (response.meta.status) {
       setMessages(response.data);

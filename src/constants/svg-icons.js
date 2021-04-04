@@ -29,6 +29,8 @@ import CloseIcon from '../assets/icons/close.svg';
 import DropDownIcon from '../assets/icons/drop_down.svg';
 import DropUpIcon from '../assets/icons/drop_up.svg';
 import XXXCoinIcon from '../assets/icons/xxx-coin.svg';
+import UnfriendIcon from '../assets/icons/unfriend.svg';
+import BlockIcon from '../assets/icons/block.svg';
 
 import GiftBoxIcon from '../assets/images/gift_box.svg';
 
@@ -64,5 +66,7 @@ export {
     DropDownIcon,
     DropUpIcon,
     XXXCoinIcon,
-    GiftBoxIcon
+    GiftBoxIcon,
+    UnfriendIcon,
+    BlockIcon
 }

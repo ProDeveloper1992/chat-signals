@@ -6,6 +6,7 @@ import ChatBubble from './chat-bubble';
 import TagItem from './tag-item';
 import NotificationItem from './notification-item';
 import FriendRequestItem from './friend-request-item';
+import FriendListItem from './friend-list-item';
 
 export {
     ModeratorListItem,
@@ -15,5 +16,6 @@ export {
     ChatBubble,
     TagItem,
     NotificationItem,
-    FriendRequestItem
+    FriendRequestItem,
+    FriendListItem
 };

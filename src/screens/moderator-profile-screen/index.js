@@ -108,7 +108,14 @@ export default function ModeratorProfile(props) {
   }
 
   const onChatPress = () => {
-    // navigation.navigate('ChatDetail', { item: params.item });
+    console.log("moderator", params.item)
+    let customer = {
+      user: {
+        id: params.item.id,
+        username: params.item.username
+      }
+    }
+    navigation.navigate('ChatDetail', { item: customer });
   }
 
   const _renderDotIndicator = (pages) => {
@@ -130,7 +137,7 @@ export default function ModeratorProfile(props) {
 
 
           <IndicatorViewPager
-            style={{ height: 300 }}
+            style={{ height: Dimensions.get('window').height / 3, backgroundColor: Colors.grey }}
             indicator={_renderDotIndicator(params.item.profilepicture.length)}
           >
             {params.item.profilepicture.map((item, index) => {
@@ -138,7 +145,7 @@ export default function ModeratorProfile(props) {
                 key={String(index)}
                 blurRadius={item.is_erotic == "1" ? Platform.OS == 'ios' ? 40 : 5 : 0}
                 style={styles.imgBackground}
-                resizeMode="cover"
+                resizeMode={'cover'}
                 source={{ uri: getItemImage(item.picture) }}>
                 {item.is_erotic == "1" && (
                   <View style={{

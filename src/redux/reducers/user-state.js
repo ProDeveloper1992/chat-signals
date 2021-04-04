@@ -14,7 +14,8 @@ import {
   SET_SELECTED_LOOKING_GENDER,
   SET_USER_COUNTRY,
   SET_USER_PASSIONS,
-  SET_SEXUAL_ORIENTATION
+  SET_SEXUAL_ORIENTATION,
+  GET_FRIENDS_LIST_SUCCESS
 } from '../actions/types';
 
 const initialState = {
@@ -26,54 +27,14 @@ const initialState = {
   userChatList: [],
   loadingChatList: false,
   userPassions: [],
+  friendsList: [],
   userSexualOrientation: {
-    title: 'Straight'
+    id: 1,
+    deleted_at: null,
+    name: "Straighy",
+    is_active: "0",
+    lang: "en"
   },
-
-  sexualOrientations: [
-    {
-      title: 'Straight'
-    },
-    {
-      title: 'Gay'
-    },
-    {
-      title: 'Lesbian'
-    },
-    {
-      title: 'Bisexual'
-    },
-    {
-      title: 'Asexual'
-    },
-    {
-      title: 'Demisexual'
-    },
-    {
-      title: 'Pansexual'
-    },
-    {
-      title: 'Queer'
-    },
-  ],
-
-  passions: [
-    {
-      title: 'Netflix'
-    },
-    {
-      title: 'Walking'
-    },
-    {
-      title: 'Traveling'
-    },
-    {
-      title: 'Gym'
-    },
-    {
-      title: 'Music'
-    }
-  ],
 
   otherGenders: [
     {
@@ -129,9 +90,13 @@ const initialState = {
   ],
 
   selectedUserGender: {
-    gender_id: 1,
-    gender: 'Male',
+    id: 1,
+    deleted_at: null,
+    name: "Male",
+    is_active: "0",
+    lang: "en"
   },
+
   selectedLookingGender: {
     gender_id: 2,
     gender: 'Female',
@@ -172,10 +137,12 @@ export default function (state = initialState, action) {
       };
 
     case GET_USER_PROFILE_SUCCESS:
+      console.log("GET_USER_PROFILE_SUCCESS", action.payload)
       return {
         ...state,
         isLoggedIn: true,
-        userProfileDetailList: action.payload,
+        userData: action.payload
+        // userProfileDetailList: action.payload,
       };
 
     case GET_USER_PROFILE_FAIL:
@@ -223,6 +190,7 @@ export default function (state = initialState, action) {
       }
 
     case SET_USER_PASSIONS:
+      console.log("SET_USER_PASSIONS", action.payload)
       return {
         ...state,
         userPassions: action.payload
@@ -232,6 +200,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         userSexualOrientation: action.payload
+      }
+
+    case GET_FRIENDS_LIST_SUCCESS:
+      console.log("GET_FRIENDS_LIST_SUCCESS", action.payload)
+      return {
+        ...state,
+        friendsList: action.payload
       }
 
     default:
