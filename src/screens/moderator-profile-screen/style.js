@@ -8,8 +8,9 @@ export default StyleSheet.create({
   },
 
   imgBackground: {
-    height: 300,
+    height: "100%",
     width: '100%',
+    backgroundColor: Colors.grey
   },
 
   hrLine: {

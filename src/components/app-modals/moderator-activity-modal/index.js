@@ -9,7 +9,8 @@ import { CloseIcon, FriendGradientIcon32, KissGradientIcon32, LikeGradientIcon32
 
 export default function ActivityModal({ visible, onHideModal, type }) {
 
-  const { appLabels } = useSelector((state) => state.appState);
+  const { appLabels, generalSettings } = useSelector((state) => state.appState);
+
 
   const getTitle = (type) => {
     switch (type) {
@@ -55,6 +56,42 @@ export default function ActivityModal({ visible, onHideModal, type }) {
     }
   };
 
+  const getTypeCost = (type) => {
+    switch (type) {
+      case 'kiss':
+        return getCoinByType('prices_kiss');
+
+      case 'like':
+        return getCoinByType('prices_kiss');
+
+      case 'chat':
+        return 0;
+
+      case 'addfriend':
+        return getCoinByType('prices_friend');
+
+      case 'sticker':
+        return getCoinByType('prices_kiss');
+
+      default:
+        return 0;
+    }
+  };
+
+  const getCoinByType = (type) => {
+    if (generalSettings.length > 0) {
+      let type_value = 0;
+      for (let setting of generalSettings) {
+        if (setting.name === type) {
+          type_value = setting.value;
+        }
+      }
+      return type_value;
+    } else {
+      return 0;
+    }
+  }
+
   return (
     <Modal
       isVisible={visible}
@@ -84,14 +121,16 @@ export default function ActivityModal({ visible, onHideModal, type }) {
             source={getActivityImage(type)}
           /> */}
           {getActivityImage(type)}
-          <AppText
-            type={'bold'}
-            size={16}
-            color={Colors.black}
-            style={{ marginTop: -30 }}>
-            <AppText>{'Cost '}</AppText>
-            {`4 ${appLabels.Coins}`}
-          </AppText>
+          {getTypeCost(type) * 1 > 0 && (
+            <AppText
+              type={'bold'}
+              size={16}
+              color={Colors.black}
+              style={{ marginTop: -30 }}>
+              <AppText>{'Cost '}</AppText>
+              {`${getTypeCost(type)} ${appLabels.Coins}`}
+            </AppText>
+          )}
         </View>
         <AppButton
           title={'Send'}

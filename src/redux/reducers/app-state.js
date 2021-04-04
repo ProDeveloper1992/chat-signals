@@ -13,7 +13,10 @@ import {
   GET_GENERAL_SETTINGS_SUCCESS,
   GET_SEAL_URL_REQUEST,
   GET_SEAL_URL_SUCCESS,
-  GET_SEAL_URL_FAILED
+  GET_SEAL_URL_FAILED,
+  GET_PASSION_LIST_SUCCESS,
+  GET_SEXUAL_ORIENTATION_LIST_SUCCESS,
+  GET_GENDERS_LIST_SUCCESS
 } from '../actions/types';
 
 const initialState = {
@@ -23,6 +26,9 @@ const initialState = {
   gettingSealUrl: false,
   paymentGateways: [],
   generalSettings: [],
+  genderList: [],
+  passionList: [],
+  sexualOrientations: [],
   appLabels: {
     Thisistest: 'this is testing',
     at: 'AT',
@@ -222,6 +228,30 @@ export default function (state = initialState, action) {
         gettingSealUrl: false,
       }
     };
+
+    case GET_PASSION_LIST_SUCCESS: {
+      console.log("GET_PASSION_LIST_SUCCESS", action.payload)
+      return {
+        ...state,
+        passionList: action.payload
+      }
+    }
+
+    case GET_SEXUAL_ORIENTATION_LIST_SUCCESS: {
+      console.log("GET_SEXUAL_ORIENTATION_LIST_SUCCESS", action.payload)
+      return {
+        ...state,
+        sexualOrientations: action.payload
+      }
+    }
+
+    case GET_GENDERS_LIST_SUCCESS: {
+      console.log("GET_GENDERS_LIST_SUCCESS", action.payload)
+      return {
+        ...state,
+        genderList: action.payload
+      }
+    }
 
     default:
       return state;

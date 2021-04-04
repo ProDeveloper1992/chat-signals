@@ -11,7 +11,7 @@ import {
 import Pusher from 'pusher-js/react-native';
 
 import { GeneralHeader } from '../../components/Headers';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Colors, Icons, Images } from '../../constants';
@@ -25,30 +25,31 @@ import pusherConfig from '../../../pusher.json';
 const Chat = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
 
   const { userChatList, loadingChatList, authToken } = useSelector((state) => state.userState);
   const { appLabels } = useSelector((state) => state.appState);
 
   useEffect(() => {
-    Pusher.logToConsole = true;
+    // Pusher.logToConsole = true;
 
-    var pusher = new Pusher('2550b11480f5cba62c1e', {
-      authEndpoint: 'http://url.com/api/authtest',
-      auth: {
-        headers: {
-          'Accept': 'application/json',
-          'Authorization': 'Bearer ' + authToken
-        }
-      },
-      cluster: 'ap2',
-      encrypted: true
-    });
+    // var pusher = new Pusher('2550b11480f5cba62c1e', {
+    //   authEndpoint: 'http://url.com/api/authtest',
+    //   auth: {
+    //     headers: {
+    //       'Accept': 'application/json',
+    //       'Authorization': 'Bearer ' + authToken
+    //     }
+    //   },
+    //   cluster: 'ap2',
+    //   encrypted: true
+    // });
 
     // var pusher = new Pusher(pusherConfig.key, pusherConfig);
 
-    pusher.connection.bind('connected', function () {
-      // alert('pusher connected');
-    });
+    // pusher.connection.bind('connected', function () {
+    // alert('pusher connected');
+    // });
 
     // var channel = pusher.subscribe('private-chatify');
     // channel.bind('pusher:subscription_error', function (err) {
@@ -74,8 +75,11 @@ const Chat = () => {
     // });
 
     //API call for get user's chat list
-    dispatch(getUserChatList());
-  }, []);
+
+    if (isFocused) {
+      dispatch(getUserChatList());
+    }
+  }, [isFocused]);
 
   const onChatListItemPress = (customer) => {
     navigation.navigate('ChatDetail', { item: customer });
@@ -95,24 +99,24 @@ const Chat = () => {
           <ActivityIndicator size={'large'} color={Colors.ui_primary} />
         </View>
       ) : (
-          <FlatList
-            data={userChatList}
-            contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item, index }) => (
-              <ChatListItem
-                key={String(index)}
-                onChatPress={() => onChatListItemPress(item)}
-                profileImage={Images.app_logo}
-                userName={item.user.username}
-                lastMessage={item.lastMessage.body}
-                lastMessageTime={item.lastMessage.created_at}
-              />
-            )}
-            keyExtractor={(item, index) => String(index)}
-            ListEmptyComponent={<NoListData title={"No chats found!"} />}
-          />
-        )}
+        <FlatList
+          data={userChatList}
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item, index }) => (
+            <ChatListItem
+              key={String(index)}
+              onChatPress={() => onChatListItemPress(item)}
+              profileImage={Images.app_logo}
+              userName={item.user.username}
+              lastMessage={item.lastMessage.body}
+              lastMessageTime={item.lastMessage.created_at}
+            />
+          )}
+          keyExtractor={(item, index) => String(index)}
+          ListEmptyComponent={<NoListData title={"No chats found!"} />}
+        />
+      )}
     </View>
   );
 };

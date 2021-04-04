@@ -14,7 +14,8 @@ import {
   ChatBubble,
   TagItem,
   NotificationItem,
-  FriendRequestItem
+  FriendRequestItem,
+  FriendListItem
 } from './app-list-items';
 import { AppText } from './app-text';
 import OwnPurchaseCard from './own-purchase-card';
@@ -23,7 +24,7 @@ import CommonImage from './app-common-image';
 import AppDropDown from './app-drop-down';
 import { OnlineStatusCircle } from './user-online-status';
 import AppGiftBadge from './app-gift-badge';
-import { GenderMenu } from './app-menus';
+import { GenderMenu, FriendItemMenu } from './app-menus';
 
 export {
   AppText,
@@ -55,9 +56,11 @@ export {
   NotificationItem,
   ModeratorListItem,
   FriendRequestItem,
+  FriendListItem,
   AppDropDown,
   OnlineStatusCircle,
   AppGiftBadge,
   //Menus
-  GenderMenu
+  GenderMenu,
+  FriendItemMenu
 };

@@ -7,28 +7,25 @@ import styles from './style';
 export default function FriendRequests(props) {
 
   const { appLabels } = useSelector((state) => state.appState);
+  const { userData, friendsList } = useSelector((state) => state.userState);
 
-  const friendRequests = [
-    { username: "Jenifer", image_url: 'https://i.pinimg.com/originals/25/a6/41/25a641e2075eca74e84a6f1dc720a518.jpg' },
-    { username: "Cristine", image_url: 'https://papers.co/wallpaper/papers.co-hq89-miranda-kerr-girl-model-face-34-iphone6-plus-wallpaper.jpg' },
-    { username: "Dolores", image_url: 'https://www.face-agency.co.uk/images/uploads/models/large/1548678753-21.jpg' },
-    { username: "Jenifer", image_url: 'https://i.pinimg.com/originals/25/a6/41/25a641e2075eca74e84a6f1dc720a518.jpg' },
-  ]
+  let friends = friendsList.filter((friend, index) => (friend.is_status * 1) == 4)
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={friendRequests}
+        data={friends}
         contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
         renderItem={({ item, index }) => (
           <FriendRequestItem
             key={String(index)}
+            item={item}
             userName={item.username}
-            profileImage={{ uri: item.image_url }}
+            profileImage={{ uri: item.picture }}
           />
         )}
-        ListEmptyComponent={<NoListData title={appLabels.no_bookmarks} />}
+        ListEmptyComponent={<NoListData title={"No friend requests found!"} />}
         keyExtractor={(item, index) => index.toString()}
       />
     </View>

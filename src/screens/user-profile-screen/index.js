@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
+import ImagePicker from 'react-native-image-picker';
+
 import { NoListData, AppText, BackHeader, GeneralHeader } from '../../components';
 import { Icons, Colors, DEFAULT_AVATAR_URL } from '../../constants';
 import styles from './style';
@@ -31,12 +33,15 @@ import {
   ArrowRightIcon
 } from '../../constants/svg-icons';
 import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { getFriendsList, userProfileDetail } from '../../redux/actions/user-actions';
+import moment from 'moment';
 
 export default function UserProfile(props) {
   const { params } = props.route;
 
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const isFocused = useIsFocused();
 
   const [activityType, setActivityType] = useState('kisses');
@@ -45,12 +50,17 @@ export default function UserProfile(props) {
   const [deleteAccountModalVisible, setDeleteAccountModalVisible] = useState(false);
   const [isMyPhotosExpanded, setMyPhotosExpanded] = useState(true);
 
-  const { userData } = useSelector((state) => state.userState);
+  //Second Position Page
+  const [profileImage, setProfileImage] = useState({ uri: null });
+
+  const { userData, friendsList } = useSelector((state) => state.userState);
   const { appLabels } = useSelector((state) => state.appState);
 
   useEffect(() => {
     if (isFocused) {
       console.log("userData...", userData)
+      dispatch(getFriendsList());
+      dispatch(userProfileDetail());
     }
   }, [isFocused]);
 
@@ -60,6 +70,32 @@ export default function UserProfile(props) {
         return <ModeratorProfileInfoTab />;
     }
   };
+
+  const onPickOrCaptureImage = async () => {
+    let options = {
+      title: 'Select Option',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    ImagePicker.showImagePicker(options, async (response) => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        // let source = response;
+        // You can also display the image using data:
+        let source = {
+          uri: 'data:image/jpeg;base64,' + response.data
+        };
+        setProfileImage(source);
+      }
+    });
+  }
 
   const showActivityModal = (type) => {
     setActivityType(type);
@@ -111,9 +147,9 @@ export default function UserProfile(props) {
         <View style={styles.container}>
           <View style={{ alignItems: 'center', marginTop: 30 }}>
             <View style={styles.profileImageContainer}>
-              <Image style={styles.profileImage} source={{ uri: getProfilePicture() }} />
+              <Image style={styles.profileImage} source={profileImage.uri ? profileImage : { uri: getProfilePicture() }} />
               <TouchableOpacity
-                onPress={() => { }}
+                onPress={onPickOrCaptureImage}
                 style={styles.editPenContainer}>
                 <EditPenCircleIcon width={18} height={18} />
               </TouchableOpacity>
@@ -121,7 +157,7 @@ export default function UserProfile(props) {
 
             <View style={{ padding: 15 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <AppText type={'bold'} size={16}>{`${userData && userData.username}, ${24}`}</AppText>
+                <AppText type={'bold'} size={16}>{`${userData && userData.username}${userData && userData.dob ? `, ${moment().diff(moment(userData.dob, 'YYYY-MM-DD'), 'years')}` : ''}`}</AppText>
               </View>
             </View>
 
@@ -136,30 +172,36 @@ export default function UserProfile(props) {
           <View style={{ flex: 1, padding: 15 }}>
             <View style={{ flexDirection: 'row' }}>
               <CounterCard
+                onPress={() => { }}
                 title={'Coins'}
-                count={userData && userData.credit || 0}
+                count={userData ? userData.credit : 0}
                 icon={<CoinGradientIcon width={50} height={50} />} />
               <CounterCard
+                onPress={() => { }}
                 title={'Hearts'}
-                count={121}
+                count={userData ? userData.total_hearts : 0}
                 icon={<HeartGradientIcon32 width={50} height={50} />} />
               <CounterCard
+                onPress={() => { }}
                 title={'Kisses'}
-                count={21}
+                count={userData ? userData.total_kiss : 0}
                 icon={<KissGradientIcon32 width={50} height={50} />} />
             </View>
             <View style={{ flexDirection: 'row' }}>
               <CounterCard
+                onPress={() => { }}
                 title={'Likes'}
-                count={1021}
+                count={userData ? userData.total_likes : 0}
                 icon={<LikeGradientIcon32 width={50} height={50} />} />
               <CounterCard
+                onPress={() => navigation.navigate('FriendsScreen')}
                 title={'Friends'}
-                count={3542}
+                count={userData ? userData.totalfriends : 0}
                 icon={<FriendGradientIcon32 width={50} height={50} />} />
               <CounterCard
+                onPress={() => { }}
                 title={'Stickers'}
-                count={201}
+                count={userData ? userData.stickers : 0}
                 icon={<StickerGradientIcon32 width={50} height={50} />} />
             </View>
           </View>
@@ -208,6 +250,27 @@ export default function UserProfile(props) {
             // photosList={params.item.moderator_photos}
             />
           )} */}
+
+          {userData && userData.email && (
+            <View style={styles.cardHeaderContainer}>
+              <View>
+                <AppText type={'regular'} size={14} color={Colors.black}>{"Email"}</AppText>
+                <AppText type={'bold'} size={16} color={Colors.black}>{userData.email}</AppText>
+              </View>
+              <View>
+                <AppText type={'bold'} color={Colors.greydark}>{"Verified"}</AppText>
+              </View>
+            </View>
+          )}
+
+          {userData && userData.dob && (
+            <View style={styles.cardHeaderContainer}>
+              <View>
+                <AppText type={'regular'} size={14} color={Colors.black}>{"Birthday"}</AppText>
+                <AppText type={'bold'} size={16} color={Colors.black}>{userData.dob}</AppText>
+              </View>
+            </View>
+          )}
 
           <CardHeader
             title={"Account Details"}
@@ -263,16 +326,19 @@ export default function UserProfile(props) {
   );
 }
 
-const CounterCard = ({ title, count, icon }) => {
+const CounterCard = ({ title, count, icon, onPress }) => {
   return (
-    <View style={[styles.cardContainer, { flex: 1, margin: 5 }]}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={onPress}
+      style={[styles.cardContainer, { flex: 1, margin: 5 }]}>
       {/* <Image style={[styles.commonIcon, { marginVertical: 5 }]} source={icon} /> */}
       <View style={{ marginBottom: -10 }}>
         {icon}
       </View>
       <AppText type={'bold'} size={16}>{count}</AppText>
       <AppText type={'regular'} size={12} style={{ marginTop: -3 }}>{title}</AppText>
-    </View>
+    </TouchableOpacity>
   )
 }
 

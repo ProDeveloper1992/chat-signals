@@ -13,6 +13,7 @@ import ModeratorProfile from './moderator-profile-screen'
 import UserProfile from './user-profile-screen'
 import ChatDetail from './chat-detail-screen'
 import SearchScreen from './search-screen'
+import FriendsScreen from './friends-screen'
 
 export {
   Login,
@@ -30,4 +31,5 @@ export {
   UserProfile,
   ChatDetail,
   SearchScreen,
+  FriendsScreen
 };

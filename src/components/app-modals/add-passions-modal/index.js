@@ -11,12 +11,13 @@ import CloseIcon from '../../../assets/icons/close.svg';
 import { SearchIcon } from '../../../constants/svg-icons';
 import { setUserPassions } from '../../../redux/actions/user-actions';
 import { toggleAddPassionsModal } from '../../../redux/actions/app-modals-actions';
+import { getPassionList } from '../../../redux/actions/app-actions';
 
 export default function AddPassionsModal({ visible, onHideModal }) {
 
     const dispatch = useDispatch();
-    const { appLabels } = useSelector((state) => state.appState);
-    const { userPassions, passions } = useSelector((state) => state.userState);
+    const { appLabels, passionList } = useSelector((state) => state.appState);
+    const { userPassions } = useSelector((state) => state.userState);
 
     const [loading, setLoading] = useState(false);
 
@@ -26,7 +27,7 @@ export default function AddPassionsModal({ visible, onHideModal }) {
         if (isSelected) {
             USER_PASSIONS.push(tag);
         } else {
-            const updatedPassions = USER_PASSIONS.filter(item => item.title != tag.title);
+            const updatedPassions = USER_PASSIONS.filter(item => item.id != tag.id);
             USER_PASSIONS = updatedPassions;
         }
     };
@@ -38,7 +39,7 @@ export default function AddPassionsModal({ visible, onHideModal }) {
 
     const isTagSelected = (item) => {
         for (let tag of userPassions) {
-            if (tag.title == item.title) {
+            if (tag.id == item.id) {
                 return true;
             }
         }
@@ -47,6 +48,10 @@ export default function AddPassionsModal({ visible, onHideModal }) {
 
     const onCloseModal = () => {
         onHideModal();
+    }
+
+    const onChangeSearchText = (searchText) => {
+        dispatch(getPassionList(searchText));
     }
 
     return (
@@ -71,14 +76,15 @@ export default function AddPassionsModal({ visible, onHideModal }) {
 
                 <AuthInput
                     label={'Search for passions'}
+                    onChangeText={(text) => onChangeSearchText(text)}
                     icon={<SearchIcon width={24} height={24} />}
                     placeholder={"Search"}
                 />
                 <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', marginTop: 15 }}>
-                    {passions.map((item, index) => {
+                    {passionList && passionList.map((item, index) => {
                         return <TagItem
                             key={String(index)}
-                            title={item.title}
+                            title={item.name}
                             selected={isTagSelected(item)}
                             onPress={(isSelected) => onTagItemPress(isSelected, item)}
                         />

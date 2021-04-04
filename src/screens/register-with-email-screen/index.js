@@ -3,6 +3,7 @@ import { StyleSheet, View, ScrollView, TouchableOpacity, ImageBackground } from 
 import StepIndicator from 'react-native-step-indicator';
 import { useDispatch, useSelector } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
+import moment from 'moment';
 
 import {
   AppButton,
@@ -23,12 +24,16 @@ import { EmailIcon, PasswordIcon, ProfileIcon, CameraIcon, EditPenCircleIcon } f
 import { registerUser, setSelectedGender, setSelectedLookingGender } from '../../redux/actions/user-actions';
 import { toggleAddPassionsModal, toggleMoreGenderModal, toggleSexualOrientationModal } from '../../redux/actions/app-modals-actions';
 
+import GoogleIcon from '../../assets/icons/google.svg';
+import FacebookIcon from '../../assets/icons/facebook.svg';
+import { loginWithFacebook, loginWithGoogle } from '../../services/social-login-service';
+
 const RegisterWithEmail = (props) => {
   const { navigation } = props;
   const dispatch = useDispatch();
 
-  const { appLabels } = useSelector((state) => state.appState);
-  const { userPassions, selectedUserGender, passions, userSexualOrientation } = useSelector((state) => state.userState);
+  const { appLabels, passionList, genderList, selectedLanguage } = useSelector((state) => state.appState);
+  const { userPassions, selectedUserGender, userSexualOrientation } = useSelector((state) => state.userState);
 
   const [postalCode, setPostalCode] = useState('');
   const [loading, setLoading] = useState(false);
@@ -69,14 +74,18 @@ const RegisterWithEmail = (props) => {
       }
 
       if (isValid) {
+        console.log("profileImage", profileImage)
         try {
-          //   setLoading(true);
-          //   await register(email, password);
           let requestData = {
-            language: 'en',
+            language: selectedLanguage,
             username: userName,
             email: email,
             password: password,
+            dob: moment(birthDate).format("YYYY-MM-DD"),
+            gender: selectedUserGender.id,
+            sexual_orientation: userSexualOrientation.id,
+            picture: profileImage.uri,
+            passions: 1
           };
           setLoading(true);
           const response = await dispatch(registerUser(requestData));
@@ -89,6 +98,14 @@ const RegisterWithEmail = (props) => {
         }
       }
     }
+  };
+
+  const onGoogleIconPress = async () => {
+    await loginWithGoogle();
+  };
+
+  const onFacebookIconPress = async () => {
+    await loginWithFacebook();
   };
 
   const onBackPress = () => {
@@ -213,7 +230,7 @@ const RegisterWithEmail = (props) => {
             <AppText
               type={'bold'}
               size={24}
-              style={{ textAlign: 'center', marginVertical: 20 }}>
+              style={{ textAlign: 'center', marginTop: 20 }}>
               {"Create account"}
             </AppText>
             <AuthInput
@@ -248,10 +265,31 @@ const RegisterWithEmail = (props) => {
             <AppButton
               // disabled={postalCode.trim() === ''}
               title={appLabels.next}
-              style={{ marginBottom: 20, marginTop: "20%" }}
+              style={{ marginBottom: 20, marginTop: "10%" }}
               onPress={onGoToFirstPosition}
               loading={loading}
             />
+
+            <AppText
+              color={Colors.black}
+              style={{ alignSelf: 'center', marginBottom: 10 }}>
+              {'or'}
+            </AppText>
+
+            <AppButton
+              type={'facebook'}
+              title={"Log in with Facebook"}
+              icon={<FacebookIcon width={30} height={30} />}
+              onPress={onFacebookIconPress}
+            />
+            <View style={{ marginTop: 15 }} />
+            <AppButton
+              type={'google'}
+              title={"Log in with Google"}
+              icon={<GoogleIcon width={30} height={30} />}
+              onPress={onGoogleIconPress}
+            />
+
             <TextButton
               style={{ alignSelf: 'center' }}
               title={'Back'}
@@ -288,9 +326,9 @@ const RegisterWithEmail = (props) => {
             <GenderPicker
               type={'user'}
               onSelectGenderItem={(item) => onSelectUserGenderItem(item)} />
-            {selectedUserGender.gender_id != 1 && selectedUserGender.gender_id != 2 && (
+            {/* {selectedUserGender.id != 1 && selectedUserGender.gender_id != 2 && (
               <GenderItem style={{ alignSelf: 'flex-start', marginTop: 10 }} gender={selectedUserGender.gender} isSelected={true} />
-            )}
+            )} */}
             <AppText
               style={{ marginTop: 20 }}
               color={Colors.greydark}
@@ -298,11 +336,11 @@ const RegisterWithEmail = (props) => {
               {'Optional'}
             </AppText>
 
-            <AppText type={'bold'} size={16} style={{ marginTop: 10 }}>{"Passions " + `${userPassions.length}/${passions.length}`}</AppText>
+            <AppText type={'bold'} size={16} style={{ marginTop: 10 }}>{"Passions " + `${userPassions.length}/${passionList.length}`}</AppText>
 
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 10 }}>
               {userPassions.map((item, index) => {
-                return <TagItem key={String(index)} title={item.title} disabled selected={true} />
+                return <TagItem key={String(index)} title={item.name} disabled selected={true} />
               })}
             </View>
 
@@ -318,7 +356,7 @@ const RegisterWithEmail = (props) => {
             />
 
             {userSexualOrientation && (
-              <AppText size={16}>{userSexualOrientation.title}</AppText>
+              <AppText size={16}>{userSexualOrientation.name}</AppText>
             )}
 
             <AppButton

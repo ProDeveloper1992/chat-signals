@@ -26,18 +26,27 @@ export default function FlirtTab(props) {
   const { flirtsList, flirtsLoading } = useSelector((state) => state.flirtsState);
   const { userData } = useSelector((state) => state.userState);
 
+  const [pageNumber, setPageNumber] = useState(1);
+
   useEffect(() => {
     let requestData = {
-      page: 1,
+      page: pageNumber,
       customer_id: userData.id,
       gender: ''
     };
-    let userId = {
-      id: userData.id,
+    dispatch(getFlirtsList(requestData));
+    dispatch(userProfileDetail());
+  }, []);
+
+  const onReachedToEnd = () => {
+    let requestData = {
+      page: pageNumber + 1,
+      customer_id: userData.id,
+      gender: ''
     };
     dispatch(getFlirtsList(requestData));
-    // dispatch(userProfileDetail(userId));
-  }, []);
+    setPageNumber(pageNumber + 1);
+  }
 
   return (
     <View style={styles.container}>
@@ -58,6 +67,8 @@ export default function FlirtTab(props) {
               }
             />
           )}
+          // onEndReached={() => onReachedToEnd()}
+          // onEndReachedThreshold={1}
           keyExtractor={(item, index) => index.toString()}
         />
       )}
