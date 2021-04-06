@@ -13,7 +13,11 @@ import {
   ModeratorProfile,
   UserProfile,
   ChatDetail,
-  FriendsScreen
+  FriendsScreen,
+  AccountDetail,
+  PrivacyPolicy,
+  HelpAndSupport,
+  UserPhotos
 } from '../screens';
 import BottomTabBar from '../components/BottomTabBar';
 import { Colors } from '../constants';
@@ -158,30 +162,45 @@ export default function MainStackNavigator() {
       <Stack.Screen
         name="BottomTab"
         component={BottomTabNavigator}
-      // options={{title: 'Home'}}
       />
       <Stack.Screen
         name="ModeratorProfile"
         component={ModeratorProfile}
-        options={{ title: 'Moderator Profile' }}
       />
 
       <Stack.Screen
         name="UserProfile"
         component={UserProfile}
-        options={{ title: 'User Profile' }}
       />
 
       <Stack.Screen
         name="ChatDetail"
         component={ChatDetail}
-        options={{ title: 'Chat Detail' }}
       />
 
       <Stack.Screen
         name="FriendsScreen"
         component={FriendsScreen}
-        options={{ title: 'Friends' }}
+      />
+
+      <Stack.Screen
+        name="AccountDetail"
+        component={AccountDetail}
+      />
+
+      <Stack.Screen
+        name="PrivacyPolicy"
+        component={PrivacyPolicy}
+      />
+
+      <Stack.Screen
+        name="HelpAndSupport"
+        component={HelpAndSupport}
+      />
+
+      <Stack.Screen
+        name="UserPhotos"
+        component={UserPhotos}
       />
     </Stack.Navigator>
   );

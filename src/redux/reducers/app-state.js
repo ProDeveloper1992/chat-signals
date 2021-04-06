@@ -16,7 +16,8 @@ import {
   GET_SEAL_URL_FAILED,
   GET_PASSION_LIST_SUCCESS,
   GET_SEXUAL_ORIENTATION_LIST_SUCCESS,
-  GET_GENDERS_LIST_SUCCESS
+  GET_GENDERS_LIST_SUCCESS,
+  GET_HELP_TICKET_LIST_SUCCESS
 } from '../actions/types';
 
 const initialState = {
@@ -29,6 +30,7 @@ const initialState = {
   genderList: [],
   passionList: [],
   sexualOrientations: [],
+  helpTicketList: [],
   appLabels: {
     Thisistest: 'this is testing',
     at: 'AT',
@@ -116,6 +118,7 @@ const initialState = {
     give_away_coins: 'Give away coins',
     report_user: 'Report User',
     block_user: 'Block User',
+    dob: "Date of birth"
   },
 };
 
@@ -208,50 +211,54 @@ export default function (state = initialState, action) {
       };
 
     //Get Seal Url
-    case GET_SEAL_URL_REQUEST: {
+    case GET_SEAL_URL_REQUEST:
       return {
         ...state,
         gettingSealUrl: true,
-      }
-    };
+      };
 
-    case GET_SEAL_URL_SUCCESS: {
+    case GET_SEAL_URL_SUCCESS:
       return {
         ...state,
         gettingSealUrl: false,
-      }
-    };
+      };
 
-    case GET_SEAL_URL_FAILED: {
+    case GET_SEAL_URL_FAILED:
       return {
         ...state,
         gettingSealUrl: false,
-      }
-    };
+      };
 
-    case GET_PASSION_LIST_SUCCESS: {
+    case GET_PASSION_LIST_SUCCESS:
       console.log("GET_PASSION_LIST_SUCCESS", action.payload)
       return {
         ...state,
         passionList: action.payload
-      }
-    }
+      };
 
-    case GET_SEXUAL_ORIENTATION_LIST_SUCCESS: {
+
+    case GET_SEXUAL_ORIENTATION_LIST_SUCCESS:
       console.log("GET_SEXUAL_ORIENTATION_LIST_SUCCESS", action.payload)
       return {
         ...state,
         sexualOrientations: action.payload
-      }
-    }
+      };
 
-    case GET_GENDERS_LIST_SUCCESS: {
+
+    case GET_GENDERS_LIST_SUCCESS:
       console.log("GET_GENDERS_LIST_SUCCESS", action.payload)
       return {
         ...state,
         genderList: action.payload
-      }
-    }
+      };
+
+
+    case GET_HELP_TICKET_LIST_SUCCESS:
+      console.log("GET_HELP_TICKET_LIST_SUCCESS", action.payload)
+      return {
+        ...state,
+        helpTicketList: action.payload
+      };
 
     default:
       return state;

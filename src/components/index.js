@@ -15,7 +15,8 @@ import {
   TagItem,
   NotificationItem,
   FriendRequestItem,
-  FriendListItem
+  FriendListItem,
+  UserPhotoItem
 } from './app-list-items';
 import { AppText } from './app-text';
 import OwnPurchaseCard from './own-purchase-card';
@@ -24,7 +25,7 @@ import CommonImage from './app-common-image';
 import AppDropDown from './app-drop-down';
 import { OnlineStatusCircle } from './user-online-status';
 import AppGiftBadge from './app-gift-badge';
-import { GenderMenu, FriendItemMenu } from './app-menus';
+import { GenderMenu, FriendItemMenu, HelpTicketMenu, UserPhotoItemMenu } from './app-menus';
 
 export {
   AppText,
@@ -49,6 +50,11 @@ export {
   OwnPurchaseCard,
   DatePicker,
   CommonImage,
+  AppDropDown,
+  OnlineStatusCircle,
+  AppGiftBadge,
+
+  //List Items
   LaguageItem,
   GenderItem,
   CountryItem,
@@ -57,10 +63,11 @@ export {
   ModeratorListItem,
   FriendRequestItem,
   FriendListItem,
-  AppDropDown,
-  OnlineStatusCircle,
-  AppGiftBadge,
+  UserPhotoItem,
+
   //Menus
   GenderMenu,
-  FriendItemMenu
+  FriendItemMenu,
+  HelpTicketMenu,
+  UserPhotoItemMenu
 };

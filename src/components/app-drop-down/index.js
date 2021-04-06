@@ -15,6 +15,7 @@ export default function AppDropDown({ title, value, onPress }) {
                 <AppText color={Colors.black} style={{ paddingBottom: 5, paddingTop: 5 }}>{title}</AppText>
             )}
             <TouchableOpacity
+                activeOpacity={0.8}
                 style={styles.container}
                 onPress={onPress}
             >
@@ -22,8 +23,8 @@ export default function AppDropDown({ title, value, onPress }) {
                 {isOpened ? (
                     <DropUpIcon width={15} height={15} />
                 ) : (
-                        <DropDownIcon width={15} height={15} />
-                    )}
+                    <DropDownIcon width={15} height={15} />
+                )}
             </TouchableOpacity>
         </View>
     );

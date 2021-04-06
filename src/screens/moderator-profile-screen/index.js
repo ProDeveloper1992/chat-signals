@@ -13,7 +13,7 @@ import {
 import { PagerTabIndicator, IndicatorViewPager, PagerTitleIndicator, PagerDotIndicator } from 'rn-viewpager';
 
 import { NoListData, AppText, BackHeader, TagItem, OnlineStatusCircle } from '../../components';
-import { Icons, Colors, DEFAULT_IMAGE_URL } from '../../constants';
+import { Icons, Colors, DEFAULT_IMAGE_URL, SCREEN_HEIGHT } from '../../constants';
 import styles from './style';
 import { ModeratorIconLabel } from '../../components';
 import { ModeratorActivityModal } from '../../components/app-modals';
@@ -32,6 +32,8 @@ import {
   CoinGradientIcon
 } from '../../constants/svg-icons';
 import { showToast } from '../../redux/actions/app-actions';
+import moment from 'moment';
+import { getModeratorProfileDetail } from '../../redux/actions/flirts-actions';
 
 export default function ModeratorProfile(props) {
 
@@ -46,43 +48,9 @@ export default function ModeratorProfile(props) {
   const [activityType, setActivityType] = useState('kisses');
   const [activityModalVisible, setActivityModalVisible] = useState(false);
 
-  const IMAGES = [
-    {
-      image_url: params.item.picture,
-      is_locked: false
-    },
-    {
-      image_url: params.item.picture,
-      is_locked: true
-    },
-    {
-      image_url: params.item.picture,
-      is_locked: false
-    },
-    {
-      image_url: params.item.picture,
-      is_locked: true
-    },
-    {
-      image_url: params.item.picture,
-      is_locked: false
-    },
-    {
-      image_url: params.item.picture,
-      is_locked: true
-    },
-    {
-      image_url: params.item.picture,
-      is_locked: false
-    },
-    {
-      image_url: params.item.picture,
-      is_locked: false
-    }
-  ];
-
   useEffect(() => {
-    console.log("Mederator Detail...", params.item)
+    console.log("Mederator Detail...", params.item);
+    dispatch(getModeratorProfileDetail(params.item.id));
   }, [])
 
   const toggleSwitch = async () => {
@@ -135,9 +103,8 @@ export default function ModeratorProfile(props) {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
 
-
           <IndicatorViewPager
-            style={{ height: Dimensions.get('window').height / 3, backgroundColor: Colors.grey }}
+            style={{ height: SCREEN_HEIGHT / 2, backgroundColor: Colors.grey }}
             indicator={_renderDotIndicator(params.item.profilepicture.length)}
           >
             {params.item.profilepicture.map((item, index) => {
@@ -148,12 +115,7 @@ export default function ModeratorProfile(props) {
                 resizeMode={'cover'}
                 source={{ uri: getItemImage(item.picture) }}>
                 {item.is_erotic == "1" && (
-                  <View style={{
-                    flex: 1,
-                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}>
+                  <View style={styles.eroticContainer}>
                     <XXXCoinIcon width={60} height={60} />
                     <AppText
                       type={'black-italic'}
@@ -162,18 +124,7 @@ export default function ModeratorProfile(props) {
                       color={Colors.white}>{"EROTIC IMAGE"}</AppText>
                     <TouchableOpacity
                       onPress={onUnlockEroticImage}
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        paddingHorizontal: 15,
-                        paddingVertical: 12,
-                        borderWidth: 1,
-                        borderColor: Colors.white,
-                        borderRadius: 46,
-                        paddingBottom: -10,
-                        paddingTop: -10,
-                        marginTop: 15
-                      }}>
+                      style={styles.unlockEroticButtonContainer}>
                       <View style={{ marginBottom: -5, marginTop: 5, marginStart: -10 }}>
                         <CoinGradientIcon width={40} height={40} />
                       </View>
@@ -191,11 +142,11 @@ export default function ModeratorProfile(props) {
               <View style={{ flex: 0.7 }}>
                 <View style={styles.moderatorNameContainer}>
                   <AppText type={'bold'} size={18} style={{ textTransform: 'capitalize', marginEnd: 10 }}>
-                    {params.item.username}
+                    {params.item.username}{params.item.dob ? `, ${moment().diff(moment(params.item.dob, 'YYYY-MM-DD'), 'years')}` : ''}
                   </AppText>
                   <OnlineStatusCircle isOnline={true} size={12} />
                 </View>
-                <AppText type={'regular'} style={{ textTransform: 'capitalize' }}>
+                <AppText type={'regular'} size={16} style={{ textTransform: 'capitalize' }}>
                   {params.item.city + ", " + params.item.country}
                 </AppText>
               </View>
@@ -260,6 +211,16 @@ export default function ModeratorProfile(props) {
               <AppText type={'bold'} size={18}>{"Details"}</AppText>
               <AppText type={'regular'} color={Colors.greydark}>{"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias"}</AppText>
             </View>
+            {params.item && params.item.dob && (
+              <ProfileItem
+                title={appLabels.dob}
+                value={params.item.dob} />
+            )}
+            {params.item && params.item.Gender && (
+              <ProfileItem
+                title={appLabels.gender}
+                value={params.item.Gender} />
+            )}
           </View>
           <ModeratorActivityModal
             visible={activityModalVisible}
@@ -270,4 +231,13 @@ export default function ModeratorProfile(props) {
       </ScrollView>
     </View>
   );
+}
+
+const ProfileItem = ({ title, value }) => {
+  return <View style={{ padding: 10 }}>
+    <View>
+      <AppText type={'regular'} size={14} color={Colors.black}>{title}</AppText>
+      <AppText type={'bold'} size={16} color={Colors.black}>{value}</AppText>
+    </View>
+  </View>
 }
