@@ -14,7 +14,8 @@ import {
   GET_SEAL_URL_FAILED,
   GET_PASSION_LIST_SUCCESS,
   GET_SEXUAL_ORIENTATION_LIST_SUCCESS,
-  GET_GENDERS_LIST_SUCCESS
+  GET_GENDERS_LIST_SUCCESS,
+  GET_HELP_TICKET_LIST_SUCCESS
 } from './types';
 import { client } from '../../services/api-service';
 import { store } from '../../redux/store';
@@ -158,6 +159,28 @@ export const getGenderList = () => (dispatch, getState) =>
       .then((res) => {
         if (res.meta.status) {
           dispatch(ActionDispatcher(GET_GENDERS_LIST_SUCCESS, res.data));
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } })
+        reject(err);
+      });
+  });
+
+//Get Help Ticket Category List
+export const getHelpTicketList = () => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    let state = getState();
+    let selectedLanguage = state.appState.selectedLanguage;
+    let requestData = {
+      language: selectedLanguage,
+    }
+    client
+      .post(`/ticket_catagory_list`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+          dispatch(ActionDispatcher(GET_HELP_TICKET_LIST_SUCCESS, res.data));
         }
         resolve(res);
       })

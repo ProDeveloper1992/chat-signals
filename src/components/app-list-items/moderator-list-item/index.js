@@ -4,6 +4,7 @@ import { Colors, DEFAULT_IMAGE_URL, Icons } from '../../../constants';
 import styles from './style';
 import { AppText, OnlineStatusCircle } from '../../index';
 import LinearGradient from 'react-native-linear-gradient';
+import moment from 'moment';
 
 export default function ModeratorListItem({ item, onPress, isBoosted }) {
 
@@ -53,7 +54,7 @@ export default function ModeratorListItem({ item, onPress, isBoosted }) {
           <View style={styles.bottomContainer}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <AppText type={'bold'} color={Colors.white} size={20} style={styles.userName}>
-                {item.username}
+                {item.username}{item.dob ? `, ${moment().diff(moment(item.dob, 'YYYY-MM-DD'), 'years')}` : ''}
               </AppText>
               <OnlineStatusCircle isOnline={true} size={12} />
             </View>

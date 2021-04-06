@@ -14,6 +14,10 @@ import UserProfile from './user-profile-screen'
 import ChatDetail from './chat-detail-screen'
 import SearchScreen from './search-screen'
 import FriendsScreen from './friends-screen'
+import AccountDetail from './account-detail-screen'
+import PrivacyPolicy from './privacy-policy-screen'
+import HelpAndSupport from './help-support-screen'
+import UserPhotos from './user-photos-screen'
 
 export {
   Login,
@@ -31,5 +35,9 @@ export {
   UserProfile,
   ChatDetail,
   SearchScreen,
-  FriendsScreen
+  FriendsScreen,
+  AccountDetail,
+  PrivacyPolicy,
+  HelpAndSupport,
+  UserPhotos
 };

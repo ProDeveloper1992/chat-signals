@@ -2,21 +2,15 @@ import React, { useEffect, useState } from 'react';
 import {
   View,
   Image,
-  ImageBackground,
   ScrollView,
-  Switch,
   TouchableOpacity,
   Alert,
 } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
-import { NoListData, AppText, BackHeader, GeneralHeader } from '../../components';
-import { Icons, Colors, DEFAULT_AVATAR_URL } from '../../constants';
+import { AppText, GeneralHeader } from '../../components';
+import { Colors, DEFAULT_AVATAR_URL } from '../../constants';
 import styles from './style';
-import { ModeratorIconLabel, ModeratorHeader } from '../../components';
-import ModeratorProfileInfoTab from './user-profile-info-tab';
-import ModeratorProfilePhotosTab from './user-profile-photos-tab';
-import ModeratorProfileActionTab from './user-profile-action-tab';
 import { DeleteAccountModal, ModeratorActivityModal } from '../../components/app-modals';
 import { useDispatch, useSelector } from 'react-redux';
 import { GoogleSignin } from 'react-native-google-signin';
@@ -48,7 +42,21 @@ export default function UserProfile(props) {
   const [activityModalVisible, setActivityModalVisible] = useState(false);
   const [cuurentTab, setCurrentTab] = useState(1);
   const [deleteAccountModalVisible, setDeleteAccountModalVisible] = useState(false);
-  const [isMyPhotosExpanded, setMyPhotosExpanded] = useState(true);
+
+  const getUserProfileImage = () => {
+    let image_url = null;
+    if (userData && userData.profilepictures && userData.profilepictures.length > 0) {
+      for (let profilePicture of userData.profilepictures) {
+        if (profilePicture.status == "1") {
+          console.log(profilePicture.is_profile_photo)
+          image_url = profilePicture.picture;
+        }
+      }
+      return image_url;
+    } else {
+      return DEFAULT_AVATAR_URL;
+    }
+  }
 
   //Second Position Page
   const [profileImage, setProfileImage] = useState({ uri: null });
@@ -63,13 +71,6 @@ export default function UserProfile(props) {
       dispatch(userProfileDetail());
     }
   }, [isFocused]);
-
-  const renderCurrentTab = () => {
-    switch (cuurentTab) {
-      case 1:
-        return <ModeratorProfileInfoTab />;
-    }
-  };
 
   const onPickOrCaptureImage = async () => {
     let options = {
@@ -208,7 +209,6 @@ export default function UserProfile(props) {
 
           {/* <CardHeader
             title={"Account Information"}
-            isExpanded={isAccountInfoExpanded}
             onPress={() => setAccountInfoExpanded(!isAccountInfoExpanded)} />
 
           {isAccountInfoExpanded && userData && (
@@ -242,16 +242,9 @@ export default function UserProfile(props) {
           <View style={{ borderBottomWidth: 1, borderColor: Colors.grey, marginHorizontal: 10 }} />
           <CardHeader
             title={appLabels.photos}
-            isExpanded={isMyPhotosExpanded}
-            onPress={() => setMyPhotosExpanded(!isMyPhotosExpanded)} />
+            onPress={() => navigation.navigate('UserPhotos')} />
 
-          {/* {isMyPhotosExpanded && (
-            <ModeratorProfilePhotosTab
-            // photosList={params.item.moderator_photos}
-            />
-          )} */}
-
-          {userData && userData.email && (
+          {/* {userData && userData.email && (
             <View style={styles.cardHeaderContainer}>
               <View>
                 <AppText type={'regular'} size={14} color={Colors.black}>{"Email"}</AppText>
@@ -270,32 +263,29 @@ export default function UserProfile(props) {
                 <AppText type={'bold'} size={16} color={Colors.black}>{userData.dob}</AppText>
               </View>
             </View>
-          )}
+          )} */}
 
           <CardHeader
             title={"Account Details"}
-            isExpanded={false}
-            onPress={() => { }} />
+            onPress={() => navigation.navigate('AccountDetail')}
+          />
 
           <CardHeader
             title={"Notifications"}
-            isExpanded={false}
             onPress={() => { }} />
+
 
           <CardHeader
             title={"Language"}
-            isExpanded={false}
             onPress={onLanguagePress} />
 
           <CardHeader
             title={"Privacy Policy"}
-            isExpanded={false}
-            onPress={() => { }} />
+            onPress={() => navigation.navigate('PrivacyPolicy')} />
 
           <CardHeader
             title={"Help & Support"}
-            isExpanded={false}
-            onPress={() => { }} />
+            onPress={() => navigation.navigate('HelpAndSupport')} />
 
           <AppText
             onPress={onLogout}
@@ -332,7 +322,6 @@ const CounterCard = ({ title, count, icon, onPress }) => {
       activeOpacity={0.8}
       onPress={onPress}
       style={[styles.cardContainer, { flex: 1, margin: 5 }]}>
-      {/* <Image style={[styles.commonIcon, { marginVertical: 5 }]} source={icon} /> */}
       <View style={{ marginBottom: -10 }}>
         {icon}
       </View>
@@ -342,26 +331,11 @@ const CounterCard = ({ title, count, icon, onPress }) => {
   )
 }
 
-const CardHeader = ({ title, onPress, isExpanded }) => {
+const CardHeader = ({ title, onPress }) => {
   return (
     <TouchableOpacity activeOpacity={0.8} onPress={onPress} style={styles.cardHeaderContainer}>
       <AppText type={'medium'} size={16} color={Colors.black}>{title}</AppText>
-      {/* <Image style={[styles.commonIcon, { tintColor: Colors.ui_primary }]} source={isExpanded ? Icons.icon_drop_up : Icons.icon_drop_down} /> */}
       <ArrowRightIcon width={24} height={24} />
     </TouchableOpacity>
-  )
-}
-
-const AccountInfoItem = ({ title, value, icon }) => {
-  return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10, }}>
-      <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: Colors.black, justifyContent: 'center', alignItems: 'center', marginEnd: 10 }}>
-        <Image style={{ width: 20, height: 20, resizeMode: 'contain', tintColor: Colors.white }} source={icon} />
-      </View>
-      <View>
-        <AppText type={'bold'} size={16}>{title}</AppText>
-        <AppText>{value}</AppText>
-      </View>
-    </View>
   )
 }

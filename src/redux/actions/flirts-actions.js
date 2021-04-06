@@ -66,3 +66,29 @@ export const getProFlirtsList = (requestData) => (dispatch, getState) =>
         reject(err);
       });
   });
+
+//Get Moderator Profile Detail
+export const getModeratorProfileDetail = (moderatorId) => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    const userData = getState().userState.userData;
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      id: moderatorId,
+      customer_id: userId
+    }
+    client
+      .post(`/profile_detail`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+          // dispatch(getFriendsList())
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } });
+        reject(err);
+      });
+  });

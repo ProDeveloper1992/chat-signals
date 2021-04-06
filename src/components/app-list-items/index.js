@@ -7,6 +7,7 @@ import TagItem from './tag-item';
 import NotificationItem from './notification-item';
 import FriendRequestItem from './friend-request-item';
 import FriendListItem from './friend-list-item';
+import UserPhotoItem from './user-photo-item';
 
 export {
     ModeratorListItem,
@@ -17,5 +18,6 @@ export {
     TagItem,
     NotificationItem,
     FriendRequestItem,
-    FriendListItem
+    FriendListItem,
+    UserPhotoItem
 };

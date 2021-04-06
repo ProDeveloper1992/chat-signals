@@ -78,16 +78,35 @@ export default StyleSheet.create({
   },
   inactiveViewPaggerDot: function (pages) {
     return {
-      width: Dimensions.get('window').width / (pages + (pages / 3)),
+      width: Dimensions.get('window').width / (pages + (pages / 2)),
       height: 4,
       backgroundColor: 'rgba(255,255,255,0.4)'
     }
   },
   activeViewPaggerDot: function (pages) {
     return {
-      width: Dimensions.get('window').width / (pages + (pages / 3)),
+      width: Dimensions.get('window').width / (pages + (pages / 2)),
       height: 4,
       backgroundColor: Colors.white
     }
+  },
+
+  unlockEroticButtonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 15,
+    paddingVertical: 12,
+    borderWidth: 1,
+    borderColor: Colors.white,
+    borderRadius: 46,
+    paddingBottom: -10,
+    paddingTop: -10,
+    marginTop: 15
+  },
+  eroticContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });
