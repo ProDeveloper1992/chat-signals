@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Colors, Icons } from '../../../constants';
 import { AppButton, AppText } from '../../index';
 import styles from './style';
-import { CloseIcon, FriendGradientIcon32, KissGradientIcon32, LikeGradientIcon32, ChatGradientIcon, StickerGradientIcon32 } from '../../../constants/svg-icons'
+import { CloseIcon, FriendGradientIcon32, KissGradientIcon32, LikeGradientIcon32, ChatGradientIcon, StickerGradientIcon32, HeartGradientIcon32 } from '../../../constants/svg-icons'
+import { sendMessage } from '../../../redux/actions/chat-actions'
 
-export default function ActivityModal({ visible, onHideModal, type }) {
+export default function ActivityModal({ visible, onHideModal, type, moderator, onSentItem }) {
+
+  const dispatch = useDispatch();
 
   const { appLabels, generalSettings } = useSelector((state) => state.appState);
+  const { userData } = useSelector((state) => state.userState);
+
+  const [isSending, setIsSending] = useState(false);
 
 
   const getTitle = (type) => {
@@ -28,6 +34,9 @@ export default function ActivityModal({ visible, onHideModal, type }) {
 
       case 'sticker':
         return "Sticker";
+
+      case 'heart':
+        return "Heart";
 
       default:
         return 'Title';
@@ -51,6 +60,9 @@ export default function ActivityModal({ visible, onHideModal, type }) {
       case 'sticker':
         return <StickerGradientIcon32 width={150} height={150} />;
 
+      case 'heart':
+        return <HeartGradientIcon32 width={150} height={150} />;
+
       default:
         return null;
     }
@@ -73,6 +85,9 @@ export default function ActivityModal({ visible, onHideModal, type }) {
       case 'sticker':
         return getCoinByType('prices_kiss');
 
+      case 'heart':
+        return getCoinByType('prices_kiss');
+
       default:
         return 0;
     }
@@ -89,6 +104,66 @@ export default function ActivityModal({ visible, onHideModal, type }) {
       return type_value;
     } else {
       return 0;
+    }
+  }
+
+  const onSendPress = async () => {
+    switch (type) {
+      case 'kiss':
+        let kisMessageToSend = {
+          id: moderator.id,
+          customer_id: userData.id,
+          // message: '',
+          send_kiss: 3
+        };
+        console.log("kisMessageToSend", kisMessageToSend)
+        setIsSending(true);
+        await dispatch(sendMessage(kisMessageToSend));
+        setIsSending(false);
+        onSentItem();
+        onHideModal();
+        break;
+      case 'like':
+        let likeMessageToSend = {
+          id: moderator.id,
+          customer_id: userData.id,
+          // message: '',
+          send_like: 2
+        };
+        console.log("likeMessageToSend", likeMessageToSend)
+        setIsSending(true);
+        await dispatch(sendMessage(likeMessageToSend));
+        setIsSending(false);
+        onSentItem();
+        onHideModal();
+        break;
+
+      case 'addfriend':
+        let messageToSend = {
+          id: moderator.id,
+          customer_id: userData.id,
+          // message: '',
+          send_friends: 1
+        };
+        console.log("messageToSend", messageToSend)
+        setIsSending(true);
+        await dispatch(sendMessage(messageToSend));
+        setIsSending(false);
+        onSentItem();
+        onHideModal();
+        break;
+
+      case 'sticker':
+        onHideModal();
+        break;
+
+      case 'heart':
+        onHideModal();
+        break;
+
+      default:
+        onHideModal();
+        break;
     }
   }
 
@@ -135,7 +210,8 @@ export default function ActivityModal({ visible, onHideModal, type }) {
         <AppButton
           title={'Send'}
           style={{ marginVertical: 10 }}
-          onPress={onHideModal}
+          onPress={onSendPress}
+          loading={isSending}
         />
         <AppButton
           type={'light'}

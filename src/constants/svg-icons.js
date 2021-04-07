@@ -33,6 +33,7 @@ import DropUpIcon from '../assets/icons/drop_up.svg';
 import XXXCoinIcon from '../assets/icons/xxx-coin.svg';
 import UnfriendIcon from '../assets/icons/unfriend.svg';
 import BlockIcon from '../assets/icons/block.svg';
+import DeleteBinIcon from '../assets/icons/delete.svg';
 
 import GiftBoxIcon from '../assets/images/gift_box.svg';
 
@@ -72,5 +73,6 @@ export {
     XXXCoinIcon,
     GiftBoxIcon,
     UnfriendIcon,
-    BlockIcon
+    BlockIcon,
+    DeleteBinIcon
 }

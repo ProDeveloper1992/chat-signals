@@ -9,39 +9,59 @@ import {
     StickerGradientIcon32,
     KissGradientIcon32,
     HeartGradientIcon32,
-    LikeGradientIcon32
+    LikeGradientIcon32,
+    CoinGradientIcon
 } from '../../constants/svg-icons';
 import { useSelector } from 'react-redux';
 
-export function ChatInput({ style, value, onChangeMessage, onSendPress, ...props }) {
+export function ChatInput({ style, value, onChangeMessage, onSendPress, onSendItem, ...props }) {
 
     const { userData } = useSelector((state) => state.userState);
+    const { appLabels, generalSettings } = useSelector((state) => state.appState);
+
+    const getMessagePrice = () => {
+        if (generalSettings.length > 0) {
+            let message_price = 0;
+            for (let setting of generalSettings) {
+                if (setting.name === 'prices_message') {
+                    message_price = setting.value * 1;
+                }
+            }
+            return message_price;
+        } else {
+            return 0;
+        }
+    }
 
     return (
         <SafeAreaView style={styles.container}>
             <View style={{ margin: 14 }}>
                 <View style={styles.topHorizontal}>
-                    <IconWithValue
-                        icon={<EmailIcon width={18} height={18} />}
-                        minimumValue={0}
-                        maximumValue={6}
-                    />
-                    <IconWithValue
-                        icon={<AppText type={'bold'} size={17}>{"Aa"}</AppText>}
-                        minimumValue={value.length}
-                        maximumValue={250}
-                    />
-                    {userData && (
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <View style={{ marginBottom: -10, marginStart: -15 }}>
-                                <StickerGradientIcon32 />
-                            </View>
+                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                        <IconWithValue
+                            icon={<EmailIcon width={18} height={18} />}
+                            minimumValue={0}
+                            maximumValue={6}
+                        />
+                        <IconWithValue
+                            icon={<AppText type={'bold'} size={16}>{"Aa"}</AppText>}
+                            minimumValue={value.length}
+                            maximumValue={250}
+                        />
+                    </View>
+                    <View style={{ flex: 1 }}>
+                        {userData && (
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <AppText type={'bold'} size={15}>{userData.credit}</AppText>
-                                <AppText type={'regular'} size={15}>{' Coins'}</AppText>
+                                <View style={{ marginBottom: -5, marginStart: -15 }}>
+                                    <CoinGradientIcon width={40} height={40} />
+                                </View>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <AppText type={'bold'} size={14}>{userData.credit}</AppText>
+                                    <AppText type={'regular'} size={14}>{` ${appLabels.Coins}`}</AppText>
+                                </View>
                             </View>
-                        </View>
-                    )}
+                        )}
+                    </View>
                 </View>
                 <View style={styles.inputContainer}>
                     <AttachIcon width={24} height={24} />
@@ -64,20 +84,22 @@ export function ChatInput({ style, value, onChangeMessage, onSendPress, ...props
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
                     <TouchableIcon
                         icon={<StickerGradientIcon32 />}
-                        onPress={() => { }} />
+                        onPress={() => onSendItem('sticker')} />
                     <TouchableIcon
                         icon={<KissGradientIcon32 />}
-                        onPress={() => { }} />
+                        onPress={() => onSendItem('kiss')} />
                     <TouchableIcon
                         icon={<LikeGradientIcon32 />}
-                        onPress={() => { }} />
+                        onPress={() => onSendItem('like')} />
                     <TouchableIcon
                         icon={<HeartGradientIcon32 />}
-                        onPress={() => { }} />
-                    <View style={{ flexDirection: 'row', alignItems: 'center', marginStart: 15 }}>
-                        <AppText size={12}>{`Send message for `}</AppText>
-                        <AppText size={12} type={'bold'}>{`${8} coins`}</AppText>
-                    </View>
+                        onPress={() => onSendItem('heart')} />
+                    {getMessagePrice() > 0 && (
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginStart: 15 }}>
+                            <AppText size={12}>{`Send message for `}</AppText>
+                            <AppText size={12} type={'bold'}>{`${getMessagePrice()} ${appLabels.Coins}`}</AppText>
+                        </View>
+                    )}
                 </View>
             </View>
         </SafeAreaView>
@@ -88,7 +110,7 @@ const IconWithValue = ({ icon, minimumValue, maximumValue }) => {
     return (
         <View style={{ flexDirection: 'row', alignItems: 'center', marginEnd: 20 }}>
             {icon}
-            <AppText style={{ marginStart: 5 }}>{`${minimumValue}/${maximumValue}`}</AppText>
+            <AppText color={Colors.greydark} style={{ marginStart: 5 }}>{`${minimumValue}/${maximumValue}`}</AppText>
         </View>
     )
 }
@@ -126,13 +148,13 @@ const styles = StyleSheet.create({
         borderRadius: 48,
         paddingEnd: 11,
         paddingStart: 18,
-        borderWidth: 1,
-        borderColor: Colors.grey
-        // shadowColor: Colors.black,
-        // shadowOffset: { width: 0, height: 4 },
-        // shadowOpacity: 0.1,
-        // shadowRadius: 4,
-        // elevation: 2,
+        // borderWidth: 1,
+        // borderColor: Colors.grey
+        shadowColor: Colors.black,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 200,
     },
     input: {
         flex: 1,

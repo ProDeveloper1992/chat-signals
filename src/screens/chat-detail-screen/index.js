@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Keyboard, View, TouchableWithoutFeedback, FlatList, TouchableOpacity } from 'react-native';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Keyboard, View, TouchableWithoutFeedback, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 import { ChatDetailHeader } from '../../components/Headers';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,30 +9,38 @@ import { Colors, Icons } from '../../constants';
 import { getChatConversation } from '../../redux/actions/user-actions';
 import { InfoIcon } from '../../constants/svg-icons';
 import { sendMessage } from '../../redux/actions/chat-actions';
+import { ModeratorActivityModal, ModeratorChatDetailModal } from '../../components/app-modals';
 
 const ChatDetail = (props) => {
+  let listViewRef;
+
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const customer = props.route.params.item;
+  const moderator = props.route.params.item;
 
   const [messageText, setMessageText] = useState('');
   const [messages, setMessages] = useState([]);
+  const [activityType, setActivityType] = useState('kiss');
+  const [activityModalVisible, setActivityModalVisible] = useState(false);
+  const [moderatorDetailModalVisible, setModeratorDetailModalVisible] = useState(false);
 
   const { userData } = useSelector((state) => state.userState);
 
   useEffect(() => {
     getChatMessages();
+
+    console.log("moderator", moderator)
   }, []);
 
   const getChatMessages = async () => {
-    const response = await dispatch(getChatConversation(customer.user.id));
+    const response = await dispatch(getChatConversation(moderator.user.id));
     if (response.meta.status) {
       setMessages(response.data);
     }
   }
 
   const isMessageFromUser = (item) => {
-    if (item.from_id == userData.id) {
+    if (userData && item.from_id == userData.id) {
       return true;
     } else {
       return false;
@@ -40,46 +48,85 @@ const ChatDetail = (props) => {
   }
 
   const onSendTextMessage = async () => {
-    // console.log("userData", userData)
-    let messageToSend = {
-      id: customer.user.id,
-      customer_id: userData.id,
-      message: messageText,
-      // file:'',
-      // gift_id:null
-    };
-    await dispatch(sendMessage(messageToSend));
-    setMessageText('');
-    const response = await dispatch(getChatConversation(customer.user.id));
-    if (response.meta.status) {
-      setMessages(response.data);
+    if (messageText != '') {
+
+      let updated_messages = messages;
+
+      let new_message = {
+        attachment: [null, null, null],
+        from_id: userData.id,
+        fullTime: new Date(),
+        id: Math.random(),
+        message: messageText,
+        seen: "0",
+        time: "1 seconds ago",
+        to_id: moderator.user.id,
+        viewType: "default",
+      }
+
+      updated_messages.push(new_message);
+      setMessages(updated_messages);
+      listViewRef.scrollToEnd({ animated: true })
+      setMessageText('');
+      let messageToSend = {
+        id: moderator.user.id,
+        customer_id: userData.id,
+        message: messageText,
+      };
+      await dispatch(sendMessage(messageToSend));
+      const response = await dispatch(getChatConversation(moderator.user.id));
+      if (response.meta.status) {
+        setMessages(response.data);
+      }
     }
+  }
+
+  const onSendItemToModerator = (type) => {
+    setActivityType(type);
+    setActivityModalVisible(true);
+  }
+
+  const onInfoButtonPress = () => {
+    setModeratorDetailModalVisible(true);
+  }
+
+  const onViewModeratorProfile = () => {
+    // navigation.navigate('ModeratorProfile', { item: moderator })
   }
 
   return (
     // <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
     <View style={styles.container}>
-      <ChatDetailHeader
-        leftIcon={Icons.user_profile}
-        onLeftPress={() => navigation.goBack()}
-        label={customer.user.username}
-      />
-      <View style={styles.userDetailHeader}>
-        <CommonImage size={44} borderColor={Colors.white} />
-        <View style={{ flex: 1, paddingHorizontal: 12 }}>
-          <AppText type={'bold'} size={18}>{customer.user.username}</AppText>
-          <AppText type={'regular'} size={12} color={Colors.greydark}>{"Online"}</AppText>
+      <View>
+        <ChatDetailHeader
+          leftIcon={Icons.user_profile}
+          onLeftPress={() => navigation.goBack()}
+          label={moderator.user.username}
+        />
+        <View style={styles.userDetailHeader}>
+          <CommonImage size={44} borderColor={Colors.white} />
+          <View style={{ flex: 1, paddingHorizontal: 12 }}>
+            <AppText type={'bold'} size={18}>{moderator.user.username}</AppText>
+            <AppText type={'regular'} size={12} color={Colors.greydark}>{"Online"}</AppText>
+          </View>
+          <TouchableOpacity
+            onPress={onInfoButtonPress}
+            style={{ marginBottom: -10 }}>
+            <InfoIcon width={40} height={40} />
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity style={{ marginBottom: -10 }}>
-          <InfoIcon width={40} height={40} />
-        </TouchableOpacity>
       </View>
       <FlatList
+        ref={(ref) => {
+          listViewRef = ref;
+        }}
+        onContentSizeChange={() => listViewRef.scrollToEnd({ animated: true })}
         data={messages}
-        contentContainerStyle={{ paddingTop: 20, paddingBottom: 80 }}
+        extraData={messages}
+        contentContainerStyle={{ flexGrow: 1, paddingTop: 20 }}
         showsVerticalScrollIndicator={false}
         renderItem={({ item, index }) => (
-          <ChatBubble item={item} isFromUser={isMessageFromUser(item)} />
+          <ChatBubble key={String(index)} item={item} isFromUser={isMessageFromUser(item)} />
         )}
         keyExtractor={(item, index) => String(index)}
       />
@@ -87,7 +134,21 @@ const ChatDetail = (props) => {
         value={messageText}
         placeholder={'Type message...'}
         onSendPress={() => onSendTextMessage()}
-        onChangeMessage={(text) => setMessageText(text)} />
+        onChangeMessage={(text) => setMessageText(text)}
+        onSendItem={onSendItemToModerator} />
+      <ModeratorActivityModal
+        visible={activityModalVisible}
+        onHideModal={() => setActivityModalVisible(false)}
+        moderator={{ id: moderator.user.id }}
+        type={activityType}
+        onSentItem={getChatMessages}
+      />
+      <ModeratorChatDetailModal
+        visible={moderatorDetailModalVisible}
+        onHideModal={() => setModeratorDetailModalVisible(false)}
+        moderator={moderator}
+        onViewProfile={onViewModeratorProfile}
+      />
     </View>
     // </TouchableWithoutFeedback>
   );
