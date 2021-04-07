@@ -196,7 +196,6 @@ export const getChatConversation = (moderatorId) => (dispatch, getState) =>
     client
       .post(`/get_chat_message`, requestData)
       .then((res) => {
-        dispatch(userProfileDetail());
         resolve(res);
       })
       .catch((err) => {

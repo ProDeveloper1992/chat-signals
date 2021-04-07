@@ -32,6 +32,7 @@ const initialState = {
   sexualOrientations: [],
   helpTicketList: [],
   appLabels: {
+    Coins: "Coins",
     Thisistest: 'this is testing',
     at: 'AT',
     ch: 'CH',

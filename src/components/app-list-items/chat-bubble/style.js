@@ -14,7 +14,7 @@ export default StyleSheet.create({
             borderBottomLeftRadius: isFromUser ? 20 : 0,
             marginHorizontal: 10,
             // marginTop: 5,
-            maxWidth: '70%'
+            maxWidth: '90%'
         }
     },
     textMsgContainer: {
@@ -27,11 +27,13 @@ export default StyleSheet.create({
         resizeMode: 'contain',
         marginStart: 5
     },
-    seenTimeContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 5,
-        marginHorizontal: 15,
-        alignSelf: 'flex-end'
+    seenTimeContainer: function (isFromUser) {
+        return {
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: 5,
+            marginHorizontal: 15,
+            alignSelf: isFromUser ? 'flex-end' : 'flex-start'
+        }
     }
 })

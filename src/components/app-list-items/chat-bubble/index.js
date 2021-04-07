@@ -16,12 +16,22 @@ export default function ChatBubble({ item, isFromUser }) {
   }
 
   if (item.attachment[0] != null) {
+    // return null;
+
+    if (item.attachment[2] == 'image') {
+      return (
+        <View>
+          <TouchableOpacity style={styles.container(isFromUser)}>
+            <Image style={{ width: 150, height: 150, resizeMode: 'contain' }} source={{ uri: 'http://www.chat-signal.com/public/storage/attachments/' + item.attachment[0] }} />
+          </TouchableOpacity>
+          <View style={styles.seenTimeContainer(isFromUser)}>
+            <AppText size={12}>{moment(item.fullTime).format("HH:mm")}</AppText>
+            <Image style={styles.seenIcon} source={getTickIcon(item.seen)} />
+          </View>
+        </View>
+      )
+    }
     return null;
-    // return (
-    //   <TouchableOpacity style={styles.container(isFromUser)}>
-    //     <Image style={{ width: 150, height: 150 }} source={{ uri: 'http://chat-signal.com/' + item.attachment[0] }} />
-    //   </TouchableOpacity>
-    // )
   }
 
   return (
@@ -31,12 +41,10 @@ export default function ChatBubble({ item, isFromUser }) {
           <AppText type={'regular'} color={isFromUser ? Colors.black : Colors.white}>{item.message}</AppText>
         </View>
       </TouchableOpacity>
-      <View style={styles.seenTimeContainer}>
+      <View style={styles.seenTimeContainer(isFromUser)}>
+        <AppText size={12}>{moment(item.fullTime).format("HH:mm")}</AppText>
         {isFromUser && (
-          <>
-            <AppText size={12}>{moment(item.fullTime).format("HH:mm")}</AppText>
-            <Image style={styles.seenIcon} source={getTickIcon(item.seen)} />
-          </>
+          <Image style={styles.seenIcon} source={getTickIcon(item.seen)} />
         )}
       </View>
     </View>

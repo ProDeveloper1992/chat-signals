@@ -23,9 +23,11 @@ import SexualOrientationModal from './sexual-orientation-modal';
 import FlirtFilterModal from './filter-flirts-modal';
 import SpotlightModal from './spotlight-modal';
 import CoinsEarningModal from './coins-earning-modal';
+import ModeratorChatDetailModal from './moderator-chat-detail-modal';
 
 export {
   ModeratorActivityModal,
+  ModeratorChatDetailModal,
   WebViewModal,
   RegisterLandingModal,
   ForgotPasswordModal,

@@ -45,7 +45,7 @@ export default function ModeratorProfile(props) {
   const { appLabels } = useSelector((state) => state.appState);
 
   const [isFavorite, setIsFavorite] = useState(false);
-  const [activityType, setActivityType] = useState('kisses');
+  const [activityType, setActivityType] = useState('kiss');
   const [activityModalVisible, setActivityModalVisible] = useState(false);
 
   useEffect(() => {
@@ -225,7 +225,9 @@ export default function ModeratorProfile(props) {
           <ModeratorActivityModal
             visible={activityModalVisible}
             onHideModal={() => setActivityModalVisible(false)}
+            moderator={params.item}
             type={activityType}
+            onSentItem={() => { }}
           />
         </View>
       </ScrollView>
