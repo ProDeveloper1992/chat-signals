@@ -13,7 +13,7 @@ import {
 import { PagerTabIndicator, IndicatorViewPager, PagerTitleIndicator, PagerDotIndicator } from 'rn-viewpager';
 
 import { NoListData, AppText, BackHeader, TagItem, OnlineStatusCircle } from '../../components';
-import { Icons, Colors, DEFAULT_IMAGE_URL, SCREEN_HEIGHT } from '../../constants';
+import { Icons, Colors, DEFAULT_IMAGE_URL, SCREEN_HEIGHT, DEFAULT_AVATAR_URL } from '../../constants';
 import styles from './style';
 import { ModeratorIconLabel } from '../../components';
 import { ModeratorActivityModal } from '../../components/app-modals';
@@ -44,7 +44,7 @@ export default function ModeratorProfile(props) {
 
   const { appLabels } = useSelector((state) => state.appState);
 
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(params.item.is_favorites);
   const [activityType, setActivityType] = useState('kiss');
   const [activityModalVisible, setActivityModalVisible] = useState(false);
 
@@ -75,13 +75,22 @@ export default function ModeratorProfile(props) {
     }
   }
 
+  const getModeratorProfileImage = () => {
+    if (params.item.profilepicture && params.item.profilepicture.length > 0) {
+      return params.item.profilepicture[0].picture;
+    } else {
+      return DEFAULT_AVATAR_URL;
+    }
+  }
+
   const onChatPress = () => {
     console.log("moderator", params.item)
     let customer = {
       user: {
         id: params.item.id,
-        username: params.item.username
-      }
+        username: params.item.username,
+      },
+      profile_picture: getModeratorProfileImage()
     }
     navigation.navigate('ChatDetail', { item: customer });
   }
@@ -102,40 +111,40 @@ export default function ModeratorProfile(props) {
       <BackHeader title={'Flirts'} color={Colors.ui_primary} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
-
-          <IndicatorViewPager
-            style={{ height: SCREEN_HEIGHT / 2, backgroundColor: Colors.grey }}
-            indicator={_renderDotIndicator(params.item.profilepicture.length)}
-          >
-            {params.item.profilepicture.map((item, index) => {
-              return <ImageBackground
-                key={String(index)}
-                blurRadius={item.is_erotic == "1" ? Platform.OS == 'ios' ? 40 : 5 : 0}
-                style={styles.imgBackground}
-                resizeMode={'cover'}
-                source={{ uri: getItemImage(item.picture) }}>
-                {item.is_erotic == "1" && (
-                  <View style={styles.eroticContainer}>
-                    <XXXCoinIcon width={60} height={60} />
-                    <AppText
-                      type={'black-italic'}
-                      size={16}
-                      style={{ marginTop: -10 }}
-                      color={Colors.white}>{"EROTIC IMAGE"}</AppText>
-                    <TouchableOpacity
-                      onPress={onUnlockEroticImage}
-                      style={styles.unlockEroticButtonContainer}>
-                      <View style={{ marginBottom: -5, marginTop: 5, marginStart: -10 }}>
-                        <CoinGradientIcon width={40} height={40} />
-                      </View>
-                      <AppText type={'black-italic'} size={12} color={Colors.white} uppercase>{`Unlock for ${10} coins`}</AppText>
-                    </TouchableOpacity>
-                  </View>
-                )}
-              </ImageBackground>
-            })}
-
-          </IndicatorViewPager>
+          {params && params.item && params.item.profilepicture && params.item.profilepicture.length > 0 && (
+            <IndicatorViewPager
+              style={{ height: SCREEN_HEIGHT / 2, backgroundColor: Colors.grey }}
+              indicator={_renderDotIndicator(params.item.profilepicture.length)}
+            >
+              {params.item.profilepicture.map((item, index) => {
+                return <ImageBackground
+                  key={String(index)}
+                  blurRadius={item.is_erotic == "1" ? Platform.OS == 'ios' ? 40 : 5 : 0}
+                  style={styles.imgBackground}
+                  resizeMode={'cover'}
+                  source={{ uri: getItemImage(item.picture) }}>
+                  {item.is_erotic == "1" && (
+                    <View style={styles.eroticContainer}>
+                      <XXXCoinIcon width={60} height={60} />
+                      <AppText
+                        type={'black-italic'}
+                        size={16}
+                        style={{ marginTop: -10 }}
+                        color={Colors.white}>{"EROTIC IMAGE"}</AppText>
+                      <TouchableOpacity
+                        onPress={onUnlockEroticImage}
+                        style={styles.unlockEroticButtonContainer}>
+                        <View style={{ marginBottom: -5, marginTop: 5, marginStart: -10 }}>
+                          <CoinGradientIcon width={40} height={40} />
+                        </View>
+                        <AppText type={'black-italic'} size={12} color={Colors.white} uppercase>{`Unlock for ${10} coins`}</AppText>
+                      </TouchableOpacity>
+                    </View>
+                  )}
+                </ImageBackground>
+              })}
+            </IndicatorViewPager>
+          )}
 
           <View style={{ padding: 15 }}>
             <View style={styles.moderatorSwitchContainer}>

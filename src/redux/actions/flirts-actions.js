@@ -5,7 +5,8 @@ import {
   GET_FLIRTS_FAILED,
   GET_SPOT_LIGHTS_REQUEST,
   GET_SPOT_LIGHTS_SUCCESS,
-  GET_SPOT_LIGHTS_FAILED
+  GET_SPOT_LIGHTS_FAILED,
+  IS_LOAD_MORE_FLIRTS
 } from './types';
 import { client } from '../../services/api-service';
 
@@ -18,14 +19,17 @@ export const getFlirtsList = (requestData) => (dispatch, getState) =>
       .post(`/profile_list`, requestData)
       .then((res) => {
         if (res.meta.status) {
-          if (res.meta.next == "true") {
-            for (let flirt of res.data) {
-              flirtList.push(flirt);
-            }
-            dispatch(ActionDispatcher(GET_FLIRTS_SUCCESS, flirtList));
+          if (res.data.length >= 10) {
+            dispatch(ActionDispatcher(IS_LOAD_MORE_FLIRTS, true));
           } else {
-            dispatch(ActionDispatcher(GET_FLIRTS_SUCCESS, res.data));
+            dispatch(ActionDispatcher(IS_LOAD_MORE_FLIRTS, false));
           }
+
+          for (let flirt of res.data) {
+            flirtList.push(flirt);
+          }
+          dispatch(ActionDispatcher(GET_FLIRTS_SUCCESS, flirtList));
+
         } else {
           dispatch(ActionDispatcher(GET_FLIRTS_FAILED));
         }
@@ -81,6 +85,32 @@ export const getModeratorProfileDetail = (moderatorId) => (dispatch, getState) =
     }
     client
       .post(`/profile_detail`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+          // dispatch(getFriendsList())
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } });
+        reject(err);
+      });
+  });
+
+//Block Moderator
+export const blockModerator = (moderatorId) => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    const userData = getState().userState.userData;
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      customer_id: userId,
+      profile_id: moderatorId
+    }
+    client
+      .post(`/customer_block`, requestData)
       .then((res) => {
         if (res.meta.status) {
           // dispatch(getFriendsList())

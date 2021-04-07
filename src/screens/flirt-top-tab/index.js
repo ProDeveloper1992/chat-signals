@@ -10,7 +10,7 @@ import {
   Platform,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppIndicatorLoader, ModeratorListItem } from '../../components';
+import { AppIndicatorLoader, AppText, ModeratorListItem } from '../../components';
 import { useNavigation } from '@react-navigation/native';
 
 import styles from './style';
@@ -23,7 +23,7 @@ export default function FlirtTab(props) {
   const dispatch = useDispatch();
 
   const [search, setSearch] = useState('');
-  const { flirtsList, flirtsLoading } = useSelector((state) => state.flirtsState);
+  const { flirtsList, flirtsLoading, isLoadMoreFlirts } = useSelector((state) => state.flirtsState);
   const { userData } = useSelector((state) => state.userState);
 
   const [pageNumber, setPageNumber] = useState(1);
@@ -50,7 +50,7 @@ export default function FlirtTab(props) {
 
   return (
     <View style={styles.container}>
-      {flirtsLoading ? (
+      {flirtsLoading && flirtsList.length == 0 ? (
         <AppIndicatorLoader />
       ) : (
         <FlatList
@@ -70,6 +70,14 @@ export default function FlirtTab(props) {
           // onEndReached={() => onReachedToEnd()}
           // onEndReachedThreshold={1}
           keyExtractor={(item, index) => index.toString()}
+          ListFooterComponent={isLoadMoreFlirts ? <TouchableOpacity onPress={onReachedToEnd}
+            style={{ alignSelf: 'center', paddingVertical: 5, paddingHorizontal: 15, backgroundColor: Colors.ui_primary, borderRadius: 15, marginTop: 10 }}>
+            {flirtsLoading ? (
+              <ActivityIndicator size={'small'} color={Colors.white} style={{ width: 14, height: 14, marginVertical: 5 }} />
+            ) : (
+              <AppText type={'medium'} color={Colors.white}>{"See more"}</AppText>
+            )}
+          </TouchableOpacity> : null}
         />
       )}
     </View>

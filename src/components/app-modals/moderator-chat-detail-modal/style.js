@@ -18,5 +18,13 @@ export default StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 10,
+    },
+    titleWithIconContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: 20,
+        borderTopWidth: 0.5,
+        borderBottomWidth: 0.5,
+        borderColor: Colors.grey
     }
 })

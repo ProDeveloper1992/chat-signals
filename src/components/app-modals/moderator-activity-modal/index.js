@@ -113,7 +113,7 @@ export default function ActivityModal({ visible, onHideModal, type, moderator, o
         let kisMessageToSend = {
           id: moderator.id,
           customer_id: userData.id,
-          // message: '',
+          message: `💋 You sent a kiss.`,
           send_kiss: 3
         };
         console.log("kisMessageToSend", kisMessageToSend)
@@ -127,7 +127,7 @@ export default function ActivityModal({ visible, onHideModal, type, moderator, o
         let likeMessageToSend = {
           id: moderator.id,
           customer_id: userData.id,
-          // message: '',
+          message: `👍🏽 You sent a like.`,
           send_like: 2
         };
         console.log("likeMessageToSend", likeMessageToSend)
@@ -142,7 +142,7 @@ export default function ActivityModal({ visible, onHideModal, type, moderator, o
         let messageToSend = {
           id: moderator.id,
           customer_id: userData.id,
-          // message: '',
+          message: `👯 You sent a friend request.`,
           send_friends: 1
         };
         console.log("messageToSend", messageToSend)

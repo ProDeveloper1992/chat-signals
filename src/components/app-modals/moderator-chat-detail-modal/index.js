@@ -1,14 +1,22 @@
-import React from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import React, { useState } from 'react';
+import { View, ActivityIndicator, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modal';
 import { WebView } from 'react-native-webview';
+import { useDispatch } from 'react-redux';
 
 import { Colors } from '../../../constants';
 import { BlockIcon, DeleteBinIcon } from '../../../constants/svg-icons';
+import { deleteConversation } from '../../../redux/actions/chat-actions';
+import { blockModerator } from '../../../redux/actions/flirts-actions';
 import { AppText, CommonImage } from '../../index';
 import styles from './style';
 
 export default function ModeratorChatDetailModal({ visible, onHideModal, moderator, onViewProfile }) {
+
+    const dispatch = useDispatch();
+
+    const [isDeletingConversation, setIsDeletingConversation] = useState(false);
+    const [isBlockingUser, setIsBlockingUser] = useState(false);
 
     const onViewProfilePress = () => {
         onHideModal();
@@ -17,18 +25,35 @@ export default function ModeratorChatDetailModal({ visible, onHideModal, moderat
         }, 400);
     }
 
+    const onDeleteConversation = async () => {
+        setIsDeletingConversation(true);
+        await dispatch(deleteConversation(moderator.user.id));
+        setIsDeletingConversation(false);
+        onHideModal();
+    }
+
+    const onBlockUser = async () => {
+        setIsBlockingUser(true);
+        await dispatch(blockModerator(moderator.user.id));
+        setIsBlockingUser(false);
+    }
+
     return (
         <Modal
             isVisible={visible}
             backdropOpacity={0.4}
+            animationIn={'zoomIn'}
+            animationOut={'zoomOut'}
             // animationInTiming={600}
             // animationOutTiming={600}
+            // backdropTransitionInTiming={800}
+            // backdropTransitionOutTiming={800}
             onBackdropPress={onHideModal}
             onBackButtonPress={onHideModal}
             style={styles.modalContainer}>
             <View style={styles.modalSubContainer}>
                 <View style={{ alignItems: 'center', justifyContent: 'center', padding: 20 }}>
-                    <CommonImage size={90} borderColor={Colors.white} />
+                    <CommonImage size={90} borderColor={Colors.white} source={{ uri: moderator.profile_picture }} />
                     <AppText
                         type={'bold'}
                         size={20}
@@ -42,25 +67,43 @@ export default function ModeratorChatDetailModal({ visible, onHideModal, moderat
                 </View>
                 <TitleWithIcon
                     title={"Delete Conversation"}
-                    icon={<DeleteBinIcon />} />
+                    icon={<DeleteBinIcon />}
+                    onPress={onDeleteConversation}
+                    loading={isDeletingConversation} />
                 <TitleWithIcon
                     title={"Block User"}
-                    icon={<BlockIcon />} />
+                    icon={<BlockIcon />}
+                    onPress={onBlockUser}
+                    loading={isBlockingUser} />
             </View>
         </Modal>
     );
 }
 
-const TitleWithIcon = ({ title, icon }) => {
+const TitleWithIcon = ({ title, icon, onPress, loading }) => {
 
     return (
-        <View style={{ flexDirection: 'row', alignItems: 'center', padding: 20, borderTopWidth: 0.5, borderBottomWidth: 0.5, borderColor: Colors.grey }}>
-            <AppText numderOfLines={1} type={'medium'} size={16} style={{ flex: 1 }}>{title}</AppText>
+        <TouchableOpacity
+            onPress={onPress}
+            activeOpacity={0.6}
+            style={styles.titleWithIconContainer}>
+            <AppText
+                numderOfLines={1}
+                type={'medium'}
+                size={16}
+                style={{ flex: 1 }}>{title}</AppText>
             {icon && (
                 <View>
-                    {icon}
+                    {loading ? (
+                        <ActivityIndicator size={'small'} color={Colors.ui_primary} style={{ width: 14, height: 14 }} />
+                    ) : (
+                        <View>
+                            {icon}
+                        </View>
+                    )}
+
                 </View>
             )}
-        </View>
+        </TouchableOpacity>
     )
 }

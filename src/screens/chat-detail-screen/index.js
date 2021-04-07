@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Keyboard, View, TouchableWithoutFeedback, FlatList, TouchableOpacity, ScrollView } from 'react-native';
 import { ChatDetailHeader } from '../../components/Headers';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './style';
 import { AppText, ChatBubble, ChatInput, CommonImage } from '../../components';
@@ -10,27 +10,43 @@ import { getChatConversation } from '../../redux/actions/user-actions';
 import { InfoIcon } from '../../constants/svg-icons';
 import { sendMessage } from '../../redux/actions/chat-actions';
 import { ModeratorActivityModal, ModeratorChatDetailModal } from '../../components/app-modals';
+import { ActionDispatcher } from '../../redux/actions';
+import { GET_CHAT_CONVERSATION_SUCCESS } from '../../redux/actions/types';
 
 const ChatDetail = (props) => {
   let listViewRef;
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
+
   const moderator = props.route.params.item;
 
+  const { userData } = useSelector((state) => state.userState);
+  const { conversation } = useSelector((state) => state.chatState);
+
   const [messageText, setMessageText] = useState('');
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(conversation);
   const [activityType, setActivityType] = useState('kiss');
   const [activityModalVisible, setActivityModalVisible] = useState(false);
   const [moderatorDetailModalVisible, setModeratorDetailModalVisible] = useState(false);
 
-  const { userData } = useSelector((state) => state.userState);
 
   useEffect(() => {
     getChatMessages();
 
     console.log("moderator", moderator)
   }, []);
+
+  useMemo(() => {
+    if (!isFocused) {
+      dispatch(ActionDispatcher(GET_CHAT_CONVERSATION_SUCCESS, []));
+    }
+  }, [isFocused])
+
+  useMemo(() => {
+    setMessages(conversation);
+  }, [conversation])
 
   const getChatMessages = async () => {
     const response = await dispatch(getChatConversation(moderator.user.id));
@@ -104,7 +120,7 @@ const ChatDetail = (props) => {
           label={moderator.user.username}
         />
         <View style={styles.userDetailHeader}>
-          <CommonImage size={44} borderColor={Colors.white} />
+          <CommonImage size={44} borderColor={Colors.white} source={{ uri: moderator.profile_picture }} />
           <View style={{ flex: 1, paddingHorizontal: 12 }}>
             <AppText type={'bold'} size={18}>{moderator.user.username}</AppText>
             <AppText type={'regular'} size={12} color={Colors.greydark}>{"Online"}</AppText>
