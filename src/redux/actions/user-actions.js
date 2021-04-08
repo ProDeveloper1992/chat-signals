@@ -17,7 +17,10 @@ import {
   GET_BOOKMARKS_REQUEST,
   GET_BOOKMARKS_SUCCESS,
   GET_BOOKMARKS_FAILED,
-  GET_FRIENDS_LIST_SUCCESS
+  GET_FRIENDS_LIST_SUCCESS,
+  GET_CHAT_CONVERSATION_FAILED,
+  GET_CHAT_CONVERSATION_REQUEST,
+  GET_CHAT_CONVERSATION_SUCCESS
 } from './types';
 import { client } from '../../services/api-service';
 import { showToast } from './app-actions';
@@ -193,12 +196,19 @@ export const getChatConversation = (moderatorId) => (dispatch, getState) =>
       profile_id: userId,
       customer_id: moderatorId
     }
+    dispatch(ActionDispatcher(GET_CHAT_CONVERSATION_REQUEST));
     client
       .post(`/get_chat_message`, requestData)
       .then((res) => {
+        if (res.meta.status) {
+          dispatch(ActionDispatcher(GET_CHAT_CONVERSATION_SUCCESS, res.data));
+        } else {
+          dispatch(ActionDispatcher(GET_CHAT_CONVERSATION_FAILED));
+        }
         resolve(res);
       })
       .catch((err) => {
+        dispatch(ActionDispatcher(GET_CHAT_CONVERSATION_FAILED));
         resolve({ meta: { status: false } });
         reject(err);
       });

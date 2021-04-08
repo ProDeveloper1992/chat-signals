@@ -4,7 +4,8 @@ import {
   GET_FLIRTS_FAILED,
   GET_SPOT_LIGHTS_REQUEST,
   GET_SPOT_LIGHTS_SUCCESS,
-  GET_SPOT_LIGHTS_FAILED
+  GET_SPOT_LIGHTS_FAILED,
+  IS_LOAD_MORE_FLIRTS
 } from '../actions/types';
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   spotLightsLoading: false,
   flirtsList: [],
   spotLightsList: [],
+  isLoadMoreFlirts: true
 };
 
 export default function (state = initialState, action) {
@@ -27,8 +29,13 @@ export default function (state = initialState, action) {
         ...state,
         flirtsLoading: false,
         flirtsList: action.payload,
-        spotLightsList: action.payload
       };
+
+    case IS_LOAD_MORE_FLIRTS:
+      return {
+        ...state,
+        isLoadMoreFlirts: action.payload
+      }
 
     case GET_FLIRTS_FAILED:
       return {

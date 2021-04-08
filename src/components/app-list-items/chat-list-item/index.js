@@ -4,7 +4,7 @@ import { View, Image, TouchableHighlight } from 'react-native';
 import PropTypes from 'prop-types';
 
 import { Colors, Images } from '../../../constants';
-import { AppText } from '../../index';
+import { AppText, CommonImage } from '../../index';
 import styles from './style';
 
 export default function ChatListItem({
@@ -13,6 +13,7 @@ export default function ChatListItem({
   userName,
   lastMessage,
   lastMessageTime,
+  isActive
 }) {
   return (
     <TouchableHighlight
@@ -21,8 +22,8 @@ export default function ChatListItem({
       onPress={onChatPress}>
       <View style={{ flex: 1, flexDirection: 'row' }}>
         <View style={styles.profileImageContainer}>
-          <Image style={styles.profileImg} source={profileImage} />
-          <View style={styles.activeStatusCircle} />
+          <CommonImage size={57} source={profileImage} />
+          <View style={styles.activeStatusCircle(isActive)} />
         </View>
         <View style={styles.userDetailContainer}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -38,7 +39,6 @@ export default function ChatListItem({
             <AppText size={12}>{moment(lastMessageTime).fromNow()}</AppText>
           </View>
           <AppText
-            type={'regular'}
             size={14}
             color={Colors.black}
             numberOfLines={1}
@@ -54,6 +54,7 @@ export default function ChatListItem({
 }
 
 ChatListItem.propTypes = {
+  isActive: PropTypes.bool,
   profileImage: PropTypes.any,
   userName: PropTypes.string,
   lastMessage: PropTypes.any,
@@ -62,6 +63,7 @@ ChatListItem.propTypes = {
 };
 
 ChatListItem.defaultProps = {
+  isActive: false,
   profileImage: Images.forgot_heart_logo,
   userName: 'Username',
   lastMessage: 'Last Message',

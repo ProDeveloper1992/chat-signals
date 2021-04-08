@@ -5,6 +5,7 @@ import appState from './app-state';
 import flirtsState from './flirts-state';
 import appModalState from './app-modals-state';
 import bookmarkState from './bookmarks-state';
+import chatState from './chat-state';
 import { ActionDispatcher } from '../actions';
 
 export const LOGOUT_USER = 'LOGOUT_USER';
@@ -14,7 +15,8 @@ const allReducers = combineReducers({
   appState: appState,
   appModalState: appModalState,
   flirtsState: flirtsState,
-  bookmarkState: bookmarkState
+  bookmarkState: bookmarkState,
+  chatState: chatState
 });
 
 export const logoutUser = (user) => (dispatch, getState) =>
@@ -27,13 +29,13 @@ export const logoutUser = (user) => (dispatch, getState) =>
   });
 
 const rootReducer = (state, action) => {
-    if (action.type === LOGOUT_USER) {
-      Object.keys(state).forEach((key) => {
-        AsyncStorage.removeItem(`persist:${key}`);
-      });
-      AsyncStorage.removeItem('userToken');
-      state = undefined;
-    }
+  if (action.type === LOGOUT_USER) {
+    Object.keys(state).forEach((key) => {
+      AsyncStorage.removeItem(`persist:${key}`);
+    });
+    AsyncStorage.removeItem('userToken');
+    state = undefined;
+  }
   return allReducers(state, action);
 };
 

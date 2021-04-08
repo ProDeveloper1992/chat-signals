@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { View, Text } from 'react-native';
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
+import { useSelector } from 'react-redux';
 import { AppDropDown, AppText } from '../..';
 
 function GenderMenu({ onSelectGender }) {
@@ -19,18 +20,10 @@ function GenderMenu({ onSelectGender }) {
         _menu.show();
     };
 
-    const Genders = [
-        {
-            id: 1,
-            gender: "Men"
-        },
-        {
-            id: 2,
-            gender: "Women"
-        }
-    ];
+    const { genderList } = useSelector((state) => state.appState);
+    const { selectedUserGender } = useSelector((state) => state.userState);
 
-    const [selectedGender, setSelectedGender] = useState(Genders[1]);
+    const [selectedGender, setSelectedGender] = useState(selectedUserGender);
 
     const onSelectMenu = (genderItem) => {
         onSelectGender(genderItem);
@@ -44,14 +37,14 @@ function GenderMenu({ onSelectGender }) {
             style={{ width: '89%', marginTop: 100 }}
             button={<AppDropDown
                 title={"I'm looking for"}
-                value={selectedGender.gender}
+                value={selectedGender.name}
                 onPress={showMenu} />}
         >
-            {Genders.map((genderItem, genderIndex) => {
+            {genderList.map((genderItem, genderIndex) => {
                 return <MenuItem
                     key={String(genderIndex)}
                     onPress={() => onSelectMenu(genderItem)}>
-                    <AppText type={selectedGender.id == genderItem.id ? 'bold' : 'medium'}>{genderItem.gender}</AppText>
+                    <AppText type={selectedGender.id == genderItem.id ? 'bold' : 'medium'}>{genderItem.name}</AppText>
                 </MenuItem>
             })}
         </Menu>

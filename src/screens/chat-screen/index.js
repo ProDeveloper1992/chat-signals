@@ -107,10 +107,11 @@ const Chat = () => {
             <ChatListItem
               key={String(index)}
               onChatPress={() => onChatListItemPress(item)}
-              profileImage={Images.app_logo}
+              profileImage={{ uri: item.profile_picture }}
               userName={item.user.username}
               lastMessage={item.lastMessage.body}
               lastMessageTime={item.lastMessage.created_at}
+              isActive={item.user.is_active * 1 == 1}
             />
           )}
           keyExtractor={(item, index) => String(index)}

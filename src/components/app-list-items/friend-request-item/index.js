@@ -41,28 +41,38 @@ export default function FriendRequestItem({
                         <FriendGradientIcon32 width={40} height={40} />
                     </View>
                 </View>
-                <View style={styles.userDetailContainer}>
-                    <AppText
-                        type={'bold'}
-                        size={16}
-                        color={Colors.black}
-                        numberOfLines={1}
-                    >
-                        {userName}
-                    </AppText>
-                    <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                        <Button
-                            isAccept
-                            title={'Accept'}
-                            onPress={onAcceptPress}
-                            loading={isAccepting} />
-
-                        <Button
-                            title={'Reject'}
-                            onPress={onRejectPress}
-                            loading={isRejecting} />
+                {item.is_status * 1 == 1 && (
+                    <View style={[styles.userDetailContainer, { alignSelf: 'center', marginEnd: 20 }]}>
+                        <AppText type={'medium'} size={14}>
+                            {`You have sent friend request to `}
+                            <AppText type={'bold'}>{userName}</AppText>
+                        </AppText>
                     </View>
-                </View>
+                )}
+                {item.is_status * 1 == 4 && (
+                    <View style={styles.userDetailContainer}>
+                        <AppText
+                            type={'bold'}
+                            size={16}
+                            color={Colors.black}
+                            numberOfLines={1}
+                        >
+                            {userName}
+                        </AppText>
+                        <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                            <Button
+                                isAccept
+                                title={'Accept'}
+                                onPress={onAcceptPress}
+                                loading={isAccepting} />
+
+                            <Button
+                                title={'Reject'}
+                                onPress={onRejectPress}
+                                loading={isRejecting} />
+                        </View>
+                    </View>
+                )}
             </View>
         </View>
     );

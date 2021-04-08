@@ -9,7 +9,7 @@ export default function FriendRequests(props) {
   const { appLabels } = useSelector((state) => state.appState);
   const { userData, friendsList } = useSelector((state) => state.userState);
 
-  let friends = friendsList.filter((friend, index) => (friend.is_status * 1) == 4)
+  let friends = friendsList.filter((friend, index) => (friend.is_status * 1) == 4 || (friend.is_status * 1) == 1)
 
   return (
     <View style={styles.container}>

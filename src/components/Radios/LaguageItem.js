@@ -60,17 +60,17 @@ export function LaguageItem({
         <ActivityIndicator
           size={'small'}
           color={isSelected ? Colors.white : Colors.black}
-          style={{ marginTop: 5 }}
+          style={{ width: 20, height: 20, marginTop: 13 }}
         />
       ) : (
-          <AppText
-            type={'bold'}
-            size={16}
-            color={isSelected ? Colors.white : Colors.black}
-            style={styles.title}>
-            {countryName}
-          </AppText>
-        )}
+        <AppText
+          type={'bold'}
+          size={16}
+          color={isSelected ? Colors.white : Colors.black}
+          style={styles.title}>
+          {countryName}
+        </AppText>
+      )}
     </TouchableOpacity>
   );
 }

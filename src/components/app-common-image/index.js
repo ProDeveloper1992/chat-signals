@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
             width: size,
             height: size,
             borderRadius: size / 2,
-            borderWidth: 2,
-            borderColor: borderColor
+            borderWidth: 3,
+            borderColor: borderColor,
         }
     },
     imageStyle: function (size) {
