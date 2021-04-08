@@ -11,7 +11,7 @@ import rootReducer from './reducers';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['userState', 'appState'],
+  whitelist: ['userState', 'appState', 'chatState'],
 };
 
 // Middleware: Redux Persist Persisted Reducer

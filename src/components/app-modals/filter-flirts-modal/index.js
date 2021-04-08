@@ -1,34 +1,117 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, TouchableOpacity, ScrollView } from 'react-native';
 import Modal from 'react-native-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { Colors } from '../../../constants';
-import { AppButton, AppDropDown, AppText, AuthInput, GenderMenu } from '../../index';
+import { AppButton, AppDropDown, AppRangeSlider, AppText, AuthInput, GenderMenu, LanguageSelectionMenu, SexualOrientationMenu, TagItem } from '../../index';
 import styles from './style';
 
 import CloseIcon from '../../../assets/icons/close.svg';
 import { toggleLanguageModal, toggleSexualOrientationModal } from '../../../redux/actions/app-modals-actions';
+import { getFlirtsList } from '../../../redux/actions/flirts-actions';
 
 export default function FlirtFilterModal({ visible, onHideModal }) {
 
     const dispatch = useDispatch();
-    const { appLabels, selectedLanguage } = useSelector((state) => state.appState);
-    const { userSexualOrientation } = useSelector((state) => state.userState);
+    const { appLabels, passionList, selectedLanguage } = useSelector((state) => state.appState);
+    const { userData, userSexualOrientation, selectedUserGender } = useSelector((state) => state.userState);
 
     const [loading, setLoading] = useState(false);
+    const [isResetLoading, setResetLoading] = useState(false);
+
+    const [lookingFor, setLookingFor] = useState(selectedUserGender);
+    const [lowAge, setLowAge] = useState(0);
+    const [highAge, setHighAge] = useState(100);
+    const [city, setCity] = useState('');
+    const [language, setLanguage] = useState(selectedLanguage);
+    const [maxDistance, setMaxDistance] = useState(0);
+    const [selectedPassions, setSelectedPassions] = useState([]);
+    const [sexualOrientation, setSexualOrientation] = useState(userSexualOrientation);
+
+    var USER_PASSIONS = selectedPassions;
+
+    console.log("passionList", passionList)
+    const onChangeAgeRange = (low, high) => {
+        setLowAge(low);
+        setHighAge(high);
+    }
+
+    const onChangeMaxDistance = (value) => {
+        setMaxDistance(value);
+    }
+
+    const onTagItemPress = (isSelected, passion) => {
+        if (isSelected) {
+            USER_PASSIONS.push(passion);
+        } else {
+            const updatedPassions = USER_PASSIONS.filter(item => item.id != passion.id);
+            USER_PASSIONS = updatedPassions;
+        }
+        console.log("USER_PASSIONS", USER_PASSIONS)
+        setSelectedPassions(USER_PASSIONS)
+    }
+
+    const isTagSelected = (item) => {
+        for (let tag of selectedPassions) {
+            if (tag.id == item.id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    const onSavePress = async () => {
+        let requestData = {
+            page: 1,
+            customer_id: userData.id,
+            gender: lookingFor.id,
+            age_from: lowAge,
+            age_to: highAge,
+            city: city,
+            language: language,
+            passions: '',
+            sexual_orientation: sexualOrientation != '' ? sexualOrientation.id : ''
+        }
+        console.log("requestData", requestData);
+        setLoading(true);
+        await dispatch(getFlirtsList(requestData));
+        setLoading(false);
+        onHideModal();
+    }
+
+    const onResetFilterPress = async () => {
+        setLookingFor(selectedUserGender);
+        setLowAge(0);
+        setHighAge(100);
+        setCity('');
+        setLanguage(selectedLanguage);
+        setMaxDistance(0);
+        setSelectedPassions([]);
+        setSexualOrientation(userSexualOrientation);
+
+        let requestData = {
+            page: 1,
+            customer_id: userData.id,
+            gender: '',
+        }
+        setResetLoading(true);
+        await dispatch(getFlirtsList(requestData));
+        setResetLoading(false);
+        onHideModal();
+    }
 
     return (
         <Modal
             isVisible={visible}
             backdropOpacity={0.5}
-            animationInTiming={500}
-            animationOutTiming={500}
+            animationInTiming={600}
+            animationOutTiming={600}
             onBackdropPress={onHideModal}
             onBackButtonPress={onHideModal}
             style={styles.modalContainer}>
             <View style={styles.modalSubContainer}>
-                <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+                <View style={styles.closeIconContainer}>
                     <TouchableOpacity onPress={onHideModal}>
                         <CloseIcon width={28} height={28} />
                     </TouchableOpacity>
@@ -36,68 +119,62 @@ export default function FlirtFilterModal({ visible, onHideModal }) {
                 <AppText
                     size={24}
                     type={'bold'}
-                    style={{ marginBottom: 20 }}>{"Filter Flirt suggestions"}</AppText>
+                    style={{ marginBottom: 20, paddingHorizontal: 20 }}>{"Filter Flirt suggestions"}</AppText>
                 <ScrollView
-                    showsVerticalScrollIndicator={false}
-                    style={{ flex: 1 }}>
+                    contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 20, paddingBottom: "50%" }}>
                     <GenderMenu
-                        onSelectGender={(genderItem) => { }} />
+                        onSelectGender={(genderItem) => setLookingFor(genderItem)} />
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
+                        <AppText style={{ flex: 1 }}>{"Age Range"}</AppText>
+                        <AppText>{`${lowAge}-${highAge}`}</AppText>
+                    </View>
+                    <AppRangeSlider
+                        onChangeValue={onChangeAgeRange} />
                     <AuthInput
                         label={"City"}
                         placeholder={"City"}
+                        onChangeText={(text) => setCity(text)}
                         style={{ paddingHorizontal: 5, fontWeight: 'bold', fontSize: 16 }} />
-                    <FilterItem
-                        title={'Languages'}
-                        value={selectedLanguage}
-                        onPress={() => dispatch(toggleLanguageModal(true))} />
-                    <FilterItem
-                        title={'Passions'}
-                        value={'Choose'} />
-                    <AppDropDown
-                        title={"Sexual orientation"}
-                        value={userSexualOrientation.title}
-                        onPress={() => dispatch(toggleSexualOrientationModal(true))} />
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 10 }}>
+                        <AppText style={{ flex: 1 }}>{"Max. distance"}</AppText>
+                        <AppText>{`${maxDistance}km`}</AppText>
+                    </View>
+                    <AppRangeSlider
+                        disableRange
+                        onChangeValue={onChangeMaxDistance} />
+                    <LanguageSelectionMenu
+                        onSelectOption={(language) => setLanguage(language.language_code)} />
+                    <AppText style={{ marginTop: 10, marginBottom: 5 }}>{"Passions"}</AppText>
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                        {passionList.map((passion, passionIndex) => {
+                            return <TagItem
+                                key={String(passionIndex)}
+                                title={passion.name}
+                                selected={isTagSelected(passion)}
+                                onPress={(isSelected) => onTagItemPress(isSelected, passion)}
+                            />
+                        })}
+                    </View>
+                    <SexualOrientationMenu
+                        onSelectOrientation={(orientation) => setSexualOrientation(orientation)} />
                 </ScrollView>
-                <View style={{ backgroundColor: Colors.white }}>
+                <View style={{ backgroundColor: Colors.white, paddingHorizontal: 20, paddingBottom: 10 }}>
                     <AppButton
                         type={'primary'}
                         title={'Save'}
                         style={{ marginVertical: 10 }}
-                        onPress={() => { }}
+                        onPress={onSavePress}
                         loading={loading}
                     />
 
                     <AppButton
                         type={'light'}
                         title={'Reset Filters'}
-                        onPress={onHideModal}
+                        onPress={onResetFilterPress}
+                        loading={isResetLoading}
                     />
                 </View>
             </View>
-        </Modal>
+        </Modal >
     );
-}
-
-const FilterItem = ({ title, value, onPress }) => {
-    return (
-        <View style={{ marginVertical: 5 }}>
-            {title && (
-                <AppText color={Colors.black} style={{ paddingBottom: 5, paddingTop: 5 }}>{title}</AppText>
-            )}
-            <TouchableOpacity
-                onPress={onPress}
-                style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    paddingVertical: 15,
-                    paddingHorizontal: 20,
-                    borderWidth: 1,
-                    borderRadius: 10,
-                    borderColor: Colors.grey
-                }}
-            >
-                <AppText type={'bold'} size={16} >{value}</AppText>
-            </TouchableOpacity>
-        </View>
-    )
 }

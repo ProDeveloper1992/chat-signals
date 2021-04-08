@@ -25,11 +25,14 @@ export const getFlirtsList = (requestData) => (dispatch, getState) =>
             dispatch(ActionDispatcher(IS_LOAD_MORE_FLIRTS, false));
           }
 
-          for (let flirt of res.data) {
-            flirtList.push(flirt);
+          if (requestData.page == 1) {
+            dispatch(ActionDispatcher(GET_FLIRTS_SUCCESS, res.data));
+          } else {
+            for (let flirt of res.data) {
+              flirtList.push(flirt);
+            }
+            dispatch(ActionDispatcher(GET_FLIRTS_SUCCESS, flirtList));
           }
-          dispatch(ActionDispatcher(GET_FLIRTS_SUCCESS, flirtList));
-
         } else {
           dispatch(ActionDispatcher(GET_FLIRTS_FAILED));
         }

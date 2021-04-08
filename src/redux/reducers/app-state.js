@@ -31,6 +31,39 @@ const initialState = {
   passionList: [],
   sexualOrientations: [],
   helpTicketList: [],
+  languages: [
+    {
+      language_id: 1,
+      language_code: 'en',
+      name: 'English',
+      country_flag:
+        'https://www.countryflags.com/wp-content/uploads/united-states-of-america-flag-png-large.png',
+    },
+
+    {
+      language_id: 2,
+      language_code: 'de',
+      name: 'German',
+      country_flag:
+        'https://www.countryflags.com/wp-content/uploads/germany-flag-png-large.png',
+    },
+
+    {
+      language_id: 3,
+      language_code: 'es',
+      name: 'Spanish',
+      country_flag:
+        'https://www.countryflags.com/wp-content/uploads/spain-flag-png-large.png',
+    },
+
+    {
+      language_id: 4,
+      language_code: 'fr',
+      name: 'French',
+      country_flag:
+        'https://www.countryflags.com/wp-content/uploads/france-flag-png-large.png',
+    },
+  ],
   appLabels: {
     Coins: "Coins",
     Thisistest: 'this is testing',

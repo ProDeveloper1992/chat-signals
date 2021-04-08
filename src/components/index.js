@@ -25,7 +25,15 @@ import CommonImage from './app-common-image';
 import AppDropDown from './app-drop-down';
 import { OnlineStatusCircle } from './user-online-status';
 import AppGiftBadge from './app-gift-badge';
-import { GenderMenu, FriendItemMenu, HelpTicketMenu, UserPhotoItemMenu } from './app-menus';
+import {
+  GenderMenu,
+  FriendItemMenu,
+  HelpTicketMenu,
+  UserPhotoItemMenu,
+  LanguageSelectionMenu,
+  SexualOrientationMenu
+} from './app-menus';
+import AppRangeSlider from './app-range-slider'
 
 export {
   AppText,
@@ -53,6 +61,7 @@ export {
   AppDropDown,
   OnlineStatusCircle,
   AppGiftBadge,
+  AppRangeSlider,
 
   //List Items
   LaguageItem,
@@ -69,5 +78,7 @@ export {
   GenderMenu,
   FriendItemMenu,
   HelpTicketMenu,
-  UserPhotoItemMenu
+  UserPhotoItemMenu,
+  LanguageSelectionMenu,
+  SexualOrientationMenu
 };

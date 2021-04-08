@@ -14,31 +14,22 @@ export default StyleSheet.create({
   },
 
   profileImageContainer: {
-    width: 54,
-    height: 54,
-    borderRadius: 28,
-    backgroundColor: Colors.grey,
     alignItems: 'center',
     justifyContent: 'center'
   },
 
-  activeStatusCircle: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    borderWidth: 2,
-    borderColor: Colors.white,
-    backgroundColor: Colors.ui_user_active,
-    position: 'absolute',
-    bottom: 3,
-    right: 0
-  },
-
-  profileImg: {
-    height: 54,
-    width: 54,
-    borderRadius: 28,
-    alignSelf: 'center',
+  activeStatusCircle: function (isActive) {
+    return {
+      width: 12,
+      height: 12,
+      borderRadius: 6,
+      borderWidth: 2,
+      borderColor: Colors.white,
+      backgroundColor: isActive ? Colors.ui_user_active : Colors.ui_user_away,
+      position: 'absolute',
+      bottom: -2,
+      right: 0
+    }
   },
 
   userDetailContainer: {

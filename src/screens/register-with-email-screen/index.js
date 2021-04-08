@@ -74,6 +74,8 @@ const RegisterWithEmail = (props) => {
       }
 
       if (isValid) {
+        let formatedBirthDate = moment(moment(birthDate, 'DD/MM/YYYY')).format('YYYY-MM-DD');
+        console.log("DOB", formatedBirthDate)
         console.log("profileImage", profileImage)
         try {
           let requestData = {
@@ -81,7 +83,7 @@ const RegisterWithEmail = (props) => {
             username: userName,
             email: email,
             password: password,
-            dob: moment(birthDate).format("YYYY-MM-DD"),
+            dob: formatedBirthDate,
             gender: selectedUserGender.id,
             sexual_orientation: userSexualOrientation.id,
             picture: profileImage.uri,
@@ -204,11 +206,15 @@ const RegisterWithEmail = (props) => {
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       } else {
-        // let source = response;
+        let sourceFull = response;
+        console.log("sourceFull", sourceFull)
         // You can also display the image using data:
         let source = {
           uri: 'data:image/jpeg;base64,' + response.data
         };
+        // let source = {
+        //   uri: response.uri
+        // };
         setProfileImage(source);
       }
     });

@@ -111,6 +111,7 @@ const Chat = () => {
               userName={item.user.username}
               lastMessage={item.lastMessage.body}
               lastMessageTime={item.lastMessage.created_at}
+              isActive={item.user.is_active * 1 == 1}
             />
           )}
           keyExtractor={(item, index) => String(index)}

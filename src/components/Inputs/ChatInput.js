@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, Platform, View, TouchableOpacity, SafeAreaView } from 'react-native';
+import { StyleSheet, TextInput, Platform, View, TouchableOpacity, SafeAreaView, Keyboard } from 'react-native';
 import { Colors, Icons } from '../../constants';
 import { AppText } from '../../components';
 import {
@@ -31,6 +31,13 @@ export function ChatInput({ style, value, onChangeMessage, onSendPress, onSendIt
         } else {
             return 0;
         }
+    }
+
+    const onSendItemPress = async (type) => {
+        await Keyboard.dismiss();
+        setTimeout(() => {
+            onSendItem(type);
+        }, 500);
     }
 
     return (
@@ -76,6 +83,7 @@ export function ChatInput({ style, value, onChangeMessage, onSendPress, onSendIt
                         autoCapitalize={'none'}
                         maxLength={250}
                         onChangeText={onChangeMessage}
+                        returnKeyType={'send'}
                     />
                     <TouchableOpacity activeOpacity={0.8} style={styles.sendIconContainer} onPress={onSendPress}>
                         <SendMessageIcon width={24} height={24} />
@@ -84,16 +92,16 @@ export function ChatInput({ style, value, onChangeMessage, onSendPress, onSendIt
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
                     <TouchableIcon
                         icon={<StickerGradientIcon32 />}
-                        onPress={() => onSendItem('sticker')} />
+                        onPress={() => onSendItemPress('sticker')} />
                     <TouchableIcon
                         icon={<KissGradientIcon32 />}
-                        onPress={() => onSendItem('kiss')} />
+                        onPress={() => onSendItemPress('kiss')} />
                     <TouchableIcon
                         icon={<LikeGradientIcon32 />}
-                        onPress={() => onSendItem('like')} />
+                        onPress={() => onSendItemPress('like')} />
                     <TouchableIcon
                         icon={<HeartGradientIcon32 />}
-                        onPress={() => onSendItem('heart')} />
+                        onPress={() => onSendItemPress('heart')} />
                     {getMessagePrice() > 0 && (
                         <View style={{ flexDirection: 'row', alignItems: 'center', marginStart: 15 }}>
                             <AppText size={12}>{`Send message for `}</AppText>
@@ -158,6 +166,7 @@ const styles = StyleSheet.create({
     },
     input: {
         flex: 1,
+        paddingStart: 10,
         paddingVertical: 15,
         color: Colors.black,
         fontSize: 14,

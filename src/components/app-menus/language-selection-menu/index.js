@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-
-import { View, Platform } from 'react-native';
+import { View, Text, TouchableOpacity, Platform } from 'react-native';
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
+
 import { AppDropDown, AppText } from '../..';
 
-function HelpTicketMenu({ onSelectOption }) {
+function LanguageSelectionMenu({ onSelectOption }) {
     let _menu = null;
 
     const setMenuRef = ref => {
@@ -20,9 +21,17 @@ function HelpTicketMenu({ onSelectOption }) {
         _menu.show();
     };
 
-    const { helpTicketList } = useSelector((state) => state.appState);
 
-    const [selectedOption, setSelectedOption] = useState({ name: "-" });
+    const { selectedLanguage, languages } = useSelector((state) => state.appState);
+
+    let selectedLanguageItem = languages.filter((item, index) => item.language_code == selectedLanguage);
+    let updatedSelectedLanguage = { name: "Select Language" };
+
+    if (selectedLanguageItem && selectedLanguageItem.length > 0) {
+        updatedSelectedLanguage = selectedLanguageItem[0];
+    }
+
+    const [selectedOption, setSelectedOption] = useState(updatedSelectedLanguage);
 
     const onSelectMenu = (option) => {
         onSelectOption(option);
@@ -35,10 +44,10 @@ function HelpTicketMenu({ onSelectOption }) {
             ref={setMenuRef}
             style={{ width: '88%', marginTop: 100, marginStart: 2 }}
             button={
-                <AppDropDown title={"Subject"} value={selectedOption.name} onPress={showMenu} />
+                <AppDropDown title={"Select language"} value={selectedOption.name} onPress={showMenu} />
             }
         >
-            {helpTicketList.map((option, optionIndex) => {
+            {languages.map((option, optionIndex) => {
                 return <View key={String(optionIndex)}>
                     <MenuItem
                         onPress={() => onSelectMenu(option)}>
@@ -53,4 +62,12 @@ function HelpTicketMenu({ onSelectOption }) {
     );
 }
 
-export default HelpTicketMenu;
+export default LanguageSelectionMenu;
+
+LanguageSelectionMenu.propTypes = {
+    onSelectOption: PropTypes.func,
+};
+
+LanguageSelectionMenu.defaultProps = {
+    onSelectOption: () => { },
+};

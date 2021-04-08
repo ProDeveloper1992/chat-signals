@@ -29,7 +29,6 @@ export default function (state = initialState, action) {
         ...state,
         flirtsLoading: false,
         flirtsList: action.payload,
-        spotLightsList: action.payload,
       };
 
     case IS_LOAD_MORE_FLIRTS:

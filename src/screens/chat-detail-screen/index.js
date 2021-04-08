@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Keyboard, View, TouchableWithoutFeedback, FlatList, TouchableOpacity, ScrollView } from 'react-native';
+import { Keyboard, View, TouchableWithoutFeedback, FlatList, TouchableOpacity, ScrollView, Platform, KeyboardAvoidingView } from 'react-native';
 import { ChatDetailHeader } from '../../components/Headers';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -111,62 +111,72 @@ const ChatDetail = (props) => {
   }
 
   return (
-    // <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
-    <View style={styles.container}>
-      <View>
-        <ChatDetailHeader
-          leftIcon={Icons.user_profile}
-          onLeftPress={() => navigation.goBack()}
-          label={moderator.user.username}
-        />
-        <View style={styles.userDetailHeader}>
-          <CommonImage size={44} borderColor={Colors.white} source={{ uri: moderator.profile_picture }} />
-          <View style={{ flex: 1, paddingHorizontal: 12 }}>
-            <AppText type={'bold'} size={18}>{moderator.user.username}</AppText>
-            <AppText type={'regular'} size={12} color={Colors.greydark}>{"Online"}</AppText>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : 'height'}
+      enabled={Platform.OS === "ios" ? true : false}
+      style={styles.container}
+    >
+      <View style={styles.container}>
+        <View>
+          <ChatDetailHeader
+            leftIcon={Icons.user_profile}
+            onLeftPress={() => navigation.goBack()}
+            label={moderator.user.username}
+          />
+          <View style={styles.userDetailHeader}>
+            <CommonImage size={44} borderColor={Colors.white} source={{ uri: moderator.profile_picture }} />
+            <View style={{ flex: 1, paddingHorizontal: 12 }}>
+              <AppText type={'bold'} size={18}>{moderator.user.username}</AppText>
+              <AppText type={'regular'} size={12} color={Colors.greydark}>{moderator.user.is_active * 1 == 1 ? "Online" : "Offline"}</AppText>
+            </View>
+            <TouchableOpacity
+              onPress={onInfoButtonPress}
+              style={{ marginBottom: -10 }}>
+              <InfoIcon width={40} height={40} />
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            onPress={onInfoButtonPress}
-            style={{ marginBottom: -10 }}>
-            <InfoIcon width={40} height={40} />
-          </TouchableOpacity>
         </View>
+        <FlatList
+          ref={(ref) => {
+            listViewRef = ref;
+          }}
+          onContentSizeChange={() => listViewRef.scrollToEnd({ animated: true })}
+          data={messages}
+          extraData={messages}
+          contentContainerStyle={{ flexGrow: 1, paddingTop: 20 }}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item, index }) => (
+            <ChatBubble key={String(index)} item={item} isFromUser={isMessageFromUser(item)} />
+          )}
+          keyExtractor={(item, index) => String(index)}
+        />
+        <ChatInput
+          value={messageText}
+          placeholder={'Type message...'}
+          onSendPress={onSendTextMessage}
+          onChangeMessage={(text) => setMessageText(text)}
+          onSendItem={onSendItemToModerator}
+          onSubmitEditing={onSendTextMessage}
+          onFocus={() => {
+            setTimeout(() => {
+              listViewRef.scrollToEnd({ animated: true })
+            }, 100);
+          }} />
+        <ModeratorActivityModal
+          visible={activityModalVisible}
+          onHideModal={() => setActivityModalVisible(false)}
+          moderator={{ id: moderator.user.id }}
+          type={activityType}
+          onSentItem={getChatMessages}
+        />
+        <ModeratorChatDetailModal
+          visible={moderatorDetailModalVisible}
+          onHideModal={() => setModeratorDetailModalVisible(false)}
+          moderator={moderator}
+          onViewProfile={onViewModeratorProfile}
+        />
       </View>
-      <FlatList
-        ref={(ref) => {
-          listViewRef = ref;
-        }}
-        onContentSizeChange={() => listViewRef.scrollToEnd({ animated: true })}
-        data={messages}
-        extraData={messages}
-        contentContainerStyle={{ flexGrow: 1, paddingTop: 20 }}
-        showsVerticalScrollIndicator={false}
-        renderItem={({ item, index }) => (
-          <ChatBubble key={String(index)} item={item} isFromUser={isMessageFromUser(item)} />
-        )}
-        keyExtractor={(item, index) => String(index)}
-      />
-      <ChatInput
-        value={messageText}
-        placeholder={'Type message...'}
-        onSendPress={() => onSendTextMessage()}
-        onChangeMessage={(text) => setMessageText(text)}
-        onSendItem={onSendItemToModerator} />
-      <ModeratorActivityModal
-        visible={activityModalVisible}
-        onHideModal={() => setActivityModalVisible(false)}
-        moderator={{ id: moderator.user.id }}
-        type={activityType}
-        onSentItem={getChatMessages}
-      />
-      <ModeratorChatDetailModal
-        visible={moderatorDetailModalVisible}
-        onHideModal={() => setModeratorDetailModalVisible(false)}
-        moderator={moderator}
-        onViewProfile={onViewModeratorProfile}
-      />
-    </View>
-    // </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 

@@ -89,6 +89,7 @@ export default function ModeratorProfile(props) {
       user: {
         id: params.item.id,
         username: params.item.username,
+        is_active: "1"  //Will Need to set dynamic value for it.
       },
       profile_picture: getModeratorProfileImage()
     }
@@ -96,10 +97,13 @@ export default function ModeratorProfile(props) {
   }
 
   const _renderDotIndicator = (pages) => {
-    return <PagerDotIndicator
-      pageCount={pages}
-      dotStyle={styles.inactiveViewPaggerDot(pages)}
-      selectedDotStyle={styles.activeViewPaggerDot(pages)} />;
+    if (pages > 1) {
+      return <PagerDotIndicator
+        pageCount={pages}
+        dotStyle={styles.inactiveViewPaggerDot(pages)}
+        selectedDotStyle={styles.activeViewPaggerDot(pages)} />
+    }
+    return null;
   }
 
   const onUnlockEroticImage = () => {
