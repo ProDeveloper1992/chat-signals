@@ -34,7 +34,8 @@ import {
   HelpTicketMenu,
   UserPhotoItemMenu,
   LanguageSelectionMenu,
-  SexualOrientationMenu
+  SexualOrientationMenu,
+  LegalActionMenu
 } from './app-menus';
 import AppRangeSlider from './app-range-slider'
 
@@ -86,5 +87,6 @@ export {
   HelpTicketMenu,
   UserPhotoItemMenu,
   LanguageSelectionMenu,
-  SexualOrientationMenu
+  SexualOrientationMenu,
+  LegalActionMenu
 };

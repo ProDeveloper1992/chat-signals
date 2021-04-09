@@ -9,10 +9,12 @@ import {
   Text,
   Dimensions,
   Platform,
+  useWindowDimensions,
 } from 'react-native';
 import { PagerTabIndicator, IndicatorViewPager, PagerTitleIndicator, PagerDotIndicator } from 'rn-viewpager';
+import HTML from "react-native-render-html";
 
-import { NoListData, AppText, BackHeader, TagItem, OnlineStatusCircle } from '../../components';
+import { NoListData, AppText, BackHeader, TagItem, OnlineStatusCircle, LegalActionMenu } from '../../components';
 import { Icons, Colors, DEFAULT_IMAGE_URL, SCREEN_HEIGHT, DEFAULT_AVATAR_URL } from '../../constants';
 import styles from './style';
 import { ModeratorIconLabel } from '../../components';
@@ -33,7 +35,7 @@ import {
 } from '../../constants/svg-icons';
 import { showToast } from '../../redux/actions/app-actions';
 import moment from 'moment';
-import { getModeratorProfileDetail } from '../../redux/actions/flirts-actions';
+import { blockModerator, getModeratorProfileDetail, reportModerator } from '../../redux/actions/flirts-actions';
 
 export default function ModeratorProfile(props) {
 
@@ -126,6 +128,19 @@ export default function ModeratorProfile(props) {
     return params.item.profilepicture;
   }
 
+  const contentWidth = useWindowDimensions().width;
+
+  const onSelectLegalAction = async (action) => {
+    console.log("action", action)
+    if (action.title == 'Report') {
+      dispatch(reportModerator(params.item.id));
+    }
+    if (action.title == 'Block') {
+      await dispatch(blockModerator(params.item.id));
+      navigation.goBack();
+    }
+  }
+
   return (
     <View style={styles.container}>
       <BackHeader title={'Flirts'} color={Colors.ui_primary} />
@@ -188,7 +203,8 @@ export default function ModeratorProfile(props) {
                     <StarOutlineIcon width={24} height={24} />
                   )}
                 </TouchableOpacity>
-                <DotsCircleIcon />
+                <LegalActionMenu
+                  onSelectAction={onSelectLegalAction} />
               </View>
 
               {/* <View style={styles.switchViewContainer}>
@@ -240,7 +256,7 @@ export default function ModeratorProfile(props) {
               {moderatorDetail && moderatorDetail.description && (
                 <View>
                   <AppText type={'bold'} size={18}>{"Details"}</AppText>
-                  <AppText type={'regular'} color={Colors.greydark}>{moderatorDetail.description}</AppText>
+                  <HTML source={{ html: moderatorDetail.description }} contentWidth={contentWidth} />
                 </View>
               )}
             </View>
