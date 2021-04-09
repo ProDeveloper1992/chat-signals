@@ -124,7 +124,7 @@ const ChatDetail = (props) => {
             label={moderator.user.username}
           />
           <View style={styles.userDetailHeader}>
-            <CommonImage size={44} borderColor={Colors.white} source={{ uri: moderator.profile_picture }} />
+            <CommonImage touchable={false} size={44} borderColor={Colors.white} source={{ uri: moderator.profile_picture }} />
             <View style={{ flex: 1, paddingHorizontal: 12 }}>
               <AppText type={'bold'} size={18}>{moderator.user.username}</AppText>
               <AppText type={'regular'} size={12} color={Colors.greydark}>{moderator.user.is_active * 1 == 1 ? "Online" : "Offline"}</AppText>

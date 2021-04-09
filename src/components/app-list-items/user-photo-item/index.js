@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, ImageBackground } from 'react-native';
 import { UserPhotoItemMenu } from '../..';
 import styles from './style'
 

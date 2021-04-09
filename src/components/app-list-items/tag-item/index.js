@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 
-import { Colors, Icons, Images } from '../../../constants';
+import { Colors } from '../../../constants';
 import { AppText } from '../../index';
 
 export default function TagItem({ title, disabled, onPress, selected }) {

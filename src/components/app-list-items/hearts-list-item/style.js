@@ -4,11 +4,11 @@ import { Colors } from '../../../constants';
 export default StyleSheet.create({
     container: {
         flex: 1,
+        flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: Colors.white,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        padding: 15,
+        paddingHorizontal: 15,
+        paddingVertical: 10,
         borderBottomWidth: 0.5,
         borderColor: Colors.grey
     },
@@ -31,6 +31,7 @@ export default StyleSheet.create({
         bottom: 3,
         right: 0,
         marginBottom: -10,
+        // marginEnd: -20
     },
 
     profileImg: {
@@ -43,7 +44,6 @@ export default StyleSheet.create({
     userDetailContainer: {
         flex: 1,
         marginLeft: 15,
-        justifyContent: 'center',
     },
 
     arrowRight: {
@@ -52,5 +52,15 @@ export default StyleSheet.create({
         resizeMode: 'cover',
         marginTop: 10,
         alignSelf: 'flex-end',
+    },
+
+    buttonContainer: function (isAccept) {
+        return {
+            paddingHorizontal: 22,
+            paddingVertical: 7,
+            borderRadius: 43,
+            marginEnd: 7,
+            backgroundColor: isAccept ? Colors.ui_primary : Colors.ui_background
+        }
     }
 });

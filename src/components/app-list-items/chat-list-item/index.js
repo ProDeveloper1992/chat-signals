@@ -1,6 +1,6 @@
 import moment from 'moment';
 import React from 'react';
-import { View, Image, TouchableHighlight } from 'react-native';
+import { View, TouchableHighlight } from 'react-native';
 import PropTypes from 'prop-types';
 
 import { Colors, Images } from '../../../constants';
@@ -32,7 +32,8 @@ export default function ChatListItem({
               size={16}
               color={Colors.black}
               numberOfLines={1}
-              style={{ flex: 1 }}
+              style={{ flex: 1, textTransform: 'capitalize' }}
+
             >
               {userName}
             </AppText>

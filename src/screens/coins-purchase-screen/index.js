@@ -68,11 +68,7 @@ const CoinPurchase = () => {
   return (
     <View style={styles.container}>
       <GeneralHeader
-        leftIcon={Icons.user_profile}
-        onLeftPress={() => navigation.navigate('UserProfile')}
-        LanguageIcon={Icons.icon_languages}
-        onLanguagePress={() => dispatch(toggleLanguageModal(true))}
-        label={appLabels.purchase}
+        label={"Buy coins"}
       />
       <ScrollView contentContainerStyle={{ padding: 20 }}>
         {loadingPaymentGateways && paymentGateways.length === 0 ? (<AppIndicatorLoader />) : (

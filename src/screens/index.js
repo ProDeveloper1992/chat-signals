@@ -18,6 +18,9 @@ import AccountDetail from './account-detail-screen'
 import PrivacyPolicy from './privacy-policy-screen'
 import HelpAndSupport from './help-support-screen'
 import UserPhotos from './user-photos-screen'
+import LikesScreen from './likes-screen'
+import KissesScreen from './kisses-screen'
+import HeartsScreen from './hearts-screen'
 
 export {
   Login,
@@ -39,5 +42,8 @@ export {
   AccountDetail,
   PrivacyPolicy,
   HelpAndSupport,
-  UserPhotos
+  UserPhotos,
+  LikesScreen,
+  KissesScreen,
+  HeartsScreen
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, TouchableOpacity } from 'react-native';
+import { View, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import { Colors, Images } from '../../../constants';
 import { AppText, FriendItemMenu } from '../../index';
@@ -9,7 +9,6 @@ import { useDispatch } from 'react-redux';
 import { acceptRejectFriendRequest } from '../../../redux/actions/user-actions';
 
 export default function FriendListItem({
-    onChatPress,
     profileImage,
     userName,
     item
@@ -42,6 +41,7 @@ export default function FriendListItem({
                         size={16}
                         color={Colors.black}
                         numberOfLines={1}
+                        style={{ textTransform: 'capitalize' }}
                     >
                         {userName}
                     </AppText>

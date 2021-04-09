@@ -7,6 +7,9 @@ import TagItem from './tag-item';
 import NotificationItem from './notification-item';
 import FriendRequestItem from './friend-request-item';
 import FriendListItem from './friend-list-item';
+import LikesListItem from './likes-list-item';
+import KissesListItem from './kisses-list-item';
+import HeartsListItem from './hearts-list-item';
 import UserPhotoItem from './user-photo-item';
 
 export {
@@ -19,5 +22,8 @@ export {
     NotificationItem,
     FriendRequestItem,
     FriendListItem,
+    LikesListItem,
+    KissesListItem,
+    HeartsListItem,
     UserPhotoItem
 };

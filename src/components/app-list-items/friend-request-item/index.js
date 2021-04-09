@@ -56,6 +56,7 @@ export default function FriendRequestItem({
                             size={16}
                             color={Colors.black}
                             numberOfLines={1}
+                            style={{ textTransform: 'capitalize' }}
                         >
                             {userName}
                         </AppText>

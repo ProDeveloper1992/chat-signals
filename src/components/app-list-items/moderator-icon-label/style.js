@@ -1,5 +1,4 @@
-import {StyleSheet} from 'react-native';
-import {Colors, SCREEN_HEIGHT, SCREEN_WIDTH} from '../../../constants';
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
   iconViewContainer: {
