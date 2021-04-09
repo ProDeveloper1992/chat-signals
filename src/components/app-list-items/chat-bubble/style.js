@@ -13,7 +13,6 @@ export default StyleSheet.create({
             borderBottomRightRadius: isFromUser ? 0 : 20,
             borderBottomLeftRadius: isFromUser ? 20 : 0,
             marginHorizontal: 10,
-            // marginTop: 5,
             maxWidth: '90%'
         }
     },

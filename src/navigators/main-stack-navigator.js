@@ -17,7 +17,10 @@ import {
   AccountDetail,
   PrivacyPolicy,
   HelpAndSupport,
-  UserPhotos
+  UserPhotos,
+  LikesScreen,
+  KissesScreen,
+  HeartsScreen
 } from '../screens';
 import BottomTabBar from '../components/BottomTabBar';
 import { Colors } from '../constants';
@@ -201,6 +204,21 @@ export default function MainStackNavigator() {
       <Stack.Screen
         name="UserPhotos"
         component={UserPhotos}
+      />
+
+      <Stack.Screen
+        name="LikesScreen"
+        component={LikesScreen}
+      />
+
+      <Stack.Screen
+        name="KissesScreen"
+        component={KissesScreen}
+      />
+
+      <Stack.Screen
+        name="HeartsScreen"
+        component={HeartsScreen}
       />
     </Stack.Navigator>
   );

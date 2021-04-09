@@ -48,10 +48,19 @@ export default function ModeratorProfile(props) {
   const [activityType, setActivityType] = useState('kiss');
   const [activityModalVisible, setActivityModalVisible] = useState(false);
 
+  const [moderatorDetail, setModeratorDetail] = useState(null);
+
   useEffect(() => {
     console.log("Mederator Detail...", params.item);
-    dispatch(getModeratorProfileDetail(params.item.id));
+    getDetail();
   }, [])
+
+  const getDetail = async () => {
+    const response = await dispatch(getModeratorProfileDetail(params.item.id));
+    if (response.meta.status) {
+      setModeratorDetail(response.data);
+    }
+  }
 
   const toggleSwitch = async () => {
     setIsFavorite(!isFavorite);
@@ -110,6 +119,13 @@ export default function ModeratorProfile(props) {
     dispatch(showToast('negative', 'This feature is under development!'))
   }
 
+  const getProfilePictures = () => {
+    if (moderatorDetail != null) {
+      return moderatorDetail.profile_picture;
+    }
+    return params.item.profilepicture;
+  }
+
   return (
     <View style={styles.container}>
       <BackHeader title={'Flirts'} color={Colors.ui_primary} />
@@ -120,7 +136,7 @@ export default function ModeratorProfile(props) {
               style={{ height: SCREEN_HEIGHT / 2, backgroundColor: Colors.grey }}
               indicator={_renderDotIndicator(params.item.profilepicture.length)}
             >
-              {params.item.profilepicture.map((item, index) => {
+              {getProfilePictures().map((item, index) => {
                 return <ImageBackground
                   key={String(index)}
                   blurRadius={item.is_erotic == "1" ? Platform.OS == 'ios' ? 40 : 5 : 0}
@@ -221,8 +237,12 @@ export default function ModeratorProfile(props) {
                 <TagItem title={"Walking"} disabled />
                 <TagItem title={"Traveling"} disabled />
               </View>
-              <AppText type={'bold'} size={18}>{"Details"}</AppText>
-              <AppText type={'regular'} color={Colors.greydark}>{"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias"}</AppText>
+              {moderatorDetail && moderatorDetail.description && (
+                <View>
+                  <AppText type={'bold'} size={18}>{"Details"}</AppText>
+                  <AppText type={'regular'} color={Colors.greydark}>{moderatorDetail.description}</AppText>
+                </View>
+              )}
             </View>
             {params.item && params.item.dob && (
               <ProfileItem

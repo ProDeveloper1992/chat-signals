@@ -53,7 +53,7 @@ export default function ModeratorChatDetailModal({ visible, onHideModal, moderat
             style={styles.modalContainer}>
             <View style={styles.modalSubContainer}>
                 <View style={{ alignItems: 'center', justifyContent: 'center', padding: 20 }}>
-                    <CommonImage size={90} borderColor={Colors.white} source={{ uri: moderator.profile_picture }} />
+                    <CommonImage touchable={false} size={90} borderColor={Colors.white} source={{ uri: moderator.profile_picture }} />
                     <AppText
                         type={'bold'}
                         size={20}

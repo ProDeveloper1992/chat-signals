@@ -178,19 +178,19 @@ export default function UserProfile(props) {
                 count={userData ? userData.credit : 0}
                 icon={<CoinGradientIcon width={50} height={50} />} />
               <CounterCard
-                onPress={() => { }}
+                onPress={() => navigation.navigate('HeartsScreen')}
                 title={'Hearts'}
                 count={userData ? userData.total_hearts : 0}
                 icon={<HeartGradientIcon32 width={50} height={50} />} />
               <CounterCard
-                onPress={() => { }}
+                onPress={() => navigation.navigate('KissesScreen')}
                 title={'Kisses'}
                 count={userData ? userData.total_kiss : 0}
                 icon={<KissGradientIcon32 width={50} height={50} />} />
             </View>
             <View style={{ flexDirection: 'row' }}>
               <CounterCard
-                onPress={() => { }}
+                onPress={() => navigation.navigate('LikesScreen')}
                 title={'Likes'}
                 count={userData ? userData.total_likes : 0}
                 icon={<LikeGradientIcon32 width={50} height={50} />} />

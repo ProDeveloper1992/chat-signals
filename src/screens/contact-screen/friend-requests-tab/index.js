@@ -1,10 +1,21 @@
-import React from 'react';
+import { useIsFocused } from '@react-navigation/core';
+import React, { useEffect } from 'react';
 import { View, FlatList } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FriendRequestItem, NoListData } from '../../../components';
+import { getFriendsList } from '../../../redux/actions/user-actions';
 import styles from './style';
 
 export default function FriendRequests(props) {
+
+  const isFocused = useIsFocused();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isFocused) {
+      dispatch(getFriendsList());
+    }
+  }, [isFocused])
 
   const { appLabels } = useSelector((state) => state.appState);
   const { userData, friendsList } = useSelector((state) => state.userState);

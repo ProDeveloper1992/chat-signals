@@ -16,6 +16,9 @@ import {
   NotificationItem,
   FriendRequestItem,
   FriendListItem,
+  LikesListItem,
+  KissesListItem,
+  HeartsListItem,
   UserPhotoItem
 } from './app-list-items';
 import { AppText } from './app-text';
@@ -72,6 +75,9 @@ export {
   ModeratorListItem,
   FriendRequestItem,
   FriendListItem,
+  LikesListItem,
+  KissesListItem,
+  HeartsListItem,
   UserPhotoItem,
 
   //Menus

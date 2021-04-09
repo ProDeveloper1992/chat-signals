@@ -12,10 +12,10 @@ export default StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 10,
     backgroundColor: Colors.white,
-    // shadowColor: Colors.black,
-    // shadowOffset: { width: 0, height: 4 },
-    // shadowOpacity: 0.1,
-    // shadowRadius: 4,
-    // elevation: 2,
+    shadowColor: Colors.black,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 1,
   }
 });

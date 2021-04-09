@@ -18,7 +18,6 @@ export default StyleSheet.create({
     height: listItemHeight,
     backgroundColor: Colors.grey,
     borderRadius: 20,
-    // justifyContent: 'flex-end',
   },
   onlineStatusText: { color: Colors.black, fontSize: 12 },
   bottomContainer: {
@@ -26,7 +25,6 @@ export default StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    // backgroundColor: "rgba(15, 41, 55, 0.1)",
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     padding: 28,

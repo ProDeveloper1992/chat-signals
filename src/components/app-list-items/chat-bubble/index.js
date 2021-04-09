@@ -16,8 +16,6 @@ export default function ChatBubble({ item, isFromUser }) {
   }
 
   if (item.attachment[0] != null) {
-    // return null;
-
     if (item.attachment[2] == 'image') {
       return (
         <View>

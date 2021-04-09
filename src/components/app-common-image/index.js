@@ -1,12 +1,12 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Image } from 'react-native';
 import PropTypes from 'prop-types';
-import { Colors, DEFAULT_AVATAR_URL, Images } from '../../constants';
+import { Colors, DEFAULT_AVATAR_URL } from '../../constants';
 
 
-export default function CommonImage({ size, borderColor, source }) {
+export default function CommonImage({ size, borderColor, source, touchable }) {
     return (
-        <TouchableOpacity style={styles.container(size, borderColor)}>
+        <TouchableOpacity disabled={!touchable} style={styles.container(size, borderColor)}>
             <Image style={styles.imageStyle(size)} source={source} />
         </TouchableOpacity>
     );
@@ -34,11 +34,13 @@ const styles = StyleSheet.create({
 CommonImage.propTypes = {
     size: PropTypes.number,
     borderColor: PropTypes.string,
-    source: PropTypes.any
+    source: PropTypes.any,
+    touchable: PropTypes.bool,
 };
 
 CommonImage.defaultProps = {
     size: 70,
     borderColor: Colors.transparent,
-    source: { uri: DEFAULT_AVATAR_URL }
+    source: { uri: DEFAULT_AVATAR_URL },
+    touchable: true,
 };
