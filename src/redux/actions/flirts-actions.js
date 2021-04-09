@@ -9,6 +9,7 @@ import {
   IS_LOAD_MORE_FLIRTS
 } from './types';
 import { client } from '../../services/api-service';
+import { showToast } from './app-actions';
 
 export const getFlirtsList = (requestData) => (dispatch, getState) =>
   new Promise(function (resolve, reject) {
@@ -116,7 +117,40 @@ export const blockModerator = (moderatorId) => (dispatch, getState) =>
       .post(`/customer_block`, requestData)
       .then((res) => {
         if (res.meta.status) {
-          // dispatch(getFriendsList())
+          dispatch(showToast('positive', res.meta.message));
+          let flirtRequestData = {
+            page: 1,
+            customer_id: userData.id,
+            gender: '',
+          }
+          dispatch(getFlirtsList(flirtRequestData));
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } });
+        reject(err);
+      });
+  });
+
+//Report Moderator
+export const reportModerator = (moderatorId) => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    const userData = getState().userState.userData;
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      customer_id: userId,
+      profile_id: moderatorId,
+      description: ''
+    }
+    client
+      .post(`/customer_report`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+          dispatch(showToast('positive', res.meta.message))
         }
         resolve(res);
       })

@@ -107,7 +107,8 @@ const ChatDetail = (props) => {
   }
 
   const onViewModeratorProfile = () => {
-    // navigation.navigate('ModeratorProfile', { item: moderator })
+    // console.log("moderator user", moderator.user)
+    navigation.navigate('ModeratorProfile', { item: moderator.user })
   }
 
   return (

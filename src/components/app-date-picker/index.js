@@ -1,6 +1,7 @@
+import moment from 'moment';
 import React, { useState } from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
-import { TextInputMask } from 'react-native-masked-text';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import { AppText } from '..';
 import { Colors } from '../../constants';
@@ -8,33 +9,37 @@ import { CalenderIcon } from '../../constants/svg-icons';
 
 export default function DatePicker({ title, value, error, onChangeDate }) {
 
-    const [birthDate, setBirthDate] = useState(value);
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
-    const onChangeText = (text) => {
-        setBirthDate(text);
-        onChangeDate(text);
-    }
+    const showDatePicker = () => {
+        setDatePickerVisibility(true);
+    };
+
+    const hideDatePicker = () => {
+        setDatePickerVisibility(false);
+    };
+
+    const handleConfirm = (date) => {
+        let formatedDate = moment(date).format('DD/MM/YYYY')
+        onChangeDate(formatedDate);
+        hideDatePicker();
+    };
 
     return (
         <View style={{ marginVertical: 5 }}>
             {title && (
                 <AppText color={error ? Colors.ui_error : Colors.black} style={{ paddingBottom: 5, paddingTop: 5 }}>{title}</AppText>
             )}
-            <View
+            <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={showDatePicker}
                 style={[styles.container, { borderColor: error ? Colors.ui_error : Colors.grey }]}
             >
                 <CalenderIcon width={24} height={24} />
-                <TextInputMask
-                    style={{ width: '100%', marginStart: 10, paddingVertical: Platform.OS === 'ios' ? 15 : 10 }}
-                    type={'datetime'}
-                    options={{
-                        format: 'MM/DD/YYYY'
-                    }}
-                    value={birthDate}
-                    onChangeText={onChangeText}
-                    placeholder={'MM/DD/YYYY'}
-                />
-            </View>
+                <View style={{ padding: 15 }}>
+                    <AppText>{value != null ? value : "Select date"}</AppText>
+                </View>
+            </TouchableOpacity>
             {error && (
                 <AppText
                     type={'regular'}
@@ -44,6 +49,13 @@ export default function DatePicker({ title, value, error, onChangeDate }) {
                     {error}
                 </AppText>
             )}
+            <DateTimePickerModal
+                isVisible={isDatePickerVisible}
+                mode="date"
+                onConfirm={handleConfirm}
+                onCancel={hideDatePicker}
+                maximumDate={new Date()}
+            />
         </View>
     );
 }
