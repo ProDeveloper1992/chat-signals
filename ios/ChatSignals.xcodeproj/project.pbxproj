@@ -20,6 +20,7 @@
 		2DCD954D1E0B4F2C00145EB5 /* ChatSignalsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ChatSignalsTests.m */; };
 		2E137EEAFE8A4EF98E89D79C /* Poppins-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1BCD68F766BE4F759774E307 /* Poppins-ExtraBoldItalic.ttf */; };
 		35A21895755F41AFA30DB3DD /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 46D89DF5F7C64849B0FBFB90 /* Poppins-ExtraBold.ttf */; };
+		47A3FFAD262416A400099C15 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47A3FFAC262416A400099C15 /* CloudKit.framework */; };
 		4CEA0EF2EFF24A53B7A6F754 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F98E4D0FC708414EB2305114 /* Poppins-Bold.ttf */; };
 		5193E136E31D13D9D6622F20 /* libPods-ChatSignals-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F2581E473FA9382ED4A2B15 /* libPods-ChatSignals-tvOS.a */; };
 		5397569BD05142A7B24A0AB8 /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80C2DF2C45F04F80842F2676 /* Poppins-ExtraLight.ttf */; };
@@ -89,6 +90,8 @@
 		39E1CFF2045D4E90BD3F89A5 /* Poppins-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-LightItalic.ttf"; path = "../assets/fonts/Poppins-LightItalic.ttf"; sourceTree = "<group>"; };
 		42CE31D09FDDA343317332ED /* Pods-ChatSignals-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatSignals-tvOS.release.xcconfig"; path = "Target Support Files/Pods-ChatSignals-tvOS/Pods-ChatSignals-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		46D89DF5F7C64849B0FBFB90 /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ExtraBold.ttf"; path = "../assets/fonts/Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
+		47A3FFAB2624169800099C15 /* ChatSignals.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ChatSignals.entitlements; path = ChatSignals/ChatSignals.entitlements; sourceTree = "<group>"; };
+		47A3FFAC262416A400099C15 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		5051164602E84CD0BC614870 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-SemiBold.ttf"; path = "../assets/fonts/Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		568E7B854451E2D31918F894 /* Pods-ChatSignals-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChatSignals-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-ChatSignals-tvOS/Pods-ChatSignals-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		5F2581E473FA9382ED4A2B15 /* libPods-ChatSignals-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ChatSignals-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,6 +136,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47A3FFAD262416A400099C15 /* CloudKit.framework in Frameworks */,
 				180C6EA0257C94BF002E004B /* libswiftWebKit.tbd in Frameworks */,
 				608722BD808B35A57DF5FB9C /* libPods-ChatSignals.a in Frameworks */,
 			);
@@ -177,6 +181,7 @@
 		13B07FAE1A68108700A75B9A /* ChatSignals */ = {
 			isa = PBXGroup;
 			children = (
+				47A3FFAB2624169800099C15 /* ChatSignals.entitlements */,
 				C80EAD6124F15400003DE1E6 /* GoogleService-Info.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -192,6 +197,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				47A3FFAC262416A400099C15 /* CloudKit.framework */,
 				180C6E9F257C94BF002E004B /* libswiftWebKit.tbd */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
@@ -774,6 +780,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ChatSignals/ChatSignals.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
@@ -805,6 +812,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ChatSignals/ChatSignals.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 7;

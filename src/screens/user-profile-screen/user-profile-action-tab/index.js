@@ -12,10 +12,12 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { AppText } from '../../../components';
 import { Icons, Colors } from '../../../constants';
 import styles from './style';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser } from '../../../redux/reducers';
 
 export default function UserProfileActionTab(props) {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const { appLabels } = useSelector((state) => state.appState);
 
@@ -29,7 +31,7 @@ export default function UserProfileActionTab(props) {
       {
         text: 'Yes',
         onPress: async () => {
-          AsyncStorage.clear();
+          dispatch(logoutUser());
           try {
             await GoogleSignin.revokeAccess();
             await GoogleSignin.signOut();

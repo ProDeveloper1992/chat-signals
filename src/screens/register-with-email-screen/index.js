@@ -4,6 +4,8 @@ import StepIndicator from 'react-native-step-indicator';
 import { useDispatch, useSelector } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
 import moment from 'moment';
+import axios from 'axios';
+
 
 import {
   AppButton,
@@ -27,6 +29,7 @@ import { toggleAddPassionsModal, toggleMoreGenderModal, toggleSexualOrientationM
 import GoogleIcon from '../../assets/icons/google.svg';
 import FacebookIcon from '../../assets/icons/facebook.svg';
 import { loginWithFacebook, loginWithGoogle } from '../../services/social-login-service';
+import { apiRoot } from '../../services/api-service';
 
 const RegisterWithEmail = (props) => {
   const { navigation } = props;
@@ -78,6 +81,12 @@ const RegisterWithEmail = (props) => {
         console.log("DOB", formatedBirthDate)
         console.log("profileImage", profileImage)
         try {
+          let imageFile = {
+            name: profileImage.fileName,
+            type: profileImage.type,
+            uri: profileImage.uri
+          }
+
           let requestData = {
             language: selectedLanguage,
             username: userName,
@@ -89,6 +98,22 @@ const RegisterWithEmail = (props) => {
             picture: profileImage.uri,
             passions: 1
           };
+
+
+
+          const formData = new FormData();
+          formData.append("language", selectedLanguage);
+          formData.append("username", userName);
+          formData.append("email", email);
+          formData.append("password", password);
+          formData.append("dob", formatedBirthDate);
+          formData.append("gender", selectedUserGender.id);
+          formData.append("sexual_orientation", userSexualOrientation.id);
+          formData.append("picture", imageFile);
+          formData.append("passions", 1);
+
+          console.log("formData", formData)
+
           setLoading(true);
           const response = await dispatch(registerUser(requestData));
           setLoading(false);
@@ -199,8 +224,6 @@ const RegisterWithEmail = (props) => {
       },
     };
     ImagePicker.showImagePicker(options, async (response) => {
-      console.log('Response = ', response);
-
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
@@ -215,7 +238,7 @@ const RegisterWithEmail = (props) => {
         // let source = {
         //   uri: response.uri
         // };
-        setProfileImage(source);
+        setProfileImage(response);
       }
     });
   }

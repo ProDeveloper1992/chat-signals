@@ -30,6 +30,7 @@ import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { getFriendsList, userProfileDetail } from '../../redux/actions/user-actions';
 import moment from 'moment';
+import { logoutUser } from '../../redux/reducers';
 
 export default function UserProfile(props) {
   const { params } = props.route;
@@ -124,7 +125,7 @@ export default function UserProfile(props) {
       {
         text: 'Yes',
         onPress: async () => {
-          AsyncStorage.clear();
+          dispatch(logoutUser())
           try {
             await GoogleSignin.revokeAccess();
             await GoogleSignin.signOut();

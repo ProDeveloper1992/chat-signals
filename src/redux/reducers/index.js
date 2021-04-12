@@ -19,17 +19,15 @@ const allReducers = combineReducers({
   chatState: chatState
 });
 
-export const logoutUser = (user) => (dispatch, getState) =>
+export const logoutUser = () => (dispatch, getState) =>
   new Promise(function (resolve, reject) {
-    // dispatch({
-    //   type: LOGOUT_USER,
-    // });
     dispatch(ActionDispatcher(LOGOUT_USER, true));
     resolve(true);
   });
 
 const rootReducer = (state, action) => {
   if (action.type === LOGOUT_USER) {
+    console.log("LOGOUT_USER")
     Object.keys(state).forEach((key) => {
       AsyncStorage.removeItem(`persist:${key}`);
     });

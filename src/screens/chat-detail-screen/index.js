@@ -22,7 +22,7 @@ const ChatDetail = (props) => {
 
   const moderator = props.route.params.item;
 
-  const { userData } = useSelector((state) => state.userState);
+  const { userData, authToken } = useSelector((state) => state.userState);
   const { conversation } = useSelector((state) => state.chatState);
 
   const [messageText, setMessageText] = useState('');
@@ -63,36 +63,121 @@ const ChatDetail = (props) => {
     }
   }
 
-  const onSendTextMessage = async () => {
-    if (messageText != '') {
+  // const createFormData = (photo, body) => {
+  //   const data = new FormData();
 
-      let updated_messages = messages;
+  //   data.append("file", {
+  //     name: photo.name,
+  //     type: photo.type,
+  //     uri:
+  //       Platform.OS === "android" ? photo.uri : photo.uri.replace("file://", "")
+  //   });
 
-      let new_message = {
-        attachment: [null, null, null],
-        from_id: userData.id,
-        fullTime: new Date(),
-        id: Math.random(),
-        message: messageText,
-        seen: "0",
-        time: "1 seconds ago",
-        to_id: moderator.user.id,
-        viewType: "default",
-      }
+  //   Object.keys(body).forEach(key => {
+  //     data.append(key, body[key]);
+  //   });
 
-      updated_messages.push(new_message);
-      setMessages(updated_messages);
-      listViewRef.scrollToEnd({ animated: true })
+  //   return data;
+  // };
+
+  const onSendTextMessage = async (attachedDoc) => {
+
+    console.log("attachedDoc", attachedDoc)
+    if (attachedDoc != null) {
+
       setMessageText('');
       let messageToSend = {
         id: moderator.user.id,
         customer_id: userData.id,
         message: messageText,
+        file: {
+          name: attachedDoc.name,
+          type: attachedDoc.type,
+          uri: attachedDoc.uri,
+        }
       };
+
+
+      // const formData = new FormData();
+      // formData.append('id', moderator.user.id);
+      // formData.append('customer_id', userData.id);
+      // formData.append('message', messageText);
+      // formData.append('file', {
+      //   uri: attachedDoc.uri, //Your Image File Path
+      //   type: attachedDoc.type,
+      //   name: attachedDoc.name,
+      // });
+      // axios({
+      //   url: `${apiRoot}/sendMessage`,
+      //   method: 'POST',
+      //   data: formData,
+      //   headers: {
+      //     Accept: 'application/json',
+      //     'Content-Type': 'multipart/form-data',
+      //     'Authorization': `Bearer ${authToken}`
+      //   }
+      // })
+      //   .then(function (response) {
+      //     console.log("response :", response);
+      //   })
+      //   .catch(function (error) {
+      //     console.log("error from image :", error);
+      //   })
+
+      // fetch(`${apiRoot}/sendMessage`, {
+      //   method: "POST",
+      //   headers: {
+      //     "Authorization": `Bearer ${authToken}`,
+      //     "Content-Type": "multipart/form-data"
+      //   },
+      //   body: createFormData(attachedDoc, messageToSend)
+      // })
+      //   .then(response => response.json())
+      //   .then(response => {
+      //     console.log("upload succes", response);
+      //     alert("Upload success!");
+      //   })
+      //   .catch(error => {
+      //     console.log("upload error", error);
+      //     alert("Upload failed!");
+      //   });
+
       await dispatch(sendMessage(messageToSend));
       const response = await dispatch(getChatConversation(moderator.user.id));
       if (response.meta.status) {
         setMessages(response.data);
+      }
+    } else {
+      if (messageText != '') {
+
+        let updated_messages = messages;
+
+        let new_message = {
+          attachment: [null, null, null],
+          from_id: userData.id,
+          fullTime: new Date(),
+          id: Math.random(),
+          message: messageText,
+          seen: "0",
+          time: "1 seconds ago",
+          to_id: moderator.user.id,
+          viewType: "default",
+        }
+
+        updated_messages.push(new_message);
+        setMessages(updated_messages);
+        listViewRef.scrollToEnd({ animated: true })
+        setMessageText('');
+        let messageToSend = {
+          id: moderator.user.id,
+          customer_id: userData.id,
+          message: messageText,
+        };
+        await dispatch(sendMessage(messageToSend));
+        const response = await dispatch(getChatConversation(moderator.user.id));
+        if (response.meta.status) {
+          setMessages(response.data);
+        }
       }
     }
   }
