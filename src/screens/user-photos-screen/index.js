@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import { FlatList, View } from 'react-native';
 import { useSelector } from 'react-redux';
-import { AppText, BackHeader, UserPhotoItem } from '../../components';
+import { AppText, BackHeader, NoListData, UserPhotoItem } from '../../components';
 import { Colors } from '../../constants';
 import styles from './style';
 
@@ -31,9 +31,12 @@ export default function UserPhotos(props) {
                     numColumns={2}
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item, index }) => (
-                        <UserPhotoItem key={String(index)} item={item} />
+                        <View key={String(index)} style={{ flex: index == userData.profilepictures.length - 1 && index % 2 == 0 ? 0.5 : 1 }}>
+                            <UserPhotoItem item={item} />
+                        </View>
                     )}
                     keyExtractor={(item, index) => String(index)}
+                    ListEmptyComponent={<NoListData title={"No photos found!"} />}
                 />
             )}
         </View>

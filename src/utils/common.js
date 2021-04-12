@@ -1,4 +1,5 @@
-import {Dimensions, Platform} from 'react-native';
+import moment from 'moment';
+import { Dimensions, Platform } from 'react-native';
 
 export function isIphoneX() {
   const dimen = Dimensions.get('window');
@@ -15,4 +16,12 @@ export function isIphoneX() {
 
 export function wait(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export function getRemainingTime(end, current) {
+  var endTime = moment(end);
+  var currentTime = moment(current);
+  var remainingSeconds = endTime.diff(currentTime, "seconds");
+
+  return remainingSeconds;
 }
