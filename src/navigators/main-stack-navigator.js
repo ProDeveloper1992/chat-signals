@@ -26,6 +26,7 @@ import BottomTabBar from '../components/BottomTabBar';
 import { Colors } from '../constants';
 import { useSelector } from 'react-redux';
 import { AppGiftBadge, AppText } from '../components';
+import { getRemainingTime } from '../utils/common';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -110,7 +111,6 @@ const BottomTabNavigator = () => {
       tabBar={(props) => (
         <>
           <BottomTabBar {...props} />
-
           <View style={{ position: 'absolute', bottom: "18%" }}>
             <AppGiftBadge />
           </View>

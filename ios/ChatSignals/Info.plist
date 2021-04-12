@@ -26,7 +26,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb771108183652072</string>
-        <string>com.googleusercontent.apps.621048235124-a70gasl2khst8fmb131cnmlb0h23tsiq</string>
+				<string>com.googleusercontent.apps.621048235124-a70gasl2khst8fmb131cnmlb0h23tsiq</string>
 			</array>
 		</dict>
 	</array>
@@ -54,7 +54,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Photo Library Access Warning</string>
 	<key>UIAppFonts</key>
