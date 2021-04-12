@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, Platform, View, TouchableOpacity, SafeAreaView, Keyboard } from 'react-native';
+import { StyleSheet, TextInput, Platform, View, TouchableOpacity, SafeAreaView, Keyboard, Image, ImageBackground } from 'react-native';
+import DocumentPicker from 'react-native-document-picker';
+import { useSelector } from 'react-redux';
+
 import { Colors, Icons } from '../../constants';
 import { AppText } from '../../components';
 import {
@@ -10,14 +13,18 @@ import {
     KissGradientIcon32,
     HeartGradientIcon32,
     LikeGradientIcon32,
-    CoinGradientIcon
+    CoinGradientIcon,
+    CloseIcon,
+    CloseWhiteTransparentIcon,
+    VideoIcon
 } from '../../constants/svg-icons';
-import { useSelector } from 'react-redux';
 
 export function ChatInput({ style, value, onChangeMessage, onSendPress, onSendItem, ...props }) {
 
     const { userData } = useSelector((state) => state.userState);
     const { appLabels, generalSettings } = useSelector((state) => state.appState);
+
+    const [attachedDocument, setAttachedDocument] = useState(null);
 
     const getMessagePrice = () => {
         if (generalSettings.length > 0) {
@@ -38,6 +45,64 @@ export function ChatInput({ style, value, onChangeMessage, onSendPress, onSendIt
         setTimeout(() => {
             onSendItem(type);
         }, 500);
+    }
+
+    const onAttachIconPress = async () => {
+        //Opening Document Picker for selection of one file
+        try {
+            const res = await DocumentPicker.pick({
+                type: [DocumentPicker.types.images],
+                //There can me more options as well
+                // DocumentPicker.types.allFiles
+                // DocumentPicker.types.images
+                // DocumentPicker.types.plainText
+                // DocumentPicker.types.audio
+                // DocumentPicker.types.pdf
+            });
+            //Printing the log realted to the file
+            console.log('res : ' + JSON.stringify(res));
+            console.log('URI : ' + res.uri);
+            console.log('Type : ' + res.type);
+            console.log('File Name : ' + res.name);
+            console.log('File Size : ' + res.size);
+            //Setting the state to show single file attributes
+            setAttachedDocument(res);
+        } catch (err) {
+            //Handling any exception (If any)
+            if (DocumentPicker.isCancel(err)) {
+                //If user canceled the document selection
+            } else {
+                //For Unknown Error
+            }
+        }
+    };
+
+    const onCloseIconPress = () => {
+        setAttachedDocument(null);
+    }
+
+    const onSendIconPress = () => {
+        onSendPress(attachedDocument);
+        setAttachedDocument(null);
+    }
+
+    const renderAttachedDocument = () => {
+        switch (attachedDocument.type) {
+            case "image/jpeg":
+                return (<Image style={{ width: '100%', height: '100%', borderRadius: 5 }} source={{ uri: attachedDocument.uri }} />)
+            case "video/mp4":
+                return (
+                    <ImageBackground style={{ width: '100%', height: '100%', borderRadius: 5, alignItems: 'center', justifyContent: 'center' }} source={{ uri: attachedDocument.uri }}>
+                        <VideoIcon width={30} height={30} fill={Colors.white} />
+                    </ImageBackground>
+                )
+            case "application/vnd.android.package-archive":
+                return (
+                    <View style={{ width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center', backgroundColor: Colors.ui_primary_10, borderRadius: 5 }}>
+                        <AppText>{".apk"}</AppText>
+                    </View>
+                )
+        }
     }
 
     return (
@@ -70,8 +135,21 @@ export function ChatInput({ style, value, onChangeMessage, onSendPress, onSendIt
                         )}
                     </View>
                 </View>
+                {attachedDocument && (
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <View style={{ height: 80, width: 80, backgroundColor: Colors.grey, borderRadius: 5, marginBottom: 10 }}>
+                            <TouchableOpacity onPress={onCloseIconPress} style={{ position: 'absolute', top: -5, right: -5, overflow: 'hidden', zIndex: 1000 }}>
+                                <CloseWhiteTransparentIcon width={20} height={20} fill={Colors.black} />
+                            </TouchableOpacity>
+                            {renderAttachedDocument()}
+                        </View>
+                        <AppText style={{ flex: 1, marginHorizontal: 20 }}>{attachedDocument.name}</AppText>
+                    </View>
+                )}
                 <View style={styles.inputContainer}>
-                    <AttachIcon width={24} height={24} />
+                    <TouchableOpacity onPress={onAttachIconPress}>
+                        <AttachIcon width={24} height={24} />
+                    </TouchableOpacity>
                     <TextInput
                         {...props}
                         style={[
@@ -85,7 +163,7 @@ export function ChatInput({ style, value, onChangeMessage, onSendPress, onSendIt
                         onChangeText={onChangeMessage}
                         returnKeyType={'send'}
                     />
-                    <TouchableOpacity activeOpacity={0.8} style={styles.sendIconContainer} onPress={onSendPress}>
+                    <TouchableOpacity activeOpacity={0.8} style={styles.sendIconContainer} onPress={onSendIconPress}>
                         <SendMessageIcon width={24} height={24} />
                     </TouchableOpacity>
                 </View>
