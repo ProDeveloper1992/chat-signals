@@ -196,6 +196,11 @@ const ChatDetail = (props) => {
     navigation.navigate('ModeratorProfile', { item: moderator.user })
   }
 
+  const onBuyCoinsPress = () => {
+    navigation.goBack();
+    navigation.navigate('FourthTabStack')
+  }
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : 'height'}
@@ -205,9 +210,7 @@ const ChatDetail = (props) => {
       <View style={styles.container}>
         <View>
           <ChatDetailHeader
-            leftIcon={Icons.user_profile}
             onLeftPress={() => navigation.goBack()}
-            label={moderator.user.username}
           />
           <View style={styles.userDetailHeader}>
             <CommonImage touchable={false} size={44} borderColor={Colors.white} source={{ uri: moderator.profile_picture }} />
@@ -254,6 +257,7 @@ const ChatDetail = (props) => {
           moderator={{ id: moderator.user.id }}
           type={activityType}
           onSentItem={getChatMessages}
+          onBuyCoins={onBuyCoinsPress}
         />
         <ModeratorChatDetailModal
           visible={moderatorDetailModalVisible}

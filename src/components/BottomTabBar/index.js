@@ -54,11 +54,8 @@ export default function BottomTabBar({ state, descriptors, navigation }) {
 
         const getTabIcon = () => {
           switch (route.name) {
-            // case 'FirstTabStack':
-            //   if (isFocused) {
-            //     return Icons.home_active;
-            //   }
-            //   return Icons.home_inactive;
+            case 'FirstTabStack':
+              return Icons.home;
 
             case 'SecondTabStack':
               return Icons.notification;
@@ -68,9 +65,6 @@ export default function BottomTabBar({ state, descriptors, navigation }) {
 
             case 'FourthTabStack':
               return Icons.dollar_circle;
-
-            case 'FifthTabStack':
-              return Icons.profile;
 
             default:
               return Icons.home;
@@ -93,8 +87,8 @@ export default function BottomTabBar({ state, descriptors, navigation }) {
                 source={{ uri: getProfilePicture() }}
                 style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: Colors.grey, borderWidth: 2, borderColor: isFocused ? Colors.black : Colors.white }} />
             ) : (
-                <Image style={styles.tabIcon(isFocused)} source={getTabIcon()} />
-              )}
+              <Image style={styles.tabIcon(isFocused)} source={getTabIcon()} />
+            )}
 
             {/* <AppText
               size={isFocused ? 13 : 12}

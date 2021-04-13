@@ -5,6 +5,7 @@ import CalenderIcon from '../assets/icons/calender.svg';
 import CameraIcon from '../assets/icons/camera.svg';
 import EditPenCircleIcon from '../assets/icons/edit_pen_circle.svg';
 import ArrowLeftIcon from '../assets/icons/arrow_left.svg';
+import ArrowRightIcon from '../assets/icons/arrow_right.svg';
 import ChatGradientIcon from '../assets/icons/chat_gradient.svg';
 import LikeGradientIcon from '../assets/icons/like_gradient.svg';
 import LikeGradientIcon32 from '../assets/icons/like_gradient_32.svg';
@@ -21,7 +22,6 @@ import StarFilledIcon from '../assets/icons/star_filled.svg';
 import DotsCircleIcon from '../assets/icons/three_dots_circle.svg';
 import DotsCircleTransparentIcon from '../assets/icons/three_dots_circle_transparent.svg';
 import BoostIcon from '../assets/icons/boost.svg';
-import ArrowRightIcon from '../assets/icons/arrow_right.svg';
 import SendMessageIcon from '../assets/icons/send_message.svg';
 import AttachIcon from '../assets/icons/attach.svg';
 import InfoIcon from '../assets/icons/info.svg';
@@ -35,6 +35,9 @@ import UnfriendIcon from '../assets/icons/unfriend.svg';
 import BlockIcon from '../assets/icons/block.svg';
 import DeleteBinIcon from '../assets/icons/delete.svg';
 import VideoIcon from '../assets/icons/video.svg';
+import MessageSentIcon from '../assets/icons/message_sent.svg';
+import MessageSeenIcon from '../assets/icons/message_seen.svg';
+import MessageDeliveredIcon from '../assets/icons/message_delivered.svg';
 
 import GiftBoxIcon from '../assets/images/gift_box.svg';
 
@@ -76,5 +79,8 @@ export {
     UnfriendIcon,
     BlockIcon,
     DeleteBinIcon,
-    VideoIcon
+    VideoIcon,
+    MessageSentIcon,
+    MessageSeenIcon,
+    MessageDeliveredIcon,
 }

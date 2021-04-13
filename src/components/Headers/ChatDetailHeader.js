@@ -7,13 +7,9 @@ import { ArrowLeftIcon } from '../../constants/svg-icons';
 
 export function ChatDetailHeader({
   style,
-  leftIcon,
   onLeftPress,
-  label,
   rightIcon,
   onRightPress,
-  LanguageIcon,
-  onLanguagePress,
 }) {
   return (
     <>

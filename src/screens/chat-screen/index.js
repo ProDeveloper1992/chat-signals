@@ -82,16 +82,12 @@ const Chat = () => {
   }, [isFocused]);
 
   const onChatListItemPress = (customer) => {
-    navigation.navigate('ChatDetail', { item: customer });
+    navigation.push('ChatDetail', { item: customer });
   }
 
   return (
     <View style={styles.container}>
       <GeneralHeader
-        leftIcon={Icons.user_profile}
-        onLeftPress={() => navigation.navigate('UserProfile')}
-        LanguageIcon={Icons.icon_languages}
-        onLanguagePress={() => dispatch(toggleLanguageModal(true))}
         label={'Messages'}
       />
       {loadingChatList && userChatList.length == 0 ? (

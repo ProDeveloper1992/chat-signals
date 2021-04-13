@@ -36,8 +36,6 @@ export default function ForgotPasswordModal({ visible, onHideModal }) {
 
         if (isValid) {
             try {
-                //   setLoading(true);
-                //   await register(email, password);
                 let requestData = {
                     language: 'en',
                     email: email,

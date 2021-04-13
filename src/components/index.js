@@ -10,7 +10,6 @@ import { NoListData } from './app-no-data-views';
 import {
   ModeratorListItem,
   ModeratorIconLabel,
-  ModeratorHeader,
   ChatBubble,
   TagItem,
   NotificationItem,
@@ -57,7 +56,6 @@ export {
   CountryPicker,
   NoListData,
   ModeratorIconLabel,
-  ModeratorHeader,
   ChatBubble,
   OwnPurchaseCard,
   DatePicker,

@@ -61,10 +61,6 @@ const DailyCoins = () => {
   return (
     <View style={styles.container}>
       <GeneralHeader
-        leftIcon={Icons.user_profile}
-        onLeftPress={() => navigation.navigate('UserProfile')}
-        LanguageIcon={Icons.icon_languages}
-        onLanguagePress={() => dispatch(toggleLanguageModal(true))}
         label={appLabels.daily_coins}
       />
       <AuthContainer>

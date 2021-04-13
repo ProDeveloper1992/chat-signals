@@ -5,10 +5,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Colors, Icons } from '../../../constants';
 import { AppButton, AppText } from '../../index';
 import styles from './style';
-import { CloseIcon, FriendGradientIcon32, KissGradientIcon32, LikeGradientIcon32, ChatGradientIcon, StickerGradientIcon32, HeartGradientIcon32 } from '../../../constants/svg-icons'
+import {
+  CloseIcon,
+  FriendGradientIcon32,
+  KissGradientIcon32,
+  LikeGradientIcon32,
+  ChatGradientIcon,
+  StickerGradientIcon32,
+  HeartGradientIcon32,
+  CoinGradientIcon
+} from '../../../constants/svg-icons'
 import { sendMessage } from '../../../redux/actions/chat-actions'
 
-export default function ActivityModal({ visible, onHideModal, type, moderator, onSentItem }) {
+export default function ActivityModal({ visible, onHideModal, type, moderator, onSentItem, onBuyCoins }) {
 
   const dispatch = useDispatch();
 
@@ -167,6 +176,24 @@ export default function ActivityModal({ visible, onHideModal, type, moderator, o
     }
   }
 
+  const isEnoughCredit = () => {
+    if (userData && userData.credit * 1 > 0) {
+      let userCredit = userData.credit * 1;
+      if (userCredit >= getTypeCost(type) * 1) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  const onBuyCoinsPress = () => {
+    onHideModal();
+    onBuyCoins();
+  }
+
   return (
     <Modal
       isVisible={visible}
@@ -182,11 +209,13 @@ export default function ActivityModal({ visible, onHideModal, type, moderator, o
             <CloseIcon width={28} height={28} />
           </TouchableOpacity>
         </View>
-        <View style={{ alignItems: 'center', marginTop: '5%', marginBottom: '20%' }}>
-          <AppText type={'bold'} size={24} color={Colors.black}>
-            {type != 'chat' && 'Send '}{getTitle(type)}
-          </AppText>
-          {/* <Image
+        {isEnoughCredit() ? (
+          <View style={{ flexGrow: 1 }}>
+            <View style={{ flex: 1, alignItems: 'center', marginTop: '5%', marginBottom: '20%' }}>
+              <AppText type={'bold'} size={24} color={Colors.black}>
+                {type != 'chat' && 'Send '}{getTitle(type)}
+              </AppText>
+              {/* <Image
             style={{
               width: 60,
               height: 60,
@@ -195,29 +224,45 @@ export default function ActivityModal({ visible, onHideModal, type, moderator, o
             }}
             source={getActivityImage(type)}
           /> */}
-          {getActivityImage(type)}
-          {getTypeCost(type) * 1 > 0 && (
-            <AppText
-              type={'bold'}
-              size={16}
-              color={Colors.black}
-              style={{ marginTop: -30 }}>
-              <AppText>{'Cost '}</AppText>
-              {`${getTypeCost(type)} ${appLabels.Coins}`}
-            </AppText>
-          )}
-        </View>
-        <AppButton
-          title={'Send'}
-          style={{ marginVertical: 10 }}
-          onPress={onSendPress}
-          loading={isSending}
-        />
-        <AppButton
-          type={'light'}
-          title={'Cancel'}
-          onPress={onHideModal}
-        />
+              {getActivityImage(type)}
+              {getTypeCost(type) * 1 > 0 && (
+                <AppText
+                  type={'bold'}
+                  size={16}
+                  color={Colors.black}
+                  style={{ marginTop: -30 }}>
+                  <AppText>{'Cost '}</AppText>
+                  {`${getTypeCost(type)} ${appLabels.Coins}`}
+                </AppText>
+              )}
+            </View>
+            <AppButton
+              title={'Send'}
+              style={{ marginVertical: 10 }}
+              onPress={onSendPress}
+              loading={isSending}
+            />
+            <AppButton
+              type={'light'}
+              title={'Cancel'}
+              onPress={onHideModal}
+            />
+          </View>
+        ) : (
+          <View style={{ flexGrow: 1 }}>
+            <View style={{ flex: 1, alignItems: 'center', marginTop: '5%', marginBottom: '20%' }}>
+              <AppText type={'bold'} size={24} color={Colors.black}>
+                {"Not enough coins"}
+              </AppText>
+              <View style={{ alignItems: 'center', justifyContent: 'center', maxWidth: '65%', marginTop: "10%" }}>
+                <CoinGradientIcon width={100} height={100} />
+                <AppText size={16} style={{ textAlign: 'center', marginTop: -20 }}>{"Sorry, but you don’t have enough coins to send this message."}</AppText>
+              </View>
+            </View>
+
+            <AppButton title={"Buy coins now"} onPress={onBuyCoinsPress} />
+          </View>
+        )}
       </View>
     </Modal>
   );
