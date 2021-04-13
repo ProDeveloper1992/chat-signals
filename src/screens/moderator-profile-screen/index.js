@@ -141,6 +141,11 @@ export default function ModeratorProfile(props) {
     }
   }
 
+  const onBuyCoinsPress = () => {
+    navigation.goBack();
+    navigation.navigate('FourthTabStack')
+  }
+
   return (
     <View style={styles.container}>
       <BackHeader title={'Flirts'} color={Colors.ui_primary} />
@@ -276,7 +281,8 @@ export default function ModeratorProfile(props) {
             onHideModal={() => setActivityModalVisible(false)}
             moderator={params.item}
             type={activityType}
-            onSentItem={() => { }}
+            onSentItem={onChatPress}
+            onBuyCoins={onBuyCoinsPress}
           />
         </View>
       </ScrollView>

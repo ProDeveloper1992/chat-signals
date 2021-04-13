@@ -4,14 +4,15 @@ import moment from 'moment';
 import { Colors, Icons } from '../../../constants';
 import { AppText } from '../../index';
 import styles from './style';
+import { MessageSeenIcon, MessageSentIcon } from '../../../constants/svg-icons';
 
 export default function ChatBubble({ item, isFromUser }) {
 
   const getTickIcon = (seen) => {
     if (seen * 1 == 1) {
-      return Icons.double_tick_icon;
+      return <MessageSeenIcon />;
     } else {
-      return Icons.tick_icon;
+      return <MessageSentIcon />;
     }
   }
 
@@ -42,7 +43,10 @@ export default function ChatBubble({ item, isFromUser }) {
       <View style={styles.seenTimeContainer(isFromUser)}>
         <AppText size={12}>{moment(item.fullTime).format("HH:mm")}</AppText>
         {isFromUser && (
-          <Image style={styles.seenIcon} source={getTickIcon(item.seen)} />
+          // <Image style={styles.seenIcon} source={getTickIcon(item.seen)} />
+          <View style={{ marginStart: 5 }}>
+            {getTickIcon(item.seen)}
+          </View>
         )}
       </View>
     </View>

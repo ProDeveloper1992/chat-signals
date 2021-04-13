@@ -38,30 +38,40 @@ export default function AppGiftBadge() {
                 activeOpacity={1}
                 onPress={onBadgePress}
                 style={styles.container(isOpened)}>
-                <GiftBoxIcon width={35} height={35} />
+                <View style={{ paddingHorizontal: 10, paddingVertical: 8 }}>
+                    <GiftBoxIcon width={35} height={35} />
+                </View>
                 {isOpened && (
-                    <View>
-                        {getRemainingTime(userData.last_date_bonus_card, new Date()) <= 0 ? (
-                            <AppText
-                                type={'bold'}
-                                size={14}
-                                onPress={onOpenCoinsEarningModal}
-                                style={{ marginStart: 5 }}
-                                color={Colors.ui_primary}>{"Open Now!"}</AppText>
-                        ) : (
-                            <CountDown
-                                until={getRemainingTime(userData.last_date_bonus_card, new Date())}
-                                onFinish={onFinishTimer}
-                                onPress={() => { }}
-                                size={13}
-                                digitStyle={{ backgroundColor: Colors.white }}
-                                timeToShow={["H", "M", "S"]}
-                                timeLabels={{ m: null, s: null }}
-                                separatorStyle={{ color: Colors.black }}
-                                showSeparator
-                            />
-                        )}
+                    <View style={{ flexDirection: 'row' }}>
+                        <View>
+                            {getRemainingTime(userData.last_date_bonus_card, new Date()) <= 0 ? (
+                                <AppText
+                                    type={'bold'}
+                                    size={14}
+                                    onPress={onOpenCoinsEarningModal}
+                                    style={{ marginStart: 5 }}
+                                    color={Colors.ui_primary}>{"Open Now!"}</AppText>
+                            ) : (
+                                <CountDown
+                                    until={getRemainingTime(userData.last_date_bonus_card, new Date())}
+                                    onFinish={onFinishTimer}
+                                    onPress={() => { }}
+                                    size={13}
+                                    digitStyle={{ backgroundColor: Colors.white }}
+                                    timeToShow={["H", "M", "S"]}
+                                    timeLabels={{ m: null, s: null }}
+                                    separatorStyle={{ color: Colors.black }}
+                                    showSeparator
+                                />
+                            )}
+                        </View>
                     </View>
+                )}
+                {isOpened && (
+                    <>
+                        <View style={styles.baseTop} />
+                        <View style={styles.baseRight} />
+                    </>
                 )}
             </TouchableOpacity>
         );
@@ -74,7 +84,8 @@ const styles = StyleSheet.create({
         return {
             flexDirection: 'row',
             alignItems: 'center',
-            padding: 10,
+            // paddingVertical: 5,
+            // paddingStart: 10,
             borderTopRightRadius: 8,
             borderBottomRightRadius: 8,
             backgroundColor: Colors.white,
@@ -83,9 +94,30 @@ const styles = StyleSheet.create({
             shadowOpacity: 0.3,
             shadowRadius: 10,
             elevation: 8,
-            borderEndWidth: isOpened ? 10 : 0,
+            // borderEndWidth: isOpened ? 10 : 0,
             borderColor: Colors.ui_primary
         }
+    },
+    baseTop: {
+        marginStart: 10,
+        borderRightWidth: 15,
+        borderRightColor: Colors.ui_primary,
+        borderBottomWidth: 25,
+        borderBottomColor: "transparent",
+        borderTopWidth: 25,
+        borderTopColor: "transparent",
+        height: '100%',
+        width: 0,
+        // left: 0,
+        // top: -35,
+        // position: "absolute",
+    },
+    baseRight: {
+        width: 10,
+        height: '100%',
+        backgroundColor: Colors.ui_primary,
+        borderTopRightRadius: 8,
+        borderBottomRightRadius: 8,
     },
     value: {
         flex: 1,

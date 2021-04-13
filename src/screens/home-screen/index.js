@@ -91,12 +91,9 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <GeneralHeader
-        leftIcon={Icons.user_profile}
-        onLeftPress={() => navigation.navigate('UserProfile')}
         rightIcon={<TouchableOpacity activeOpacity={0.8} onPress={onShowFlirtFilterModal}>
           <FilterIcon width={24} height={24} />
         </TouchableOpacity>}
-        LanguageIcon={Icons.icon_languages}
         label={appLabels.flirts}
       />
 

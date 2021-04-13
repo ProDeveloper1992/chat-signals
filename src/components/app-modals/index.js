@@ -24,6 +24,7 @@ import FlirtFilterModal from './filter-flirts-modal';
 import SpotlightModal from './spotlight-modal';
 import CoinsEarningModal from './coins-earning-modal';
 import ModeratorChatDetailModal from './moderator-chat-detail-modal';
+import AppAlertModal from './app-alert-modal';
 
 export {
   ModeratorActivityModal,
@@ -33,6 +34,7 @@ export {
   ForgotPasswordModal,
   DeleteAccountModal,
   SpotlightModal,
+  AppAlertModal,
 };
 
 export default function AppModals(props) {

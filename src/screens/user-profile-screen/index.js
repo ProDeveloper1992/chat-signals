@@ -11,7 +11,7 @@ import ImagePicker from 'react-native-image-picker';
 import { AppText, GeneralHeader } from '../../components';
 import { Colors, DEFAULT_AVATAR_URL } from '../../constants';
 import styles from './style';
-import { DeleteAccountModal, ModeratorActivityModal } from '../../components/app-modals';
+import { AppAlertModal, DeleteAccountModal, ModeratorActivityModal } from '../../components/app-modals';
 import { useDispatch, useSelector } from 'react-redux';
 import { GoogleSignin } from 'react-native-google-signin';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -43,6 +43,7 @@ export default function UserProfile(props) {
   const [activityModalVisible, setActivityModalVisible] = useState(false);
   const [cuurentTab, setCurrentTab] = useState(1);
   const [deleteAccountModalVisible, setDeleteAccountModalVisible] = useState(false);
+  const [isLogoutModalVisible, setLogoutModalVisible] = useState(false);
 
   const getUserProfileImage = () => {
     let image_url = null;
@@ -115,27 +116,16 @@ export default function UserProfile(props) {
     return profilePic;
   };
 
-  const onLogout = () => {
-    Alert.alert('Confirm Logout!', 'Are you sure you want to logout?', [
-      {
-        text: 'No',
-        onPress: () => null,
-        style: 'cancel',
-      },
-      {
-        text: 'Yes',
-        onPress: async () => {
-          dispatch(logoutUser())
-          try {
-            await GoogleSignin.revokeAccess();
-            await GoogleSignin.signOut();
-          } catch (error) {
-            // console.error(error);
-          }
-          props.navigation.navigate('auth-stack');
-        },
-      },
-    ]);
+  const onLogout = async () => {
+    dispatch(logoutUser());
+    try {
+      await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
+    } catch (error) {
+      // console.error(error);
+    }
+    setLogoutModalVisible(true);
+    props.navigation.navigate('auth-stack');
   }
 
   const onLanguagePress = () => {
@@ -208,38 +198,6 @@ export default function UserProfile(props) {
             </View>
           </View>
 
-          {/* <CardHeader
-            title={"Account Information"}
-            onPress={() => setAccountInfoExpanded(!isAccountInfoExpanded)} />
-
-          {isAccountInfoExpanded && userData && (
-            <View>
-              <AccountInfoItem
-                title={'Email'}
-                value={userData.email}
-                icon={Icons.mail_icon} />
-              <AccountInfoItem
-                title={'Nickname'}
-                value={userData.username}
-                icon={Icons.user_profile} />
-              <AccountInfoItem
-                title={'Gender'}
-                value={userData.gender}
-                icon={Icons.group_active} />
-              <AccountInfoItem
-                title={'Language'}
-                value={userData.language}
-                icon={Icons.icon_languages} />
-              <AccountInfoItem
-                title={'Referral Code'}
-                value={userData.referral_code}
-                icon={Icons.chat_inactive} />
-              <AccountInfoItem
-                title={'Credit'}
-                value={userData.credit}
-                icon={Icons.chat_inactive} />
-            </View>
-          )} */}
           <View style={{ borderBottomWidth: 1, borderColor: Colors.grey, marginHorizontal: 10 }} />
           <CardHeader
             title={appLabels.photos}
@@ -297,7 +255,7 @@ export default function UserProfile(props) {
             style={{ marginTop: 40, marginBottom: 10, textAlign: 'center' }}>{"Delete Account"}</AppText>
 
           <AppText
-            onPress={onLogout}
+            onPress={() => setLogoutModalVisible(true)}
             type={'bold'}
             size={18}
             style={{ marginBottom: 20, textAlign: 'center' }}>{"Logout"}</AppText>
@@ -313,6 +271,15 @@ export default function UserProfile(props) {
           />
         </View>
       </ScrollView>
+      <AppAlertModal
+        visible={isLogoutModalVisible}
+        onHideModal={() => setLogoutModalVisible(false)}
+        title={"Logout"}
+        message={"Are you sure you want to logout?"}
+        button1Title={"Logout"}
+        button2Title={"Cancel"}
+        onButton1Press={onLogout}
+      />
     </View>
   );
 }

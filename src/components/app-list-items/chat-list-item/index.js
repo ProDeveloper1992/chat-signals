@@ -1,6 +1,6 @@
 import moment from 'moment';
 import React from 'react';
-import { View, TouchableHighlight } from 'react-native';
+import { View, TouchableHighlight, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 
 import { Colors, Images } from '../../../constants';
@@ -16,8 +16,9 @@ export default function ChatListItem({
   isActive
 }) {
   return (
-    <TouchableHighlight
-      underlayColor={'rgba(15, 41, 55, 0.1)'}
+    <TouchableOpacity
+      activeOpacity={0.8}
+      // underlayColor={'rgba(15, 41, 55, 0.1)'}
       style={styles.container}
       onPress={onChatPress}>
       <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -50,7 +51,7 @@ export default function ChatListItem({
           </AppText>
         </View>
       </View>
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 }
 
