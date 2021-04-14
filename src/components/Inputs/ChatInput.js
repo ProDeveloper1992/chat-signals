@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, Platform, View, TouchableOpacity, SafeAreaView, Keyboard, Image, ImageBackground } from 'react-native';
+import { StyleSheet, TextInput, Platform, View, TouchableOpacity, SafeAreaView, Keyboard } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import { useSelector } from 'react-redux';
+import FastImage from 'react-native-fast-image';
 
 import { Colors, Icons } from '../../constants';
 import { AppText } from '../../components';
@@ -89,12 +90,28 @@ export function ChatInput({ style, value, onChangeMessage, onSendPress, onSendIt
     const renderAttachedDocument = () => {
         switch (attachedDocument.type) {
             case "image/jpeg":
-                return (<Image style={{ width: '100%', height: '100%', borderRadius: 5 }} source={{ uri: attachedDocument.uri }} />)
+                return (
+                    <FastImage
+                        style={{ width: '100%', height: '100%', borderRadius: 5 }}
+                        source={{
+                            uri: attachedDocument.uri,
+                            priority: FastImage.priority.high,
+                        }}
+                        resizeMode={FastImage.resizeMode.cover}
+                    />
+                )
             case "video/mp4":
                 return (
-                    <ImageBackground style={{ width: '100%', height: '100%', borderRadius: 5, alignItems: 'center', justifyContent: 'center' }} source={{ uri: attachedDocument.uri }}>
+                    <FastImage
+                        style={{ width: '100%', height: '100%', borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}
+                        source={{
+                            uri: attachedDocument.uri,
+                            priority: FastImage.priority.high,
+                        }}
+                        resizeMode={FastImage.resizeMode.cover}
+                    >
                         <VideoIcon width={30} height={30} fill={Colors.white} />
-                    </ImageBackground>
+                    </FastImage>
                 )
             case "application/vnd.android.package-archive":
                 return (

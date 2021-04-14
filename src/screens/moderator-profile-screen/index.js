@@ -13,6 +13,8 @@ import {
 } from 'react-native';
 import { PagerTabIndicator, IndicatorViewPager, PagerTitleIndicator, PagerDotIndicator } from 'rn-viewpager';
 import HTML from "react-native-render-html";
+import FastImage from 'react-native-fast-image';
+import { Code } from 'react-content-loader/native'
 
 import { NoListData, AppText, BackHeader, TagItem, OnlineStatusCircle, LegalActionMenu } from '../../components';
 import { Icons, Colors, DEFAULT_IMAGE_URL, SCREEN_HEIGHT, DEFAULT_AVATAR_URL } from '../../constants';
@@ -49,6 +51,7 @@ export default function ModeratorProfile(props) {
   const [isFavorite, setIsFavorite] = useState(params.item.is_favorites);
   const [activityType, setActivityType] = useState('kiss');
   const [activityModalVisible, setActivityModalVisible] = useState(false);
+  const [loadingDetail, setLoadingDetail] = useState(true);
 
   const [moderatorDetail, setModeratorDetail] = useState(null);
 
@@ -58,7 +61,9 @@ export default function ModeratorProfile(props) {
   }, [])
 
   const getDetail = async () => {
+    setLoadingDetail(true);
     const response = await dispatch(getModeratorProfileDetail(params.item.id));
+    setLoadingDetail(false);
     if (response.meta.status) {
       setModeratorDetail(response.data);
     }
@@ -157,13 +162,13 @@ export default function ModeratorProfile(props) {
               indicator={_renderDotIndicator(params.item.profilepicture.length)}
             >
               {getProfilePictures().map((item, index) => {
-                return <ImageBackground
-                  key={String(index)}
-                  blurRadius={item.is_erotic == "1" ? Platform.OS == 'ios' ? 40 : 5 : 0}
-                  style={styles.imgBackground}
-                  resizeMode={'cover'}
-                  source={{ uri: getItemImage(item.picture) }}>
-                  {item.is_erotic == "1" && (
+                if (item.is_erotic == "1") {
+                  return (<ImageBackground
+                    key={String(index)}
+                    blurRadius={Platform.OS == 'ios' ? 40 : 5}
+                    style={styles.imgBackground}
+                    resizeMode={'cover'}
+                    source={{ uri: getItemImage(item.picture) }}>
                     <View style={styles.eroticContainer}>
                       <XXXCoinIcon width={60} height={60} />
                       <AppText
@@ -180,8 +185,19 @@ export default function ModeratorProfile(props) {
                         <AppText type={'black-italic'} size={12} color={Colors.white} uppercase>{`Unlock for ${10} coins`}</AppText>
                       </TouchableOpacity>
                     </View>
-                  )}
-                </ImageBackground>
+                  </ImageBackground>)
+                }
+                return (
+                  <FastImage
+                    key={String(index)}
+                    style={styles.imgBackground}
+                    source={{
+                      uri: getItemImage(item.picture),
+                      priority: FastImage.priority.high,
+                    }}
+                    resizeMode={FastImage.resizeMode.cover}
+                  />
+                )
               })}
             </IndicatorViewPager>
           )}
@@ -258,11 +274,17 @@ export default function ModeratorProfile(props) {
                 <TagItem title={"Walking"} disabled />
                 <TagItem title={"Traveling"} disabled />
               </View>
-              {moderatorDetail && moderatorDetail.description && (
-                <View>
-                  <AppText type={'bold'} size={18}>{"Details"}</AppText>
-                  <HTML source={{ html: moderatorDetail.description }} contentWidth={contentWidth} />
-                </View>
+              {loadingDetail ? (
+                <Code />
+              ) : (
+                <>
+                  {moderatorDetail && moderatorDetail.description && (
+                    <View>
+                      <AppText type={'bold'} size={18}>{"Details"}</AppText>
+                      <HTML source={{ html: moderatorDetail.description }} contentWidth={contentWidth} />
+                    </View>
+                  )}
+                </>
               )}
             </View>
             {params.item && params.item.dob && (

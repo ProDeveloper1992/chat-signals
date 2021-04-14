@@ -1,10 +1,6 @@
 import React, { useEffect } from 'react';
 import {
-  StyleSheet,
   View,
-  TouchableOpacity,
-  ImageBackground,
-  Image,
   FlatList,
   ActivityIndicator,
 } from 'react-native';
@@ -21,6 +17,7 @@ import { ChatListItem } from '../../components/app-list-items';
 import { getChatConversation, getUserChatList } from '../../redux/actions/user-actions';
 import { NoListData } from '../../components';
 import pusherConfig from '../../../pusher.json';
+import { ChatListItemLoader } from '../../components/app-list-items/chat-list-item';
 
 const Chat = () => {
   const navigation = useNavigation();
@@ -82,7 +79,7 @@ const Chat = () => {
   }, [isFocused]);
 
   const onChatListItemPress = (customer) => {
-    navigation.push('ChatDetail', { item: customer });
+    navigation.navigate('ChatDetail', { item: customer });
   }
 
   return (
@@ -91,9 +88,18 @@ const Chat = () => {
         label={'Messages'}
       />
       {loadingChatList && userChatList.length == 0 ? (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <ActivityIndicator size={'large'} color={Colors.ui_primary} />
-        </View>
+        <FlatList
+          data={[1, 2, 3, 4, 5, 6, 7]}
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item, index }) => (
+            <ChatListItemLoader
+              key={String(index)}
+            />
+          )}
+          keyExtractor={(item, index) => String(index)}
+          ListEmptyComponent={<NoListData title={"No chats found!"} />}
+        />
       ) : (
         <FlatList
           data={userChatList}

@@ -9,7 +9,6 @@ import {
 import {
   TextButton,
   AuthContainer,
-  Loading,
   AuthInput,
   BackHeader,
   AppText,

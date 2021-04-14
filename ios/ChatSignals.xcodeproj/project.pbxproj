@@ -783,7 +783,7 @@
 				CODE_SIGN_ENTITLEMENTS = ChatSignals/ChatSignals.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = S9886HJ8FM;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ChatSignals/Info.plist;
@@ -792,6 +792,7 @@
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/swift",
 				);
+				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -815,7 +816,7 @@
 				CODE_SIGN_ENTITLEMENTS = ChatSignals/ChatSignals.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = S9886HJ8FM;
 				INFOPLIST_FILE = ChatSignals/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -823,6 +824,7 @@
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/swift",
 				);
+				MARKETING_VERSION = 1.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -830,7 +832,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chat.signal.org;
 				PRODUCT_NAME = ChatSignals;
-				PROVISIONING_PROFILE_SPECIFIER = "Chat Signal";
+				PROVISIONING_PROFILE_SPECIFIER = "Chat Signal New UI";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
