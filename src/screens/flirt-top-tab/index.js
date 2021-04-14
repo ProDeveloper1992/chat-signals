@@ -18,6 +18,7 @@ import styles from './style';
 import { getFlirtsList } from '../../redux/actions/flirts-actions';
 import { userProfileDetail } from '../../redux/actions/user-actions';
 import { Colors, Icons } from '../../constants';
+import { ModeratorListItemLoader } from '../../components/app-list-items/moderator-list-item';
 
 export default function FlirtTab(props) {
   const navigation = useNavigation();
@@ -66,7 +67,15 @@ export default function FlirtTab(props) {
   return (
     <View style={styles.container}>
       {flirtsLoading && flirtsList.length == 0 ? (
-        <AppIndicatorLoader />
+        <FlatList
+          data={[1, 2, 3, 4, 5]}
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item, index }) => (
+            <ModeratorListItemLoader key={String(index)} />
+          )}
+          keyExtractor={(item, index) => String(index)}
+        />
       ) : (
         <FlatList
           data={flirtsList}
@@ -81,7 +90,7 @@ export default function FlirtTab(props) {
               }
             />
           )}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(item, index) => String(index)}
           ListFooterComponent={
             isLoadMoreFlirts && flirtsList.length > 0 ?
               <TouchableOpacity

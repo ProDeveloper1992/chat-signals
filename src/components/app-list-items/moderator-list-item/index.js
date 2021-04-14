@@ -1,10 +1,12 @@
 import React from 'react';
-import { TouchableOpacity, ImageBackground, View } from 'react-native';
-import { Colors, DEFAULT_IMAGE_URL } from '../../../constants';
+import { TouchableOpacity, View } from 'react-native';
+import { Colors, DEFAULT_IMAGE_URL, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants';
 import styles from './style';
 import { AppText, OnlineStatusCircle } from '../../index';
 import LinearGradient from 'react-native-linear-gradient';
 import moment from 'moment';
+import FastImage from 'react-native-fast-image';
+import ContentLoader, { Rect, Circle } from "react-content-loader/native";
 
 export default function ModeratorListItem({ item, onPress, isBoosted }) {
 
@@ -26,13 +28,14 @@ export default function ModeratorListItem({ item, onPress, isBoosted }) {
 
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.8}>
-      <ImageBackground
+      <FastImage
         style={styles.listItemContainer}
-        resizeMode={'cover'}
-        imageStyle={{ borderRadius: 20 }}
         source={{
           uri: getItemImage(item.profilepicture),
-        }}>
+          priority: FastImage.priority.high,
+        }}
+        resizeMode={FastImage.resizeMode.cover}
+      >
         <LinearGradient
           colors={getGradientColors()}
           style={{
@@ -52,7 +55,20 @@ export default function ModeratorListItem({ item, onPress, isBoosted }) {
               style={[styles.userName, { textTransform: 'capitalize' }]}>{item.city + ", " + item.country}</AppText>
           </View>
         </LinearGradient>
-      </ImageBackground>
+      </FastImage>
     </TouchableOpacity>
   );
 }
+
+export const ModeratorListItemLoader = () => (
+  <ContentLoader
+    speed={1}
+    width={SCREEN_WIDTH - 20}
+    height={310}
+    viewBox={`0 0 ${SCREEN_WIDTH} 310`}
+    backgroundColor={Colors.ui_background}
+    foregroundColor={Colors.grey}
+  >
+    <Rect x="20" y="10" rx="20" ry="20" width={SCREEN_WIDTH - 20} height="310" />
+  </ContentLoader>
+);

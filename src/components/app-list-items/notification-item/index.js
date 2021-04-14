@@ -55,7 +55,7 @@ export default function NotificationItem({
 
     return (
         <TouchableHighlight
-            underlayColor={'#F2F4F5'}
+            underlayColor={Colors.ui_background}
             style={styles.container}
             onPress={onChatPress}>
             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>

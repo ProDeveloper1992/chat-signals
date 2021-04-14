@@ -1,6 +1,6 @@
 import { TextButton } from './Buttons';
 import { AuthContainer } from './Containers';
-import { Loading, AppIndicatorLoader } from './Loaders';
+import { AppIndicatorLoader } from './Loaders';
 import { AppButton, IconButton } from './Buttons';
 import { AuthInput, ChatInput } from './Inputs';
 import { BackHeader, GeneralHeader } from './Headers';
@@ -42,8 +42,6 @@ export {
   AppText,
   TextButton,
   AuthContainer,
-  Loading,
-  AppIndicatorLoader,
   AppButton,
   IconButton,
   AuthInput,
@@ -64,6 +62,9 @@ export {
   OnlineStatusCircle,
   AppGiftBadge,
   AppRangeSlider,
+
+  //Loaders
+  AppIndicatorLoader,
 
   //List Items
   LaguageItem,

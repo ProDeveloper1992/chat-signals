@@ -3,9 +3,11 @@ import { Keyboard, View, TouchableWithoutFeedback, FlatList, TouchableOpacity, S
 import { ChatDetailHeader } from '../../components/Headers';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
+import ContentLoader, { Rect, Circle } from "react-content-loader/native";
+
 import styles from './style';
-import { AppText, ChatBubble, ChatInput, CommonImage } from '../../components';
-import { Colors, Icons } from '../../constants';
+import { AppIndicatorLoader, AppText, ChatBubble, ChatInput, CommonImage, NoListData } from '../../components';
+import { Colors, Icons, SCREEN_WIDTH } from '../../constants';
 import { getChatConversation } from '../../redux/actions/user-actions';
 import { InfoIcon } from '../../constants/svg-icons';
 import { sendMessage } from '../../redux/actions/chat-actions';
@@ -13,7 +15,7 @@ import { ModeratorActivityModal, ModeratorChatDetailModal } from '../../componen
 import { ActionDispatcher } from '../../redux/actions';
 import { GET_CHAT_CONVERSATION_SUCCESS } from '../../redux/actions/types';
 
-const ChatDetail = (props) => {
+export default function ChatDetail(props) {
   let listViewRef;
 
   const navigation = useNavigation();
@@ -27,29 +29,33 @@ const ChatDetail = (props) => {
 
   const [messageText, setMessageText] = useState('');
   const [messages, setMessages] = useState(conversation);
+  const [loadingConversation, setLoadingConversation] = useState(true);
   const [activityType, setActivityType] = useState('kiss');
   const [activityModalVisible, setActivityModalVisible] = useState(false);
   const [moderatorDetailModalVisible, setModeratorDetailModalVisible] = useState(false);
 
 
   useEffect(() => {
+    dispatch(ActionDispatcher(GET_CHAT_CONVERSATION_SUCCESS, []));
     getChatMessages();
 
     console.log("moderator", moderator)
   }, []);
 
-  useMemo(() => {
-    if (!isFocused) {
-      dispatch(ActionDispatcher(GET_CHAT_CONVERSATION_SUCCESS, []));
-    }
-  }, [isFocused])
+  // useMemo(() => {
+  //   if (isFocused) {
+  //     dispatch(ActionDispatcher(GET_CHAT_CONVERSATION_SUCCESS, []));
+  //   }
+  // }, [isFocused])
 
   useMemo(() => {
     setMessages(conversation);
   }, [conversation])
 
   const getChatMessages = async () => {
+    setLoadingConversation(true);
     const response = await dispatch(getChatConversation(moderator.user.id));
+    setLoadingConversation(false);
     if (response.meta.status) {
       setMessages(response.data);
     }
@@ -225,20 +231,34 @@ const ChatDetail = (props) => {
             </TouchableOpacity>
           </View>
         </View>
-        <FlatList
-          ref={(ref) => {
-            listViewRef = ref;
-          }}
-          onContentSizeChange={() => listViewRef.scrollToEnd({ animated: true })}
-          data={messages}
-          extraData={messages}
-          contentContainerStyle={{ flexGrow: 1, paddingTop: 20 }}
-          showsVerticalScrollIndicator={false}
-          renderItem={({ item, index }) => (
-            <ChatBubble key={String(index)} item={item} isFromUser={isMessageFromUser(item)} />
-          )}
-          keyExtractor={(item, index) => String(index)}
-        />
+        {loadingConversation ? (
+          <AppIndicatorLoader />
+          // <FlatList
+          //   data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+          //   contentContainerStyle={{ flexGrow: 1, paddingTop: 20 }}
+          //   showsVerticalScrollIndicator={false}
+          //   renderItem={({ item, index }) => (
+          //     <MessagesListItemLoader key={String(index)} />
+          //   )}
+          //   keyExtractor={(item, index) => String(index)}
+          // />
+        ) : (
+          <FlatList
+            ref={(ref) => {
+              listViewRef = ref;
+            }}
+            onContentSizeChange={() => listViewRef.scrollToEnd({ animated: true })}
+            data={messages}
+            extraData={messages}
+            contentContainerStyle={{ flexGrow: 1, paddingTop: 20 }}
+            showsVerticalScrollIndicator={false}
+            renderItem={({ item, index }) => (
+              <ChatBubble key={String(index)} item={item} isFromUser={isMessageFromUser(item)} />
+            )}
+            keyExtractor={(item, index) => String(index)}
+            ListEmptyComponent={<NoListData title={"Say hi and start messaging"} />}
+          />
+        )}
         <ChatInput
           value={messageText}
           placeholder={'Type message...'}
@@ -270,4 +290,18 @@ const ChatDetail = (props) => {
   );
 };
 
-export default ChatDetail;
+export const MessagesListItemLoader = () => (
+  <View style={styles.container}>
+    <ContentLoader
+      speed={1}
+      width={SCREEN_WIDTH}
+      height={80}
+      viewBox={`0 0 ${SCREEN_WIDTH} 80`}
+      backgroundColor={Colors.ui_background}
+      foregroundColor={Colors.grey}
+    >
+      <Rect x="10" y="0" rx="15" ry="15" width={SCREEN_WIDTH / 2.5} height="30" />
+      <Rect x={SCREEN_WIDTH / 1.8} y="40" rx="15" ry="15" width={SCREEN_WIDTH / 2.5} height="30" />
+    </ContentLoader>
+  </View>
+);

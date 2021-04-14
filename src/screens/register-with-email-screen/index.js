@@ -10,7 +10,6 @@ import axios from 'axios';
 import {
   AppButton,
   AuthInput,
-  Loading,
   AuthContainer,
   BackHeader,
   GenderPicker,
@@ -528,7 +527,7 @@ const styles = StyleSheet.create({
     borderRadius: 134 / 2,
     borderWidth: 3,
     borderColor: Colors.white,
-    backgroundColor: "#F2F4F5",
+    backgroundColor: Colors.ui_background,
     shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 12 },
     shadowOpacity: 0.1,
