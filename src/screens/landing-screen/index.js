@@ -11,7 +11,7 @@ import {
 import SplashScreen from 'react-native-splash-screen';
 
 import { AppButton, AppText, AuthContainer } from '../../components';
-import { Colors, Icons, Images, Gifs, SCREEN_WIDTH, SCREEN_HEIGHT } from '../../constants';
+import { Colors, Icons, Images, Gifs } from '../../constants';
 import { isIphoneX } from '../../utils/common';
 import { globalStyle } from '../../styles/global-style';
 import { useIsFocused } from '@react-navigation/native';
@@ -74,12 +74,10 @@ const LandingScreen = (props) => {
     <AuthContainer gradientBackground>
       <View style={styles.container}>
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-          <View>
-            <Image
-              style={[globalStyle.logo, { tintColor: Colors.black }]}
-              source={Platform.OS == 'android' ? Gifs.chat_signal_logo : Images.app_logo}
-            />
-          </View>
+          <Image
+            style={[globalStyle.logo, { tintColor: Colors.black }]}
+            source={Platform.OS == "android" ? Gifs.chat_signal_logo : Images.app_logo}
+          />
           <TouchableOpacity
             onPress={onLanguageIconPress}
             style={{
@@ -103,7 +101,7 @@ const LandingScreen = (props) => {
           <AppText size={15} color={Colors.white}>{"Find your match with our poweful algorithms"}</AppText>
           <AppText type={'bold'} size={24} color={Colors.white} style={{ marginBottom: '5%' }}>{"Casual chatting and flirting"}</AppText>
           {/* <LandingIntro width={"100%"} height={"65%"} /> */}
-          <Image style={{ width: SCREEN_WIDTH - 50, height: SCREEN_HEIGHT / 1.5, resizeMode: 'contain', alignSelf: 'center' }} source={require('../../assets/images/landing_intro.png')} />
+          <Image style={{ width: '100%', height: '70%', resizeMode: 'contain' }} source={require('../../assets/images/landing_intro.png')} />
         </View>
         <View style={styles.bottomView}>
           <AppButton

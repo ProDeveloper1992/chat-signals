@@ -25,7 +25,7 @@ export default function ChatDetail(props) {
   const moderator = props.route.params.item;
 
   const { userData, authToken } = useSelector((state) => state.userState);
-  const { conversation } = useSelector((state) => state.chatState);
+  const { conversation, isLoadingConversation } = useSelector((state) => state.chatState);
 
   const [messageText, setMessageText] = useState('');
   const [messages, setMessages] = useState(conversation);
@@ -53,9 +53,7 @@ export default function ChatDetail(props) {
   }, [conversation])
 
   const getChatMessages = async () => {
-    setLoadingConversation(true);
     const response = await dispatch(getChatConversation(moderator.user.id));
-    setLoadingConversation(false);
     if (response.meta.status) {
       setMessages(response.data);
     }
@@ -231,7 +229,7 @@ export default function ChatDetail(props) {
             </TouchableOpacity>
           </View>
         </View>
-        {loadingConversation ? (
+        {isLoadingConversation && messages.length == 0 ? (
           <AppIndicatorLoader />
           // <FlatList
           //   data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}

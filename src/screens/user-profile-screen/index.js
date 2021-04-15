@@ -32,6 +32,8 @@ import { getFriendsList, userProfileDetail } from '../../redux/actions/user-acti
 import moment from 'moment';
 import { logoutUser } from '../../redux/reducers';
 
+var RNFS = require('react-native-fs');
+
 export default function UserProfile(props) {
   const { params } = props.route;
 
@@ -83,7 +85,7 @@ export default function UserProfile(props) {
       },
     };
     ImagePicker.showImagePicker(options, async (response) => {
-      console.log('Response = ', response);
+      // console.log('Response = ', response);
 
       if (response.didCancel) {
         console.log('User cancelled image picker');
@@ -96,9 +98,27 @@ export default function UserProfile(props) {
           uri: 'data:image/jpeg;base64,' + response.data
         };
         setProfileImage(source);
+
+        // RNFS.readFile(response.uri, "base64").then(data => {
+        //   // binary data
+        //   console.log("RNFS data", data);
+        // });
+
+        // console.log("response.path", response.path)
+
+        // let blob = await base64ToBlob(response.data);
+        // console.log('btoB64 resp === ', blob);
+
       }
     });
   }
+
+  // const base64ToBlob = async (encoded) => {
+  //   let url = `data:image/jpg;base64,${encoded}`;
+  //   let res = await fetch(url);
+  //   let blob = await res?.blob();
+  //   return blob;
+  // }
 
   const showActivityModal = (type) => {
     setActivityType(type);
@@ -109,22 +129,28 @@ export default function UserProfile(props) {
     var profilePic = DEFAULT_AVATAR_URL;
     if (
       userData &&
-      userData.avatar
+      userData.profilepictures &&
+      userData.profilepictures.length > 0
     ) {
-      profilePic = userData.avatar;
+      // profilePic = userData.avatar;
+      for (let profile of userData.profilepictures) {
+        if (profile.picture_type == "1") {
+          profilePic = profile.picture;
+        }
+      }
     }
     return profilePic;
   };
 
   const onLogout = async () => {
-    dispatch(logoutUser());
+    await dispatch(logoutUser());
     try {
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
     } catch (error) {
       // console.error(error);
     }
-    setLogoutModalVisible(true);
+    await setLogoutModalVisible(false);
     props.navigation.navigate('auth-stack');
   }
 
@@ -141,7 +167,7 @@ export default function UserProfile(props) {
             <View style={styles.profileImageContainer}>
               <Image style={styles.profileImage} source={profileImage.uri ? profileImage : { uri: getProfilePicture() }} />
               <TouchableOpacity
-                onPress={onPickOrCaptureImage}
+                onPress={() => navigation.navigate('UserPhotos')}
                 style={styles.editPenContainer}>
                 <EditPenCircleIcon width={18} height={18} />
               </TouchableOpacity>

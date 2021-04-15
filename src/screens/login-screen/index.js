@@ -39,23 +39,25 @@ const LoginScreen = (props) => {
   const [password, setPassword] = useState('');
   const [passError, setPassError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [googleLoginLoading, setGoogleLoginLoading] = useState(false);
+  const [facebookLoginLoading, setFacebookLoginLoading] = useState(false);
   const [forgotPasswordModalVisible, setForgotPasswordModalVisible] = useState(false);
 
   const onLoginPress = async () => {
     let isValid = true;
     if (email.trim() == 0) {
       isValid = false;
-      setEmailError('Please enter email address!');
+      setEmailError(appLabels.email_error_1);
     } else if (!email.match(mailformat)) {
       isValid = false;
-      setEmailError('Invalid email address!');
+      setEmailError(appLabels.email_error_2);
     } else {
       setEmailError(null);
     }
 
     if (password.trim() == 0) {
       isValid = false;
-      setPassError('Please enter password!');
+      setPassError(appLabels.password_error_1);
     } else {
       setPassError(null);
     }
@@ -79,11 +81,15 @@ const LoginScreen = (props) => {
   };
 
   const onGoogleIconPress = async () => {
+    setGoogleLoginLoading(true);
     await loginWithGoogle();
+    setGoogleLoginLoading(false);
   };
 
   const onFacebookIconPress = async () => {
+    setFacebookLoginLoading(true);
     await loginWithFacebook();
+    setFacebookLoginLoading(false);
   };
 
   const onBackPress = () => {
@@ -93,7 +99,7 @@ const LoginScreen = (props) => {
   return (
     <AuthContainer>
       {/* <BackHeader onBackPress={() => navigation.goBack()} /> */}
-      <View style={styles.container}>
+      <View pointerEvents={loading ? 'none' : 'auto'} style={styles.container}>
         <ScrollView
           contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
           showsVerticalScrollIndicator={false}>
@@ -154,6 +160,7 @@ const LoginScreen = (props) => {
               title={"Log in with Facebook"}
               icon={<FacebookIcon width={30} height={30} />}
               onPress={onFacebookIconPress}
+              loading={facebookLoginLoading}
             />
             <View style={{ marginTop: 15 }} />
             <AppButton
@@ -161,6 +168,7 @@ const LoginScreen = (props) => {
               title={"Log in with Google"}
               icon={<GoogleIcon width={30} height={30} />}
               onPress={onGoogleIconPress}
+              loading={googleLoginLoading}
             />
 
             <TextButton
@@ -180,7 +188,9 @@ const LoginScreen = (props) => {
             titleColor={Colors.black}
             onPress={onBackPress} />
         </ScrollView>
-        <ForgotPasswordModal visible={forgotPasswordModalVisible} onHideModal={() => setForgotPasswordModalVisible(false)} />
+        <ForgotPasswordModal
+          visible={forgotPasswordModalVisible}
+          onHideModal={() => setForgotPasswordModalVisible(false)} />
       </View>
     </AuthContainer>
   );
