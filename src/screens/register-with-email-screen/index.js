@@ -30,6 +30,8 @@ import FacebookIcon from '../../assets/icons/facebook.svg';
 import { loginWithFacebook, loginWithGoogle } from '../../services/social-login-service';
 import { apiRoot } from '../../services/api-service';
 
+var RNFS = require('react-native-fs');
+
 const RegisterWithEmail = (props) => {
   const { navigation } = props;
   const dispatch = useDispatch();
@@ -57,6 +59,7 @@ const RegisterWithEmail = (props) => {
 
   //Second Position Page
   const [profileImage, setProfileImage] = useState({ uri: null });
+  const [profileImageFile, setProfileImageFile] = useState(null);
 
 
   useEffect(() => {
@@ -80,11 +83,14 @@ const RegisterWithEmail = (props) => {
         console.log("DOB", formatedBirthDate)
         console.log("profileImage", profileImage)
         try {
-          let imageFile = {
-            name: profileImage.fileName,
-            type: profileImage.type,
-            uri: profileImage.uri
-          }
+          let fileName = profileImage.fileName ? profileImage.fileName : moment().unix() + '.jpg'
+          const cleanURL = profileImage.uri.replace("file://", "");
+
+          // let imageFile = {
+          //   name: profileImage.fileName,
+          //   type: profileImage.type,
+          //   uri: profileImage.path
+          // }
 
           let requestData = {
             language: selectedLanguage,
@@ -94,10 +100,9 @@ const RegisterWithEmail = (props) => {
             dob: formatedBirthDate,
             gender: selectedUserGender.id,
             sexual_orientation: userSexualOrientation.id,
-            picture: profileImage.uri,
+            picture: profileImageFile,
             passions: 1
           };
-
 
 
           const formData = new FormData();
@@ -108,10 +113,22 @@ const RegisterWithEmail = (props) => {
           formData.append("dob", formatedBirthDate);
           formData.append("gender", selectedUserGender.id);
           formData.append("sexual_orientation", userSexualOrientation.id);
-          formData.append("picture", imageFile);
+          // formData.append("picture", { type: profileImage.type, size: profileImage.fileSize, uri: `file://${profileImage.path}`, name: profileImage.fileName }); //Android
+          formData.append("picture", { type: profileImage.type, size: profileImage.fileSize, uri: `${cleanURL}`, name: fileName }); //iOS
           formData.append("passions", 1);
 
           console.log("formData", formData)
+
+          // fetch(`${apiRoot}/registration`, {
+          //   method: "POST",
+          //   headers: {
+          //     "Content-Type": "multipart/form-data",
+          //     "Accept": "application/json"
+          //   },
+          //   body: formData
+          // }).then((response) => response.json())
+          //   .then((data) => console.log("data", data))
+          //   .catch((error) => console.log("error", error))
 
           setLoading(true);
           const response = await dispatch(registerUser(requestData));
@@ -119,7 +136,9 @@ const RegisterWithEmail = (props) => {
           if (response.meta.status) {
             // navigation.navigate('main-stack');
           }
+
         } catch (e) {
+          console.log("e", e)
           setLoading(false);
         }
       }
@@ -238,6 +257,12 @@ const RegisterWithEmail = (props) => {
         //   uri: response.uri
         // };
         setProfileImage(response);
+
+        RNFS.readFile(response.uri, "base64").then(data => {
+          // binary data
+          console.log("RNFS data", data);
+          setProfileImageFile(data)
+        });
       }
     });
   }

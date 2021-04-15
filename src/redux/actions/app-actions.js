@@ -64,6 +64,7 @@ export const getPaymentModule = () => (dispatch) =>
       })
       .catch((err) => {
         dispatch(ActionDispatcher(GET_PAYMENT_MODULE_FAIL));
+        resolve({ meta: { status: false } });
         reject(err);
       });
   });

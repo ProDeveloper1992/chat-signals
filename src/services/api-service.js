@@ -11,10 +11,10 @@ import { logoutUser } from '../redux/reducers';
 // export const socket = io('http://192.168.1.57:8080');
 
 /* switch this for testing on staging or production */
-export const staging = false;
+export const staging = true;
 
 export const apiUrlLive = 'http://chat-signal.com/api';
-export const apiUrlStaging = '';
+export const apiUrlStaging = 'http://chat-signal.com/api';
 
 export const apiRoot = staging ? apiUrlStaging : apiUrlLive;
 
@@ -26,6 +26,7 @@ export const client = axios.create({
 
 client.interceptors.request.use(
   async function (config) {
+    console.log("config", config.data)
     var basicAuth = store.getState().userState.authToken;
     console.log("Authentication Token... ", basicAuth)
     if (basicAuth && basicAuth != null) {

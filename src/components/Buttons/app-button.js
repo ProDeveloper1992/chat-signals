@@ -83,15 +83,14 @@ export function AppButton({ type, title, icon, style, onPress, loading, disabled
         },
       ]}
       onPress={onPress}>
+      {icon && icon}
+
       {loading ? (
-        <ActivityIndicator size={'small'} color={getTextColor()} style={{ padding: indicatorPadding }} />
+        <ActivityIndicator size={'small'} color={getTextColor()} style={{ padding: indicatorPadding, flex: 1 }} />
       ) : (
-        <>
-          {icon && icon}
-          <AppText type={'medium'} color={getTextColor()} style={{ flex: 1, textAlign: 'center', padding: padding }} size={14}>
-            {title}
-          </AppText>
-        </>
+        <AppText type={'medium'} color={getTextColor()} style={{ flex: 1, textAlign: 'center', padding: padding }} size={14}>
+          {title}
+        </AppText>
       )}
     </TouchableOpacity>
   );
@@ -133,6 +132,6 @@ AppButton.defaultProps = {
   loading: false,
   disabled: false,
   padding: 10,
-  indicatorPadding: 10,
+  indicatorPadding: Platform.OS == 'android' ? 12 : 10,
   onPress: () => { },
 };

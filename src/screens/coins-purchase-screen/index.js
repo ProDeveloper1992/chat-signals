@@ -7,14 +7,18 @@ import {
   FlatList,
   ScrollView,
 } from 'react-native';
+import ContentLoader, { Rect, Circle } from "react-content-loader/native";
+
 import { BackHeader, GeneralHeader } from '../../components/Headers';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 import { getPaymentModule } from '../../redux/actions/app-actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { Colors, Icons } from '../../constants';
+import { Colors, Icons, SCREEN_WIDTH } from '../../constants';
 import { AppIndicatorLoader, AppText, AppButton, OwnPurchaseCard } from '../../components';
 import { CoinGradientIcon } from '../../constants/svg-icons';
+import { ActionDispatcher } from '../../redux/actions';
+import { GET_PAYMENT_MODULE_SUCCESS } from '../../redux/actions/types';
 
 const CoinPurchase = () => {
   const navigation = useNavigation();
@@ -40,6 +44,7 @@ const CoinPurchase = () => {
         }
       }
     } else {
+      dispatch(ActionDispatcher(GET_PAYMENT_MODULE_SUCCESS, []));
       setSelectedPaymentGateway(null);
     }
   }, [isFocused]);
@@ -71,9 +76,24 @@ const CoinPurchase = () => {
         label={"Buy coins"}
       />
       <ScrollView contentContainerStyle={{ padding: 20 }}>
-        {loadingPaymentGateways && paymentGateways.length === 0 ? (<AppIndicatorLoader />) : (
+        <AppText type={'bold'} size={16}>{"step 1 - Payment method"}</AppText>
+        {loadingPaymentGateways && paymentGateways.length == 0 ? (
           <View>
-            <AppText type={'bold'} size={16}>{"step 1 - Payment method"}</AppText>
+            {/* <StepTitleLoader /> */}
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+              <FlatList
+                data={[1, 2, 3, 4, 5, 6]}
+                numColumns={3}
+                contentContainerStyle={{ paddingTop: 20 }}
+                renderItem={({ item, index }) => (
+                  <PaymentMethodItemLoader key={String(index)} />
+                )}
+                keyExtractor={(item, index) => String(index)}
+              />
+            </View>
+          </View>
+        ) : (
+          <View>
             <FlatList
               data={paymentGateways}
               numColumns={3}
@@ -105,22 +125,9 @@ const CoinPurchase = () => {
                         activeOpacity={1}
                         key={String(index)}
                         onPress={() => onSelectPackageModule(item)}
-                        style={{
-                          width: 110,
-                          height: 110,
-                          alignItems: 'center',
-                          justifyContent: 'space-between',
-                          margin: 10,
-                          backgroundColor: Colors.white,
-                          borderRadius: 20,
-                          borderWidth: 3,
+                        style={[styles.packageListItem, {
                           borderColor: selectedPackage ? selectedPackage.id === item.id ? Colors.ui_primary : Colors.grey_light : Colors.grey_light,
-                          shadowColor: 'black',
-                          shadowOffset: { width: 0, height: 1 },
-                          shadowRadius: 2,
-                          shadowOpacity: 0.2,
-                          elevation: 2
-                        }}>
+                        }]}>
                         <View style={{ alignItems: 'center' }}>
                           <CoinGradientIcon />
                           <AppText
@@ -179,6 +186,34 @@ const PaymentGatwayItem = ({ onPress, imageUrl, isSelected }) => {
   );
 };
 
+export const PaymentMethodItemLoader = () => (
+  <View style={styles.container}>
+    <ContentLoader
+      speed={0.5}
+      width={SCREEN_WIDTH / 3}
+      height={100}
+      viewBox={`0 0 ${SCREEN_WIDTH / 3} 100`}
+      backgroundColor={Colors.ui_background}
+      foregroundColor={Colors.grey}
+    >
+      <Rect x="10" y="10" rx="20" ry="20" width={SCREEN_WIDTH / 4} height="80" />
+    </ContentLoader>
+  </View>
+);
+
+export const StepTitleLoader = () => (
+  <ContentLoader
+    speed={0.5}
+    width={SCREEN_WIDTH}
+    height={30}
+    viewBox={`0 0 ${SCREEN_WIDTH} 30`}
+    backgroundColor={Colors.ui_background}
+    foregroundColor={Colors.grey}
+  >
+    <Rect x="10" y="10" rx="5" ry="5" width={SCREEN_WIDTH / 1.8} height="20" />
+  </ContentLoader>
+);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -194,6 +229,21 @@ const styles = StyleSheet.create({
     height: 24,
     resizeMode: 'contain',
     marginEnd: 5
+  },
+  packageListItem: {
+    width: 110,
+    height: 110,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    margin: 10,
+    backgroundColor: Colors.white,
+    borderRadius: 20,
+    borderWidth: 3,
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 1 },
+    shadowRadius: 2,
+    shadowOpacity: 0.2,
+    elevation: 2
   }
 });
 
