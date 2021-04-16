@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet, TextInput, Platform, View } from 'react-native';
+import { StyleSheet, TextInput, Platform, View, TouchableOpacity } from 'react-native';
 import { Colors } from '../../constants';
 import { AppText } from '../../components';
 
-export function AuthInput({ style, label, icon, error, ...props }) {
+export function AuthInput({ style, label, icon, rightIcon, onRightIconPress, error, ...props }) {
   return (
     <View>
       <View style={styles.labelContainer}>
@@ -40,6 +40,11 @@ export function AuthInput({ style, label, icon, error, ...props }) {
           placeholderTextColor={Colors.greydark}
           autoCapitalize={'none'}
         />
+        {rightIcon && (
+          <TouchableOpacity onPress={onRightIconPress} style={{ padding: 5 }}>
+            {rightIcon}
+          </TouchableOpacity>
+        )}
       </View>
       {error && (
         <AppText

@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 
 import { AppDropDown, AppText } from '../..';
 
-function SexualOrientationMenu({ onSelectOrientation }) {
+function SexualOrientationMenu({ onSelectOrientation, label }) {
     let _menu = null;
 
     const setMenuRef = ref => {
@@ -38,7 +38,7 @@ function SexualOrientationMenu({ onSelectOrientation }) {
             ref={setMenuRef}
             style={{ width: '89%', marginTop: 100 }}
             button={<AppDropDown
-                title={"Sexual Orientation"}
+                title={label}
                 value={selectedOrientation.name}
                 onPress={showMenu} />}
         >
@@ -59,9 +59,11 @@ function SexualOrientationMenu({ onSelectOrientation }) {
 export default SexualOrientationMenu;
 
 SexualOrientationMenu.propTypes = {
+    label: PropTypes.string,
     onSelectOrientation: PropTypes.func,
 };
 
 SexualOrientationMenu.defaultProps = {
+    label: "Sexual Orientation",
     onSelectOrientation: () => { },
 };

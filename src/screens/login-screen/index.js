@@ -24,7 +24,7 @@ import GoogleIcon from '../../assets/icons/google.svg';
 import FacebookIcon from '../../assets/icons/facebook.svg';
 import { loginWithFacebook, loginWithGoogle } from '../../services/social-login-service';
 import { ForgotPasswordModal } from '../../components/app-modals';
-import { EmailIcon, PasswordIcon } from '../../constants/svg-icons';
+import { EmailIcon, PasswordIcon, EyeCloseIcon, EyeOpenIcon } from '../../constants/svg-icons';
 
 const LoginScreen = (props) => {
   const { navigation } = props;
@@ -38,6 +38,7 @@ const LoginScreen = (props) => {
   const [emailError, setEmailError] = useState(null);
   const [password, setPassword] = useState('');
   const [passError, setPassError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [googleLoginLoading, setGoogleLoginLoading] = useState(false);
   const [facebookLoginLoading, setFacebookLoginLoading] = useState(false);
@@ -123,11 +124,13 @@ const LoginScreen = (props) => {
             <AuthInput
               label={appLabels.password}
               placeholder={appLabels.password}
-              secureTextEntry
+              secureTextEntry={!showPassword}
               value={password}
               onChangeText={setPassword}
               error={passError}
               icon={<PasswordIcon width={24} height={24} />}
+              rightIcon={showPassword ? <EyeOpenIcon width={24} height={24} /> : <EyeCloseIcon width={24} height={24} />}
+              onRightIconPress={() => setShowPassword(!showPassword)}
             />
 
             <View style={{ alignSelf: 'flex-end' }}>

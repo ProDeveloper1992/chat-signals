@@ -123,6 +123,7 @@ export default function FlirtFilterModal({ visible, onHideModal }) {
                 <ScrollView
                     contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 20, paddingBottom: "50%" }}>
                     <GenderMenu
+                        label={appLabels.i_am_looking_for}
                         onSelectGender={(genderItem) => setLookingFor(genderItem)} />
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
                         <AppText style={{ flex: 1 }}>{"Age Range"}</AppText>
