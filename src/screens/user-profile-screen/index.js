@@ -229,30 +229,15 @@ export default function UserProfile(props) {
             title={appLabels.photos}
             onPress={() => navigation.navigate('UserPhotos')} />
 
-          {/* {userData && userData.email && (
-            <View style={styles.cardHeaderContainer}>
-              <View>
-                <AppText type={'regular'} size={14} color={Colors.black}>{"Email"}</AppText>
-                <AppText type={'bold'} size={16} color={Colors.black}>{userData.email}</AppText>
-              </View>
-              <View>
-                <AppText type={'bold'} color={Colors.greydark}>{"Verified"}</AppText>
-              </View>
-            </View>
-          )}
-
-          {userData && userData.dob && (
-            <View style={styles.cardHeaderContainer}>
-              <View>
-                <AppText type={'regular'} size={14} color={Colors.black}>{"Birthday"}</AppText>
-                <AppText type={'bold'} size={16} color={Colors.black}>{userData.dob}</AppText>
-              </View>
-            </View>
-          )} */}
 
           <CardHeader
-            title={"Account Details"}
+            title={"Account Info"}
             onPress={() => navigation.navigate('AccountDetail')}
+          />
+
+          <CardHeader
+            title={"Appearance & Interests"}
+            onPress={() => navigation.navigate('AppearanceScreen')}
           />
 
           <CardHeader

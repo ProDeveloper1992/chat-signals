@@ -21,7 +21,7 @@ import {
   GenderItem,
 } from '../../components';
 import { mailformat, Colors, Images } from '../../constants';
-import { EmailIcon, PasswordIcon, ProfileIcon, CameraIcon, EditPenCircleIcon } from '../../constants/svg-icons';
+import { EmailIcon, PasswordIcon, ProfileIcon, CameraIcon, EditPenCircleIcon, EyeCloseIcon, EyeOpenIcon } from '../../constants/svg-icons';
 import { registerUser, setSelectedGender, setSelectedLookingGender } from '../../redux/actions/user-actions';
 import { toggleAddPassionsModal, toggleMoreGenderModal, toggleSexualOrientationModal } from '../../redux/actions/app-modals-actions';
 
@@ -31,6 +31,7 @@ import { loginWithFacebook, loginWithGoogle } from '../../services/social-login-
 import { apiRoot } from '../../services/api-service';
 
 var RNFS = require('react-native-fs');
+var atob = require('atob');
 
 const RegisterWithEmail = (props) => {
   const { navigation } = props;
@@ -50,6 +51,8 @@ const RegisterWithEmail = (props) => {
   const [passError, setPassError] = useState(null);
   const [confpassword, setConfPassword] = useState('');
   const [confPassError, setConfPassError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   //First Position Page
   const [userName, setUserName] = useState('');
@@ -248,7 +251,7 @@ const RegisterWithEmail = (props) => {
         console.log('ImagePicker Error: ', response.error);
       } else {
         let sourceFull = response;
-        console.log("sourceFull", sourceFull)
+        // console.log("sourceFull", sourceFull)
         // You can also display the image using data:
         let source = {
           uri: 'data:image/jpeg;base64,' + response.data
@@ -258,14 +261,37 @@ const RegisterWithEmail = (props) => {
         // };
         setProfileImage(response);
 
-        RNFS.readFile(response.uri, "base64").then(data => {
+        // var bin = await atob(source.uri);
+
+        // console.log("binary data", bin)
+
+        // const binary_data = await convertDataURIToBinary(response.data);
+        // console.log("binary_data", binary_data)
+
+        RNFS.readFile(response.data, "base64").then(data => {
           // binary data
-          console.log("RNFS data", data);
+          // console.log("RNFS data", data);
           setProfileImageFile(data)
         });
       }
     });
   }
+
+
+
+  // const convertDataURIToBinary = (dataURI) => {
+  //   var BASE64_MARKER = ';base64,';
+  //   var base64Index = dataURI.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
+  //   var base64 = dataURI.substring(base64Index);
+  //   var raw = window.atob(base64);
+  //   var rawLength = raw.length;
+  //   var array = new Uint8Array(new ArrayBuffer(rawLength));
+
+  //   for (i = 0; i < rawLength; i++) {
+  //     array[i] = raw.charCodeAt(i);
+  //   }
+  //   return array;
+  // }
 
   const onShowAddPassionsModal = () => {
     dispatch(toggleAddPassionsModal(true));
@@ -299,21 +325,25 @@ const RegisterWithEmail = (props) => {
             <AuthInput
               label={appLabels.password}
               placeholder={appLabels.password}
-              secureTextEntry
+              secureTextEntry={showPassword}
               value={password}
               onChangeText={setPassword}
               error={passError}
               icon={<PasswordIcon width={24} height={24} />}
+              rightIcon={showPassword ? <EyeOpenIcon width={24} height={24} /> : <EyeCloseIcon width={24} height={24} />}
+              onRightIconPress={() => setShowPassword(!showPassword)}
             />
 
             <AuthInput
               label={appLabels.confirm_password}
               placeholder={appLabels.confirm_password}
-              secureTextEntry
+              secureTextEntry={showConfirmPassword}
               value={confpassword}
               onChangeText={setConfPassword}
               error={confPassError}
               icon={<PasswordIcon width={24} height={24} />}
+              rightIcon={showConfirmPassword ? <EyeOpenIcon width={24} height={24} /> : <EyeCloseIcon width={24} height={24} />}
+              onRightIconPress={() => setShowConfirmPassword(!showConfirmPassword)}
             />
             <AppButton
               // disabled={postalCode.trim() === ''}

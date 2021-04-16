@@ -5,7 +5,7 @@ import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import { useSelector } from 'react-redux';
 import { AppDropDown, AppText } from '../..';
 
-function GenderMenu({ onSelectGender }) {
+function GenderMenu({ onSelectGender, label }) {
     let _menu = null;
 
     const setMenuRef = ref => {
@@ -36,7 +36,7 @@ function GenderMenu({ onSelectGender }) {
             ref={setMenuRef}
             style={{ width: '89%', marginTop: 100 }}
             button={<AppDropDown
-                title={"I'm looking for"}
+                title={label}
                 value={selectedGender.name}
                 onPress={showMenu} />}
         >

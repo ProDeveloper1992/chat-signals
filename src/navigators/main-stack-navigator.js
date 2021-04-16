@@ -20,7 +20,8 @@ import {
   UserPhotos,
   LikesScreen,
   KissesScreen,
-  HeartsScreen
+  HeartsScreen,
+  AppearanceScreen
 } from '../screens';
 import BottomTabBar from '../components/BottomTabBar';
 import { Colors } from '../constants';
@@ -219,6 +220,11 @@ export default function MainStackNavigator() {
       <Stack.Screen
         name="HeartsScreen"
         component={HeartsScreen}
+      />
+
+      <Stack.Screen
+        name="AppearanceScreen"
+        component={AppearanceScreen}
       />
     </Stack.Navigator>
   );

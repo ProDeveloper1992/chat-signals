@@ -20,7 +20,8 @@ export default StyleSheet.create({
         return {
             paddingHorizontal: 20,
             paddingBottom: 10,
-            borderBottomWidth: isCollapsed ? 1 : 0, borderColor: Colors.grey
+            borderBottomWidth: isCollapsed ? 1 : 0,
+            borderColor: Colors.grey
         }
     }
 })

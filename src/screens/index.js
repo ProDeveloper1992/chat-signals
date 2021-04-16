@@ -21,6 +21,7 @@ import UserPhotos from './user-photos-screen'
 import LikesScreen from './likes-screen'
 import KissesScreen from './kisses-screen'
 import HeartsScreen from './hearts-screen'
+import AppearanceScreen from './appearance-interests-screen'
 
 export {
   Login,
@@ -45,5 +46,6 @@ export {
   UserPhotos,
   LikesScreen,
   KissesScreen,
-  HeartsScreen
+  HeartsScreen,
+  AppearanceScreen
 };
