@@ -214,6 +214,29 @@ export const getChatConversation = (moderatorId) => (dispatch, getState) =>
       });
   });
 
+//Mark Conversation as Seen
+export const markConversationAsSeen = (moderatorId) => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    const userData = getState().userState.userData;
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      customer_id: moderatorId,
+      id: userId,
+    }
+    client
+      .post(`/makeseen`, requestData)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } });
+        reject(err);
+      });
+  });
+
 //Get Favorites
 export const getFavorites = () => (dispatch, getState) =>
   new Promise(function (resolve, reject) {

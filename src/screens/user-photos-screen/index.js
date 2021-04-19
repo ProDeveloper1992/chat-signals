@@ -24,21 +24,19 @@ export default function UserPhotos(props) {
                 onBackPress={onBackPress}
                 color={Colors.ui_primary}
             />
-            {userData && userData.profilepictures && userData.profilepictures.length > 0 && (
-                <FlatList
-                    contentContainerStyle={{ flexGrow: 1, padding: 10 }}
-                    data={userData.profilepictures}
-                    numColumns={2}
-                    showsVerticalScrollIndicator={false}
-                    renderItem={({ item, index }) => (
-                        <View key={String(index)} style={{ flex: index == userData.profilepictures.length - 1 && index % 2 == 0 ? 0.5 : 1 }}>
-                            <UserPhotoItem item={item} />
-                        </View>
-                    )}
-                    keyExtractor={(item, index) => String(index)}
-                    ListEmptyComponent={<NoListData title={"No photos found!"} />}
-                />
-            )}
+            <FlatList
+                contentContainerStyle={{ flexGrow: 1, padding: 10 }}
+                data={userData && userData.profilepictures && userData.profilepictures.length > 0 ? userData.profilepictures : []}
+                numColumns={2}
+                showsVerticalScrollIndicator={false}
+                renderItem={({ item, index }) => (
+                    <View key={String(index)} style={{ flex: index == userData.profilepictures.length - 1 && index % 2 == 0 ? 0.5 : 1 }}>
+                        <UserPhotoItem item={item} />
+                    </View>
+                )}
+                keyExtractor={(item, index) => String(index)}
+                ListEmptyComponent={<NoListData title={"No photos found!"} />}
+            />
         </View>
     )
 }

@@ -19,7 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppButton } from '../../components';
 import { Images, mailformat, Color, Gifs, Icons, Colors } from '../../constants';
 import { globalStyle } from '../../styles/global-style';
-import { loginUser, loginWithSocialMedia } from '../../redux/actions/user-actions';
+import { loginUser } from '../../redux/actions/user-actions';
 import GoogleIcon from '../../assets/icons/google.svg';
 import FacebookIcon from '../../assets/icons/facebook.svg';
 import { loginWithFacebook, loginWithGoogle } from '../../services/social-login-service';

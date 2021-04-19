@@ -245,7 +245,7 @@ export default function AccountDetail(props) {
                                                 <AppText
                                                     type={'medium'}
                                                     size={16}
-                                                    color={orientation.id == selectedOrientation.id ? Colors.ui_primary : Colors.black}
+                                                    color={selectedOrientation && orientation.id == selectedOrientation.id ? Colors.ui_primary : Colors.black}
                                                 >{orientation.name}</AppText>
                                             </TouchableOpacity>
                                         })}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, Platform, View, TouchableOpacity, SafeAreaView, Keyboard } from 'react-native';
+import { StyleSheet, TextInput, Platform, View, TouchableOpacity, SafeAreaView, Keyboard, ActivityIndicator } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import { useSelector } from 'react-redux';
 import FastImage from 'react-native-fast-image';
@@ -20,12 +20,19 @@ import {
     VideoIcon
 } from '../../constants/svg-icons';
 
-export function ChatInput({ style, value, onChangeMessage, onSendPress, onSendItem, ...props }) {
+export function ChatInput({
+    style,
+    value,
+    onChangeMessage,
+    onSendPress,
+    onSendItem,
+    isAttachingDocument,
+    attachedDocument,
+    onAttachDocument,
+    ...props }) {
 
     const { userData } = useSelector((state) => state.userState);
     const { appLabels, generalSettings } = useSelector((state) => state.appState);
-
-    const [attachedDocument, setAttachedDocument] = useState(null);
 
     const getMessagePrice = () => {
         if (generalSettings.length > 0) {
@@ -67,7 +74,7 @@ export function ChatInput({ style, value, onChangeMessage, onSendPress, onSendIt
             console.log('File Name : ' + res.name);
             console.log('File Size : ' + res.size);
             //Setting the state to show single file attributes
-            setAttachedDocument(res);
+            onAttachDocument(res);
         } catch (err) {
             //Handling any exception (If any)
             if (DocumentPicker.isCancel(err)) {
@@ -79,12 +86,11 @@ export function ChatInput({ style, value, onChangeMessage, onSendPress, onSendIt
     };
 
     const onCloseIconPress = () => {
-        setAttachedDocument(null);
+        onAttachDocument(null);
     }
 
     const onSendIconPress = () => {
         onSendPress(attachedDocument);
-        setAttachedDocument(null);
     }
 
     const renderAttachedDocument = () => {
@@ -160,7 +166,12 @@ export function ChatInput({ style, value, onChangeMessage, onSendPress, onSendIt
                             </TouchableOpacity>
                             {renderAttachedDocument()}
                         </View>
-                        <AppText style={{ flex: 1, marginHorizontal: 20 }}>{attachedDocument.name}</AppText>
+                        {isAttachingDocument ? (
+                            <View style={{ flexDirection: 'row', alignItems: "center", marginStart: 20 }}>
+                                <ActivityIndicator color={Colors.ui_primary} size={'small'} />
+                                <AppText style={{ flex: 1, marginHorizontal: 20 }}>{"Uploading..."}</AppText>
+                            </View>
+                        ) : <AppText style={{ flex: 1, marginHorizontal: 20 }}>{attachedDocument.name}</AppText>}
                     </View>
                 )}
                 <View style={styles.inputContainer}>

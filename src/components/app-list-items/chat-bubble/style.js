@@ -34,5 +34,12 @@ export default StyleSheet.create({
             marginHorizontal: 15,
             alignSelf: isFromUser ? 'flex-end' : 'flex-start'
         }
+    },
+    imageContainer: {
+        width: 150,
+        height: 150,
+        resizeMode: 'cover',
+        borderRadius: 15,
+        alignSelf: 'center'
     }
 })
