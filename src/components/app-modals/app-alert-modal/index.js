@@ -13,6 +13,7 @@ export default function AppAlertModal({
     message,
     button1Title,
     button2Title,
+    isButton1Loading,
     onButton1Press }) {
 
     return (
@@ -31,7 +32,8 @@ export default function AppAlertModal({
                     <View style={{ marginTop: '15%' }}>
                         <AppButton
                             title={button1Title}
-                            onPress={onButton1Press} />
+                            onPress={onButton1Press}
+                            loading={isButton1Loading} />
                         <AppButton
                             type={'light'}
                             title={button2Title}

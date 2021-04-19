@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, ScrollView, TouchableOpacity, ImageBackground } from 'react-native';
+import { StyleSheet, View, ScrollView, TouchableOpacity, ImageBackground, Platform } from 'react-native';
 import StepIndicator from 'react-native-step-indicator';
 import { useDispatch, useSelector } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
 import moment from 'moment';
 import axios from 'axios';
+import RNFetchBlob from 'rn-fetch-blob'
 
 
 import {
@@ -29,6 +30,7 @@ import GoogleIcon from '../../assets/icons/google.svg';
 import FacebookIcon from '../../assets/icons/facebook.svg';
 import { loginWithFacebook, loginWithGoogle } from '../../services/social-login-service';
 import { apiRoot } from '../../services/api-service';
+import { showToast } from '../../redux/actions/app-actions';
 
 var RNFS = require('react-native-fs');
 var atob = require('atob');
@@ -107,6 +109,7 @@ const RegisterWithEmail = (props) => {
             passions: 1
           };
 
+          // console.log("requestData", requestData)
 
           const formData = new FormData();
           formData.append("language", selectedLanguage);
@@ -116,11 +119,11 @@ const RegisterWithEmail = (props) => {
           formData.append("dob", formatedBirthDate);
           formData.append("gender", selectedUserGender.id);
           formData.append("sexual_orientation", userSexualOrientation.id);
-          // formData.append("picture", { type: profileImage.type, size: profileImage.fileSize, uri: `file://${profileImage.path}`, name: profileImage.fileName }); //Android
-          formData.append("picture", { type: profileImage.type, size: profileImage.fileSize, uri: `${cleanURL}`, name: fileName }); //iOS
+          formData.append("picture", { type: profileImage.type, size: profileImage.fileSize, uri: `file://${profileImage.path}`, name: profileImage.fileName }); //Android
+          // formData.append("picture", { type: profileImage.type, size: profileImage.fileSize, uri: `${cleanURL}`, name: fileName }); //iOS
           formData.append("passions", 1);
 
-          console.log("formData", formData)
+          // console.log("formData", formData)
 
           // fetch(`${apiRoot}/registration`, {
           //   method: "POST",
@@ -133,12 +136,45 @@ const RegisterWithEmail = (props) => {
           //   .then((data) => console.log("data", data))
           //   .catch((error) => console.log("error", error))
 
-          setLoading(true);
-          const response = await dispatch(registerUser(requestData));
-          setLoading(false);
-          if (response.meta.status) {
-            // navigation.navigate('main-stack');
-          }
+          let PATH_TO_THE_FILE = Platform.OS == 'android' ? `file://${profileImage.path}` : profileImage.path;
+
+          RNFetchBlob.fetch('POST', `${apiRoot}/registration`, {
+            'Content-Type': 'multipart/form-data',
+          }, [
+            // element with property `filename` will be transformed into `file` in form data
+            {
+              name: 'picture',
+              filename: fileName,
+              type: profileImage.type,
+              data: RNFetchBlob.wrap(PATH_TO_THE_FILE)
+            },
+            { name: 'language', data: 'en' },
+            { name: 'username', data: userName },
+            { name: 'email', data: email },
+            { name: 'password', data: password },
+            { name: 'dob', data: '1990-06-01' },
+            { name: 'gender', data: '1' },
+            { name: 'sexual_orientation', data: '1' },
+            { name: 'passions[]', data: '1' },
+
+          ]).then(async (resp) => {
+            let parsedData = await JSON.parse(resp.data);
+            console.log("parsedData", parsedData);
+            // if (parsedData.meta.status == 2) {
+            dispatch(showToast('negative', parsedData.meta.message))
+            // }
+            // ...
+          }).catch((err) => {
+            console.log("err", err)
+            // ...
+          })
+
+          // setLoading(true);
+          // const response = await dispatch(registerUser(requestData));
+          // setLoading(false);
+          // if (response.meta.status) {
+          //   // navigation.navigate('main-stack');
+          // }
 
         } catch (e) {
           console.log("e", e)
@@ -259,20 +295,44 @@ const RegisterWithEmail = (props) => {
         // let source = {
         //   uri: response.uri
         // };
-        setProfileImage(response);
+        setProfileImage(source);
 
-        // var bin = await atob(source.uri);
+        RNFetchBlob.fs.stat(response.path)
+          .then((stats) => {
+            console.log("PATH OF IMAGE...", stats)
+            let filePath = `file://${stats.path}`;
+            if (Platform.OS === 'ios') {
+              let arr = response.uri.split('/')
+              const dirs = RNFetchBlob.fs.dirs
+              filePath = `${dirs.DocumentDir}/${arr[arr.length - 1]}`
+            } else {
+              filePath = `file://${stats.path}`;
+            }
+            setProfileImageFile(filePath);
 
+            console.log("filePath", filePath)
+          })
+          .catch((err) => {
+            console.log("PATH ERROR...", err)
+          })
+
+        // RNFetchBlob.fs.readFile(source.uri, 'base64')
+        //   .then(async (data) => {
+        //     console.log("RNFetchBlob URI:", data)
+        //   })
+
+        // var bin = await atob(response.data);
+        // setProfileImageFile(response.data)
         // console.log("binary data", bin)
 
         // const binary_data = await convertDataURIToBinary(response.data);
         // console.log("binary_data", binary_data)
 
-        RNFS.readFile(response.data, "base64").then(data => {
-          // binary data
-          // console.log("RNFS data", data);
-          setProfileImageFile(data)
-        });
+        // RNFS.readFile(response.uri, "base64").then(data => {
+        //   // binary data
+        //   // console.log("RNFS data", data);
+        //   setProfileImageFile(data)
+        // });
       }
     });
   }
@@ -325,7 +385,7 @@ const RegisterWithEmail = (props) => {
             <AuthInput
               label={appLabels.password}
               placeholder={appLabels.password}
-              secureTextEntry={showPassword}
+              secureTextEntry={!showPassword}
               value={password}
               onChangeText={setPassword}
               error={passError}
@@ -337,7 +397,7 @@ const RegisterWithEmail = (props) => {
             <AuthInput
               label={appLabels.confirm_password}
               placeholder={appLabels.confirm_password}
-              secureTextEntry={showConfirmPassword}
+              secureTextEntry={!showConfirmPassword}
               value={confpassword}
               onChangeText={setConfPassword}
               error={confPassError}

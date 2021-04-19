@@ -48,7 +48,7 @@ export default function ChatListItem({
             style={{
               marginTop: 5,
             }}>
-            {lastMessage != "" ? lastMessage : "Media"}
+            {lastMessage != "" ? lastMessage : "Attachment"}
           </AppText>
         </View>
       </View>

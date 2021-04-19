@@ -151,7 +151,7 @@ export default function UserProfile(props) {
       // console.error(error);
     }
     await setLogoutModalVisible(false);
-    props.navigation.navigate('auth-stack');
+    props.navigation.push('auth-stack');
   }
 
   const onLanguagePress = () => {

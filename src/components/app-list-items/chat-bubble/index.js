@@ -1,6 +1,8 @@
 import React from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 import moment from 'moment';
+import FastImage from 'react-native-fast-image';
+
 import { Colors, Icons } from '../../../constants';
 import { AppText } from '../../index';
 import styles from './style';
@@ -20,12 +22,28 @@ export default function ChatBubble({ item, isFromUser }) {
     if (item.attachment[2] == 'image') {
       return (
         <View>
-          <TouchableOpacity style={styles.container(isFromUser)}>
-            <Image style={{ width: 150, height: 150, resizeMode: 'contain' }} source={{ uri: 'http://www.chat-signal.com/public/storage/attachments/' + item.attachment[0] }} />
+          <TouchableOpacity
+            disabled
+            style={[styles.container(isFromUser), { paddingVertical: 10, paddingHorizontal: 10 }]}>
+            <FastImage
+              style={styles.imageContainer}
+              source={{
+                uri: 'http://www.chat-signal.com/public/storage/attachments/' + item.attachment[0],
+                priority: FastImage.priority.high,
+              }}
+              resizeMode={FastImage.resizeMode.cover}
+            />
+            {item.message != '' && (
+              <AppText color={isFromUser ? Colors.black : Colors.white}>{item.message}</AppText>
+            )}
           </TouchableOpacity>
           <View style={styles.seenTimeContainer(isFromUser)}>
             <AppText size={12}>{moment(item.fullTime).format("HH:mm")}</AppText>
-            <Image style={styles.seenIcon} source={getTickIcon(item.seen)} />
+            {isFromUser && (
+              <View style={{ marginStart: 5 }}>
+                {getTickIcon(item.seen)}
+              </View>
+            )}
           </View>
         </View>
       )
@@ -35,7 +53,9 @@ export default function ChatBubble({ item, isFromUser }) {
 
   return (
     <View>
-      <TouchableOpacity style={styles.container(isFromUser)}>
+      <TouchableOpacity
+        disabled
+        style={styles.container(isFromUser)}>
         <View style={styles.textMsgContainer}>
           <AppText type={'regular'} color={isFromUser ? Colors.black : Colors.white}>{item.message}</AppText>
         </View>

@@ -12,7 +12,7 @@ import ContentLoader, { Rect, Circle } from "react-content-loader/native";
 import { BackHeader, GeneralHeader } from '../../components/Headers';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
-import { getPaymentModule } from '../../redux/actions/app-actions';
+import { getGeneralSettings, getPaymentModule } from '../../redux/actions/app-actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { Colors, Icons, SCREEN_WIDTH } from '../../constants';
 import { AppIndicatorLoader, AppText, AppButton, OwnPurchaseCard } from '../../components';
@@ -34,6 +34,7 @@ const CoinPurchase = () => {
 
   useEffect(() => {
     if (isFocused) {
+      dispatch(getGeneralSettings());
       dispatch(getPaymentModule());
       if (generalSettings.length > 0) {
         for (let setting of generalSettings) {

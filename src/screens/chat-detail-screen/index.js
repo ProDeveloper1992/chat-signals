@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Keyboard, View, TouchableWithoutFeedback, FlatList, TouchableOpacity, ScrollView, Platform, KeyboardAvoidingView } from 'react-native';
+import { Keyboard, View, TouchableWithoutFeedback, FlatList, TouchableOpacity, ScrollView, Platform, KeyboardAvoidingView, ActivityIndicator } from 'react-native';
 import { ChatDetailHeader } from '../../components/Headers';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,12 +8,17 @@ import ContentLoader, { Rect, Circle } from "react-content-loader/native";
 import styles from './style';
 import { AppIndicatorLoader, AppText, ChatBubble, ChatInput, CommonImage, NoListData } from '../../components';
 import { Colors, Icons, SCREEN_WIDTH } from '../../constants';
-import { getChatConversation } from '../../redux/actions/user-actions';
-import { InfoIcon } from '../../constants/svg-icons';
-import { sendMessage } from '../../redux/actions/chat-actions';
-import { ModeratorActivityModal, ModeratorChatDetailModal } from '../../components/app-modals';
+import { getChatConversation, markConversationAsSeen } from '../../redux/actions/user-actions';
+import { ChatGradientIcon, InfoIcon, BlockIcon, DeleteBinIcon } from '../../constants/svg-icons';
+import { deleteConversation, sendMessage } from '../../redux/actions/chat-actions';
+import { AppAlertModal, ModeratorActivityModal, ModeratorChatDetailModal } from '../../components/app-modals';
 import { ActionDispatcher } from '../../redux/actions';
 import { GET_CHAT_CONVERSATION_SUCCESS } from '../../redux/actions/types';
+import RNFetchBlob from 'rn-fetch-blob'
+import { apiRoot } from '../../services/api-service';
+import { blockModerator } from '../../redux/actions/flirts-actions';
+
+var RNFS = require('react-native-fs');
 
 export default function ChatDetail(props) {
   let listViewRef;
@@ -33,6 +38,15 @@ export default function ChatDetail(props) {
   const [activityType, setActivityType] = useState('kiss');
   const [activityModalVisible, setActivityModalVisible] = useState(false);
   const [moderatorDetailModalVisible, setModeratorDetailModalVisible] = useState(false);
+  const [moderatorDetailVisible, setModeratorDetailVisible] = useState(false);
+  const [isDeleteConversationModalVisible, setIsDeleteConversationModalVisible] = useState(false);
+  const [isBlockUserModalVisible, setIsBlockUserModalVisible] = useState(false);
+
+  const [attachedDoc, setAttachedDocument] = useState(null);
+  const [isSendingDocument, setIsSendingDocument] = useState(false);
+
+  const [isDeletingConversation, setIsDeletingConversation] = useState(false);
+  const [isBlockingUser, setIsBlockingUser] = useState(false);
 
 
   useEffect(() => {
@@ -54,6 +68,7 @@ export default function ChatDetail(props) {
 
   const getChatMessages = async () => {
     const response = await dispatch(getChatConversation(moderator.user.id));
+    dispatch(markConversationAsSeen(moderator.user.id));
     if (response.meta.status) {
       setMessages(response.data);
     }
@@ -84,73 +99,63 @@ export default function ChatDetail(props) {
   //   return data;
   // };
 
-  const onSendTextMessage = async (attachedDoc) => {
-
-    console.log("attachedDoc", attachedDoc)
+  const onSendTextMessage = async () => {
     if (attachedDoc != null) {
+      console.log("attachedDoc", attachedDoc)
 
-      setMessageText('');
-      let messageToSend = {
-        id: moderator.user.id,
-        customer_id: userData.id,
-        message: messageText,
-        file: {
-          name: attachedDoc.name,
+      // RNFetchBlob.fs.stat(attachedDoc.uri)
+      //   .then((stats) => {
+      //     console.log("PATH OF IMAGE...", stats)
+      //     let filePath = `file://${stats.path}`;
+      //     if (Platform.OS === 'ios') {
+      //       let arr = response.uri.split('/')
+      //       const dirs = RNFetchBlob.fs.dirs
+      //       filePath = `${dirs.DocumentDir}/${arr[arr.length - 1]}`
+      //     }
+      //     // setProfileImageFile(filePath);
+
+      //     console.log("filePath", filePath)
+      setIsSendingDocument(true);
+      RNFetchBlob.fetch('POST', `${apiRoot}/sendMessage`, {
+        Authorization: `Bearer ${authToken}`,
+        'Content-Type': 'multipart/form-data',
+      }, [
+        // element with property `filename` will be transformed into `file` in form data
+        {
+          name: 'file',
+          filename: attachedDoc.name,
           type: attachedDoc.type,
-          uri: attachedDoc.uri,
-        }
-      };
+          data: RNFetchBlob.wrap(attachedDoc.uri)
+        },
+        { name: 'id', data: `${moderator.user.id}` },
+        { name: 'customer_id', data: `${userData.id}` },
+        { name: 'message', data: `${messageText}` },
 
+      ]).then(async (resp) => {
+        // let parsedData = await JSON.parse(resp.data);
+        console.log("resp", resp);
+        dispatch(getChatConversation(moderator.user.id));
+        setAttachedDocument(null);
+        setMessageText('')
+        setIsSendingDocument(false);
+      }).catch((err) => {
+        setAttachedDocument(null);
+        setIsSendingDocument(false);
+        setMessageText('')
+        console.log("err", err)
+        // ...
+      })
 
-      // const formData = new FormData();
-      // formData.append('id', moderator.user.id);
-      // formData.append('customer_id', userData.id);
-      // formData.append('message', messageText);
-      // formData.append('file', {
-      //   uri: attachedDoc.uri, //Your Image File Path
-      //   type: attachedDoc.type,
-      //   name: attachedDoc.name,
-      // });
-      // axios({
-      //   url: `${apiRoot}/sendMessage`,
-      //   method: 'POST',
-      //   data: formData,
-      //   headers: {
-      //     Accept: 'application/json',
-      //     'Content-Type': 'multipart/form-data',
-      //     'Authorization': `Bearer ${authToken}`
-      //   }
       // })
-      //   .then(function (response) {
-      //     console.log("response :", response);
-      //   })
-      //   .catch(function (error) {
-      //     console.log("error from image :", error);
-      //   })
-
-      // fetch(`${apiRoot}/sendMessage`, {
-      //   method: "POST",
-      //   headers: {
-      //     "Authorization": `Bearer ${authToken}`,
-      //     "Content-Type": "multipart/form-data"
-      //   },
-      //   body: createFormData(attachedDoc, messageToSend)
+      // .catch((err) => {
+      //   console.log("PATH ERROR...", err)
       // })
-      //   .then(response => response.json())
-      //   .then(response => {
-      //     console.log("upload succes", response);
-      //     alert("Upload success!");
-      //   })
-      //   .catch(error => {
-      //     console.log("upload error", error);
-      //     alert("Upload failed!");
-      //   });
 
-      await dispatch(sendMessage(messageToSend));
-      const response = await dispatch(getChatConversation(moderator.user.id));
-      if (response.meta.status) {
-        setMessages(response.data);
-      }
+      // await dispatch(sendMessage(messageToSend));
+      // const response = await dispatch(getChatConversation(moderator.user.id));
+      // if (response.meta.status) {
+      //   setMessages(response.data);
+      // }
     } else {
       if (messageText != '') {
 
@@ -192,7 +197,8 @@ export default function ChatDetail(props) {
   }
 
   const onInfoButtonPress = () => {
-    setModeratorDetailModalVisible(true);
+    // setModeratorDetailModalVisible(true);
+    setModeratorDetailVisible(true);
   }
 
   const onViewModeratorProfile = () => {
@@ -205,6 +211,22 @@ export default function ChatDetail(props) {
     navigation.navigate('FourthTabStack')
   }
 
+  const onDeleteConversation = async () => {
+    setIsDeletingConversation(true);
+    await dispatch(deleteConversation(moderator.user.id));
+    setIsDeletingConversation(false);
+    setIsDeleteConversationModalVisible(false);
+    setModeratorDetailVisible(false);
+  }
+
+  const onBlockUser = async () => {
+    setIsBlockingUser(true);
+    await dispatch(blockModerator(moderator.user.id));
+    setIsBlockingUser(false);
+    setIsBlockUserModalVisible(false);
+    setModeratorDetailVisible(false);
+  }
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : 'height'}
@@ -212,63 +234,102 @@ export default function ChatDetail(props) {
       style={styles.container}
     >
       <View style={styles.container}>
-        <View>
-          <ChatDetailHeader
-            onLeftPress={() => navigation.goBack()}
-          />
-          <View style={styles.userDetailHeader}>
-            <CommonImage touchable={false} size={44} borderColor={Colors.white} source={{ uri: moderator.profile_picture }} />
-            <View style={{ flex: 1, paddingHorizontal: 12 }}>
-              <AppText type={'bold'} size={18}>{moderator.user.username}</AppText>
-              <AppText type={'regular'} size={12} color={Colors.greydark}>{moderator.user.is_active * 1 == 1 ? "Online" : "Offline"}</AppText>
+        {moderatorDetailVisible ? (
+          <View style={styles.container}>
+            <ChatDetailHeader
+              onLeftPress={() => setModeratorDetailVisible(false)}
+            />
+            <View style={{ alignItems: 'center', justifyContent: 'center', padding: 20 }}>
+              <CommonImage
+                touchable={false}
+                size={90}
+                borderColor={Colors.white}
+                source={{ uri: moderator.profile_picture }} />
+              <AppText
+                type={'bold'}
+                size={20}
+                style={{ marginBottom: -5, marginTop: 10 }}>{moderator.user.username}</AppText>
+              <AppText
+                onPress={onViewModeratorProfile}
+                type={'bold'}
+                size={16}
+                color={Colors.ui_primary}
+                style={{ textDecorationLine: 'underline' }}>{"View profile"}</AppText>
             </View>
-            <TouchableOpacity
-              onPress={onInfoButtonPress}
-              style={{ marginBottom: -10 }}>
-              <InfoIcon width={40} height={40} />
-            </TouchableOpacity>
+            <TitleWithIcon
+              title={"Delete Conversation"}
+              icon={<DeleteBinIcon />}
+              onPress={() => setIsDeleteConversationModalVisible(true)} />
+            <TitleWithIcon
+              title={"Block User"}
+              icon={<BlockIcon />}
+              onPress={() => setIsBlockUserModalVisible(true)} />
           </View>
-        </View>
-        {isLoadingConversation && messages.length == 0 ? (
-          <AppIndicatorLoader />
-          // <FlatList
-          //   data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
-          //   contentContainerStyle={{ flexGrow: 1, paddingTop: 20 }}
-          //   showsVerticalScrollIndicator={false}
-          //   renderItem={({ item, index }) => (
-          //     <MessagesListItemLoader key={String(index)} />
-          //   )}
-          //   keyExtractor={(item, index) => String(index)}
-          // />
         ) : (
-          <FlatList
-            ref={(ref) => {
-              listViewRef = ref;
-            }}
-            onContentSizeChange={() => listViewRef.scrollToEnd({ animated: true })}
-            data={messages}
-            extraData={messages}
-            contentContainerStyle={{ flexGrow: 1, paddingTop: 20 }}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item, index }) => (
-              <ChatBubble key={String(index)} item={item} isFromUser={isMessageFromUser(item)} />
+          <View style={styles.container}>
+            <ChatDetailHeader
+              onLeftPress={() => navigation.goBack()}
+            />
+            <View style={styles.userDetailHeader}>
+              <CommonImage touchable={false} size={44} borderColor={Colors.white} source={{ uri: moderator.profile_picture }} />
+              <View style={{ flex: 1, paddingHorizontal: 12 }}>
+                <AppText type={'bold'} size={18}>{moderator.user.username}</AppText>
+                <AppText type={'regular'} size={12} color={Colors.greydark}>{moderator.user.is_active * 1 == 1 ? "Online" : "Offline"}</AppText>
+              </View>
+              <TouchableOpacity
+                onPress={onInfoButtonPress}
+                style={{ marginBottom: -10 }}>
+                <InfoIcon width={40} height={40} />
+              </TouchableOpacity>
+            </View>
+            {isLoadingConversation && messages.length == 0 ? (
+              <AppIndicatorLoader />
+              // <FlatList
+              //   data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+              //   contentContainerStyle={{ flexGrow: 1, paddingTop: 20 }}
+              //   showsVerticalScrollIndicator={false}
+              //   renderItem={({ item, index }) => (
+              //     <MessagesListItemLoader key={String(index)} />
+              //   )}
+              //   keyExtractor={(item, index) => String(index)}
+              // />
+            ) : (
+              <FlatList
+                ref={(ref) => {
+                  listViewRef = ref;
+                }}
+                onContentSizeChange={() => listViewRef.scrollToEnd({ animated: true })}
+                data={messages}
+                extraData={messages}
+                contentContainerStyle={{ flexGrow: 1, paddingTop: 20 }}
+                showsVerticalScrollIndicator={false}
+                renderItem={({ item, index }) => (
+                  <ChatBubble key={String(index)} item={item} isFromUser={isMessageFromUser(item)} />
+                )}
+                keyExtractor={(item, index) => String(index)}
+                ListEmptyComponent={
+                  <NoListData
+                    icon={<ChatGradientIcon />}
+                    title={"Start Conversation!"} />}
+              />
             )}
-            keyExtractor={(item, index) => String(index)}
-            ListEmptyComponent={<NoListData title={"Say hi and start messaging"} />}
-          />
+            <ChatInput
+              value={messageText}
+              placeholder={'Type message...'}
+              onSendPress={onSendTextMessage}
+              onChangeMessage={(text) => setMessageText(text)}
+              onSendItem={onSendItemToModerator}
+              attachedDocument={attachedDoc}
+              isAttachingDocument={isSendingDocument}
+              onAttachDocument={(docFile) => setAttachedDocument(docFile)}
+              onSubmitEditing={onSendTextMessage}
+              onFocus={() => {
+                setTimeout(() => {
+                  listViewRef.scrollToEnd({ animated: true })
+                }, 100);
+              }} />
+          </View>
         )}
-        <ChatInput
-          value={messageText}
-          placeholder={'Type message...'}
-          onSendPress={onSendTextMessage}
-          onChangeMessage={(text) => setMessageText(text)}
-          onSendItem={onSendItemToModerator}
-          onSubmitEditing={onSendTextMessage}
-          onFocus={() => {
-            setTimeout(() => {
-              listViewRef.scrollToEnd({ animated: true })
-            }, 100);
-          }} />
         <ModeratorActivityModal
           visible={activityModalVisible}
           onHideModal={() => setActivityModalVisible(false)}
@@ -282,6 +343,26 @@ export default function ChatDetail(props) {
           onHideModal={() => setModeratorDetailModalVisible(false)}
           moderator={moderator}
           onViewProfile={onViewModeratorProfile}
+        />
+        <AppAlertModal
+          visible={isDeleteConversationModalVisible}
+          onHideModal={() => setIsDeleteConversationModalVisible(false)}
+          title={"Delete Conversation"}
+          message={"Are you sure you want to delete?"}
+          button1Title={"Delete"}
+          isButton1Loading={isDeletingConversation}
+          button2Title={"Cancel"}
+          onButton1Press={onDeleteConversation}
+        />
+        <AppAlertModal
+          visible={isBlockUserModalVisible}
+          onHideModal={() => setIsBlockUserModalVisible(false)}
+          title={"Block User"}
+          message={"Are you sure you want to block?"}
+          button1Title={"Block"}
+          isButton1Loading={isBlockingUser}
+          button2Title={"Cancel"}
+          onButton1Press={onBlockUser}
         />
       </View>
     </KeyboardAvoidingView>
@@ -303,3 +384,23 @@ export const MessagesListItemLoader = () => (
     </ContentLoader>
   </View>
 );
+
+const TitleWithIcon = ({ title, icon, onPress, loading }) => {
+  return (
+    <TouchableOpacity
+      onPress={onPress}
+      activeOpacity={0.6}
+      style={styles.titleWithIconContainer}>
+      <AppText
+        numderOfLines={1}
+        type={'medium'}
+        size={16}
+        style={{ flex: 1 }}>{title}</AppText>
+      {icon && (
+        <View>
+          {icon}
+        </View>
+      )}
+    </TouchableOpacity>
+  )
+}
