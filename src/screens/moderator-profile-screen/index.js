@@ -162,6 +162,31 @@ export default function ModeratorProfile(props) {
               indicator={_renderDotIndicator(params.item.profilepicture.length)}
             >
               {getProfilePictures().map((item, index) => {
+                if (item.is_friend == "1") {
+                  return (<ImageBackground
+                    key={String(index)}
+                    blurRadius={Platform.OS == 'ios' ? 40 : 5}
+                    style={styles.imgBackground}
+                    resizeMode={'cover'}
+                    source={{ uri: getItemImage(item.picture) }}>
+                    <View style={styles.eroticContainer}>
+                      <XXXCoinIcon width={60} height={60} />
+                      <AppText
+                        type={'black-italic'}
+                        size={16}
+                        style={{ marginTop: -10 }}
+                        color={Colors.white}>{"ONLY FOR FRIENDS"}</AppText>
+                      <TouchableOpacity
+                        onPress={onUnlockEroticImage}
+                        style={styles.unlockEroticButtonContainer}>
+                        <View style={{ marginBottom: -5, marginTop: 5, marginStart: -10 }}>
+                          <CoinGradientIcon width={40} height={40} />
+                        </View>
+                        <AppText type={'black-italic'} size={12} color={Colors.white} uppercase>{`Unlock for ${10} coins`}</AppText>
+                      </TouchableOpacity>
+                    </View>
+                  </ImageBackground>)
+                }
                 if (item.is_erotic == "1") {
                   return (<ImageBackground
                     key={String(index)}

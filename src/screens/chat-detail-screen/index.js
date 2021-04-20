@@ -244,6 +244,8 @@ export default function ChatDetail(props) {
                 touchable={false}
                 size={90}
                 borderColor={Colors.white}
+                borderWidth={3}
+                isShadow={true}
                 source={{ uri: moderator.profile_picture }} />
               <AppText
                 type={'bold'}
@@ -271,7 +273,13 @@ export default function ChatDetail(props) {
               onLeftPress={() => navigation.goBack()}
             />
             <View style={styles.userDetailHeader}>
-              <CommonImage touchable={false} size={44} borderColor={Colors.white} source={{ uri: moderator.profile_picture }} />
+              <CommonImage
+                touchable={false}
+                size={45}
+                borderColor={Colors.white}
+                borderWidth={2}
+                isShadow={true}
+                source={{ uri: moderator.profile_picture }} />
               <View style={{ flex: 1, paddingHorizontal: 12 }}>
                 <AppText type={'bold'} size={18}>{moderator.user.username}</AppText>
                 <AppText type={'regular'} size={12} color={Colors.greydark}>{moderator.user.is_active * 1 == 1 ? "Online" : "Offline"}</AppText>
