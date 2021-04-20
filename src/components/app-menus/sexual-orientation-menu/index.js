@@ -25,7 +25,7 @@ function SexualOrientationMenu({ onSelectOrientation, label }) {
     const { sexualOrientations } = useSelector((state) => state.appState);
     const { userSexualOrientation } = useSelector((state) => state.userState);
 
-    const [selectedOrientation, setSelectedOrientation] = useState(userSexualOrientation);
+    const [selectedOrientation, setSelectedOrientation] = useState({ id: -1, name: "Select Orientation" });
 
     const onSelectMenu = (orientation) => {
         onSelectOrientation(orientation);

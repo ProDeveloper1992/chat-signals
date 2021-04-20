@@ -13,9 +13,14 @@ export default function BottomTabBar({ state, descriptors, navigation }) {
     var profilePic = DEFAULT_AVATAR_URL;
     if (
       userData &&
-      userData.avatar != null
+      userData.profilepictures &&
+      userData.profilepictures.length > 0
     ) {
-      profilePic = userData.avatar;
+      for (let profile of userData.profilepictures) {
+        if (profile.picture_type == "1") {
+          profilePic = profile.picture;
+        }
+      }
     }
     return profilePic;
   };

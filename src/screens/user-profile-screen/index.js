@@ -240,9 +240,9 @@ export default function UserProfile(props) {
             onPress={() => navigation.navigate('AppearanceScreen')}
           />
 
-          <CardHeader
+          {/* <CardHeader
             title={"Notifications"}
-            onPress={() => { }} />
+            onPress={() => { }} /> */}
 
 
           <CardHeader
