@@ -20,14 +20,14 @@ export default function FlirtFilterModal({ visible, onHideModal }) {
     const [loading, setLoading] = useState(false);
     const [isResetLoading, setResetLoading] = useState(false);
 
-    const [lookingFor, setLookingFor] = useState(selectedUserGender);
+    const [lookingFor, setLookingFor] = useState(null);
     const [lowAge, setLowAge] = useState(0);
     const [highAge, setHighAge] = useState(100);
     const [city, setCity] = useState('');
     const [language, setLanguage] = useState(selectedLanguage);
     const [maxDistance, setMaxDistance] = useState(0);
     const [selectedPassions, setSelectedPassions] = useState([]);
-    const [sexualOrientation, setSexualOrientation] = useState(userSexualOrientation);
+    const [sexualOrientation, setSexualOrientation] = useState(null);
 
     var USER_PASSIONS = selectedPassions;
 
@@ -65,13 +65,13 @@ export default function FlirtFilterModal({ visible, onHideModal }) {
         let requestData = {
             page: 1,
             customer_id: userData.id,
-            gender: lookingFor.id,
+            gender: lookingFor ? lookingFor.id : '',
             age_from: lowAge,
             age_to: highAge,
             city: city,
             language: language,
             passions: '',
-            sexual_orientation: sexualOrientation != '' ? sexualOrientation.id : ''
+            sexual_orientation: sexualOrientation ? sexualOrientation.id : ''
         }
         console.log("requestData", requestData);
         setLoading(true);

@@ -78,7 +78,7 @@ const LandingScreen = (props) => {
             style={[globalStyle.logo, { tintColor: Colors.black }]}
             source={Platform.OS == "android" ? Gifs.chat_signal_logo : Images.app_logo}
           />
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={onLanguageIconPress}
             style={{
               backgroundColor: Colors.white,
@@ -95,7 +95,7 @@ const LandingScreen = (props) => {
               style={{ width: 24, height: 24, tintColor: Colors.ui_primary }}
               source={Icons.icon_languages}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <View style={{ flex: 1, marginTop: '5%' }}>
           <AppText size={15} color={Colors.white}>{"Find your match with our poweful algorithms"}</AppText>
@@ -116,7 +116,9 @@ const LandingScreen = (props) => {
             onPress={onRegister}
           />
         </View>
-        <RegisterLandingModal visible={registerLandingModalVisible} onHideModal={() => setRegisterLandingModalVisible(false)} />
+        <RegisterLandingModal
+          visible={registerLandingModalVisible}
+          onHideModal={() => setRegisterLandingModalVisible(false)} />
       </View>
     </AuthContainer>
   );

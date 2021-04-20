@@ -23,7 +23,7 @@ function GenderMenu({ onSelectGender, label }) {
     const { genderList } = useSelector((state) => state.appState);
     const { selectedUserGender } = useSelector((state) => state.userState);
 
-    const [selectedGender, setSelectedGender] = useState(selectedUserGender);
+    const [selectedGender, setSelectedGender] = useState({ id: -1, name: "Select gender" });
 
     const onSelectMenu = (genderItem) => {
         onSelectGender(genderItem);
