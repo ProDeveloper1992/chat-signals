@@ -83,6 +83,12 @@ const RegisterWithEmail = (props) => {
         setUsernameError(null);
       }
 
+      if (profileImage.uri === null) {
+        isValid = false;
+        dispatch(showToast('negative', "Please select your profile image!"));
+      }
+
+
       if (isValid) {
         let formatedBirthDate = moment(moment(birthDate, 'DD/MM/YYYY')).format('YYYY-MM-DD');
         console.log("DOB", formatedBirthDate)
@@ -91,53 +97,21 @@ const RegisterWithEmail = (props) => {
           let fileName = profileImage.fileName ? profileImage.fileName : moment().unix() + '.jpg'
           const cleanURL = profileImage.uri.replace("file://", "");
 
-          // let imageFile = {
-          //   name: profileImage.fileName,
-          //   type: profileImage.type,
-          //   uri: profileImage.path
-          // }
-
-          let requestData = {
-            language: selectedLanguage,
-            username: userName,
-            email: email,
-            password: password,
-            dob: formatedBirthDate,
-            gender: selectedUserGender.id,
-            sexual_orientation: userSexualOrientation.id,
-            picture: profileImageFile,
-            passions: 1
-          };
-
-          // console.log("requestData", requestData)
-
-          const formData = new FormData();
-          formData.append("language", selectedLanguage);
-          formData.append("username", userName);
-          formData.append("email", email);
-          formData.append("password", password);
-          formData.append("dob", formatedBirthDate);
-          formData.append("gender", selectedUserGender.id);
-          formData.append("sexual_orientation", userSexualOrientation.id);
-          formData.append("picture", { type: profileImage.type, size: profileImage.fileSize, uri: `file://${profileImage.path}`, name: profileImage.fileName }); //Android
-          // formData.append("picture", { type: profileImage.type, size: profileImage.fileSize, uri: `${cleanURL}`, name: fileName }); //iOS
-          formData.append("passions", 1);
-
-          // console.log("formData", formData)
-
-          // fetch(`${apiRoot}/registration`, {
-          //   method: "POST",
-          //   headers: {
-          //     "Content-Type": "multipart/form-data",
-          //     "Accept": "application/json"
-          //   },
-          //   body: formData
-          // }).then((response) => response.json())
-          //   .then((data) => console.log("data", data))
-          //   .catch((error) => console.log("error", error))
+          // let requestData = {
+          //   language: selectedLanguage,
+          //   username: userName,
+          //   email: email,
+          //   password: password,
+          //   dob: formatedBirthDate,
+          //   gender: selectedUserGender.id,
+          //   sexual_orientation: userSexualOrientation.id,
+          //   picture: profileImageFile,
+          //   passions: 1
+          // };
 
           let PATH_TO_THE_FILE = Platform.OS == 'android' ? `file://${profileImage.path}` : profileImage.path;
 
+          setLoading(true);
           RNFetchBlob.fetch('POST', `${apiRoot}/registration`, {
             'Content-Type': 'multipart/form-data',
           }, [
@@ -146,27 +120,42 @@ const RegisterWithEmail = (props) => {
               name: 'picture',
               filename: fileName,
               type: profileImage.type,
-              data: RNFetchBlob.wrap(PATH_TO_THE_FILE)
+              data: RNFetchBlob.wrap(profileImage.uri)
             },
-            { name: 'language', data: 'en' },
-            { name: 'username', data: userName },
-            { name: 'email', data: email },
-            { name: 'password', data: password },
-            { name: 'dob', data: '1990-06-01' },
-            { name: 'gender', data: '1' },
-            { name: 'sexual_orientation', data: '1' },
+            { name: 'language', data: `${selectedLanguage}` },
+            { name: 'username', data: `${userName}` },
+            { name: 'email', data: `${email}` },
+            { name: 'password', data: `${password}` },
+            { name: 'dob', data: `${formatedBirthDate}` },
+            { name: 'gender', data: `${selectedUserGender.id}` },
+            { name: 'sexual_orientation', data: `${userSexualOrientation.id}` },
             { name: 'passions[]', data: '1' },
 
           ]).then(async (resp) => {
-            let parsedData = await JSON.parse(resp.data);
-            console.log("parsedData", parsedData);
-            // if (parsedData.meta.status == 2) {
-            dispatch(showToast('negative', parsedData.meta.message))
-            // }
-            // ...
+            console.log("resp", resp);
+            if (resp && resp.data) {
+              let parsedData = await JSON.parse(resp.data);
+              console.log("parsedData", parsedData);
+              if (parsedData) {
+                if (parsedData.meta && parsedData.meta.status === true) {
+                  dispatch(showToast('positive', parsedData.meta.message));
+                  setStepPosition(0);
+                  navigation.navigate('Login');
+                } else {
+                  dispatch(showToast('negative', parsedData.meta.message));
+                }
+              } else {
+                dispatch(showToast('negative', "Something went wrong! Try again!"))
+              }
+
+            }
+            setLoading(false);
+            // // if (parsedData.meta.status == 2) {
+            // dispatch(showToast('negative', parsedData.meta.message))
+            // // }
           }).catch((err) => {
+            setLoading(false);
             console.log("err", err)
-            // ...
           })
 
           // setLoading(true);
@@ -287,34 +276,35 @@ const RegisterWithEmail = (props) => {
         console.log('ImagePicker Error: ', response.error);
       } else {
         let sourceFull = response;
-        // console.log("sourceFull", sourceFull)
+        console.log("sourceFull", sourceFull)
         // You can also display the image using data:
-        let source = {
-          uri: 'data:image/jpeg;base64,' + response.data
-        };
+        // let source = {
+        //   uri: 'data:image/jpeg;base64,' + response.data
+        // };
         // let source = {
         //   uri: response.uri
         // };
-        setProfileImage(source);
+        setProfileImage(response);
+        setProfileImageFile(response.uri);
 
-        RNFetchBlob.fs.stat(response.path)
-          .then((stats) => {
-            console.log("PATH OF IMAGE...", stats)
-            let filePath = `file://${stats.path}`;
-            if (Platform.OS === 'ios') {
-              let arr = response.uri.split('/')
-              const dirs = RNFetchBlob.fs.dirs
-              filePath = `${dirs.DocumentDir}/${arr[arr.length - 1]}`
-            } else {
-              filePath = `file://${stats.path}`;
-            }
-            setProfileImageFile(filePath);
+        // RNFetchBlob.fs.stat(response.path)
+        //   .then((stats) => {
+        //     console.log("PATH OF IMAGE...", stats)
+        //     let filePath = `file://${stats.path}`;
+        //     if (Platform.OS === 'ios') {
+        //       let arr = response.uri.split('/')
+        //       const dirs = RNFetchBlob.fs.dirs
+        //       filePath = `${dirs.DocumentDir}/${arr[arr.length - 1]}`
+        //     } else {
+        //       filePath = `file://${stats.path}`;
+        //     }
+        //     setProfileImageFile(filePath);
 
-            console.log("filePath", filePath)
-          })
-          .catch((err) => {
-            console.log("PATH ERROR...", err)
-          })
+        //     console.log("filePath", filePath)
+        //   })
+        //   .catch((err) => {
+        //     console.log("PATH ERROR...", err)
+        //   })
 
         // RNFetchBlob.fs.readFile(source.uri, 'base64')
         //   .then(async (data) => {

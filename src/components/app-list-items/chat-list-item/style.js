@@ -27,8 +27,8 @@ export default StyleSheet.create({
       borderColor: Colors.white,
       backgroundColor: isActive ? Colors.ui_user_active : Colors.ui_user_away,
       position: 'absolute',
-      bottom: -2,
-      right: 0
+      bottom: 0,
+      right: 5
     }
   },
 

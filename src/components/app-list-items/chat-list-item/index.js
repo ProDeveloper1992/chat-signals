@@ -24,7 +24,10 @@ export default function ChatListItem({
       onPress={onChatPress}>
       <View style={{ flex: 1, flexDirection: 'row' }}>
         <View style={styles.profileImageContainer}>
-          <CommonImage size={57} source={profileImage} />
+          <CommonImage
+            size={57}
+            borderWidth={0}
+            source={profileImage} />
           <View style={styles.activeStatusCircle(isActive)} />
         </View>
         <View style={styles.userDetailContainer}>
