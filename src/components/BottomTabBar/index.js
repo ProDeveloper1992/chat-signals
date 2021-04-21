@@ -59,16 +59,16 @@ export default function BottomTabBar({ state, descriptors, navigation }) {
 
         const getTabIcon = () => {
           switch (route.name) {
-            case 'FirstTabStack':
+            case 'HomeTabStack':
               return Icons.home;
 
-            case 'SecondTabStack':
+            case 'NotificationTabStack':
               return Icons.notification;
 
-            case 'ThirdTabStack':
+            case 'ChatTabStack':
               return Icons.chat;
 
-            case 'FourthTabStack':
+            case 'BuyCoinsTabStack':
               return Icons.dollar_circle;
 
             default:
@@ -87,7 +87,7 @@ export default function BottomTabBar({ state, descriptors, navigation }) {
             onPress={onPress}
             onLongPress={onLongPress}
             style={{ flex: 1, alignItems: 'center' }}>
-            {route.name === 'FifthTabStack' ? (
+            {route.name === 'UserProfileTabStack' ? (
               <Image
                 source={{ uri: getProfilePicture() }}
                 style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: Colors.grey, borderWidth: 2, borderColor: isFocused ? Colors.black : Colors.white }} />

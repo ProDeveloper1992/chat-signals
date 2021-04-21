@@ -148,7 +148,7 @@ export default function ModeratorProfile(props) {
 
   const onBuyCoinsPress = () => {
     navigation.goBack();
-    navigation.navigate('FourthTabStack')
+    navigation.navigate('BuyCoinsTabStack')
   }
 
   return (

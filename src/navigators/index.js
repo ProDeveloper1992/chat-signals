@@ -10,6 +10,7 @@ import { StatusBar } from 'react-native';
 import { Colors } from '../constants';
 import { useSelector } from 'react-redux';
 import { navigationRef } from './root-navigation';
+import linking from '../utils/linking';
 
 const RootStack = createStackNavigator();
 
@@ -20,7 +21,7 @@ export default function () {
         barStyle={Platform.OS === 'ios' ? 'dark-content' : 'light-content'}
         backgroundColor={Colors.ui_primary}
       />
-      <NavigationContainer ref={navigationRef}>
+      <NavigationContainer ref={navigationRef} linking={linking}>
         <RootStack.Navigator
           initialRouteName={'app-loading-screen'}
           screenOptions={{

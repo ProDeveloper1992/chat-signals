@@ -208,7 +208,7 @@ export default function ChatDetail(props) {
 
   const onBuyCoinsPress = () => {
     navigation.goBack();
-    navigation.navigate('FourthTabStack')
+    navigation.navigate('BuyCoinsTabStack')
   }
 
   const onDeleteConversation = async () => {
