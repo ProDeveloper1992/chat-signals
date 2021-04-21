@@ -48,7 +48,7 @@ function HomeStack() {
   );
 }
 
-function ContactStack() {
+function NotificationTabStack() {
   return (
     <Stack.Navigator
       initialRouteName="Contact"
@@ -105,7 +105,7 @@ const BottomTabNavigator = () => {
 
   return (
     <Tab.Navigator
-      // initialRouteName="FirstTabStack"
+      // initialRouteName="HomeTabStack"
       // tabBarOptions={{
       //   activeTintColor: '#42f44b',
       // }}
@@ -119,35 +119,35 @@ const BottomTabNavigator = () => {
         </>
       )}>
       <Tab.Screen
-        name="FirstTabStack"
+        name="HomeTabStack"
         component={HomeStack}
         options={{
           tabBarLabel: appLabels.home,
         }}
       />
       <Tab.Screen
-        name="SecondTabStack"
-        component={ContactStack}
+        name="NotificationTabStack"
+        component={NotificationTabStack}
         options={{
           tabBarLabel: appLabels.contact,
         }}
       />
       <Tab.Screen
-        name="ThirdTabStack"
+        name="ChatTabStack"
         component={ChatStack}
         options={{
           tabBarLabel: appLabels.chat,
         }}
       />
       <Tab.Screen
-        name="FourthTabStack"
+        name="BuyCoinsTabStack"
         component={CoinPurchaseStack}
         options={{
           tabBarLabel: appLabels.daily_coins,
         }}
       />
       <Tab.Screen
-        name="FifthTabStack"
+        name="UserProfileTabStack"
         // component={CoinPurchaseStack}
         component={UserProfile}
         options={{

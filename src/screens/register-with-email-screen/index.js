@@ -94,7 +94,6 @@ const RegisterWithEmail = (props) => {
         console.log("DOB", formatedBirthDate)
         console.log("profileImage", profileImage)
         try {
-          let fileName = profileImage.fileName ? profileImage.fileName : moment().unix() + '.jpg'
           const cleanURL = profileImage.uri.replace("file://", "");
 
           // let requestData = {
@@ -109,7 +108,8 @@ const RegisterWithEmail = (props) => {
           //   passions: 1
           // };
 
-          let PATH_TO_THE_FILE = Platform.OS == 'android' ? `file://${profileImage.path}` : profileImage.path;
+          let fileName = profileImage.fileName ? profileImage.fileName : moment().unix() + '.jpg'
+          let PATH_TO_THE_FILE = Platform.OS == 'android' ? profileImage.uri : profileImage.origURL;
 
           setLoading(true);
           RNFetchBlob.fetch('POST', `${apiRoot}/registration`, {
@@ -120,7 +120,7 @@ const RegisterWithEmail = (props) => {
               name: 'picture',
               filename: fileName,
               type: profileImage.type,
-              data: RNFetchBlob.wrap(profileImage.uri)
+              data: RNFetchBlob.wrap(PATH_TO_THE_FILE)
             },
             { name: 'language', data: `${selectedLanguage}` },
             { name: 'username', data: `${userName}` },
