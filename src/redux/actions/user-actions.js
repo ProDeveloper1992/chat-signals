@@ -317,7 +317,7 @@ export const getFriendsList = () => (dispatch, getState) =>
       });
   });
 
-//Get Friends
+//Accept or Reject Friend Request
 export const acceptRejectFriendRequest = (friendId, type) => (dispatch, getState) =>
   new Promise(function (resolve, reject) {
     let requestData = {
@@ -329,6 +329,225 @@ export const acceptRejectFriendRequest = (friendId, type) => (dispatch, getState
       .then((res) => {
         if (res.meta.status) {
           dispatch(getFriendsList())
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } });
+        reject(err);
+      });
+  });
+
+//Pending APIS
+
+//Open Gift Box
+export const openGiftBox = () => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      customer_id: userId
+    }
+    client
+      .post(`/open_gift`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } });
+        reject(err);
+      });
+  });
+
+//Create Help and Support Ticket
+export const createHelpTicket = (message) => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      customer_id: userId,
+      // message
+    }
+    client
+      .post(`/create_ticket`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } });
+        reject(err);
+      });
+  });
+
+//Get Kisses list for customer
+export const getKissesList = () => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    const userData = getState().userState.userData;
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      customer_id: userId
+    }
+    client
+      .post(`/get_kisses_list`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } });
+        reject(err);
+      });
+  });
+
+//Get Likes list for customer
+export const getLikesList = () => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    const userData = getState().userState.userData;
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      customer_id: userId
+    }
+    client
+      .post(`/get_likes_list`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } });
+        reject(err);
+      });
+  });
+
+//Get Hearts list for customer
+export const getHeartsList = () => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    const userData = getState().userState.userData;
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      customer_id: userId
+    }
+    client
+      .post(`/get_hearts_list`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } });
+        reject(err);
+      });
+  });
+
+//Get Stickers list for customer
+export const getStickersList = () => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    const userData = getState().userState.userData;
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      customer_id: userId
+    }
+    client
+      .post(`/get_stickers_list`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } });
+        reject(err);
+      });
+  });
+
+//Set Photo as Profile photo
+export const setAsProfilePhoto = (photoId) => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    const userData = getState().userState.userData;
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      customer_id: userId,
+      // photoId
+    }
+    client
+      .post(`/set_profile_photo`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } });
+        reject(err);
+      });
+  });
+
+//Delete Photo from Customer photos
+export const deleteCustomerPhoto = (photoId) => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    const userData = getState().userState.userData;
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      customer_id: userId,
+      // photoId
+    }
+    client
+      .post(`/delete_customer_photo`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } });
+        reject(err);
+      });
+  });
+
+//Delete Customer Account
+export const deleteCustomerAccount = () => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    const userData = getState().userState.userData;
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      customer_id: userId,
+    }
+    client
+      .post(`/delete_customer_account`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
         }
         resolve(res);
       })

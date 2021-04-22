@@ -3,7 +3,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
-#import <Firebase/Firebase.h>
+#import <Firebase.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "RNSplashScreen.h"
 #import <UserNotifications/UserNotifications.h>
@@ -72,7 +72,9 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  [FIRApp configure];
+  if ([FIRApp defaultApp] == nil) {
+    [FIRApp configure];
+  }
   [[FBSDKApplicationDelegate sharedInstance] application:application
   didFinishLaunchingWithOptions:launchOptions];
   [RNSplashScreen show];

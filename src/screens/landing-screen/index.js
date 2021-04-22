@@ -21,7 +21,6 @@ import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 import LandingIntro from '../../assets/images/landing_intro.svg';
 import { RegisterLandingModal } from '../../components/app-modals';
 import { getGenderList, getPassionList, getSexualOrientationList } from '../../redux/actions/app-actions';
-import { configurePushNotification } from '../../services/notification-service';
 
 const LandingScreen = (props) => {
   const { navigation } = props;
@@ -60,8 +59,7 @@ const LandingScreen = (props) => {
 
   const onRegister = () => {
     // setRegisterLandingModalVisible(true);
-    // navigation.navigate('RegisterWithEmail');
-    configurePushNotification();
+    navigation.navigate('RegisterWithEmail');
   };
 
   const onLogin = () => {

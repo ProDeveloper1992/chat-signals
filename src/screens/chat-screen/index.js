@@ -28,25 +28,6 @@ const Chat = () => {
   const { appLabels } = useSelector((state) => state.appState);
 
   useEffect(() => {
-    // Pusher.logToConsole = true;
-
-    // var pusher = new Pusher('2550b11480f5cba62c1e', {
-    //   authEndpoint: 'http://url.com/api/authtest',
-    //   auth: {
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Authorization': 'Bearer ' + authToken
-    //     }
-    //   },
-    //   cluster: 'ap2',
-    //   encrypted: true
-    // });
-
-    // var pusher = new Pusher(pusherConfig.key, pusherConfig);
-
-    // pusher.connection.bind('connected', function () {
-    // alert('pusher connected');
-    // });
 
     // var channel = pusher.subscribe('private-chatify');
     // channel.bind('pusher:subscription_error', function (err) {
@@ -75,6 +56,25 @@ const Chat = () => {
 
     if (isFocused) {
       dispatch(getUserChatList());
+
+      // Pusher.logToConsole = true;
+
+      // var pusher = new Pusher('2550b11480f5cba62c1e', {
+      //   auth: '2550b11480f5cba62c1e:c0dc8839313f5ec5a8ddade35c5ce5b77e046b288c548aa391c1a192f9afced7',
+      //   cluster: 'ap2',
+      //   encrypted: true
+      // });
+
+      var pusher = new Pusher(pusherConfig.key, pusherConfig);
+
+      pusher.connection.bind('connected', function (data) {
+        console.log('pusher connected');
+        console.log('pusher data', data);
+        // pusher.allChannels().forEach(channel => console.log("channel.name", channel.name));
+        // const channel = pusher.subscribe('private-chatify');
+        // console.log("channel", channel)
+      });
+
     }
   }, [isFocused]);
 

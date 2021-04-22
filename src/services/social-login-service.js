@@ -12,9 +12,9 @@ import { loginWithSocialMedia } from "../redux/actions/user-actions";
 
 export const loginWithGoogle = async () => {
     await GoogleSignin.configure({
-        scopes: ['https://www.googleapis.com/auth/drive.readonly'],
         webClientId:
             '621048235124-rfcui16pf4g76mo2vm0ijbr3frjnkqqd.apps.googleusercontent.com',
+        forceConsentPrompt: false,
     });
     const isSignedIn = await GoogleSignin.isSignedIn();
     if (isSignedIn) {
