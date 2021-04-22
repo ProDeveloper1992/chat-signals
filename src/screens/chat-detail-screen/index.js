@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import { Keyboard, View, TouchableWithoutFeedback, FlatList, TouchableOpacity, ScrollView, Platform, KeyboardAvoidingView, ActivityIndicator } from 'react-native';
 import { ChatDetailHeader } from '../../components/Headers';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
@@ -17,6 +17,7 @@ import { GET_CHAT_CONVERSATION_SUCCESS } from '../../redux/actions/types';
 import RNFetchBlob from 'rn-fetch-blob'
 import { apiRoot } from '../../services/api-service';
 import { blockModerator } from '../../redux/actions/flirts-actions';
+import moment from 'moment';
 
 var RNFS = require('react-native-fs');
 
@@ -48,6 +49,7 @@ export default function ChatDetail(props) {
   const [isDeletingConversation, setIsDeletingConversation] = useState(false);
   const [isBlockingUser, setIsBlockingUser] = useState(false);
 
+  const conversationLength = messages.length;
 
   useEffect(() => {
     dispatch(ActionDispatcher(GET_CHAT_CONVERSATION_SUCCESS, []));
@@ -226,6 +228,24 @@ export default function ChatDetail(props) {
     setIsBlockUserModalVisible(false);
     setModeratorDetailVisible(false);
   }
+
+  const getMessageDay = (date) => {
+    const today = new Date();
+    const yesterday = new Date();
+    yesterday.setDate(today.getDate() - 1);
+    const msgDate = new Date(date);
+    if (
+      today.getDate() === msgDate.getDate() &&
+      today.getMonth() === today.getMonth()
+    )
+      return 'Today';
+    if (
+      yesterday.getDate() === msgDate.getDate() &&
+      yesterday.getMonth() === msgDate.getMonth()
+    )
+      return 'Yesterday';
+    return moment(msgDate).format('MM/DD');
+  };
 
   return (
     <KeyboardAvoidingView
