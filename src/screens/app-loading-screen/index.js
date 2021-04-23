@@ -31,7 +31,7 @@ const AppLoading = (props) => {
   return (
     <AuthContainer gradientBackground>
       <View style={[styles.container, { backgroundColor: 'transparent' }]}>
-        <Image style={[globalStyle.logo, { tintColor: Colors.white }]} source={Images.app_logo} />
+        <Image style={[globalStyle.logo, { tintColor: Colors.black }]} source={Images.app_logo} />
       </View>
       <View style={styles.bottomContainer}>
         <ActivityIndicator size={'large'} color={Colors.white} />

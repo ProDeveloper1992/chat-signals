@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@invertase/react-native-apple-authentication": "^2.1.2",
     "@react-native-community/async-storage": "^1.11.0",
     "@react-native-community/datetimepicker": "^3.4.3",
     "@react-native-community/masked-view": "^0.1.10",
@@ -37,6 +38,7 @@
     "react-native-fs": "^2.17.0",
     "react-native-gallery-swiper": "^1.26.4",
     "react-native-gesture-handler": "^1.7.0",
+    "react-native-get-random-values": "^1.7.0",
     "react-native-google-signin": "^2.1.1",
     "react-native-image-picker": "^2.3.4",
     "react-native-ionicons": "^4.6.5",
@@ -65,7 +67,8 @@
     "rn-fetch-blob": "^0.12.0",
     "rn-range-slider": "^2.0.4",
     "rn-viewpager": "^1.2.9",
-    "styled-components": "^5.2.0"
+    "styled-components": "^5.2.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/core": "7.10.5",
