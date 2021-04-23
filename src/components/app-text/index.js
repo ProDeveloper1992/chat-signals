@@ -2,27 +2,7 @@ import styled from 'styled-components/native';
 import { Colors } from '../../constants';
 import PropTypes from 'prop-types';
 import { Platform } from 'react-native';
-
-const getFontFamily = (type) => {
-  switch (type) {
-    case 'regular':
-      return 'Poppins-Regular';
-    case 'medium':
-      return 'Poppins-Medium';
-    case 'bold':
-      return 'Poppins-Bold';
-    case 'heavy':
-      return 'Poppins-Black';
-    case 'light':
-      return 'Poppins-Light';
-    case 'bold-italic':
-      return 'Poppins-BoldItalic';
-    case 'black-italic':
-      return 'Poppins-BlackItalic';
-    default:
-      return 'Poppins-Regular';
-  }
-};
+import { getFontFamily } from '../../utils/common';
 
 export const AppText = styled.Text`
   font-size: ${(props) => props.size}px;

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   View,
   Image,
   ScrollView,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import {
   TextButton,
@@ -15,6 +16,11 @@ import {
   IconButton,
 } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
+import appleAuth, {
+  AppleButton,
+  appleAuthAndroid
+} from "@invertase/react-native-apple-authentication";
+import 'react-native-get-random-values';
 
 import { AppButton } from '../../components';
 import { Images, mailformat, Color, Gifs, Icons, Colors } from '../../constants';
@@ -22,9 +28,10 @@ import { globalStyle } from '../../styles/global-style';
 import { loginUser } from '../../redux/actions/user-actions';
 import GoogleIcon from '../../assets/icons/google.svg';
 import FacebookIcon from '../../assets/icons/facebook.svg';
-import { loginWithFacebook, loginWithGoogle } from '../../services/social-login-service';
+import { fetchAndUpdateCredentialState, loginWithFacebook, loginWithGoogle, onAppleLoginForAndroid, onAppleLoginForiOS } from '../../services/social-login-service';
 import { ForgotPasswordModal } from '../../components/app-modals';
-import { EmailIcon, PasswordIcon, EyeCloseIcon, EyeOpenIcon } from '../../constants/svg-icons';
+import { EmailIcon, PasswordIcon, EyeCloseIcon, EyeOpenIcon, AppleLogoIcon } from '../../constants/svg-icons';
+import { getFontFamily } from '../../utils/common';
 
 const LoginScreen = (props) => {
   const { navigation } = props;
@@ -43,6 +50,27 @@ const LoginScreen = (props) => {
   const [googleLoginLoading, setGoogleLoginLoading] = useState(false);
   const [facebookLoginLoading, setFacebookLoginLoading] = useState(false);
   const [forgotPasswordModalVisible, setForgotPasswordModalVisible] = useState(false);
+
+  const [credentialStateForUser, updateCredentialStateForUser] = useState(-1);
+  useEffect(() => {
+    if (!appleAuth.isSupported) return;
+
+    fetchAndUpdateCredentialState(updateCredentialStateForUser).catch(error =>
+      updateCredentialStateForUser(`Error: ${error.code}`),
+    );
+  }, []);
+
+  useEffect(() => {
+    if (!appleAuth.isSupported) return;
+
+    return appleAuth.onCredentialRevoked(async () => {
+      console.warn('Credential Revoked');
+      fetchAndUpdateCredentialState(updateCredentialStateForUser).catch(error =>
+        updateCredentialStateForUser(`Error: ${error.code}`),
+      );
+    });
+  }, []);
+
 
   const onLoginPress = async () => {
     let isValid = true;
@@ -173,6 +201,31 @@ const LoginScreen = (props) => {
               onPress={onGoogleIconPress}
               loading={googleLoginLoading}
             />
+            <View style={{ marginTop: 15 }} />
+            {Platform.OS == 'android' ? (
+              <View>
+                {appleAuthAndroid.isSupported && (
+                  <AppleButton
+                    style={styles.appleLoginButton}
+                    cornerRadius={43}
+                    buttonStyle={AppleButton.Style.WHITE_OUTLINE}
+                    buttonType={AppleButton.Type.SIGN_IN}
+                    onPress={() => onAppleLoginForAndroid()}
+                    textStyle={styles.appleLoginButtonTitle}
+                    leftView={<AppleLogoIcon width={30} height={30} />}
+                  />
+                )}
+              </View>
+            ) : (
+              <AppleButton
+                style={styles.appleButtoniOS}
+                cornerRadius={43}
+                buttonStyle={AppleButton.Style.WHITE_OUTLINE}
+                buttonType={AppleButton.Type.SIGN_IN}
+                textStyle={styles.appleLoginButtonTitle}
+                onPress={() => onAppleLoginForiOS(updateCredentialStateForUser)}
+              />
+            )}
 
             <TextButton
               style={{ alignSelf: 'center', marginTop: 10 }}
@@ -210,6 +263,24 @@ const styles = StyleSheet.create({
   loginButton: {
     marginTop: 10,
   },
+  appleLoginButton: {
+    width: "100%",
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    paddingHorizontal: 15,
+    borderColor: Colors.greydark,
+    borderWidth: 1.5
+  },
+  appleLoginButtonTitle: {
+    flex: 1,
+    fontFamily: getFontFamily('medium'),
+    color: Colors.greydark,
+    alignSelf: 'center',
+    textAlign: 'center'
+  },
+  appleButtoniOS: {
+    height: 45,
+  }
 });
 
 export default LoginScreen;

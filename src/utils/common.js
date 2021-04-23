@@ -25,3 +25,24 @@ export function getRemainingTime(end, current) {
 
   return remainingSeconds;
 }
+
+export const getFontFamily = (type) => {
+  switch (type) {
+    case 'regular':
+      return 'Poppins-Regular';
+    case 'medium':
+      return 'Poppins-Medium';
+    case 'bold':
+      return 'Poppins-Bold';
+    case 'heavy':
+      return 'Poppins-Black';
+    case 'light':
+      return 'Poppins-Light';
+    case 'bold-italic':
+      return 'Poppins-BoldItalic';
+    case 'black-italic':
+      return 'Poppins-BlackItalic';
+    default:
+      return 'Poppins-Regular';
+  }
+};

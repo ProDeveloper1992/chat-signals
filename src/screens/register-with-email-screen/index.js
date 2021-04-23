@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, ScrollView, TouchableOpacity, ImageBackground, Platform } from 'react-native';
-import StepIndicator from 'react-native-step-indicator';
 import { useDispatch, useSelector } from 'react-redux';
 import ImagePicker from 'react-native-image-picker';
 import moment from 'moment';
-import axios from 'axios';
-import RNFetchBlob from 'rn-fetch-blob'
+import RNFetchBlob from 'rn-fetch-blob';
+import appleAuth, {
+  AppleButton,
+  appleAuthAndroid
+} from "@invertase/react-native-apple-authentication";
+import 'react-native-get-random-values';
 
 
 import {
@@ -28,12 +31,10 @@ import { toggleAddPassionsModal, toggleMoreGenderModal, toggleSexualOrientationM
 
 import GoogleIcon from '../../assets/icons/google.svg';
 import FacebookIcon from '../../assets/icons/facebook.svg';
-import { loginWithFacebook, loginWithGoogle } from '../../services/social-login-service';
+import { fetchAndUpdateCredentialState, loginWithFacebook, loginWithGoogle, onAppleLoginForAndroid, onAppleLoginForiOS } from '../../services/social-login-service';
 import { apiRoot } from '../../services/api-service';
 import { showToast } from '../../redux/actions/app-actions';
-
-var RNFS = require('react-native-fs');
-var atob = require('atob');
+import { getFontFamily } from '../../utils/common';
 
 const RegisterWithEmail = (props) => {
   const { navigation } = props;
@@ -67,8 +68,26 @@ const RegisterWithEmail = (props) => {
   const [profileImageFile, setProfileImageFile] = useState(null);
 
 
+  const [credentialStateForUser, updateCredentialStateForUser] = useState(-1);
   useEffect(() => {
-  }, [])
+    if (!appleAuth.isSupported) return;
+
+    fetchAndUpdateCredentialState(updateCredentialStateForUser).catch(error =>
+      updateCredentialStateForUser(`Error: ${error.code}`),
+    );
+  }, []);
+
+  useEffect(() => {
+    if (!appleAuth.isSupported) return;
+
+    return appleAuth.onCredentialRevoked(async () => {
+      console.warn('Credential Revoked');
+      fetchAndUpdateCredentialState(updateCredentialStateForUser).catch(error =>
+        updateCredentialStateForUser(`Error: ${error.code}`),
+      );
+    });
+  }, []);
+
 
   const onRegisterUser = async () => {
     if (stepPosition == 0) {
@@ -286,62 +305,9 @@ const RegisterWithEmail = (props) => {
         // };
         setProfileImage(response);
         setProfileImageFile(response.uri);
-
-        // RNFetchBlob.fs.stat(response.path)
-        //   .then((stats) => {
-        //     console.log("PATH OF IMAGE...", stats)
-        //     let filePath = `file://${stats.path}`;
-        //     if (Platform.OS === 'ios') {
-        //       let arr = response.uri.split('/')
-        //       const dirs = RNFetchBlob.fs.dirs
-        //       filePath = `${dirs.DocumentDir}/${arr[arr.length - 1]}`
-        //     } else {
-        //       filePath = `file://${stats.path}`;
-        //     }
-        //     setProfileImageFile(filePath);
-
-        //     console.log("filePath", filePath)
-        //   })
-        //   .catch((err) => {
-        //     console.log("PATH ERROR...", err)
-        //   })
-
-        // RNFetchBlob.fs.readFile(source.uri, 'base64')
-        //   .then(async (data) => {
-        //     console.log("RNFetchBlob URI:", data)
-        //   })
-
-        // var bin = await atob(response.data);
-        // setProfileImageFile(response.data)
-        // console.log("binary data", bin)
-
-        // const binary_data = await convertDataURIToBinary(response.data);
-        // console.log("binary_data", binary_data)
-
-        // RNFS.readFile(response.uri, "base64").then(data => {
-        //   // binary data
-        //   // console.log("RNFS data", data);
-        //   setProfileImageFile(data)
-        // });
       }
     });
   }
-
-
-
-  // const convertDataURIToBinary = (dataURI) => {
-  //   var BASE64_MARKER = ';base64,';
-  //   var base64Index = dataURI.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
-  //   var base64 = dataURI.substring(base64Index);
-  //   var raw = window.atob(base64);
-  //   var rawLength = raw.length;
-  //   var array = new Uint8Array(new ArrayBuffer(rawLength));
-
-  //   for (i = 0; i < rawLength; i++) {
-  //     array[i] = raw.charCodeAt(i);
-  //   }
-  //   return array;
-  // }
 
   const onShowAddPassionsModal = () => {
     dispatch(toggleAddPassionsModal(true));
@@ -422,6 +388,31 @@ const RegisterWithEmail = (props) => {
               icon={<GoogleIcon width={30} height={30} />}
               onPress={onGoogleIconPress}
             />
+            <View style={{ marginTop: 15 }} />
+            {Platform.OS == 'android' ? (
+              <View>
+                {appleAuthAndroid.isSupported && (
+                  <AppleButton
+                    style={styles.appleLoginButton}
+                    cornerRadius={43}
+                    buttonStyle={AppleButton.Style.WHITE_OUTLINE}
+                    buttonType={AppleButton.Type.SIGN_IN}
+                    onPress={() => onAppleLoginForAndroid()}
+                    textStyle={styles.appleLoginButtonTitle}
+                    leftView={<AppleLogoIcon width={30} height={30} />}
+                  />
+                )}
+              </View>
+            ) : (
+              <AppleButton
+                style={styles.appleButtoniOS}
+                cornerRadius={43}
+                buttonStyle={AppleButton.Style.WHITE_OUTLINE}
+                buttonType={AppleButton.Type.SIGN_IN}
+                textStyle={styles.appleLoginButtonTitle}
+                onPress={() => onAppleLoginForiOS(updateCredentialStateForUser)}
+              />
+            )}
 
             <TextButton
               style={{ alignSelf: 'center' }}
@@ -560,28 +551,12 @@ const RegisterWithEmail = (props) => {
 
   return (
     <AuthContainer>
-      {/* <BackHeader
-        onBackPress={() => onBackPress()}
-      /> */}
-      {/* <StepIndicator
-        stepCount={stepCount}
-        customStyles={stepIndicatorStyle}
-        currentPosition={stepPosition}
-        labels={labels}
-      /> */}
       <View style={styles.container}>
         <ScrollView
           contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
           showsVerticalScrollIndicator={false}>
           <View style={{ flex: 1, justifyContent: 'center' }}>{renderPage()}</View>
         </ScrollView>
-        {/* <AppButton
-          // disabled={postalCode.trim() === ''}
-          title={stepPosition == 0 ? appLabels.next : appLabels.register}
-          style={{ marginVertical: 20 }}
-          onPress={() => onBottomButtonPress()}
-          loading={loading}
-        /> */}
       </View>
     </AuthContainer>
   );
@@ -659,6 +634,24 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 4,
+  },
+  appleLoginButton: {
+    width: "100%",
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    paddingHorizontal: 15,
+    borderColor: Colors.greydark,
+    borderWidth: 1.5
+  },
+  appleLoginButtonTitle: {
+    flex: 1,
+    fontFamily: getFontFamily('medium'),
+    color: Colors.greydark,
+    alignSelf: 'center',
+    textAlign: 'center'
+  },
+  appleButtoniOS: {
+    height: 45,
   }
 });
 
