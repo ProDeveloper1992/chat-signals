@@ -44,7 +44,7 @@ function FriendItemMenu({ onSelectOption }) {
     return (
         <Menu
             ref={setMenuRef}
-            style={{ marginTop: 50 }}
+            style={{ marginTop: 50, borderRadius: 11 }}
             button={
                 <TouchableOpacity onPress={showMenu} style={{ paddingTop: 20 }}>
                     <DotsCircleIcon />

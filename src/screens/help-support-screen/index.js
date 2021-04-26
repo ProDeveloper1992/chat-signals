@@ -7,6 +7,7 @@ import { getHelpTicketList, showToast } from '../../redux/actions/app-actions';
 import { AppButton, AppDropDown, AppText, AuthInput, BackHeader, HelpTicketMenu } from '../../components';
 import { Colors } from '../../constants';
 import styles from './style';
+import { createHelpTicket } from '../../redux/actions/user-actions';
 
 export default function HelpAndSupport(props) {
 
@@ -14,8 +15,9 @@ export default function HelpAndSupport(props) {
     const navigation = useNavigation();
 
     const { userData, friendsList } = useSelector((state) => state.userState);
-    const { appLabels, helpTicketList } = useSelector((state) => state.appState);
+    const { appLabels, helpTicketList, selectedLanguage } = useSelector((state) => state.appState);
 
+    const [creatingTicket, setCreatingTicket] = useState(false);
     const [selectedTicket, setSelectedTicket] = useState(null);
     const [additionalMessage, setAdditionalMessage] = useState('');
     const [additionalMessageError, setAdditionalMessageError] = useState(null);
@@ -32,7 +34,7 @@ export default function HelpAndSupport(props) {
         setSelectedTicket(ticket);
     }
 
-    const onSubmitPress = () => {
+    const onSubmitPress = async () => {
         let isValid = true;
         if (selectedTicket != null) {
             isValid = true;
@@ -50,7 +52,21 @@ export default function HelpAndSupport(props) {
         }
 
         if (isValid) {
-            // alert('valid');
+            setCreatingTicket(true);
+            let requestData = {
+                name: userData.username,
+                email: userData.email,
+                user_id: userData.id,
+                ticket_category_id: selectedTicket.id,
+                message: additionalMessage,
+                agree: 'on',
+                language: selectedLanguage
+            }
+
+            console.log(requestData)
+            await dispatch(createHelpTicket(requestData));
+            setCreatingTicket(false);
+            navigation.goBack();
         }
     }
 
@@ -85,6 +101,7 @@ export default function HelpAndSupport(props) {
                     disabled={selectedTicket == null}
                     title={"Submit"}
                     onPress={onSubmitPress}
+                    loading={creatingTicket}
                 />
             </View>
         </View>

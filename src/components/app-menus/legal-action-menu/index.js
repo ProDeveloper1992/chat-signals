@@ -30,7 +30,7 @@ function LegalActionMenu({ onSelectAction, actions }) {
     return (
         <Menu
             ref={setMenuRef}
-            style={{ marginTop: 30 }}
+            style={{ marginTop: 30, borderRadius: 11 }}
             button={
                 <TouchableOpacity onPress={showMenu}>
                     <DotsCircleIcon />
@@ -46,7 +46,9 @@ function LegalActionMenu({ onSelectAction, actions }) {
                             <AppText type={'medium'} style={{ marginStart: 5 }}>{option.title}</AppText>
                         </View>
                     </MenuItem>
-                    <MenuDivider />
+                    {optionIndex != actions.length - 1 && (
+                        <MenuDivider />
+                    )}
                 </View>
             })}
         </Menu>

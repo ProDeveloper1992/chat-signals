@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import CountDown from 'react-native-countdown-component';
 
@@ -7,7 +7,7 @@ import { AppText } from '..';
 import { Colors } from '../../constants';
 import { GiftBoxIcon } from '../../constants/svg-icons';
 import { toggleCoinsEarningModal } from '../../redux/actions/app-modals-actions';
-import { userProfileDetail } from '../../redux/actions/user-actions';
+import { openGiftBox, userProfileDetail } from '../../redux/actions/user-actions';
 import { getRemainingTime } from '../../utils/common';
 
 export default function AppGiftBadge() {
@@ -17,14 +17,18 @@ export default function AppGiftBadge() {
     const { userData } = useSelector((state) => state.userState);
 
     const [isOpened, setIsOpened] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const onBadgePress = () => {
         setIsOpened(!isOpened);
     }
 
-    const onOpenCoinsEarningModal = () => {
-        dispatch(toggleCoinsEarningModal(true));
-        setIsOpened(false)
+    const onOpenGiftBox = async () => {
+        // dispatch(toggleCoinsEarningModal(true));
+        setLoading(true);
+        await dispatch(openGiftBox());
+        setLoading(false);
+        setIsOpened(false);
     }
 
     const onFinishTimer = () => {
@@ -45,12 +49,19 @@ export default function AppGiftBadge() {
                     <View style={{ flexDirection: 'row' }}>
                         <View>
                             {getRemainingTime(userData.last_date_bonus_card, new Date()) <= 0 ? (
-                                <AppText
-                                    type={'bold'}
-                                    size={14}
-                                    onPress={onOpenCoinsEarningModal}
-                                    style={{ marginStart: 5 }}
-                                    color={Colors.ui_primary}>{"Open Now!"}</AppText>
+                                <View>
+                                    {loading ? (
+                                        <ActivityIndicator
+                                            size={'small'}
+                                            color={Colors.ui_primary} />) : (
+                                        <AppText
+                                            type={'bold'}
+                                            size={14}
+                                            onPress={onOpenGiftBox}
+                                            style={{ marginStart: 5 }}
+                                            color={Colors.ui_primary}>{"Open Now!"}</AppText>
+                                    )}
+                                </View>
                             ) : (
                                 <CountDown
                                     until={getRemainingTime(userData.last_date_bonus_card, new Date())}

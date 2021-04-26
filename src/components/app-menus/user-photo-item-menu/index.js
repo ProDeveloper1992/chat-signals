@@ -24,10 +24,12 @@ function UserPhotoItemMenu({ onSelectOption }) {
     const Options = [
         {
             id: 1,
+            type: 'set_profile',
             title: "Set as profile photo",
         },
         {
             id: 2,
+            type: 'delete',
             title: "Delete photo",
         }
     ];
@@ -45,7 +47,7 @@ function UserPhotoItemMenu({ onSelectOption }) {
         <Menu
             ref={setMenuRef}
             onHidden={() => setIsVisible(false)}
-            style={{ marginTop: 30 }}
+            style={{ marginTop: 30, borderRadius: 11 }}
             button={
                 <View>
                     {isVisible ? (
@@ -71,7 +73,9 @@ function UserPhotoItemMenu({ onSelectOption }) {
                             <AppText type={'medium'} style={{ marginStart: 5 }}>{option.title}</AppText>
                         </View>
                     </MenuItem>
-                    <MenuDivider color={Colors.grey} />
+                    {optionIndex != Options.length - 1 && (
+                        <MenuDivider color={Colors.grey} />
+                    )}
                 </View>
             })}
         </Menu>

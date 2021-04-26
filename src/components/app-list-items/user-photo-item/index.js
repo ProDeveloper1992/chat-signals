@@ -1,19 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import FastImage from 'react-native-fast-image';
+import { useDispatch } from 'react-redux';
 
-import { UserPhotoItemMenu } from '../..';
+import { AppIndicatorLoader, UserPhotoItemMenu } from '../..';
+import { Colors } from '../../../constants';
+import { deleteCustomerPhoto } from '../../../redux/actions/user-actions';
 import styles from './style'
 
 export default function UserPhotoItem({ item }) {
 
-    const onSelectOption = (option) => {
+    const dispatch = useDispatch();
 
+    const [loading, setLoading] = useState(false);
+
+    const onSelectOption = async (option) => {
+        switch (option.type) {
+            case 'delete':
+                setLoading(true);
+                await dispatch(deleteCustomerPhoto(item.id));
+                setLoading(false);
+                break;
+            case 'set_profile':
+                // alert(option.title)
+                break;
+
+            default:
+                break;
+        }
     }
 
     return (
-        <View
-            style={styles.container}>
+        <View style={styles.container} pointerEvents={loading ? 'none' : 'auto'}>
             <FastImage
                 style={{ height: '100%', width: '100%', borderRadius: 5 }}
                 source={{
@@ -22,9 +40,15 @@ export default function UserPhotoItem({ item }) {
                 }}
                 resizeMode={FastImage.resizeMode.cover}
             >
-                <View style={{ alignSelf: 'flex-end', padding: 14 }}>
-                    <UserPhotoItemMenu onSelectOption={onSelectOption} />
-                </View>
+                {loading ? (
+                    <AppIndicatorLoader />
+                ) : (
+                    <View style={{ alignSelf: 'flex-end', padding: 14 }}>
+                        <View style={{ backgroundColor: Colors.black_30, borderRadius: 12 }}>
+                            <UserPhotoItemMenu onSelectOption={onSelectOption} />
+                        </View>
+                    </View>
+                )}
             </FastImage>
         </View>
     )

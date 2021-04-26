@@ -33,7 +33,7 @@ function HelpTicketMenu({ onSelectOption }) {
     return (
         <Menu
             ref={setMenuRef}
-            style={{ width: '88%', marginTop: 100, marginStart: 2 }}
+            style={{ width: '88%', marginTop: 100, marginStart: 2, borderRadius: 11 }}
             button={
                 <AppDropDown title={"Subject"} value={selectedOption.name} onPress={showMenu} />
             }
@@ -46,7 +46,9 @@ function HelpTicketMenu({ onSelectOption }) {
                             <AppText type={'medium'} style={{ marginStart: 5 }}>{option.name}</AppText>
                         </View>
                     </MenuItem>
-                    <MenuDivider />
+                    {optionIndex != helpTicketList.length - 1 && (
+                        <MenuDivider />
+                    )}
                 </View>
             })}
         </Menu>
