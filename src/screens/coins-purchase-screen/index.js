@@ -45,7 +45,6 @@ const CoinPurchase = () => {
         }
       }
     } else {
-      dispatch(ActionDispatcher(GET_PAYMENT_MODULE_SUCCESS, []));
       setSelectedPaymentGateway(null);
     }
   }, [isFocused]);

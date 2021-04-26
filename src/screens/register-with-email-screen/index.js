@@ -25,7 +25,7 @@ import {
   GenderItem,
 } from '../../components';
 import { mailformat, Colors, Images } from '../../constants';
-import { EmailIcon, PasswordIcon, ProfileIcon, CameraIcon, EditPenCircleIcon, EyeCloseIcon, EyeOpenIcon } from '../../constants/svg-icons';
+import { EmailIcon, PasswordIcon, ProfileIcon, CameraIcon, EditPenCircleIcon, EyeCloseIcon, EyeOpenIcon, AppleLogoIcon } from '../../constants/svg-icons';
 import { registerUser, setSelectedGender, setSelectedLookingGender } from '../../redux/actions/user-actions';
 import { toggleAddPassionsModal, toggleMoreGenderModal, toggleSexualOrientationModal } from '../../redux/actions/app-modals-actions';
 

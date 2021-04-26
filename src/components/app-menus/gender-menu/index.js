@@ -34,7 +34,7 @@ function GenderMenu({ onSelectGender, label }) {
     return (
         <Menu
             ref={setMenuRef}
-            style={{ width: '89%', marginTop: 100 }}
+            style={{ width: '89%', marginTop: 100, borderRadius: 11 }}
             button={<AppDropDown
                 title={label}
                 value={selectedGender.name}

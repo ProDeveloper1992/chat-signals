@@ -20,7 +20,10 @@ import {
   GET_FRIENDS_LIST_SUCCESS,
   GET_CHAT_CONVERSATION_FAILED,
   GET_CHAT_CONVERSATION_REQUEST,
-  GET_CHAT_CONVERSATION_SUCCESS
+  GET_CHAT_CONVERSATION_SUCCESS,
+  GET_CUSTOMER_LIKES_SUCCESS,
+  GET_CUSTOMER_KISSES_SUCCESS,
+  GET_CUSTOMER_HEARTS_SUCCESS,
 } from './types';
 import { client } from '../../services/api-service';
 import { showToast } from './app-actions';
@@ -343,6 +346,7 @@ export const acceptRejectFriendRequest = (friendId, type) => (dispatch, getState
 //Open Gift Box
 export const openGiftBox = () => (dispatch, getState) =>
   new Promise(function (resolve, reject) {
+    const userData = getState().userState.userData;
     let userId = null;
     if (userData) {
       userId = userData.id;
@@ -351,9 +355,13 @@ export const openGiftBox = () => (dispatch, getState) =>
       customer_id: userId
     }
     client
-      .post(`/open_gift`, requestData)
+      .post(`/open_gift_box`, requestData)
       .then((res) => {
         if (res.meta.status) {
+          dispatch(showToast('positive', res.meta.message));
+          dispatch(userProfileDetail());
+        } else {
+          dispatch(showToast('negative', res.meta.message));
         }
         resolve(res);
       })
@@ -364,20 +372,15 @@ export const openGiftBox = () => (dispatch, getState) =>
   });
 
 //Create Help and Support Ticket
-export const createHelpTicket = (message) => (dispatch, getState) =>
+export const createHelpTicket = (requestData) => (dispatch, getState) =>
   new Promise(function (resolve, reject) {
-    let userId = null;
-    if (userData) {
-      userId = userData.id;
-    }
-    let requestData = {
-      customer_id: userId,
-      // message
-    }
     client
       .post(`/create_ticket`, requestData)
       .then((res) => {
         if (res.meta.status) {
+          dispatch(showToast('positive', res.meta.message));
+        } else {
+          dispatch(showToast('negative', res.meta.message));
         }
         resolve(res);
       })
@@ -399,9 +402,10 @@ export const getKissesList = () => (dispatch, getState) =>
       customer_id: userId
     }
     client
-      .post(`/get_kisses_list`, requestData)
+      .post(`/customer_kiss_list`, requestData)
       .then((res) => {
         if (res.meta.status) {
+          dispatch(ActionDispatcher(GET_CUSTOMER_KISSES_SUCCESS, res.data));
         }
         resolve(res);
       })
@@ -423,9 +427,10 @@ export const getLikesList = () => (dispatch, getState) =>
       customer_id: userId
     }
     client
-      .post(`/get_likes_list`, requestData)
+      .post(`/customer_like_list`, requestData)
       .then((res) => {
         if (res.meta.status) {
+          dispatch(ActionDispatcher(GET_CUSTOMER_LIKES_SUCCESS, res.data));
         }
         resolve(res);
       })
@@ -447,9 +452,10 @@ export const getHeartsList = () => (dispatch, getState) =>
       customer_id: userId
     }
     client
-      .post(`/get_hearts_list`, requestData)
+      .post(`/customer_heart_list`, requestData)
       .then((res) => {
         if (res.meta.status) {
+          dispatch(ActionDispatcher(GET_CUSTOMER_HEARTS_SUCCESS, res.data));
         }
         resolve(res);
       })
@@ -518,16 +524,21 @@ export const deleteCustomerPhoto = (photoId) => (dispatch, getState) =>
     }
     let requestData = {
       customer_id: userId,
-      // photoId
+      id: photoId
     }
     client
-      .post(`/delete_customer_photo`, requestData)
+      .post(`/customer_delete_photo`, requestData)
       .then((res) => {
         if (res.meta.status) {
+          dispatch(showToast('positive', res.meta.message));
+          dispatch(userProfileDetail());
+        } else {
+          dispatch(showToast('positive', res.meta.message));
         }
         resolve(res);
       })
       .catch((err) => {
+        dispatch(showToast('positive', "Something went wrong! Try again!"));
         resolve({ meta: { status: false } });
         reject(err);
       });

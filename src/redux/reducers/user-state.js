@@ -15,7 +15,10 @@ import {
   SET_USER_COUNTRY,
   SET_USER_PASSIONS,
   SET_SEXUAL_ORIENTATION,
-  GET_FRIENDS_LIST_SUCCESS
+  GET_FRIENDS_LIST_SUCCESS,
+  GET_CUSTOMER_LIKES_SUCCESS,
+  GET_CUSTOMER_KISSES_SUCCESS,
+  GET_CUSTOMER_HEARTS_SUCCESS
 } from '../actions/types';
 
 const initialState = {
@@ -28,6 +31,9 @@ const initialState = {
   loadingChatList: false,
   userPassions: [],
   friendsList: [],
+  customerLikesList: [],
+  customerKissesList: [],
+  customerHeartsList: [],
   userSexualOrientation: {
     id: 1,
     deleted_at: null,
@@ -207,6 +213,27 @@ export default function (state = initialState, action) {
       return {
         ...state,
         friendsList: action.payload
+      }
+
+    case GET_CUSTOMER_LIKES_SUCCESS:
+      console.log("GET_CUSTOMER_LIKES_SUCCESS", action.payload)
+      return {
+        ...state,
+        customerLikesList: action.payload
+      };
+
+    case GET_CUSTOMER_KISSES_SUCCESS:
+      console.log("GET_CUSTOMER_KISSES_SUCCESS", action.payload)
+      return {
+        ...state,
+        customerKissesList: action.payload
+      };
+
+    case GET_CUSTOMER_HEARTS_SUCCESS:
+      console.log("GET_CUSTOMER_HEARTS_SUCCESS", action.payload)
+      return {
+        ...state,
+        customerHeartsList: action.payload
       }
 
     default:

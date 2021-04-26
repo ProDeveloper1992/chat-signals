@@ -159,6 +159,7 @@ const LoginScreen = (props) => {
               icon={<PasswordIcon width={24} height={24} />}
               rightIcon={showPassword ? <EyeOpenIcon width={24} height={24} /> : <EyeCloseIcon width={24} height={24} />}
               onRightIconPress={() => setShowPassword(!showPassword)}
+              onSubmitEditing={onLoginPress}
             />
 
             <View style={{ alignSelf: 'flex-end' }}>
