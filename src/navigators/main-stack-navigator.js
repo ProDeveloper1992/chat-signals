@@ -21,7 +21,8 @@ import {
   LikesScreen,
   KissesScreen,
   HeartsScreen,
-  AppearanceScreen
+  AppearanceScreen,
+  CreateTicket
 } from '../screens';
 import BottomTabBar from '../components/BottomTabBar';
 import { Colors } from '../constants';
@@ -225,6 +226,11 @@ export default function MainStackNavigator() {
       <Stack.Screen
         name="AppearanceScreen"
         component={AppearanceScreen}
+      />
+
+      <Stack.Screen
+        name="CreateTicket"
+        component={CreateTicket}
       />
     </Stack.Navigator>
   );

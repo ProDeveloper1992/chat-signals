@@ -1,5 +1,7 @@
 import moment from 'moment';
 import { Dimensions, Platform } from 'react-native';
+import { DEFAULT_AVATAR_URL } from '../constants';
+import { store } from '../redux/store';
 
 export function isIphoneX() {
   const dimen = Dimensions.get('window');
@@ -45,4 +47,21 @@ export const getFontFamily = (type) => {
     default:
       return 'Poppins-Regular';
   }
+};
+
+export const getUserProfilePicture = () => {
+  const { userData } = store.getState().userState;
+  var profilePic = DEFAULT_AVATAR_URL;
+  if (
+    userData &&
+    userData.profilepictures &&
+    userData.profilepictures.length > 0
+  ) {
+    for (let profile of userData.profilepictures) {
+      if (profile.picture_type == "1") {
+        profilePic = profile.picture;
+      }
+    }
+  }
+  return profilePic;
 };

@@ -4,26 +4,9 @@ import { Colors, DEFAULT_AVATAR_URL, Icons } from '../../constants';
 import { AppText } from '../../components';
 import styles from './style';
 import { useSelector } from 'react-redux';
+import { getUserProfilePicture } from '../../utils/common';
 
 export default function BottomTabBar({ state, descriptors, navigation }) {
-
-  const { userData } = useSelector((state) => state.userState);
-
-  const getProfilePicture = () => {
-    var profilePic = DEFAULT_AVATAR_URL;
-    if (
-      userData &&
-      userData.profilepictures &&
-      userData.profilepictures.length > 0
-    ) {
-      for (let profile of userData.profilepictures) {
-        if (profile.picture_type == "1") {
-          profilePic = profile.picture;
-        }
-      }
-    }
-    return profilePic;
-  };
 
   return (
     <View style={styles.tabBarContainer}>
@@ -89,7 +72,7 @@ export default function BottomTabBar({ state, descriptors, navigation }) {
             style={{ flex: 1, alignItems: 'center' }}>
             {route.name === 'UserProfileTabStack' ? (
               <Image
-                source={{ uri: getProfilePicture() }}
+                source={{ uri: getUserProfilePicture() }}
                 style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: Colors.grey, borderWidth: 2, borderColor: isFocused ? Colors.black : Colors.white }} />
             ) : (
               <Image style={styles.tabIcon(isFocused)} source={getTabIcon()} />

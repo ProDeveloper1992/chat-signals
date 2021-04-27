@@ -19,11 +19,11 @@ export default function AppDropDown({ title, value, onPress }) {
                 style={styles.container}
                 onPress={onPress}
             >
-                <AppText type={'bold'} size={16} style={styles.value}>{value}</AppText>
+                <AppText type={'bold'} size={14} style={styles.value}>{value}</AppText>
                 {isOpened ? (
-                    <DropUpIcon width={15} height={15} />
+                    <DropUpIcon width={12} height={12} />
                 ) : (
-                    <DropDownIcon width={15} height={15} />
+                    <DropDownIcon width={12} height={12} />
                 )}
             </TouchableOpacity>
         </View>

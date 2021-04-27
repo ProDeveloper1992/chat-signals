@@ -17,7 +17,7 @@ import {
   GET_PASSION_LIST_SUCCESS,
   GET_SEXUAL_ORIENTATION_LIST_SUCCESS,
   GET_GENDERS_LIST_SUCCESS,
-  GET_HELP_TICKET_LIST_SUCCESS
+  GET_HELP_TICKET_SUBJECTS_SUCCESS
 } from '../actions/types';
 
 const initialState = {
@@ -30,7 +30,7 @@ const initialState = {
   genderList: [],
   passionList: [],
   sexualOrientations: [],
-  helpTicketList: [],
+  helpTicketSubjects: [],
   languages: [
     {
       language_id: 1,
@@ -329,11 +329,11 @@ export default function (state = initialState, action) {
       };
 
 
-    case GET_HELP_TICKET_LIST_SUCCESS:
-      console.log("GET_HELP_TICKET_LIST_SUCCESS", action.payload)
+    case GET_HELP_TICKET_SUBJECTS_SUCCESS:
+      console.log("GET_HELP_TICKET_SUBJECTS_SUCCESS", action.payload)
       return {
         ...state,
-        helpTicketList: action.payload
+        helpTicketSubjects: action.payload
       };
 
     default:

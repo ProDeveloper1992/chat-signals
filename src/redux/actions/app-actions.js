@@ -15,6 +15,7 @@ import {
   GET_PASSION_LIST_SUCCESS,
   GET_SEXUAL_ORIENTATION_LIST_SUCCESS,
   GET_GENDERS_LIST_SUCCESS,
+  GET_HELP_TICKET_SUBJECTS_SUCCESS,
   GET_HELP_TICKET_LIST_SUCCESS
 } from './types';
 import { client } from '../../services/api-service';
@@ -169,8 +170,8 @@ export const getGenderList = () => (dispatch, getState) =>
       });
   });
 
-//Get Help Ticket Category List
-export const getHelpTicketList = () => (dispatch, getState) =>
+//Get Help Ticket Subjects List
+export const getHelpTicketSubjects = () => (dispatch, getState) =>
   new Promise(function (resolve, reject) {
     let state = getState();
     let selectedLanguage = state.appState.selectedLanguage;
@@ -181,7 +182,7 @@ export const getHelpTicketList = () => (dispatch, getState) =>
       .post(`/ticket_catagory_list`, requestData)
       .then((res) => {
         if (res.meta.status) {
-          dispatch(ActionDispatcher(GET_HELP_TICKET_LIST_SUCCESS, res.data));
+          dispatch(ActionDispatcher(GET_HELP_TICKET_SUBJECTS_SUCCESS, res.data));
         }
         resolve(res);
       })

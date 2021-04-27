@@ -24,6 +24,7 @@ import {
   GET_CUSTOMER_LIKES_SUCCESS,
   GET_CUSTOMER_KISSES_SUCCESS,
   GET_CUSTOMER_HEARTS_SUCCESS,
+  GET_HELP_TICKET_LIST_SUCCESS,
 } from './types';
 import { client } from '../../services/api-service';
 import { showToast } from './app-actions';
@@ -379,6 +380,7 @@ export const createHelpTicket = (requestData) => (dispatch, getState) =>
       .then((res) => {
         if (res.meta.status) {
           dispatch(showToast('positive', res.meta.message));
+          dispatch(getHelpTicketList());
         } else {
           dispatch(showToast('negative', res.meta.message));
         }
@@ -564,6 +566,72 @@ export const deleteCustomerAccount = () => (dispatch, getState) =>
       })
       .catch((err) => {
         resolve({ meta: { status: false } });
+        reject(err);
+      });
+  });
+
+//Get Help Tickets List
+export const getHelpTicketList = () => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    let state = getState();
+    let selectedLanguage = state.appState.selectedLanguage;
+    const userData = state.userState.userData;
+    let emailId = null;
+    if (userData) {
+      emailId = userData.email;
+    }
+    let requestData = {
+      email: emailId,
+      language: selectedLanguage,
+    }
+    client
+      .post(`/help`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+          dispatch(ActionDispatcher(GET_HELP_TICKET_LIST_SUCCESS, res.data));
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } })
+        reject(err);
+      });
+  });
+
+//Get User Ticket Response
+export const getUserTicketResponse = (ticketId) => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    let requestData = {
+      ticket_id: ticketId
+    }
+    client
+      .post(`/user_response_ticket`, requestData)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } })
+        reject(err);
+      });
+  });
+
+//Send User Ticket Response
+export const sendUserTicketMessage = (ticketId, message) => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    let state = getState();
+    let selectedLanguage = state.appState.selectedLanguage;
+    let requestData = {
+      ticket_id: ticketId,
+      responseMessage: message,
+      language: selectedLanguage
+    }
+    client
+      .post(`/user_send_ticket`, requestData)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } })
         reject(err);
       });
   });

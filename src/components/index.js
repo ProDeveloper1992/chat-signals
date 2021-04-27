@@ -18,7 +18,8 @@ import {
   LikesListItem,
   KissesListItem,
   HeartsListItem,
-  UserPhotoItem
+  UserPhotoItem,
+  HelpTicketListItem
 } from './app-list-items';
 import { AppText } from './app-text';
 import OwnPurchaseCard from './own-purchase-card';
@@ -79,6 +80,7 @@ export {
   KissesListItem,
   HeartsListItem,
   UserPhotoItem,
+  HelpTicketListItem,
 
   //Menus
   GenderMenu,

@@ -37,7 +37,7 @@ export default function HeartsListItem({
                     color={Colors.ui_primary}
                     numberOfLines={1}
                 >
-                    {moment(new Date()).fromNow()}
+                    {moment(item.created_at).fromNow()}
                 </AppText>
             </View>
         </View>
