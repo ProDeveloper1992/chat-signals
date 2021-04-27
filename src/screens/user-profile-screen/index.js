@@ -31,6 +31,7 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { userProfileDetail } from '../../redux/actions/user-actions';
 import moment from 'moment';
 import { logoutUser } from '../../redux/reducers';
+import { getUserProfilePicture } from '../../utils/common';
 
 var RNFS = require('react-native-fs');
 
@@ -124,23 +125,6 @@ export default function UserProfile(props) {
     setActivityModalVisible(true);
   };
 
-  const getProfilePicture = () => {
-    var profilePic = DEFAULT_AVATAR_URL;
-    if (
-      userData &&
-      userData.profilepictures &&
-      userData.profilepictures.length > 0
-    ) {
-      // profilePic = userData.avatar;
-      for (let profile of userData.profilepictures) {
-        if (profile.picture_type == "1") {
-          profilePic = profile.picture;
-        }
-      }
-    }
-    return profilePic;
-  };
-
   const onLogout = async () => {
     await dispatch(logoutUser());
     try {
@@ -164,7 +148,7 @@ export default function UserProfile(props) {
         <View style={styles.container}>
           <View style={{ alignItems: 'center', marginTop: 30 }}>
             <View style={styles.profileImageContainer}>
-              <Image style={styles.profileImage} source={profileImage.uri ? profileImage : { uri: getProfilePicture() }} />
+              <Image style={styles.profileImage} source={profileImage.uri ? profileImage : { uri: getUserProfilePicture() }} />
               <TouchableOpacity
                 onPress={() => navigation.navigate('UserPhotos')}
                 style={styles.editPenContainer}>

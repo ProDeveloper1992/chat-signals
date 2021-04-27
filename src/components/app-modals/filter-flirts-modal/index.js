@@ -31,7 +31,6 @@ export default function FlirtFilterModal({ visible, onHideModal }) {
 
     var USER_PASSIONS = selectedPassions;
 
-    console.log("passionList", passionList)
     const onChangeAgeRange = (low, high) => {
         setLowAge(low);
         setHighAge(high);

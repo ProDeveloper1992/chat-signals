@@ -17,6 +17,7 @@ import FriendsScreen from './friends-screen'
 import AccountDetail from './account-detail-screen'
 import PrivacyPolicy from './privacy-policy-screen'
 import HelpAndSupport from './help-support-screen'
+import CreateTicket from './create-ticket-screen'
 import UserPhotos from './user-photos-screen'
 import LikesScreen from './likes-screen'
 import KissesScreen from './kisses-screen'
@@ -43,6 +44,7 @@ export {
   AccountDetail,
   PrivacyPolicy,
   HelpAndSupport,
+  CreateTicket,
   UserPhotos,
   LikesScreen,
   KissesScreen,

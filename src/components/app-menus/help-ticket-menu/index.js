@@ -20,7 +20,7 @@ function HelpTicketMenu({ onSelectOption }) {
         _menu.show();
     };
 
-    const { helpTicketList } = useSelector((state) => state.appState);
+    const { helpTicketSubjects } = useSelector((state) => state.appState);
 
     const [selectedOption, setSelectedOption] = useState({ name: "-" });
 
@@ -38,7 +38,7 @@ function HelpTicketMenu({ onSelectOption }) {
                 <AppDropDown title={"Subject"} value={selectedOption.name} onPress={showMenu} />
             }
         >
-            {helpTicketList.map((option, optionIndex) => {
+            {helpTicketSubjects && helpTicketSubjects.map((option, optionIndex) => {
                 return <View key={String(optionIndex)}>
                     <MenuItem
                         onPress={() => onSelectMenu(option)}>
@@ -46,7 +46,7 @@ function HelpTicketMenu({ onSelectOption }) {
                             <AppText type={'medium'} style={{ marginStart: 5 }}>{option.name}</AppText>
                         </View>
                     </MenuItem>
-                    {optionIndex != helpTicketList.length - 1 && (
+                    {optionIndex != helpTicketSubjects.length - 1 && (
                         <MenuDivider />
                     )}
                 </View>
