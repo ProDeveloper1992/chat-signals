@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import {
-  StyleSheet,
   View,
-  Image,
   ScrollView,
-  TouchableOpacity,
   Platform,
 } from 'react-native';
 import {
   TextButton,
   AuthContainer,
   AuthInput,
-  BackHeader,
   AppText,
-  IconButton,
 } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
 import appleAuth, {
@@ -22,9 +17,9 @@ import appleAuth, {
 } from "@invertase/react-native-apple-authentication";
 import 'react-native-get-random-values';
 
+import styles from './style';
 import { AppButton } from '../../components';
-import { Images, mailformat, Color, Gifs, Icons, Colors } from '../../constants';
-import { globalStyle } from '../../styles/global-style';
+import { mailformat, Colors } from '../../constants';
 import { loginUser } from '../../redux/actions/user-actions';
 import GoogleIcon from '../../assets/icons/google.svg';
 import FacebookIcon from '../../assets/icons/facebook.svg';
@@ -35,8 +30,6 @@ import { getFontFamily } from '../../utils/common';
 
 const LoginScreen = (props) => {
   const { navigation } = props;
-
-  //Actions to dispatch
   const dispatch = useDispatch();
 
   const { appLabels } = useSelector((state) => state.appState);
@@ -188,7 +181,7 @@ const LoginScreen = (props) => {
             </AppText>
 
             <AppButton
-              type={'facebook'}
+              type={'sociallogin'}
               title={"Log in with Facebook"}
               icon={<FacebookIcon width={30} height={30} />}
               onPress={onFacebookIconPress}
@@ -196,7 +189,7 @@ const LoginScreen = (props) => {
             />
             <View style={{ marginTop: 15 }} />
             <AppButton
-              type={'google'}
+              type={'sociallogin'}
               title={"Log in with Google"}
               icon={<GoogleIcon width={30} height={30} />}
               onPress={onGoogleIconPress}
@@ -206,25 +199,22 @@ const LoginScreen = (props) => {
             {Platform.OS == 'android' ? (
               <View>
                 {appleAuthAndroid.isSupported && (
-                  <AppleButton
-                    style={styles.appleLoginButton}
-                    cornerRadius={43}
-                    buttonStyle={AppleButton.Style.WHITE_OUTLINE}
-                    buttonType={AppleButton.Type.SIGN_IN}
-                    onPress={() => onAppleLoginForAndroid()}
-                    textStyle={styles.appleLoginButtonTitle}
-                    leftView={<AppleLogoIcon width={30} height={30} />}
+                  <AppButton
+                    type={'sociallogin'}
+                    title={"Log in with Apple"}
+                    icon={<AppleLogoIcon width={30} height={30} />}
+                    onPress={onAppleLoginForAndroid}
+                  // loading={googleLoginLoading}
                   />
                 )}
               </View>
             ) : (
-              <AppleButton
-                style={styles.appleButtoniOS}
-                cornerRadius={43}
-                buttonStyle={AppleButton.Style.WHITE_OUTLINE}
-                buttonType={AppleButton.Type.SIGN_IN}
-                textStyle={styles.appleLoginButtonTitle}
+              <AppButton
+                type={'sociallogin'}
+                title={"Log in with Apple"}
+                icon={<AppleLogoIcon width={30} height={30} />}
                 onPress={() => onAppleLoginForiOS(updateCredentialStateForUser)}
+              // loading={googleLoginLoading}
               />
             )}
 
@@ -252,36 +242,5 @@ const LoginScreen = (props) => {
     </AuthContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginHorizontal: 25,
-  },
-  input: {
-    marginVertical: 5,
-  },
-  loginButton: {
-    marginTop: 10,
-  },
-  appleLoginButton: {
-    width: "100%",
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    paddingHorizontal: 15,
-    borderColor: Colors.greydark,
-    borderWidth: 1.5
-  },
-  appleLoginButtonTitle: {
-    flex: 1,
-    fontFamily: getFontFamily('medium'),
-    color: Colors.greydark,
-    alignSelf: 'center',
-    textAlign: 'center'
-  },
-  appleButtoniOS: {
-    height: 45,
-  }
-});
 
 export default LoginScreen;

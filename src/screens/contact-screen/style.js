@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { Colors } from '../../constants';
+import { getFontFamily } from '../../utils/common';
 
 export default StyleSheet.create({
   container: {
@@ -11,12 +12,12 @@ export default StyleSheet.create({
   },
   topTabIndicator: {
     backgroundColor: Colors.ui_primary,
-    height: 3,
-    borderRadius: 30,
+    height: 2,
+    // borderRadius: 30,
   },
   topTabLabel: {
     fontSize: 14,
-    fontFamily: 'Poppins-Medium',
+    fontFamily: getFontFamily('bold'),
     textTransform: 'capitalize'
   },
 });

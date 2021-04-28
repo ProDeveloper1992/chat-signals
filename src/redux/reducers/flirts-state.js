@@ -5,7 +5,8 @@ import {
   GET_SPOT_LIGHTS_REQUEST,
   GET_SPOT_LIGHTS_SUCCESS,
   GET_SPOT_LIGHTS_FAILED,
-  IS_LOAD_MORE_FLIRTS
+  IS_LOAD_MORE_FLIRTS,
+  IS_LOAD_MORE_SPOTLIGHTS
 } from '../actions/types';
 
 const initialState = {
@@ -13,7 +14,8 @@ const initialState = {
   spotLightsLoading: false,
   flirtsList: [],
   spotLightsList: [],
-  isLoadMoreFlirts: true
+  isLoadMoreFlirts: true,
+  isLoadMoreSpotlights: true,
 };
 
 export default function (state = initialState, action) {
@@ -35,6 +37,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isLoadMoreFlirts: action.payload
+      }
+
+    case IS_LOAD_MORE_SPOTLIGHTS:
+      return {
+        ...state,
+        isLoadMoreSpotlights: action.payload
       }
 
     case GET_FLIRTS_FAILED:

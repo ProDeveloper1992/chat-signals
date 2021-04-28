@@ -9,6 +9,7 @@ import styles from './style';
 
 import CloseIcon from '../../../assets/icons/close.svg';
 import { BoostIcon, CoinGradientIcon } from '../../../constants/svg-icons';
+import { getGeneralSettingValueByName } from '../../../utils/common';
 
 export default function CoinsEarningModal({ visible, onHideModal, onContinue }) {
 
@@ -36,7 +37,7 @@ export default function CoinsEarningModal({ visible, onHideModal, onContinue }) 
                     size={18}
                     color={Colors.black}
                     style={{ marginVertical: 20, marginHorizontal: '10%', textAlign: 'center' }}>
-                    {"You earned "}<AppText type={'bold'} size={18}>{"75 Coins!"}</AppText>
+                    {"You earned "}<AppText type={'bold'} size={18}>{`${getGeneralSettingValueByName('bonus_coins')} Coins!`}</AppText>
                 </AppText>
 
                 <AppButton

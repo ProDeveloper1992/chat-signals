@@ -19,6 +19,7 @@ import { AppIndicatorLoader, AppText, AppButton, OwnPurchaseCard } from '../../c
 import { CoinGradientIcon } from '../../constants/svg-icons';
 import { ActionDispatcher } from '../../redux/actions';
 import { GET_PAYMENT_MODULE_SUCCESS } from '../../redux/actions/types';
+import { getGeneralSettingValueByName } from '../../utils/common';
 
 const CoinPurchase = () => {
   const navigation = useNavigation();
@@ -36,14 +37,8 @@ const CoinPurchase = () => {
     if (isFocused) {
       dispatch(getGeneralSettings());
       dispatch(getPaymentModule());
-      if (generalSettings.length > 0) {
-        for (let setting of generalSettings) {
-          if (setting.name === 'per_euro_credits') {
-            console.log('per_euro_credits', setting.value);
-            setPerEuroCredit(setting.value);
-          }
-        }
-      }
+      let perEuroCredit = getGeneralSettingValueByName('per_euro_credits');
+      setPerEuroCredit(perEuroCredit);
     } else {
       setSelectedPaymentGateway(null);
     }

@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Image } from 'react-native';
+import React, { useState } from 'react';
+import { View, Image, ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types';
 import { Colors, Images } from '../../../constants';
 import { AppText, FriendItemMenu } from '../../index';
@@ -7,6 +7,7 @@ import styles from './style';
 import { FriendGradientIcon32 } from '../../../constants/svg-icons';
 import { useDispatch } from 'react-redux';
 import { acceptRejectFriendRequest } from '../../../redux/actions/user-actions';
+import { blockModerator } from '../../../redux/actions/flirts-actions';
 
 export default function FriendListItem({
     profileImage,
@@ -16,12 +17,19 @@ export default function FriendListItem({
 
     const dispatch = useDispatch();
 
-    const onSelectMenuOption = (menu) => {
+    const [loading, setLoading] = useState(false);
+
+    const onSelectMenuOption = async (menu) => {
         switch (menu.id) {
             case 1:
-                dispatch(acceptRejectFriendRequest(item.id, 1));
+                setLoading(true);
+                await dispatch(acceptRejectFriendRequest(item.id, 1));
+                setLoading(false);
                 break;
             case 2:
+                setLoading(true);
+                await dispatch(blockModerator(item.profile_id, 1));
+                setLoading(false);
                 break;
         }
     }
@@ -41,13 +49,15 @@ export default function FriendListItem({
                         size={16}
                         color={Colors.black}
                         numberOfLines={1}
-                        style={{ textTransform: 'capitalize' }}
+                        style={{ flex: 1, textTransform: 'capitalize' }}
                     >
                         {userName}
                     </AppText>
+                    {loading ? (<ActivityIndicator size={'small'} color={Colors.ui_primary} style={{ padding: 10 }} />) : (
+                        <FriendItemMenu
+                            onSelectOption={(menu) => onSelectMenuOption(menu)} />
+                    )}
                 </View>
-                <FriendItemMenu
-                    onSelectOption={(menu) => onSelectMenuOption(menu)} />
             </View>
         </View>
     );

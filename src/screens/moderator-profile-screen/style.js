@@ -24,6 +24,7 @@ export default StyleSheet.create({
   },
 
   moderatorNameContainer: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
   },

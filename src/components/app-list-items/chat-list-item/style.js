@@ -44,5 +44,13 @@ export default StyleSheet.create({
     resizeMode: 'cover',
     marginTop: 10,
     alignSelf: 'flex-end',
+  },
+
+  unSeenBadgeContainer: {
+    width: 22,
+    height: 22,
+    borderRadius: 22 / 2,
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 });

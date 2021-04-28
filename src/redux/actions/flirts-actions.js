@@ -6,7 +6,8 @@ import {
   GET_SPOT_LIGHTS_REQUEST,
   GET_SPOT_LIGHTS_SUCCESS,
   GET_SPOT_LIGHTS_FAILED,
-  IS_LOAD_MORE_FLIRTS
+  IS_LOAD_MORE_FLIRTS,
+  IS_LOAD_MORE_SPOTLIGHTS
 } from './types';
 import { client } from '../../services/api-service';
 import { showToast } from './app-actions';
@@ -55,13 +56,19 @@ export const getProFlirtsList = (requestData) => (dispatch, getState) =>
       .post(`/get_spotlights_list`, requestData)
       .then((res) => {
         if (res.meta.status) {
-          if (res.meta.next == "true") {
-            for (let flirt of res.data) {
-              spotLightsList.push(flirt);
+          if (res.data.length >= 10) {
+            dispatch(ActionDispatcher(IS_LOAD_MORE_SPOTLIGHTS, true));
+          } else {
+            dispatch(ActionDispatcher(IS_LOAD_MORE_SPOTLIGHTS, false));
+          }
+
+          if (requestData.page == 1) {
+            dispatch(ActionDispatcher(GET_SPOT_LIGHTS_SUCCESS, res.data));
+          } else {
+            for (let spotlight of res.data) {
+              spotLightsList.push(spotlight);
             }
             dispatch(ActionDispatcher(GET_SPOT_LIGHTS_SUCCESS, spotLightsList));
-          } else {
-            dispatch(ActionDispatcher(GET_SPOT_LIGHTS_SUCCESS, res.data));
           }
         } else {
           dispatch(ActionDispatcher(GET_SPOT_LIGHTS_FAILED));

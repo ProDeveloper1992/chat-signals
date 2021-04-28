@@ -6,7 +6,6 @@ import CountDown from 'react-native-countdown-component';
 import { AppText } from '..';
 import { Colors } from '../../constants';
 import { GiftBoxIcon } from '../../constants/svg-icons';
-import { toggleCoinsEarningModal } from '../../redux/actions/app-modals-actions';
 import { openGiftBox, userProfileDetail } from '../../redux/actions/user-actions';
 import { getRemainingTime } from '../../utils/common';
 
@@ -24,7 +23,6 @@ export default function AppGiftBadge() {
     }
 
     const onOpenGiftBox = async () => {
-        // dispatch(toggleCoinsEarningModal(true));
         setLoading(true);
         await dispatch(openGiftBox());
         setLoading(false);
@@ -37,18 +35,19 @@ export default function AppGiftBadge() {
 
     if (userData && userData.last_date_bonus_card) {
 
-        return (
-            <TouchableOpacity
-                activeOpacity={1}
-                onPress={onBadgePress}
-                style={styles.container(isOpened)}>
-                <View style={{ paddingHorizontal: 10, paddingVertical: 8 }}>
-                    <GiftBoxIcon width={35} height={35} />
-                </View>
-                {isOpened && (
-                    <View style={{ flexDirection: 'row' }}>
-                        <View>
-                            {getRemainingTime(userData.last_date_bonus_card, new Date()) <= 0 ? (
+        if (getRemainingTime(userData.last_date_bonus_card, new Date()) <= 0) {
+            return (
+                <TouchableOpacity
+                    activeOpacity={1}
+                    onPress={onBadgePress}
+                    style={styles.container(isOpened)}>
+                    <View style={{ paddingHorizontal: 10, paddingVertical: 8 }}>
+                        <GiftBoxIcon width={35} height={35} />
+                    </View>
+                    {isOpened && (
+                        <View style={{ flexDirection: 'row' }}>
+                            <View>
+                                {/* {getRemainingTime(userData.last_date_bonus_card, new Date()) <= 0 ? ( */}
                                 <View>
                                     {loading ? (
                                         <ActivityIndicator
@@ -62,7 +61,7 @@ export default function AppGiftBadge() {
                                             color={Colors.ui_primary}>{"Open Now!"}</AppText>
                                     )}
                                 </View>
-                            ) : (
+                                {/* ) : (
                                 <CountDown
                                     until={getRemainingTime(userData.last_date_bonus_card, new Date())}
                                     onFinish={onFinishTimer}
@@ -74,7 +73,47 @@ export default function AppGiftBadge() {
                                     separatorStyle={{ color: Colors.black }}
                                     showSeparator
                                 />
-                            )}
+                            )} */}
+                            </View>
+                        </View>
+                    )}
+                    {isOpened && (
+                        <>
+                            <View style={styles.baseTop} />
+                            <View style={styles.baseRight} />
+                        </>
+                    )}
+                </TouchableOpacity>
+            );
+        }
+        return <View />;
+    }
+
+    if (userData && userData.last_date_bonus_card == null) {
+        return (
+            <TouchableOpacity
+                activeOpacity={1}
+                onPress={onBadgePress}
+                style={styles.container(isOpened)}>
+                <View style={{ paddingHorizontal: 10, paddingVertical: 8 }}>
+                    <GiftBoxIcon width={35} height={35} />
+                </View>
+                {isOpened && (
+                    <View style={{ flexDirection: 'row' }}>
+                        <View>
+                            <View>
+                                {loading ? (
+                                    <ActivityIndicator
+                                        size={'small'}
+                                        color={Colors.ui_primary} />) : (
+                                    <AppText
+                                        type={'bold'}
+                                        size={14}
+                                        onPress={onOpenGiftBox}
+                                        style={{ marginStart: 5 }}
+                                        color={Colors.ui_primary}>{"Open Now!"}</AppText>
+                                )}
+                            </View>
                         </View>
                     </View>
                 )}

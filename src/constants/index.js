@@ -27,6 +27,8 @@ export const Colors = {
   transparent: 'transparent',
   ui_user_active: "#50DE8B",
   ui_user_away: "#FFB649",
+  ui_counter_badge_gradient_1: '#FF4F81',
+  ui_counter_badge_gradient_2: '#FF4265',
 };
 
 export const Images = {

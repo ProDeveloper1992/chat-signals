@@ -229,28 +229,29 @@ export default function ModeratorProfile(props) {
 
           <View style={{ padding: 15 }}>
             <View style={styles.moderatorSwitchContainer}>
-              <View style={{ flex: 0.7 }}>
+              <View style={{ flex: 1 }}>
                 <View style={styles.moderatorNameContainer}>
-                  <AppText type={'bold'} size={18} style={{ textTransform: 'capitalize', marginEnd: 10 }}>
-                    {params.item.username}{params.item.dob ? `, ${moment().diff(moment(params.item.dob, 'YYYY-MM-DD'), 'years')}` : ''}
-                  </AppText>
-                  <OnlineStatusCircle isOnline={true} size={12} />
+                  <View style={styles.moderatorNameContainer}>
+                    <AppText type={'bold'} size={18} style={{ textTransform: 'capitalize', marginEnd: 10 }}>
+                      {params.item.username}{params.item.dob ? `, ${moment().diff(moment(params.item.dob, 'YYYY-MM-DD'), 'years')}` : ''}
+                    </AppText>
+                    <OnlineStatusCircle isOnline={true} size={12} />
+                  </View>
+                  <View style={[styles.moderatorNameContainer, { justifyContent: 'flex-end', marginEnd: 15 }]}>
+                    <TouchableOpacity onPress={toggleSwitch} style={{ marginHorizontal: 10 }}>
+                      {isFavorite ? (
+                        <StarFilledIcon width={24} height={24} />
+                      ) : (
+                        <StarOutlineIcon width={24} height={24} />
+                      )}
+                    </TouchableOpacity>
+                    <LegalActionMenu
+                      onSelectAction={onSelectLegalAction} />
+                  </View>
                 </View>
                 <AppText type={'regular'} size={16} style={{ textTransform: 'capitalize' }}>
                   {params.item.city + ", " + params.item.country}
                 </AppText>
-              </View>
-
-              <View style={{ flex: 0.3, flexDirection: 'row' }}>
-                <TouchableOpacity onPress={toggleSwitch}>
-                  {isFavorite ? (
-                    <StarFilledIcon width={24} height={24} />
-                  ) : (
-                    <StarOutlineIcon width={24} height={24} />
-                  )}
-                </TouchableOpacity>
-                <LegalActionMenu
-                  onSelectAction={onSelectLegalAction} />
               </View>
 
               {/* <View style={styles.switchViewContainer}>

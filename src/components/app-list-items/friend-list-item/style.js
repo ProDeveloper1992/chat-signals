@@ -8,6 +8,7 @@ export default StyleSheet.create({
         backgroundColor: Colors.white,
         flexDirection: 'row',
         justifyContent: 'space-between',
+        paddingVertical: 10,
         paddingHorizontal: 15,
         borderBottomWidth: 0.5,
         borderColor: Colors.grey
@@ -43,6 +44,8 @@ export default StyleSheet.create({
 
     userDetailContainer: {
         flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
         marginLeft: 15,
     },
 

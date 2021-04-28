@@ -16,6 +16,7 @@ import {
   CoinGradientIcon
 } from '../../../constants/svg-icons'
 import { sendMessage } from '../../../redux/actions/chat-actions'
+import { getGeneralSettingValueByName } from '../../../utils/common';
 
 export default function ActivityModal({ visible, onHideModal, type, moderator, onSentItem, onBuyCoins }) {
 
@@ -80,41 +81,27 @@ export default function ActivityModal({ visible, onHideModal, type, moderator, o
   const getTypeCost = (type) => {
     switch (type) {
       case 'kiss':
-        return getCoinByType('prices_kiss');
+        return getGeneralSettingValueByName('prices_kiss');
 
       case 'like':
-        return getCoinByType('prices_kiss');
+        return getGeneralSettingValueByName('prices_kiss');
 
       case 'chat':
         return 0;
 
       case 'addfriend':
-        return getCoinByType('prices_friend');
+        return getGeneralSettingValueByName('prices_friend');
 
       case 'sticker':
-        return getCoinByType('prices_kiss');
+        return getGeneralSettingValueByName('prices_kiss');
 
       case 'heart':
-        return getCoinByType('prices_kiss');
+        return getGeneralSettingValueByName('prices_kiss');
 
       default:
         return 0;
     }
   };
-
-  const getCoinByType = (type) => {
-    if (generalSettings.length > 0) {
-      let type_value = 0;
-      for (let setting of generalSettings) {
-        if (setting.name === type) {
-          type_value = setting.value;
-        }
-      }
-      return type_value;
-    } else {
-      return 0;
-    }
-  }
 
   const onSendPress = async () => {
     switch (type) {
