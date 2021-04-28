@@ -21,6 +21,7 @@ import CoinGradientIcon from '../assets/icons/coin_gradient.svg';
 import StarOutlineIcon from '../assets/icons/star_outline.svg';
 import StarFilledIcon from '../assets/icons/star_filled.svg';
 import DotsCircleIcon from '../assets/icons/three_dots_circle.svg';
+import ThreeDotsIcon from '../assets/icons/three_dots.svg';
 import DotsCircleTransparentIcon from '../assets/icons/three_dots_circle_transparent.svg';
 import BoostIcon from '../assets/icons/boost.svg';
 import SendMessageIcon from '../assets/icons/send_message.svg';
@@ -28,6 +29,7 @@ import AttachIcon from '../assets/icons/attach.svg';
 import InfoIcon from '../assets/icons/info.svg';
 import SearchIcon from '../assets/icons/search.svg';
 import CloseIcon from '../assets/icons/close.svg';
+import CloseBlackIcon from '../assets/icons/close_black.svg';
 import CloseWhiteTransparentIcon from '../assets/icons/close_white_transparent.svg';
 import DropDownIcon from '../assets/icons/drop_down.svg';
 import DropUpIcon from '../assets/icons/drop_up.svg';
@@ -66,6 +68,7 @@ export {
     StarOutlineIcon,
     StarFilledIcon,
     DotsCircleIcon,
+    ThreeDotsIcon,
     DotsCircleTransparentIcon,
     BoostIcon,
     ArrowLeftIcon,
@@ -76,6 +79,7 @@ export {
     InfoIcon,
     SearchIcon,
     CloseIcon,
+    CloseBlackIcon,
     CloseWhiteTransparentIcon,
     DropDownIcon,
     DropUpIcon,

@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 24,
     backgroundColor: Colors.ui_primary,
-    marginBottom: 2
   },
   flexOne: {
     flex: 1,

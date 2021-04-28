@@ -5,7 +5,8 @@ import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import PropTypes from 'prop-types';
 
 import { AppText } from '../..';
-import { DotsCircleIcon, UnfriendIcon, BlockIcon } from '../../../constants/svg-icons';
+import { UnfriendIcon, BlockIcon, ThreeDotsIcon, CloseBlackIcon } from '../../../constants/svg-icons';
+import { Colors } from '../../../constants';
 
 function LegalActionMenu({ onSelectAction, actions }) {
     let _menu = null;
@@ -22,6 +23,9 @@ function LegalActionMenu({ onSelectAction, actions }) {
         _menu.show();
     };
 
+    const [isVisible, setIsVisible] = useState(false);
+
+
     const onSelectMenu = (option) => {
         onSelectAction(option);
         hideMenu();
@@ -30,11 +34,29 @@ function LegalActionMenu({ onSelectAction, actions }) {
     return (
         <Menu
             ref={setMenuRef}
+            onHidden={() => setIsVisible(false)}
             style={{ marginTop: 30, borderRadius: 11 }}
             button={
-                <TouchableOpacity onPress={showMenu}>
-                    <DotsCircleIcon />
-                </TouchableOpacity>
+                <View>
+                    {isVisible ? (
+                        <TouchableOpacity
+                            onPress={async () => {
+                                await hideMenu();
+                                setIsVisible(false);
+                            }} style={{ padding: 10, paddingHorizontal: 12 }}>
+                            <CloseBlackIcon />
+                        </TouchableOpacity>
+                    ) : (
+                        <TouchableOpacity
+                            onPress={async () => {
+                                await showMenu();
+                                setIsVisible(true);
+                            }}
+                            style={{ padding: 10 }}>
+                            <ThreeDotsIcon />
+                        </TouchableOpacity>
+                    )}
+                </View>
             }
         >
             {actions && actions.map((option, optionIndex) => {
@@ -47,7 +69,7 @@ function LegalActionMenu({ onSelectAction, actions }) {
                         </View>
                     </MenuItem>
                     {optionIndex != actions.length - 1 && (
-                        <MenuDivider />
+                        <View style={{ height: 1, backgroundColor: Colors.grey }} />
                     )}
                 </View>
             })}

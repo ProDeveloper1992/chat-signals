@@ -86,7 +86,7 @@ const Button = ({ isAccept, title, onPress, loading }) => {
             onPress={onPress}
             style={styles.buttonContainer(isAccept)}>
             {loading ? (
-                <ActivityIndicator size={'small'} color={isAccept ? Colors.white : Colors.black} style={{ width: 14, height: 14 }} />
+                <ActivityIndicator size={'small'} color={isAccept ? Colors.white : Colors.black} />
             ) : (
                 <AppText color={isAccept ? Colors.white : Colors.black}>{title}</AppText>
             )}

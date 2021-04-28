@@ -19,6 +19,7 @@ import {
     CloseWhiteTransparentIcon,
     VideoIcon
 } from '../../constants/svg-icons';
+import { getGeneralSettingValueByName } from '../../utils/common';
 
 export function ChatInput({
     style,
@@ -33,20 +34,6 @@ export function ChatInput({
 
     const { userData } = useSelector((state) => state.userState);
     const { appLabels, generalSettings } = useSelector((state) => state.appState);
-
-    const getMessagePrice = () => {
-        if (generalSettings.length > 0) {
-            let message_price = 0;
-            for (let setting of generalSettings) {
-                if (setting.name === 'prices_message') {
-                    message_price = setting.value * 1;
-                }
-            }
-            return message_price;
-        } else {
-            return 0;
-        }
-    }
 
     const onSendItemPress = async (type) => {
         await Keyboard.dismiss();
@@ -208,10 +195,10 @@ export function ChatInput({
                     <TouchableIcon
                         icon={<HeartGradientIcon32 />}
                         onPress={() => onSendItemPress('heart')} />
-                    {getMessagePrice() > 0 && (
+                    {getGeneralSettingValueByName('prices_message') > 0 && (
                         <View style={{ flexDirection: 'row', alignItems: 'center', marginStart: 15 }}>
                             <AppText size={12}>{`Send message for `}</AppText>
-                            <AppText size={12} type={'bold'}>{`${getMessagePrice()} ${appLabels.Coins}`}</AppText>
+                            <AppText size={12} type={'bold'}>{`${getGeneralSettingValueByName('prices_message')} ${appLabels.Coins}`}</AppText>
                         </View>
                     )}
                 </View>

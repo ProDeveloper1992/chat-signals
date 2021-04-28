@@ -20,9 +20,7 @@ export function AppButton({ type, title, icon, style, onPress, loading, disabled
         return Colors.transparent;
       case 'light':
         return Colors.white;
-      case 'google':
-        return Colors.transparent;
-      case 'facebook':
+      case 'sociallogin':
         return Colors.transparent;
       default:
         return Colors.ui_primary;
@@ -39,9 +37,7 @@ export function AppButton({ type, title, icon, style, onPress, loading, disabled
         return Colors.white;
       case 'light':
         return Colors.ui_primary;
-      case 'google':
-        return Colors.greydark;
-      case 'facebook':
+      case 'sociallogin':
         return Colors.greydark;
       default:
         return Colors.white;
@@ -58,9 +54,7 @@ export function AppButton({ type, title, icon, style, onPress, loading, disabled
         return Colors.white;
       case 'light':
         return Colors.ui_primary;
-      case 'google':
-        return Colors.greydark;
-      case 'facebook':
+      case 'sociallogin':
         return Colors.greydark;
       default:
         return Colors.transparent;
@@ -77,7 +71,7 @@ export function AppButton({ type, title, icon, style, onPress, loading, disabled
         {
           opacity: disabled ? 0.5 : 1,
           backgroundColor: getBgColor(),
-          borderWidth: 1.5,
+          borderWidth: 1,
           borderColor: getBorderColor(),
           justifyContent: icon && !loading ? 'space-between' : 'center',
         },
@@ -118,8 +112,7 @@ AppButton.propTypes = {
     'positive',
     'transparent',
     'light',
-    'google',
-    'facebook',
+    'sociallogin',
   ]),
 
   style: PropTypes.any,

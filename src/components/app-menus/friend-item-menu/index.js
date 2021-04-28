@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Platform } from 'react-native';
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import { AppDropDown, AppText } from '../..';
-import { DotsCircleIcon, UnfriendIcon, BlockIcon } from '../../../constants/svg-icons';
+import { Colors } from '../../../constants';
+import { ThreeDotsIcon, UnfriendIcon, BlockIcon, CloseBlackIcon } from '../../../constants/svg-icons';
 
 function FriendItemMenu({ onSelectOption }) {
     let _menu = null;
@@ -34,6 +35,7 @@ function FriendItemMenu({ onSelectOption }) {
     ];
 
     const [selectedOption, setSelectedOption] = useState(Options[1]);
+    const [isVisible, setIsVisible] = useState(false);
 
     const onSelectMenu = (option) => {
         onSelectOption(option);
@@ -44,22 +46,39 @@ function FriendItemMenu({ onSelectOption }) {
     return (
         <Menu
             ref={setMenuRef}
-            style={{ marginTop: 50, borderRadius: 11 }}
+            onHidden={() => setIsVisible(false)}
+            style={{ marginTop: 30, borderRadius: 11 }}
             button={
-                <TouchableOpacity onPress={showMenu} style={{ paddingTop: 20 }}>
-                    <DotsCircleIcon />
-                </TouchableOpacity>
+                <View>
+                    {isVisible ? (
+                        <TouchableOpacity style={{ padding: 10 }}>
+                            <CloseBlackIcon />
+                        </TouchableOpacity>
+                    ) : (
+                        <TouchableOpacity style={{ padding: 10 }}
+                            onPress={async () => {
+                                await showMenu();
+                                setIsVisible(true);
+                            }}>
+                            <ThreeDotsIcon />
+                        </TouchableOpacity>
+                    )}
+                </View>
             }
         >
             {Options.map((option, optionIndex) => {
-                return <MenuItem
-                    key={String(optionIndex)}
-                    onPress={() => onSelectMenu(option)}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', paddingStart: Platform.OS == 'ios' ? 10 : 0 }}>
-                        {option.icon}
-                        <AppText type={'medium'} style={{ marginStart: 5 }}>{option.title}</AppText>
-                    </View>
-                </MenuItem>
+                return <View key={String(optionIndex)}>
+                    <MenuItem
+                        onPress={() => onSelectMenu(option)}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', paddingStart: Platform.OS == 'ios' ? 10 : 0 }}>
+                            {option.icon}
+                            <AppText type={'medium'} style={{ marginStart: 5, marginEnd: 30 }}>{option.title}</AppText>
+                        </View>
+                    </MenuItem>
+                    {optionIndex != Options.length - 1 && (
+                        <View style={{ height: 1, backgroundColor: Colors.grey }} />
+                    )}
+                </View>
             })}
         </Menu>
     );

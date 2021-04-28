@@ -60,7 +60,7 @@ export default function Home() {
             style={styles.topTabContainer}
             labelStyle={styles.topTabLabel}
             activeColor={Colors.ui_primary}
-            inactiveColor={Colors.black}
+            inactiveColor={Colors.greydark}
           />
         )}
       />

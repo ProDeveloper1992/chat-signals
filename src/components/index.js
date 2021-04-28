@@ -1,7 +1,7 @@
 import { TextButton } from './Buttons';
 import { AuthContainer } from './Containers';
 import { AppIndicatorLoader } from './Loaders';
-import { AppButton, IconButton } from './Buttons';
+import { AppButton } from './Buttons';
 import { AuthInput, ChatInput } from './Inputs';
 import { BackHeader, GeneralHeader } from './Headers';
 import { LaguageItem, GenderItem, CountryItem, MoreGenderItem } from './Radios';
@@ -44,7 +44,6 @@ export {
   TextButton,
   AuthContainer,
   AppButton,
-  IconButton,
   AuthInput,
   ChatInput,
   BackHeader,

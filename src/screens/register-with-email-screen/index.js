@@ -376,15 +376,15 @@ const RegisterWithEmail = (props) => {
             </AppText>
 
             <AppButton
-              type={'facebook'}
-              title={"Log in with Facebook"}
+              type={'sociallogin'}
+              title={"Continue with Facebook"}
               icon={<FacebookIcon width={30} height={30} />}
               onPress={onFacebookIconPress}
             />
             <View style={{ marginTop: 15 }} />
             <AppButton
-              type={'google'}
-              title={"Log in with Google"}
+              type={'sociallogin'}
+              title={"Continue with Google"}
               icon={<GoogleIcon width={30} height={30} />}
               onPress={onGoogleIconPress}
             />
@@ -392,25 +392,22 @@ const RegisterWithEmail = (props) => {
             {Platform.OS == 'android' ? (
               <View>
                 {appleAuthAndroid.isSupported && (
-                  <AppleButton
-                    style={styles.appleLoginButton}
-                    cornerRadius={43}
-                    buttonStyle={AppleButton.Style.WHITE_OUTLINE}
-                    buttonType={AppleButton.Type.SIGN_IN}
-                    onPress={() => onAppleLoginForAndroid()}
-                    textStyle={styles.appleLoginButtonTitle}
-                    leftView={<AppleLogoIcon width={30} height={30} />}
+                  <AppButton
+                    type={'sociallogin'}
+                    title={"Continue with Apple"}
+                    icon={<AppleLogoIcon width={30} height={30} />}
+                    onPress={onAppleLoginForAndroid}
+                  // loading={googleLoginLoading}
                   />
                 )}
               </View>
             ) : (
-              <AppleButton
-                style={styles.appleButtoniOS}
-                cornerRadius={43}
-                buttonStyle={AppleButton.Style.WHITE_OUTLINE}
-                buttonType={AppleButton.Type.SIGN_IN}
-                textStyle={styles.appleLoginButtonTitle}
+              <AppButton
+                type={'sociallogin'}
+                title={"Log in with Apple"}
+                icon={<AppleLogoIcon width={30} height={30} />}
                 onPress={() => onAppleLoginForiOS(updateCredentialStateForUser)}
+              // loading={googleLoginLoading}
               />
             )}
 

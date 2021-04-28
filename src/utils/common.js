@@ -65,3 +65,18 @@ export const getUserProfilePicture = () => {
   }
   return profilePic;
 };
+
+export const getGeneralSettingValueByName = (name) => {
+  const { generalSettings } = store.getState().appState;
+  if (generalSettings.length > 0) {
+    let value = 0;
+    for (let setting of generalSettings) {
+      if (setting.name === name) {
+        value = setting.value;
+      }
+    }
+    return value;
+  } else {
+    return 0;
+  }
+}

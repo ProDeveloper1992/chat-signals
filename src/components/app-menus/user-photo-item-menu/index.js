@@ -74,7 +74,8 @@ function UserPhotoItemMenu({ onSelectOption }) {
                         </View>
                     </MenuItem>
                     {optionIndex != Options.length - 1 && (
-                        <MenuDivider color={Colors.grey} />
+                        // <MenuDivider color={Colors.grey} />
+                        <View style={{ height: 1, backgroundColor: Colors.grey }} />
                     )}
                 </View>
             })}

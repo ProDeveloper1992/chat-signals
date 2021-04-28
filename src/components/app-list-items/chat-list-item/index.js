@@ -7,6 +7,7 @@ import { Colors, Images, SCREEN_WIDTH } from '../../../constants';
 import { AppText, CommonImage } from '../../index';
 import styles from './style';
 import ContentLoader, { Rect, Circle } from "react-content-loader/native";
+import LinearGradient from 'react-native-linear-gradient';
 
 export default function ChatListItem({
   onChatPress,
@@ -14,13 +15,14 @@ export default function ChatListItem({
   userName,
   lastMessage,
   lastMessageTime,
-  isActive
+  isActive,
+  item
 }) {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
       // underlayColor={'rgba(15, 41, 55, 0.1)'}
-      style={styles.container}
+      style={[styles.container, { backgroundColor: item.unseenCounter * 1 > 0 ? 'rgba(15, 41, 55, 0.1)' : Colors.white }]}
       onPress={onChatPress}>
       <View style={{ flex: 1, flexDirection: 'row' }}>
         <View style={styles.profileImageContainer}>
@@ -42,17 +44,35 @@ export default function ChatListItem({
             >
               {userName}
             </AppText>
-            <AppText size={12}>{moment(lastMessageTime).fromNow()}</AppText>
+            <AppText size={12} type={item.unseenCounter * 1 > 0 ? 'bold' : 'regular'}>{moment(lastMessageTime).fromNow()}</AppText>
           </View>
-          <AppText
-            size={14}
-            color={Colors.black}
-            numberOfLines={1}
-            style={{
-              marginTop: 5,
-            }}>
-            {lastMessage != "" ? lastMessage : "Attachment"}
-          </AppText>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <AppText
+              type={item.unseenCounter * 1 > 0 ? 'bold' : 'regular'}
+              size={14}
+              color={Colors.black}
+              numberOfLines={1}
+              style={{
+                flex: 1.2,
+                marginTop: 5,
+              }}>
+              {lastMessage != "" ? lastMessage : "Attachment"}
+            </AppText>
+            <View style={{ flex: 0.8, alignItems: 'flex-end' }}>
+              {item.unseenCounter * 1 > 0 && (
+                <LinearGradient
+                  colors={[Colors.ui_counter_badge_gradient_1, Colors.ui_counter_badge_gradient_2]}
+                  style={styles.unSeenBadgeContainer}>
+                  <AppText
+                    type={'bold'}
+                    size={12}
+                    color={Colors.white}>
+                    {item.unseenCounter}
+                  </AppText>
+                </LinearGradient>
+              )}
+            </View>
+          </View>
         </View>
       </View>
     </TouchableOpacity>
@@ -84,6 +104,7 @@ ChatListItem.propTypes = {
   lastMessage: PropTypes.any,
   lastMessageTime: PropTypes.string,
   onChatPress: PropTypes.func,
+  item: PropTypes.object
 };
 
 ChatListItem.defaultProps = {
@@ -93,5 +114,6 @@ ChatListItem.defaultProps = {
   userName: 'Username',
   lastMessage: 'Last Message',
   lastMessageTime: new Date(),
+  item: {},
   onChatPress: () => { },
 };

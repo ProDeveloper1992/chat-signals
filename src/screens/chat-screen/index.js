@@ -14,18 +14,20 @@ import { Colors, Icons, Images } from '../../constants';
 import { AppText } from '../../components/app-text';
 import styles from './style';
 import { ChatListItem } from '../../components/app-list-items';
-import { getChatConversation, getUserChatList } from '../../redux/actions/user-actions';
+import { getUserChatList } from '../../redux/actions/chat-actions';
 import { NoListData } from '../../components';
 import pusherConfig from '../../../pusher.json';
 import { ChatListItemLoader } from '../../components/app-list-items/chat-list-item';
+import { ChatGradientIcon } from '../../constants/svg-icons';
 
 const Chat = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
 
-  const { userChatList, loadingChatList, authToken } = useSelector((state) => state.userState);
+  const { authToken } = useSelector((state) => state.userState);
   const { appLabels } = useSelector((state) => state.appState);
+  const { userChatList, loadingChatList } = useSelector((state) => state.chatState);
 
   useEffect(() => {
 
@@ -65,15 +67,15 @@ const Chat = () => {
       //   encrypted: true
       // });
 
-      var pusher = new Pusher(pusherConfig.key, pusherConfig);
+      // var pusher = new Pusher(pusherConfig.key, pusherConfig);
 
-      pusher.connection.bind('connected', function (data) {
-        console.log('pusher connected');
-        console.log('pusher data', data);
-        // pusher.allChannels().forEach(channel => console.log("channel.name", channel.name));
-        // const channel = pusher.subscribe('private-chatify');
-        // console.log("channel", channel)
-      });
+      // pusher.connection.bind('connected', function (data) {
+      //   console.log('pusher connected');
+      //   console.log('pusher data', data);
+      //   // pusher.allChannels().forEach(channel => console.log("channel.name", channel.name));
+      //   // const channel = pusher.subscribe('private-chatify');
+      //   // console.log("channel", channel)
+      // });
 
     }
   }, [isFocused]);
@@ -87,7 +89,7 @@ const Chat = () => {
       <GeneralHeader
         label={'Messages'}
       />
-      {loadingChatList && userChatList.length == 0 ? (
+      {loadingChatList && userChatList && userChatList.length == 0 ? (
         <FlatList
           data={[1, 2, 3, 4, 5, 6, 7]}
           contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
@@ -108,6 +110,7 @@ const Chat = () => {
           renderItem={({ item, index }) => (
             <ChatListItem
               key={String(index)}
+              item={item}
               onChatPress={() => onChatListItemPress(item)}
               profileImage={{ uri: item.profile_picture }}
               userName={item.user.username}
@@ -117,7 +120,9 @@ const Chat = () => {
             />
           )}
           keyExtractor={(item, index) => String(index)}
-          ListEmptyComponent={<NoListData title={"No chats found!"} />}
+          ListEmptyComponent={<NoListData
+            icon={<ChatGradientIcon />}
+            title={"No chats found!"} />}
         />
       )}
     </View>
