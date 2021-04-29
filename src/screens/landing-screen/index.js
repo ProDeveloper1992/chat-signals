@@ -12,14 +12,11 @@ import SplashScreen from 'react-native-splash-screen';
 
 import { AppButton, AppText, AuthContainer } from '../../components';
 import { Colors, Icons, Images, Gifs } from '../../constants';
-import { isIphoneX } from '../../utils/common';
 import { globalStyle } from '../../styles/global-style';
 import { useIsFocused } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 
-import LandingIntro from '../../assets/images/landing_intro.svg';
-import { RegisterLandingModal } from '../../components/app-modals';
 import { getGenderList, getPassionList, getSexualOrientationList } from '../../redux/actions/app-actions';
 
 const LandingScreen = (props) => {
@@ -28,8 +25,6 @@ const LandingScreen = (props) => {
   const dispatch = useDispatch();
 
   const { appLabels } = useSelector((state) => state.appState);
-
-  const [registerLandingModalVisible, setRegisterLandingModalVisible] = useState(false);
 
   useEffect(() => {
     SplashScreen.hide();
@@ -58,7 +53,6 @@ const LandingScreen = (props) => {
   }, [isFocused]);
 
   const onRegister = () => {
-    // setRegisterLandingModalVisible(true);
     navigation.navigate('RegisterWithEmail');
   };
 
@@ -116,9 +110,6 @@ const LandingScreen = (props) => {
             onPress={onRegister}
           />
         </View>
-        <RegisterLandingModal
-          visible={registerLandingModalVisible}
-          onHideModal={() => setRegisterLandingModalVisible(false)} />
       </View>
     </AuthContainer>
   );

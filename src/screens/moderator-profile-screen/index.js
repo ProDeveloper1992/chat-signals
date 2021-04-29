@@ -176,14 +176,14 @@ export default function ModeratorProfile(props) {
                         size={16}
                         style={{ marginTop: -10 }}
                         color={Colors.white}>{"ONLY FOR FRIENDS"}</AppText>
-                      <TouchableOpacity
+                      {/* <TouchableOpacity
                         onPress={onUnlockEroticImage}
                         style={styles.unlockEroticButtonContainer}>
                         <View style={{ marginBottom: -5, marginTop: 5, marginStart: -10 }}>
                           <CoinGradientIcon width={40} height={40} />
                         </View>
                         <AppText type={'black-italic'} size={12} color={Colors.white} uppercase>{`Unlock for ${10} coins`}</AppText>
-                      </TouchableOpacity>
+                      </TouchableOpacity> */}
                     </View>
                   </ImageBackground>)
                 }
@@ -201,14 +201,14 @@ export default function ModeratorProfile(props) {
                         size={16}
                         style={{ marginTop: -10 }}
                         color={Colors.white}>{"EROTIC IMAGE"}</AppText>
-                      <TouchableOpacity
+                      {/* <TouchableOpacity
                         onPress={onUnlockEroticImage}
                         style={styles.unlockEroticButtonContainer}>
                         <View style={{ marginBottom: -5, marginTop: 5, marginStart: -10 }}>
                           <CoinGradientIcon width={40} height={40} />
                         </View>
                         <AppText type={'black-italic'} size={12} color={Colors.white} uppercase>{`Unlock for ${10} coins`}</AppText>
-                      </TouchableOpacity>
+                      </TouchableOpacity> */}
                     </View>
                   </ImageBackground>)
                 }
