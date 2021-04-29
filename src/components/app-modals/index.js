@@ -14,7 +14,6 @@ import LanguageSelectionModal from './language-selection-modal';
 import ModeratorActivityModal from './moderator-activity-modal';
 import GallerySwiperModal from './gallery-swiper-modal';
 import WebViewModal from './webview-modal';
-import RegisterLandingModal from './register-landing-modal';
 import ForgotPasswordModal from './forgot-password-modal';
 import DeleteAccountModal from './delete-account-modal';
 import AddPassionsModal from './add-passions-modal';
@@ -30,7 +29,6 @@ export {
   ModeratorActivityModal,
   ModeratorChatDetailModal,
   WebViewModal,
-  RegisterLandingModal,
   ForgotPasswordModal,
   DeleteAccountModal,
   SpotlightModal,
