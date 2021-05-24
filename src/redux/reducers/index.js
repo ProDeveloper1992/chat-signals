@@ -7,7 +7,7 @@ import appModalState from './app-modals-state';
 import bookmarkState from './bookmarks-state';
 import chatState from './chat-state';
 import { ActionDispatcher } from '../actions';
-
+import * as RootNavigation from '../../navigators/root-navigation'
 export const LOGOUT_USER = 'LOGOUT_USER';
 
 const allReducers = combineReducers({
@@ -32,6 +32,7 @@ const rootReducer = (state, action) => {
       AsyncStorage.removeItem(`persist:${key}`);
     });
     AsyncStorage.removeItem('userToken');
+    RootNavigation.navigate('auth-stack');
     state = undefined;
   }
   return allReducers(state, action);

@@ -16,7 +16,7 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 
 import styles from './style';
 import { getFlirtsList } from '../../redux/actions/flirts-actions';
-import { userProfileDetail } from '../../redux/actions/user-actions';
+import { getCustomerProfileDetail } from '../../redux/actions/user-actions';
 import { Colors, Icons } from '../../constants';
 import { ModeratorListItemLoader } from '../../components/app-list-items/moderator-list-item';
 
@@ -39,7 +39,7 @@ export default function FlirtTab(props) {
       gender: ''
     };
     dispatch(getFlirtsList(requestData));
-    dispatch(userProfileDetail());
+    dispatch(getCustomerProfileDetail());
   }, []);
 
   const handleLoadMore = () => {

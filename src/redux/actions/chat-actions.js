@@ -2,7 +2,7 @@ import { ActionDispatcher } from '.';
 import { client } from '../../services/api-service';
 import { showToast } from './app-actions';
 import { GET_CHAT_CONVERSATION_FAILED, GET_CHAT_CONVERSATION_REQUEST, GET_CHAT_CONVERSATION_SUCCESS, GET_USER_CHAT_LIST_FAIL, GET_USER_CHAT_LIST_REQUEST, GET_USER_CHAT_LIST_SUCCESS } from './types';
-import { userProfileDetail } from './user-actions'
+import { getCustomerProfileDetail } from './user-actions'
 
 export const getChatConversation = (moderatorId) => (dispatch, getState) =>
     new Promise(function (resolve, reject) {
@@ -40,7 +40,7 @@ export const sendMessage = (messageData) => (dispatch) =>
             .post(`/sendMessage`, messageData)
             .then((res) => {
                 if (res.meta.status) {
-                    dispatch(userProfileDetail())
+                    dispatch(getCustomerProfileDetail())
                 } else {
                     dispatch(showToast('negative', res.meta.message))
                 }

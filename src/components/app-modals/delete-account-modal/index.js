@@ -8,6 +8,7 @@ import { AppButton, AppText } from '../../index';
 import styles from './style';
 
 import CloseIcon from '../../../assets/icons/close.svg';
+import { deleteUserAccount } from '../../../redux/actions/user-actions';
 
 export default function DeleteAccountModal({ visible, onHideModal }) {
 
@@ -15,6 +16,13 @@ export default function DeleteAccountModal({ visible, onHideModal }) {
     const { appLabels } = useSelector((state) => state.appState);
 
     const [loading, setLoading] = useState(false);
+
+    const onDeletePress = async () => {
+        setLoading(true);
+        await dispatch(deleteUserAccount());
+        setLoading(false);
+        onHideModal();
+    }
 
     return (
         <Modal
@@ -46,7 +54,7 @@ export default function DeleteAccountModal({ visible, onHideModal }) {
                     type={'primary'}
                     title={'Delete'}
                     style={{ marginTop: "20%", marginBottom: 10 }}
-                    onPress={() => { }}
+                    onPress={onDeletePress}
                     loading={loading}
                 />
 

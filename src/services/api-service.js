@@ -57,7 +57,6 @@ client.interceptors.response.use(
     if (error.response.status == 401) {
       store.dispatch(showToast('negative', "Session Expired! Login Again!"));
       store.dispatch(logoutUser())
-      RootNavigation.navigate('auth-stack');
     }
     return Promise.reject(error);
   },

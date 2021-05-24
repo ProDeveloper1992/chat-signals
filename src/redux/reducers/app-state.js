@@ -17,10 +17,12 @@ import {
   GET_PASSION_LIST_SUCCESS,
   GET_SEXUAL_ORIENTATION_LIST_SUCCESS,
   GET_GENDERS_LIST_SUCCESS,
-  GET_HELP_TICKET_SUBJECTS_SUCCESS
+  GET_HELP_TICKET_SUBJECTS_SUCCESS,
+  GET_APP_LANGUAGES_SUCCESS
 } from '../actions/types';
 
 const initialState = {
+  appLanguages: [],
   appLoading: true,
   selectedLanguage: 'en',
   loadingPaymentGateways: false,
@@ -222,6 +224,13 @@ function getToastBackgroundColor(type) {
 
 export default function (state = initialState, action) {
   switch (action.type) {
+
+    case GET_APP_LANGUAGES_SUCCESS:
+      return {
+        ...state,
+        appLanguages: action.payload
+      }
+
     case GET_APP_STRINGS_REQUEST:
       return {
         ...state,

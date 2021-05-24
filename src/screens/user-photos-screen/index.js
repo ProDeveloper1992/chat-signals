@@ -11,7 +11,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 import moment from 'moment';
 import { apiRoot } from '../../services/api-service';
 import { showToast } from '../../redux/actions/app-actions';
-import { userProfileDetail } from '../../redux/actions/user-actions';
+import { getCustomerProfileDetail } from '../../redux/actions/user-actions';
 
 export default function UserPhotos(props) {
 
@@ -68,7 +68,7 @@ export default function UserPhotos(props) {
                             if (parsedData) {
                                 if (parsedData.meta && parsedData.meta.status === true) {
                                     dispatch(showToast('positive', parsedData.meta.message));
-                                    dispatch(userProfileDetail());
+                                    dispatch(getCustomerProfileDetail());
                                 } else {
                                     dispatch(showToast('negative', parsedData.meta.message));
                                 }
