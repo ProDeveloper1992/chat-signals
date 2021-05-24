@@ -6,7 +6,7 @@ import CountDown from 'react-native-countdown-component';
 import { AppText } from '..';
 import { Colors } from '../../constants';
 import { GiftBoxIcon } from '../../constants/svg-icons';
-import { openGiftBox, userProfileDetail } from '../../redux/actions/user-actions';
+import { openGiftBox, getCustomerProfileDetail } from '../../redux/actions/user-actions';
 import { getRemainingTime } from '../../utils/common';
 
 export default function AppGiftBadge() {
@@ -30,7 +30,7 @@ export default function AppGiftBadge() {
     }
 
     const onFinishTimer = () => {
-        dispatch(userProfileDetail());
+        dispatch(getCustomerProfileDetail());
     }
 
     if (userData && userData.last_date_bonus_card) {

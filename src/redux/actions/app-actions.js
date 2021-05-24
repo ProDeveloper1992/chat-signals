@@ -16,15 +16,31 @@ import {
   GET_SEXUAL_ORIENTATION_LIST_SUCCESS,
   GET_GENDERS_LIST_SUCCESS,
   GET_HELP_TICKET_SUBJECTS_SUCCESS,
-  GET_HELP_TICKET_LIST_SUCCESS
+  GET_HELP_TICKET_LIST_SUCCESS,
+  GET_APP_LANGUAGES_SUCCESS
 } from './types';
 import { client } from '../../services/api-service';
 import { store } from '../../redux/store';
 
-export const getAppStrings = (params) => (dispatch) =>
+export const getAppLanguages = () => (dispatch) =>
+  new Promise(function (resolve, reject) {
+    client
+      .get(`/language`)
+      .then((res) => {
+        if (res.data) {
+          // dispatch(ActionDispatcher(GET_APP_LANGUAGES_SUCCESS, res.data));
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+
+export const getAppStrings = () => (dispatch, getState) =>
   new Promise(function (resolve, reject) {
     dispatch(ActionDispatcher(GET_APP_STRINGS_REQUEST));
-    let state = store.getState();
+    let state = getState();
     let user_language = state.appState.selectedLanguage;
     client
       .get(`/appsettings/${user_language}`)

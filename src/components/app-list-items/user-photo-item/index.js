@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/core';
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import FastImage from 'react-native-fast-image';
@@ -5,12 +6,13 @@ import { useDispatch } from 'react-redux';
 
 import { AppIndicatorLoader, UserPhotoItemMenu } from '../..';
 import { Colors } from '../../../constants';
-import { deleteCustomerPhoto } from '../../../redux/actions/user-actions';
+import { customerPhotoUpdate, deleteCustomerPhoto } from '../../../redux/actions/user-actions';
 import styles from './style'
 
 export default function UserPhotoItem({ item }) {
 
     const dispatch = useDispatch();
+    const navigation = useNavigation();
 
     const [loading, setLoading] = useState(false);
 
@@ -22,7 +24,10 @@ export default function UserPhotoItem({ item }) {
                 setLoading(false);
                 break;
             case 'set_profile':
-                // alert(option.title)
+                setLoading(true);
+                await dispatch(customerPhotoUpdate(item.id, '1'));
+                setLoading(false);
+                navigation.goBack();
                 break;
 
             default:

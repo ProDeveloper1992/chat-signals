@@ -29,6 +29,7 @@ import {
 import { client } from '../../services/api-service';
 import { showToast } from './app-actions';
 import { toggleCoinsEarningModal } from './app-modals-actions';
+import { logoutUser } from '../reducers';
 
 export const setSelectedGender = (genderData) => (dispatch) =>
   dispatch(ActionDispatcher(SET_SELECTED_USER_GENDER, genderData));
@@ -133,7 +134,7 @@ export const forgotPassword = (requestData) => (dispatch) =>
       });
   });
 
-export const userProfileDetail = () => (dispatch, getState) =>
+export const getCustomerProfileDetail = () => (dispatch, getState) =>
   new Promise(function (resolve, reject) {
     dispatch(ActionDispatcher(GET_USER_PROFILE_REQUEST));
     let state = getState();
@@ -281,7 +282,7 @@ export const openGiftBox = () => (dispatch, getState) =>
       .then((res) => {
         if (res.meta.status) {
           dispatch(toggleCoinsEarningModal(true));
-          dispatch(userProfileDetail());
+          dispatch(getCustomerProfileDetail());
         } else {
           dispatch(showToast('negative', res.meta.message));
         }
@@ -413,21 +414,18 @@ export const getStickersList = () => (dispatch, getState) =>
   });
 
 //Set Photo as Profile photo
-export const setAsProfilePhoto = (photoId) => (dispatch, getState) =>
+export const customerPhotoUpdate = (photoId, type) => (dispatch, getState) =>
   new Promise(function (resolve, reject) {
-    const userData = getState().userState.userData;
-    let userId = null;
-    if (userData) {
-      userId = userData.id;
-    }
     let requestData = {
-      customer_id: userId,
-      // photoId
+      photo_id: photoId,
+      type: type
     }
     client
-      .post(`/set_profile_photo`, requestData)
+      .post(`/customer_photo_update`, requestData)
       .then((res) => {
         if (res.meta.status) {
+          dispatch(getCustomerProfileDetail());
+          dispatch(showToast('positive', res.meta.message));
         }
         resolve(res);
       })
@@ -454,7 +452,7 @@ export const deleteCustomerPhoto = (photoId) => (dispatch, getState) =>
       .then((res) => {
         if (res.meta.status) {
           dispatch(showToast('positive', res.meta.message));
-          dispatch(userProfileDetail());
+          dispatch(getCustomerProfileDetail());
         } else {
           dispatch(showToast('positive', res.meta.message));
         }
@@ -462,30 +460,6 @@ export const deleteCustomerPhoto = (photoId) => (dispatch, getState) =>
       })
       .catch((err) => {
         dispatch(showToast('positive', "Something went wrong! Try again!"));
-        resolve({ meta: { status: false } });
-        reject(err);
-      });
-  });
-
-//Delete Customer Account
-export const deleteCustomerAccount = () => (dispatch, getState) =>
-  new Promise(function (resolve, reject) {
-    const userData = getState().userState.userData;
-    let userId = null;
-    if (userData) {
-      userId = userData.id;
-    }
-    let requestData = {
-      customer_id: userId,
-    }
-    client
-      .post(`/delete_customer_account`, requestData)
-      .then((res) => {
-        if (res.meta.status) {
-        }
-        resolve(res);
-      })
-      .catch((err) => {
         resolve({ meta: { status: false } });
         reject(err);
       });
@@ -549,6 +523,32 @@ export const sendUserTicketMessage = (ticketId, message) => (dispatch, getState)
     client
       .post(`/user_send_ticket`, requestData)
       .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } })
+        reject(err);
+      });
+  });
+
+//Delete User Account
+export const deleteUserAccount = () => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    const userData = getState().userState.userData;
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      customer_id: userId,
+    }
+    client
+      .post(`/delete_account`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+          dispatch(showToast('positive', res.meta.message));
+          dispatch(logoutUser());
+        }
         resolve(res);
       })
       .catch((err) => {

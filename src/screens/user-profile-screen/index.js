@@ -28,7 +28,7 @@ import {
 } from '../../constants/svg-icons';
 import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
-import { userProfileDetail } from '../../redux/actions/user-actions';
+import { getCustomerProfileDetail } from '../../redux/actions/user-actions';
 import moment from 'moment';
 import { logoutUser } from '../../redux/reducers';
 import { getUserProfilePicture } from '../../utils/common';
@@ -72,7 +72,7 @@ export default function UserProfile(props) {
   useEffect(() => {
     if (isFocused) {
       console.log("userData...", userData)
-      dispatch(userProfileDetail());
+      dispatch(getCustomerProfileDetail());
     }
   }, [isFocused]);
 
