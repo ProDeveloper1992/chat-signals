@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -8,13 +8,21 @@ import MainStackNavigator from './main-stack-navigator';
 import { AppLoading } from '../screens';
 import { StatusBar } from 'react-native';
 import { Colors } from '../constants';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { navigationRef } from './root-navigation';
 import linking from '../utils/linking';
+import { getAppLanguages } from '../redux/actions/app-actions';
 
 const RootStack = createStackNavigator();
 
-export default function () {
+export default function (props) {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAppLanguages());
+  }, [])
+
   return (
     <>
       <StatusBar

@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 
 import { AppIndicatorLoader, UserPhotoItemMenu } from '../..';
 import { Colors } from '../../../constants';
-import { customerPhotoUpdate, deleteCustomerPhoto } from '../../../redux/actions/user-actions';
+import { customerPhotoUpdate } from '../../../redux/actions/user-actions';
 import styles from './style'
 
 export default function UserPhotoItem({ item }) {
@@ -18,16 +18,29 @@ export default function UserPhotoItem({ item }) {
 
     const onSelectOption = async (option) => {
         switch (option.type) {
-            case 'delete':
-                setLoading(true);
-                await dispatch(deleteCustomerPhoto(item.id));
-                setLoading(false);
-                break;
             case 'set_profile':
                 setLoading(true);
                 await dispatch(customerPhotoUpdate(item.id, '1'));
                 setLoading(false);
                 navigation.goBack();
+                break;
+
+            case 'erotic':
+                setLoading(true);
+                await dispatch(customerPhotoUpdate(item.id, '2'));
+                setLoading(false);
+                break;
+
+            case 'private':
+                setLoading(true);
+                await dispatch(customerPhotoUpdate(item.id, '3'));
+                setLoading(false);
+                break;
+
+            case 'delete':
+                setLoading(true);
+                await dispatch(customerPhotoUpdate(item.id, '4'));
+                setLoading(false);
                 break;
 
             default:

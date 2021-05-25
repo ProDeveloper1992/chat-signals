@@ -23,12 +23,18 @@ function UserPhotoItemMenu({ onSelectOption }) {
 
     const Options = [
         {
-            id: 1,
             type: 'set_profile',
             title: "Set as profile photo",
         },
         {
-            id: 2,
+            type: 'erotic',
+            title: "Erotic photo",
+        },
+        {
+            type: 'private',
+            title: "Private photo",
+        },
+        {
             type: 'delete',
             title: "Delete photo",
         }

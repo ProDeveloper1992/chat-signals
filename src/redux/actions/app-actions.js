@@ -28,7 +28,7 @@ export const getAppLanguages = () => (dispatch) =>
       .get(`/language`)
       .then((res) => {
         if (res.data) {
-          // dispatch(ActionDispatcher(GET_APP_LANGUAGES_SUCCESS, res.data));
+          dispatch(ActionDispatcher(GET_APP_LANGUAGES_SUCCESS, res.data));
         }
         resolve(res);
       })
@@ -58,8 +58,8 @@ export const getAppStrings = () => (dispatch, getState) =>
       });
   });
 
-export const changeAppLanguage = (language_code) => async (dispatch) => {
-  await dispatch(ActionDispatcher(CHANGE_APP_LANGUAGE, language_code));
+export const changeAppLanguage = (key) => async (dispatch) => {
+  await dispatch(ActionDispatcher(CHANGE_APP_LANGUAGE, key));
   await dispatch(getAppStrings());
 };
 

@@ -24,8 +24,8 @@ function LanguageSelectionMenu({ onSelectOption }) {
 
     const { selectedLanguage, languages } = useSelector((state) => state.appState);
 
-    let selectedLanguageItem = languages.filter((item, index) => item.language_code == selectedLanguage);
-    let updatedSelectedLanguage = { name: "Select Language" };
+    let selectedLanguageItem = languages.filter((item, index) => item.key == selectedLanguage);
+    let updatedSelectedLanguage = { lang: "Select Language" };
 
     if (selectedLanguageItem && selectedLanguageItem.length > 0) {
         updatedSelectedLanguage = selectedLanguageItem[0];
@@ -44,7 +44,7 @@ function LanguageSelectionMenu({ onSelectOption }) {
             ref={setMenuRef}
             style={{ width: '88%', marginTop: 100, marginStart: 2 }}
             button={
-                <AppDropDown title={"Select language"} value={selectedOption.name} onPress={showMenu} />
+                <AppDropDown title={"Select language"} value={selectedOption.lang} onPress={showMenu} />
             }
         >
             {languages.map((option, optionIndex) => {
@@ -52,7 +52,7 @@ function LanguageSelectionMenu({ onSelectOption }) {
                     <MenuItem
                         onPress={() => onSelectMenu(option)}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', paddingStart: Platform.OS == 'ios' ? 10 : 0 }}>
-                            <AppText type={'medium'} style={{ marginStart: 5 }}>{option.name}</AppText>
+                            <AppText type={'medium'} style={{ marginStart: 5 }}>{option.lang}</AppText>
                         </View>
                     </MenuItem>
                     <MenuDivider />
