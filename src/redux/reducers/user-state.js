@@ -110,7 +110,7 @@ const initialState = {
   userCountry: {
     country_id: 1,
     country_code: 'DE',
-    country_flag:
+    image:
       'https://www.countryflags.com/wp-content/uploads/germany-flag-png-large.png',
   },
 

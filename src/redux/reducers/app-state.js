@@ -22,7 +22,6 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  appLanguages: [],
   appLoading: true,
   selectedLanguage: 'en',
   loadingPaymentGateways: false,
@@ -35,34 +34,30 @@ const initialState = {
   helpTicketSubjects: [],
   languages: [
     {
-      language_id: 1,
-      language_code: 'en',
-      name: 'English',
-      country_flag:
+      key: 'en',
+      lang: 'English',
+      image:
         'https://www.countryflags.com/wp-content/uploads/united-states-of-america-flag-png-large.png',
     },
 
     {
-      language_id: 2,
-      language_code: 'de',
-      name: 'German',
-      country_flag:
+      key: 'de',
+      lang: 'German',
+      image:
         'https://www.countryflags.com/wp-content/uploads/germany-flag-png-large.png',
     },
 
     {
-      language_id: 3,
-      language_code: 'es',
-      name: 'Spanish',
-      country_flag:
+      key: 'es',
+      lang: 'Spanish',
+      image:
         'https://www.countryflags.com/wp-content/uploads/spain-flag-png-large.png',
     },
 
     {
-      language_id: 4,
-      language_code: 'fr',
-      name: 'French',
-      country_flag:
+      key: 'fr',
+      lang: 'French',
+      image:
         'https://www.countryflags.com/wp-content/uploads/france-flag-png-large.png',
     },
   ],
@@ -200,17 +195,6 @@ const initialState = {
   },
 };
 
-function getLanguageStrings(language_code) {
-  switch (language_code) {
-    case 'en':
-      return initialState.en;
-    case 'de':
-      return initialState.de;
-    default:
-      return initialState.en;
-  }
-}
-
 function getToastBackgroundColor(type) {
   switch (type) {
     case 'positive':
@@ -226,9 +210,10 @@ export default function (state = initialState, action) {
   switch (action.type) {
 
     case GET_APP_LANGUAGES_SUCCESS:
+      console.log("GET_APP_LANGUAGES_SUCCESS", action.payload)
       return {
         ...state,
-        appLanguages: action.payload
+        languages: action.payload
       }
 
     case GET_APP_STRINGS_REQUEST:
@@ -255,7 +240,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         selectedLanguage: action.payload,
-        // appStrings: getLanguageStrings(action.payload),
       };
 
     case SHOW_TOAST:

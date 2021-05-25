@@ -10,21 +10,21 @@ export default function CountryPicker({ onChangeLanguage }) {
         {
             country_id: 1,
             country_code: 'DE',
-            country_flag:
+            image:
                 'https://www.countryflags.com/wp-content/uploads/germany-flag-png-large.png',
         },
 
         {
             country_id: 2,
             country_code: 'CH',
-            country_flag:
+            image:
                 'https://www.countryflags.com/wp-content/uploads/switzerland-flag-png-large.png',
         },
 
         {
             country_id: 3,
             country_code: 'AT',
-            country_flag:
+            image:
                 'https://www.countryflags.com/wp-content/uploads/flag-jpg-xl-10-1536x1024.jpg',
         },
     ];
@@ -38,7 +38,7 @@ export default function CountryPicker({ onChangeLanguage }) {
                         country={item}
                         isSelected={false}
                         countryName={item.country_code}
-                        imageUrl={item.country_flag}
+                        imageUrl={item.image}
                         onChangeCountry={onChangeLanguage}
                     />
                 </View>

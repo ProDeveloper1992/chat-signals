@@ -143,7 +143,7 @@ export default function FlirtFilterModal({ visible, onHideModal }) {
                         disableRange
                         onChangeValue={onChangeMaxDistance} />
                     <LanguageSelectionMenu
-                        onSelectOption={(language) => setLanguage(language.language_code)} />
+                        onSelectOption={(language) => setLanguage(language.key)} />
                     <AppText style={{ marginTop: 10, marginBottom: 5 }}>{"Passions"}</AppText>
                     <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                         {passionList.map((passion, passionIndex) => {

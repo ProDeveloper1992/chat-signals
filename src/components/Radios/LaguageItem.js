@@ -27,9 +27,9 @@ export function LaguageItem({
   const [loading, setLoading] = useState(false);
 
   const onPress = async () => {
-    if (selectedLanguage != country.language_code) {
+    if (selectedLanguage != country.key) {
       setLoading(true);
-      await dispatch(changeAppLanguage(country.language_code));
+      await dispatch(changeAppLanguage(country.key));
       setLoading(false);
       onChangeCountry();
     }

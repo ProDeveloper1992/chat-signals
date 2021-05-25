@@ -15,9 +15,9 @@ export default function LanguagePicker({ onChangeLanguage }) {
           <LaguageItem
             key={index}
             country={item}
-            isSelected={selectedLanguage == item.language_code ? true : false}
-            countryName={item.language_code}
-            imageUrl={item.country_flag}
+            isSelected={selectedLanguage == item.key ? true : false}
+            countryName={item.key}
+            imageUrl={item.image}
             onChangeCountry={onChangeLanguage}
           />
         </View>
