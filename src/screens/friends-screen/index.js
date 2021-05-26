@@ -14,6 +14,7 @@ export default function FriendsScreen(props) {
     const dispatch = useDispatch();
 
     const { userData, friendsList } = useSelector((state) => state.userState);
+    const { appLabels } = useSelector((state) => state.appState);
 
     const [loading, setLoading] = useState(true);
 
@@ -58,7 +59,7 @@ export default function FriendsScreen(props) {
                     ListEmptyComponent={
                         <NoListData
                             icon={<FriendGradientIcon />}
-                            title={"No Friends Found!"} />
+                            title={appLabels.no_friends} />
                     }
                 />
             )}

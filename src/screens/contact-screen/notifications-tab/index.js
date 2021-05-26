@@ -30,7 +30,7 @@ export default function NotificationsTab(props) {
                         type={item.type}
                     />
                 )}
-                ListEmptyComponent={<NoListData title={appLabels.no_bookmarks} />}
+                ListEmptyComponent={<NoListData title={'No notifications found!'} />}
                 keyExtractor={(item, index) => index.toString()}
             />
         </View>
