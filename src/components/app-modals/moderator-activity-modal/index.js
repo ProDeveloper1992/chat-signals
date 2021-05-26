@@ -36,9 +36,6 @@ export default function ActivityModal({ visible, onHideModal, type, moderator, o
       case 'like':
         return appLabels.like;
 
-      case 'chat':
-        return appLabels.chat;
-
       case 'addfriend':
         return "Friend request";
 

@@ -151,6 +151,22 @@ export default function ModeratorProfile(props) {
     navigation.navigate('BuyCoinsTabStack')
   }
 
+  const getGenderFromId = (id) => {
+    switch (id) {
+      case '1':
+        return 'Men';
+
+      case '2':
+        return 'Women';
+
+      case '3':
+        return 'Bigender'
+
+      default:
+        return 'Women';
+    }
+  }
+
   return (
     <View style={styles.container}>
       <BackHeader title={'Flirts'} color={Colors.ui_primary} />
@@ -253,17 +269,6 @@ export default function ModeratorProfile(props) {
                   {params.item.city + ", " + params.item.country}
                 </AppText>
               </View>
-
-              {/* <View style={styles.switchViewContainer}>
-              <Switch
-                trackColor={{ false: '#e0e0e0', true: Colors.ui_primary_dark }}
-                thumbColor={isFavorite ? Colors.white : Colors.white}
-                ios_backgroundColor={Colors.white_80}
-                onValueChange={toggleSwitch}
-                value={isFavorite}
-              />
-              <AppText type={'bold'} uppercase style={{ marginHorizontal: 10 }}>{appLabels.bookmark ? appLabels.bookmark : 'Favourite'}</AppText>
-            </View> */}
             </View>
 
             <View style={styles.moderatorIconViewHolder}>
@@ -277,11 +282,12 @@ export default function ModeratorProfile(props) {
                 Icon={<LikeGradientIcon />}
               />
 
-              <ModeratorIconLabel
-                onIconPress={() => showActivityModal('addfriend')}
-                Icon={<FriendGradientIcon />}
-              />
-
+              {params && params.item && !params.item.is_friend && (
+                <ModeratorIconLabel
+                  onIconPress={() => showActivityModal('addfriend')}
+                  Icon={<FriendGradientIcon />}
+                />
+              )}
               <ModeratorIconLabel
                 onIconPress={() => showActivityModal('kiss')}
                 Icon={<KissGradientIcon />}
@@ -316,12 +322,12 @@ export default function ModeratorProfile(props) {
             {params.item && params.item.dob && (
               <ProfileItem
                 title={appLabels.dob}
-                value={params.item.dob} />
+                value={moment(params.item.dob).format('DD/MM/YYYY')} />
             )}
             {params.item && params.item.Gender && (
               <ProfileItem
                 title={appLabels.gender}
-                value={params.item.Gender} />
+                value={getGenderFromId(params.item.Gender)} />
             )}
           </View>
           <ModeratorActivityModal

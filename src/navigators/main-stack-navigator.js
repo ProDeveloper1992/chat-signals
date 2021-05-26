@@ -8,7 +8,6 @@ import {
   Home,
   Contact,
   Chat,
-  DailyCoins,
   CoinPurchase,
   ModeratorProfile,
   UserProfile,
@@ -73,20 +72,6 @@ function ChatStack() {
   );
 }
 
-function DailyCoinStack() {
-  return (
-    <Stack.Navigator
-      initialRouteName="Daily Coins"
-      screenOptions={{ headerShown: false }}>
-      <Stack.Screen
-        name="Daily Coins"
-        component={DailyCoins}
-        options={{ title: 'Daily Coins' }}
-      />
-    </Stack.Navigator>
-  );
-}
-
 function CoinPurchaseStack() {
   return (
     <Stack.Navigator
@@ -122,38 +107,23 @@ const BottomTabNavigator = () => {
       <Tab.Screen
         name="HomeTabStack"
         component={HomeStack}
-        options={{
-          tabBarLabel: appLabels.home,
-        }}
       />
       <Tab.Screen
         name="NotificationTabStack"
         component={NotificationTabStack}
-        options={{
-          tabBarLabel: appLabels.contact,
-        }}
       />
       <Tab.Screen
         name="ChatTabStack"
         component={ChatStack}
-        options={{
-          tabBarLabel: appLabels.chat,
-        }}
       />
       <Tab.Screen
         name="BuyCoinsTabStack"
         component={CoinPurchaseStack}
-        options={{
-          tabBarLabel: appLabels.daily_coins,
-        }}
       />
       <Tab.Screen
         name="UserProfileTabStack"
         // component={CoinPurchaseStack}
         component={UserProfile}
-        options={{
-          tabBarLabel: appLabels.purchase,
-        }}
       />
     </Tab.Navigator>
   );

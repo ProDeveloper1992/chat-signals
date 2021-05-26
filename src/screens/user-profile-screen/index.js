@@ -233,7 +233,7 @@ export default function UserProfile(props) {
             onPress={onLanguagePress} />
 
           <CardHeader
-            title={"Privacy Policy"}
+            title={appLabels.privacy_policy}
             onPress={() => navigation.navigate('PrivacyPolicy')} />
 
           <CardHeader
@@ -252,7 +252,7 @@ export default function UserProfile(props) {
             onPress={() => setLogoutModalVisible(true)}
             type={'bold'}
             size={18}
-            style={{ marginBottom: 20, textAlign: 'center' }}>{"Logout"}</AppText>
+            style={{ marginBottom: 20, textAlign: 'center' }}>{appLabels.logout}</AppText>
 
           <ModeratorActivityModal
             visible={activityModalVisible}
@@ -270,8 +270,8 @@ export default function UserProfile(props) {
         onHideModal={() => setLogoutModalVisible(false)}
         title={"Logout"}
         message={"Are you sure you want to logout?"}
-        button1Title={"Logout"}
-        button2Title={"Cancel"}
+        button1Title={appLabels.logout}
+        button2Title={appLabels.cancel}
         onButton1Press={onLogout}
       />
     </View>

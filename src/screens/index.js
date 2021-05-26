@@ -3,7 +3,6 @@ import AppLoading from './app-loading-screen';
 import Home from './home-screen';
 import Contact from './contact-screen';
 import Chat from './chat-screen';
-import DailyCoins from './daily-coin-collection-screen';
 import CoinPurchase from './coins-purchase-screen';
 import RegisterWithEmail from './register-with-email-screen';
 import Login from './login-screen';
@@ -32,7 +31,6 @@ export {
   Home,
   Contact,
   Chat,
-  DailyCoins,
   CoinPurchase,
   FlirtTab,
   ProFlirtTab,

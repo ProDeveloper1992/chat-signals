@@ -12,9 +12,6 @@ import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 //Top Tabs
 import NotificationsTab from './notifications-tab';
 import FriendsTopTab from './friend-requests-tab';
-// import BookMarkTopTab from './bookmark-top-tab';
-// import VisitorsTopTab from './visitors-top-tab';
-// import BlockedTopTab from './blocked-top-tab';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
@@ -28,17 +25,11 @@ export default function Home() {
   const routes = [
     { key: 'notifications', title: 'Notifications' },
     { key: 'friends', title: 'Friend Requests' },
-    // { key: 'favourites', title: 'Favourites' },
-    // { key: 'visitors', title: appLabels.visitors },
-    // { key: 'blocked', title: appLabels.blocked },
   ]
 
   const renderScene = SceneMap({
     notifications: NotificationsTab,
     friends: FriendsTopTab,
-    // favourites: BookMarkTopTab,
-    // visitors: VisitorsTopTab,
-    // blocked: BlockedTopTab,
   });
 
   return (
