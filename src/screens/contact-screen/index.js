@@ -15,7 +15,7 @@ import FriendsTopTab from './friend-requests-tab';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
-export default function Home() {
+export default function Contact() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -23,8 +23,8 @@ export default function Home() {
 
   const [index, setIndex] = React.useState(0);
   const routes = [
-    { key: 'notifications', title: 'Notifications' },
-    { key: 'friends', title: 'Friend Requests' },
+    { key: 'notifications', title: appLabels.notifications },
+    { key: 'friends', title: appLabels.friend_requests },
   ]
 
   const renderScene = SceneMap({
@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <GeneralHeader
-        label={"Notifications"}
+        label={appLabels.notifications}
       />
 
       <TabView

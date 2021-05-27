@@ -69,26 +69,31 @@ export default function FlirtTab(props) {
       {flirtsLoading && flirtsList.length == 0 ? (
         <FlatList
           data={[1, 2, 3, 4, 5]}
-          contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
+          numColumns={2}
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: 20, paddingHorizontal: 10 }}
           showsVerticalScrollIndicator={false}
           renderItem={({ item, index }) => (
-            <ModeratorListItemLoader key={String(index)} />
+            <View key={String(index)} style={{ flex: 0.5 }}>
+              <ModeratorListItemLoader />
+            </View>
           )}
           keyExtractor={(item, index) => String(index)}
         />
       ) : (
         <FlatList
           data={flirtsList}
-          contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
+          numColumns={2}
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: 20, paddingHorizontal: 10 }}
           showsVerticalScrollIndicator={false}
           renderItem={({ item, index }) => (
-            <ModeratorListItem
-              item={item}
-              key={String(index)}
-              onPress={() =>
-                navigation.navigate('ModeratorProfile', { item: item })
-              }
-            />
+            <View key={String(index)} style={{ flex: 0.5 }}>
+              <ModeratorListItem
+                item={item}
+                onPress={() =>
+                  navigation.navigate('ModeratorProfile', { item: item })
+                }
+              />
+            </View>
           )}
           keyExtractor={(item, index) => String(index)}
           ListFooterComponent={

@@ -143,7 +143,7 @@ export default function UserProfile(props) {
 
   return (
     <View style={styles.container}>
-      <GeneralHeader label={"Profile"} />
+      <GeneralHeader label={appLabels.profile} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
           <View style={{ alignItems: 'center', marginTop: 30 }}>
@@ -166,7 +166,7 @@ export default function UserProfile(props) {
               <View style={styles.boostIconContainer}>
                 <BoostIcon />
               </View>
-              <AppText type={'bold'} size={12} uppercase>{"Boost Profile"}</AppText>
+              <AppText type={'bold'} size={12} uppercase>{`${appLabels.boost} ${appLabels.profile}`}</AppText>
             </TouchableOpacity>
           </View>
 
@@ -174,34 +174,34 @@ export default function UserProfile(props) {
             <View style={{ flexDirection: 'row' }}>
               <CounterCard
                 onPress={() => { }}
-                title={'Coins'}
+                title={appLabels.Coins}
                 count={userData ? userData.credit : 0}
                 icon={<CoinGradientIcon width={50} height={50} />} />
               <CounterCard
                 onPress={() => navigation.navigate('HeartsScreen')}
-                title={'Hearts'}
+                title={appLabels.heart}
                 count={userData ? userData.total_hearts : 0}
                 icon={<HeartGradientIcon32 width={50} height={50} />} />
               <CounterCard
                 onPress={() => navigation.navigate('KissesScreen')}
-                title={'Kisses'}
+                title={appLabels.kisses}
                 count={userData ? userData.total_kiss : 0}
                 icon={<KissGradientIcon32 width={50} height={50} />} />
             </View>
             <View style={{ flexDirection: 'row' }}>
               <CounterCard
                 onPress={() => navigation.navigate('LikesScreen')}
-                title={'Likes'}
+                title={appLabels.likes}
                 count={userData ? userData.total_likes : 0}
                 icon={<LikeGradientIcon32 width={50} height={50} />} />
               <CounterCard
                 onPress={() => navigation.navigate('FriendsScreen')}
-                title={'Friends'}
+                title={appLabels.friends}
                 count={userData ? userData.totalfriends : 0}
                 icon={<FriendGradientIcon32 width={50} height={50} />} />
               <CounterCard
                 onPress={() => { }}
-                title={'Stickers'}
+                title={appLabels.stickers}
                 count={userData ? userData.stickers : 0}
                 icon={<StickerGradientIcon32 width={50} height={50} />} />
             </View>
@@ -214,12 +214,12 @@ export default function UserProfile(props) {
 
 
           <CardHeader
-            title={"Account Info"}
+            title={appLabels.account_info}
             onPress={() => navigation.navigate('AccountDetail')}
           />
 
           <CardHeader
-            title={"Appearance & Interests"}
+            title={`${appLabels.appearance} & ${appLabels.interests}`}
             onPress={() => navigation.navigate('AppearanceScreen')}
           />
 
@@ -229,7 +229,7 @@ export default function UserProfile(props) {
 
 
           <CardHeader
-            title={"Language"}
+            title={appLabels.language}
             onPress={onLanguagePress} />
 
           <CardHeader
@@ -237,7 +237,7 @@ export default function UserProfile(props) {
             onPress={() => navigation.navigate('PrivacyPolicy')} />
 
           <CardHeader
-            title={"Help & Support"}
+            title={`${appLabels.help} & ${appLabels.support}`}
             onPress={() => navigation.navigate('HelpAndSupport')} />
 
           <AppText
@@ -268,7 +268,7 @@ export default function UserProfile(props) {
       <AppAlertModal
         visible={isLogoutModalVisible}
         onHideModal={() => setLogoutModalVisible(false)}
-        title={"Logout"}
+        title={appLabels.logout}
         message={"Are you sure you want to logout?"}
         button1Title={appLabels.logout}
         button2Title={appLabels.cancel}

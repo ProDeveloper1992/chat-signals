@@ -17,7 +17,6 @@ export default function NotificationsTab(props) {
 
     return (
         <View style={styles.container}>
-            {/* <NoListData title={'No notifications found!'} /> */}
             <FlatList
                 data={notifications}
                 contentContainerStyle={{ flexGrow: 1 }}
@@ -30,7 +29,7 @@ export default function NotificationsTab(props) {
                         type={item.type}
                     />
                 )}
-                ListEmptyComponent={<NoListData title={'No notifications found!'} />}
+                ListEmptyComponent={<NoListData title={appLabels.no_notifications_found} />}
                 keyExtractor={(item, index) => index.toString()}
             />
         </View>

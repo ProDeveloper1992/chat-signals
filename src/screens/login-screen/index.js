@@ -182,7 +182,7 @@ const LoginScreen = (props) => {
 
             <AppButton
               type={'sociallogin'}
-              title={"Log in with Facebook"}
+              title={appLabels.login_with_facebook}
               icon={<FacebookIcon width={30} height={30} />}
               onPress={onFacebookIconPress}
               loading={facebookLoginLoading}
@@ -190,7 +190,7 @@ const LoginScreen = (props) => {
             <View style={{ marginTop: 15 }} />
             <AppButton
               type={'sociallogin'}
-              title={"Log in with Google"}
+              title={appLabels.login_with_google}
               icon={<GoogleIcon width={30} height={30} />}
               onPress={onGoogleIconPress}
               loading={googleLoginLoading}
@@ -201,7 +201,7 @@ const LoginScreen = (props) => {
                 {appleAuthAndroid.isSupported && (
                   <AppButton
                     type={'sociallogin'}
-                    title={"Log in with Apple"}
+                    title={appLabels.login_with_apple}
                     icon={<AppleLogoIcon width={30} height={30} />}
                     onPress={onAppleLoginForAndroid}
                   // loading={googleLoginLoading}
@@ -211,7 +211,7 @@ const LoginScreen = (props) => {
             ) : (
               <AppButton
                 type={'sociallogin'}
-                title={"Log in with Apple"}
+                title={appLabels.login_with_apple}
                 icon={<AppleLogoIcon width={30} height={30} />}
                 onPress={() => onAppleLoginForiOS(updateCredentialStateForUser)}
               // loading={googleLoginLoading}
@@ -230,7 +230,7 @@ const LoginScreen = (props) => {
           </View>
           <TextButton
             style={{ alignSelf: 'center' }}
-            title={'Back'}
+            title={appLabels.back}
             fontType={'bold'}
             titleColor={Colors.black}
             onPress={onBackPress} />

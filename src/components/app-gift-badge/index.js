@@ -14,6 +14,7 @@ export default function AppGiftBadge() {
     const dispatch = useDispatch();
 
     const { userData } = useSelector((state) => state.userState);
+    const { appLabels } = useSelector((state) => state.appState);
 
     const [isOpened, setIsOpened] = useState(false);
     const [loading, setLoading] = useState(false);

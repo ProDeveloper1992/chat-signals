@@ -69,15 +69,15 @@ export default function ForgotPasswordModal({ visible, onHideModal }) {
                 </View>
                 <AppText
                     size={24}
-                    type={'bold'}>{"Did you forgot your password?"}</AppText>
+                    type={'bold'}>{appLabels.forgot_password_title}</AppText>
                 <AppText
                     type={'regular'}
                     color={Colors.greydark}
                     style={{ marginVertical: 10 }}>
-                    {"Please enter your email address you are using for your account bellow and we will send you a password reset link."}
+                    {appLabels.forgot_password_description}
                 </AppText>
                 <AuthInput
-                    placeholder={'Email'}
+                    placeholder={appLabels.email}
                     keyboardType={'email-address'}
                     value={email}
                     onChangeText={SetEmail}
@@ -88,7 +88,7 @@ export default function ForgotPasswordModal({ visible, onHideModal }) {
                 />
                 <AppButton
                     type={'primary'}
-                    title={'Request New Password'}
+                    title={appLabels.request_new_password}
                     style={{ marginTop: "20%" }}
                     onPress={() => onForgotPasswordClick()}
                     loading={loading}
@@ -97,7 +97,7 @@ export default function ForgotPasswordModal({ visible, onHideModal }) {
                     style={{ textAlign: 'center', marginTop: 25 }}
                     size={16}
                     onPress={onHideModal}
-                    type={'bold'}>{"Back to login"}</AppText>
+                    type={'bold'}>{appLabels.back_to_login}</AppText>
             </View>
         </Modal>
     );

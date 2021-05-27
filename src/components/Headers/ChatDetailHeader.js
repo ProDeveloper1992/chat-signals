@@ -4,6 +4,7 @@ import { Colors, Icons } from '../../constants';
 import { AppText } from '..';
 import Icon from 'react-native-ionicons';
 import { ArrowLeftIcon } from '../../constants/svg-icons';
+import { useSelector } from 'react-redux';
 
 export function ChatDetailHeader({
   style,
@@ -11,6 +12,9 @@ export function ChatDetailHeader({
   rightIcon,
   onRightPress,
 }) {
+
+  const { appLabels } = useSelector((state) => state.appState);
+
   return (
     <>
       <SafeAreaView style={{ backgroundColor: Colors.ui_primary }} />
@@ -22,7 +26,7 @@ export function ChatDetailHeader({
         </View>
         <View style={styles.flexOne}>
           <AppText type={'bold'} size={16} style={styles.headerTitle}>
-            {"Messages"}
+            {appLabels.messages}
           </AppText>
         </View>
 

@@ -22,10 +22,10 @@ function LanguageSelectionMenu({ onSelectOption }) {
     };
 
 
-    const { selectedLanguage, languages } = useSelector((state) => state.appState);
+    const { selectedLanguage, languages, appLabels } = useSelector((state) => state.appState);
 
     let selectedLanguageItem = languages.filter((item, index) => item.key == selectedLanguage);
-    let updatedSelectedLanguage = { lang: "Select Language" };
+    let updatedSelectedLanguage = { lang: appLabels.select_language };
 
     if (selectedLanguageItem && selectedLanguageItem.length > 0) {
         updatedSelectedLanguage = selectedLanguageItem[0];

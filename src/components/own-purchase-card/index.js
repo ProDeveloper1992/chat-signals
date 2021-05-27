@@ -18,7 +18,7 @@ export default function OwnPurchaseCard({
 
     const dispatch = useDispatch();
 
-    const { generalSettings, gettingSealUrl } = useSelector((state) => state.appState);
+    const { generalSettings, gettingSealUrl, appLabels } = useSelector((state) => state.appState);
     const { userData } = useSelector((state) => state.userState);
 
     const [paymentWebViewVisible, setPaymentWebViewVisible] = useState(false);
@@ -73,8 +73,8 @@ export default function OwnPurchaseCard({
     return (
         <>
             <View style={styles.container}>
-                <AppText type={'bold'} size={18} style={{ textAlign: 'center' }}>{'Own Package'}</AppText>
-                <AppText size={16} style={{ textAlign: 'center', marginVertical: 36 }}>{"How many credits would you like to have? - Here you have it in your own hands!"}</AppText>
+                <AppText type={'bold'} size={18} style={{ textAlign: 'center' }}>{appLabels.own_package}</AppText>
+                <AppText size={16} style={{ textAlign: 'center', marginVertical: 36 }}>{appLabels.own_package_description}</AppText>
                 <OwnPackageSlider
                     value={sliderCount}
                     minimumValue={minimumSliderCount}
@@ -89,7 +89,7 @@ export default function OwnPurchaseCard({
                 disabled={sliderCount === 0 ? true : false}
                 type={'primary'}
                 style={{ marginTop: 20 }}
-                title={`Order now`}
+                title={appLabels.order_now}
                 onPress={onOrderPurchasePress}
                 loading={gettingSealUrl}
             />

@@ -22,10 +22,10 @@ function SexualOrientationMenu({ onSelectOrientation, label }) {
         _menu.show();
     };
 
-    const { sexualOrientations } = useSelector((state) => state.appState);
+    const { sexualOrientations, appLabels } = useSelector((state) => state.appState);
     const { userSexualOrientation } = useSelector((state) => state.userState);
 
-    const [selectedOrientation, setSelectedOrientation] = useState({ id: -1, name: "Select Orientation" });
+    const [selectedOrientation, setSelectedOrientation] = useState({ id: -1, name: appLabels.select_orientation });
 
     const onSelectMenu = (orientation) => {
         onSelectOrientation(orientation);
@@ -45,7 +45,6 @@ function SexualOrientationMenu({ onSelectOrientation, label }) {
             {sexualOrientations.map((orientation, orientationIndex) => {
                 return <View key={String(orientationIndex)}>
                     <MenuItem
-
                         onPress={() => onSelectMenu(orientation)}>
                         <AppText type={selectedOrientation.id == orientation.id ? 'bold' : 'medium'}>{orientation.name}</AppText>
                     </MenuItem>

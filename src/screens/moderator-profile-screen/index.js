@@ -55,6 +55,8 @@ export default function ModeratorProfile(props) {
 
   const [moderatorDetail, setModeratorDetail] = useState(null);
 
+  const PASSIONS = params && params.item && params.item.passions ? params.item.passions.split(',') : [];
+
   useEffect(() => {
     console.log("Mederator Detail...", params.item);
     getDetail();
@@ -169,7 +171,7 @@ export default function ModeratorProfile(props) {
 
   return (
     <View style={styles.container}>
-      <BackHeader title={'Flirts'} color={Colors.ui_primary} />
+      <BackHeader title={appLabels.flirts} color={Colors.ui_primary} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
           {params && params.item && params.item.profilepicture && params.item.profilepicture.length > 0 && (
@@ -191,7 +193,8 @@ export default function ModeratorProfile(props) {
                         type={'black-italic'}
                         size={16}
                         style={{ marginTop: -10 }}
-                        color={Colors.white}>{"ONLY FOR FRIENDS"}</AppText>
+                        color={Colors.white}
+                        uppercase>{appLabels.only_for_friends}</AppText>
                       {/* <TouchableOpacity
                         onPress={onUnlockEroticImage}
                         style={styles.unlockEroticButtonContainer}>
@@ -216,7 +219,7 @@ export default function ModeratorProfile(props) {
                         type={'black-italic'}
                         size={16}
                         style={{ marginTop: -10 }}
-                        color={Colors.white}>{"EROTIC IMAGE"}</AppText>
+                        color={Colors.white}>{appLabels.erotic_image}</AppText>
                       {/* <TouchableOpacity
                         onPress={onUnlockEroticImage}
                         style={styles.unlockEroticButtonContainer}>
@@ -299,20 +302,26 @@ export default function ModeratorProfile(props) {
               />
             </View>
             <View style={{ marginHorizontal: 10 }}>
-              <AppText type={'bold'} size={18}>{"Interests"}</AppText>
-              <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 15 }}>
-                <TagItem title={"Netflix"} disabled />
-                <TagItem title={"Music"} disabled />
-                <TagItem title={"Walking"} disabled />
-                <TagItem title={"Traveling"} disabled />
-              </View>
+              {PASSIONS.length > 0 && (
+                <View>
+                  <AppText type={'bold'} size={18}>{appLabels.interests}</AppText>
+                  <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 15 }}>
+                    {PASSIONS.map((item, index) => {
+                      if (item == "") {
+                        return <TagItem key={String(index)} title={"N/A"} disabled />;
+                      }
+                      return <TagItem key={String(index)} title={item} disabled />
+                    })}
+                  </View>
+                </View>
+              )}
               {loadingDetail ? (
                 <Code />
               ) : (
                 <>
                   {moderatorDetail && moderatorDetail.description && (
                     <View>
-                      <AppText type={'bold'} size={18}>{"Details"}</AppText>
+                      <AppText type={'bold'} size={18}>{appLabels.details}</AppText>
                       <HTML source={{ html: moderatorDetail.description }} contentWidth={contentWidth} />
                     </View>
                   )}
