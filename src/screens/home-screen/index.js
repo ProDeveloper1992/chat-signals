@@ -33,7 +33,7 @@ export default function Home() {
   const [index, setIndex] = useState(0);
   const routes = [
     { key: 'flirt', title: appLabels.flirts },
-    { key: 'proflirt', title: 'Spotlight' },
+    { key: 'proflirt', title: appLabels.spotlight },
   ];
 
   useEffect(() => {

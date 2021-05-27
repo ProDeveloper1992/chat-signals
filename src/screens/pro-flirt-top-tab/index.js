@@ -66,17 +66,18 @@ export default function ProFlirtTab(props) {
         <FlatList
           data={spotLightsList}
           numColumns={2}
-          contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }}
+          contentContainerStyle={{ flexGrow: 1, paddingBottom: 20, paddingHorizontal: 10 }}
           showsVerticalScrollIndicator={false}
           renderItem={({ item, index }) => (
-            <ModeratorListItem
-              isBoosted
-              item={item}
-              key={String(index)}
-              onPress={() =>
-                navigation.navigate('ModeratorProfile', { item: item })
-              }
-            />
+            <View key={String(index)} style={{ flex: 0.5 }}>
+              <ModeratorListItem
+                isBoosted
+                item={item}
+                onPress={() =>
+                  navigation.navigate('ModeratorProfile', { item: item })
+                }
+              />
+            </View>
           )}
           ListEmptyComponent={<NoListData title={"No Spotlights Found!"} />}
           keyExtractor={(item, index) => index.toString()}

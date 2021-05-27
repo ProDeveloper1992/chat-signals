@@ -118,25 +118,25 @@ export default function FlirtFilterModal({ visible, onHideModal }) {
                 <AppText
                     size={24}
                     type={'bold'}
-                    style={{ marginBottom: 20, paddingHorizontal: 20 }}>{"Filter Flirt suggestions"}</AppText>
+                    style={{ marginBottom: 20, paddingHorizontal: 20 }}>{appLabels.filter_flirt_suggestions}</AppText>
                 <ScrollView
                     contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 20, paddingBottom: "50%" }}>
                     <GenderMenu
                         label={appLabels.i_am_looking_for}
                         onSelectGender={(genderItem) => setLookingFor(genderItem)} />
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
-                        <AppText style={{ flex: 1 }}>{"Age Range"}</AppText>
+                        <AppText style={{ flex: 1 }}>{appLabels.age_range}</AppText>
                         <AppText>{`${lowAge}-${highAge}`}</AppText>
                     </View>
                     <AppRangeSlider
                         onChangeValue={onChangeAgeRange} />
                     <AuthInput
-                        label={"City"}
-                        placeholder={"City"}
+                        label={appLabels.city}
+                        placeholder={appLabels.city}
                         onChangeText={(text) => setCity(text)}
                         style={{ paddingHorizontal: 5, fontWeight: 'bold', fontSize: 16 }} />
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 10 }}>
-                        <AppText style={{ flex: 1 }}>{"Max. distance"}</AppText>
+                        <AppText style={{ flex: 1 }}>{appLabels.max_distance}</AppText>
                         <AppText>{`${maxDistance}km`}</AppText>
                     </View>
                     <AppRangeSlider
@@ -144,7 +144,7 @@ export default function FlirtFilterModal({ visible, onHideModal }) {
                         onChangeValue={onChangeMaxDistance} />
                     <LanguageSelectionMenu
                         onSelectOption={(language) => setLanguage(language.key)} />
-                    <AppText style={{ marginTop: 10, marginBottom: 5 }}>{"Passions"}</AppText>
+                    <AppText style={{ marginTop: 10, marginBottom: 5 }}>{appLabels.passions}</AppText>
                     <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                         {passionList.map((passion, passionIndex) => {
                             return <TagItem
@@ -156,12 +156,13 @@ export default function FlirtFilterModal({ visible, onHideModal }) {
                         })}
                     </View>
                     <SexualOrientationMenu
+                        label={appLabels.sexual_orientation}
                         onSelectOrientation={(orientation) => setSexualOrientation(orientation)} />
                 </ScrollView>
                 <View style={{ backgroundColor: Colors.white, paddingHorizontal: 20, paddingBottom: 10 }}>
                     <AppButton
                         type={'primary'}
-                        title={'Save'}
+                        title={appLabels.save}
                         style={{ marginVertical: 10 }}
                         onPress={onSavePress}
                         loading={loading}
@@ -169,7 +170,7 @@ export default function FlirtFilterModal({ visible, onHideModal }) {
 
                     <AppButton
                         type={'light'}
-                        title={'Reset Filters'}
+                        title={appLabels.reset_filters}
                         onPress={onResetFilterPress}
                         loading={isResetLoading}
                     />

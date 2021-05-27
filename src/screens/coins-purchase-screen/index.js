@@ -71,7 +71,7 @@ const CoinPurchase = () => {
         label={"Buy coins"}
       />
       <ScrollView contentContainerStyle={{ padding: 20 }}>
-        <AppText type={'bold'} size={16}>{"step 1 - Payment method"}</AppText>
+        <AppText type={'bold'} size={16}>{`${appLabels.step} 1 - ${appLabels.payment_method}`}</AppText>
         {loadingPaymentGateways && paymentGateways.length == 0 ? (
           <View>
             {/* <StepTitleLoader /> */}
@@ -108,7 +108,7 @@ const CoinPurchase = () => {
         {selectedPaymentGateway != null && (
           <>
             <View>
-              <AppText type={'bold'} size={16}>{"step 2 - Choose your package size"}</AppText>
+              <AppText type={'bold'} size={16}>{`${appLabels.step} 2 - ${appLabels.choose_your_package_size}`}</AppText>
               {selectedPaymentGateway.packagemodules && (
                 <>
                   <FlatList
@@ -129,7 +129,7 @@ const CoinPurchase = () => {
                             type={'medium'}
                             size={12}
                             color={Colors.black}>
-                            {`${perEuroCredit * item.price} Coins`}
+                            {`${perEuroCredit * item.price} ${appLabels.Coins}`}
                           </AppText>
                         </View>
                         <View>

@@ -92,10 +92,9 @@ const LandingScreen = (props) => {
           </TouchableOpacity> */}
         </View>
         <View style={{ flex: 1, marginTop: '5%' }}>
-          <AppText size={15} color={Colors.white}>{"Find your match with our poweful algorithms"}</AppText>
-          <AppText type={'bold'} size={24} color={Colors.white} style={{ marginBottom: '5%' }}>{"Casual chatting and flirting"}</AppText>
-          {/* <LandingIntro width={"100%"} height={"65%"} /> */}
-          <Image style={{ width: '100%', height: '70%', resizeMode: 'contain' }} source={require('../../assets/images/landing_intro.png')} />
+          <AppText size={15} color={Colors.white}>{appLabels.find_your_match}</AppText>
+          <AppText type={'bold'} size={24} color={Colors.white} style={{ marginBottom: '5%' }}>{appLabels.casual_chating}</AppText>
+          <Image style={{ width: '100%', height: '70%', resizeMode: 'contain' }} source={Images.landing_intro} />
         </View>
         <View style={styles.bottomView}>
           <AppButton

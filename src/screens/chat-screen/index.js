@@ -87,7 +87,7 @@ const Chat = () => {
   return (
     <View style={styles.container}>
       <GeneralHeader
-        label={'Messages'}
+        label={appLabels.messages}
       />
       {loadingChatList && userChatList && userChatList.length == 0 ? (
         <FlatList
@@ -100,7 +100,6 @@ const Chat = () => {
             />
           )}
           keyExtractor={(item, index) => String(index)}
-          ListEmptyComponent={<NoListData title={"No chats found!"} />}
         />
       ) : (
         <FlatList
@@ -122,7 +121,7 @@ const Chat = () => {
           keyExtractor={(item, index) => String(index)}
           ListEmptyComponent={<NoListData
             icon={<ChatGradientIcon />}
-            title={"No chats found!"} />}
+            title={appLabels.no_chats_found} />}
         />
       )}
     </View>

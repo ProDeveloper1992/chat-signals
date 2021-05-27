@@ -96,7 +96,7 @@ const RegisterWithEmail = (props) => {
       let isValid = true;
       if (userName.trim() == 0) {
         isValid = false;
-        setUsernameError('Username must not be empty!');
+        setUsernameError(appLabels.user_name_error_1);
         // setEmailError(appLabels.email_error_1);
       } else {
         setUsernameError(null);
@@ -261,7 +261,7 @@ const RegisterWithEmail = (props) => {
     let isValid = true;
     if (userName.trim() == 0) {
       isValid = false;
-      setUsernameError('Username must not be empty!');
+      setUsernameError(appLabels.user_name_error_1);
       // setEmailError(appLabels.email_error_1);
     } else {
       setUsernameError(null);
@@ -326,7 +326,7 @@ const RegisterWithEmail = (props) => {
               type={'bold'}
               size={24}
               style={{ textAlign: 'center', marginTop: 20 }}>
-              {"Create account"}
+              {appLabels.create_account}
             </AppText>
             <AuthInput
               label={appLabels.email}
@@ -372,19 +372,19 @@ const RegisterWithEmail = (props) => {
             <AppText
               color={Colors.black}
               style={{ alignSelf: 'center', marginBottom: 10 }}>
-              {'or'}
+              {appLabels.or}
             </AppText>
 
             <AppButton
               type={'sociallogin'}
-              title={"Continue with Facebook"}
+              title={appLabels.continue_with_facebook}
               icon={<FacebookIcon width={30} height={30} />}
               onPress={onFacebookIconPress}
             />
             <View style={{ marginTop: 15 }} />
             <AppButton
               type={'sociallogin'}
-              title={"Continue with Google"}
+              title={appLabels.continue_with_google}
               icon={<GoogleIcon width={30} height={30} />}
               onPress={onGoogleIconPress}
             />
@@ -394,7 +394,7 @@ const RegisterWithEmail = (props) => {
                 {appleAuthAndroid.isSupported && (
                   <AppButton
                     type={'sociallogin'}
-                    title={"Continue with Apple"}
+                    title={appLabels.continue_with_apple}
                     icon={<AppleLogoIcon width={30} height={30} />}
                     onPress={onAppleLoginForAndroid}
                   // loading={googleLoginLoading}
@@ -404,7 +404,7 @@ const RegisterWithEmail = (props) => {
             ) : (
               <AppButton
                 type={'sociallogin'}
-                title={"Log in with Apple"}
+                title={appLabels.continue_with_apple}
                 icon={<AppleLogoIcon width={30} height={30} />}
                 onPress={() => onAppleLoginForiOS(updateCredentialStateForUser)}
               // loading={googleLoginLoading}
@@ -413,7 +413,7 @@ const RegisterWithEmail = (props) => {
 
             <TextButton
               style={{ alignSelf: 'center' }}
-              title={'Back'}
+              title={appLabels.back}
               fontType={'bold'}
               titleColor={Colors.black}
               onPress={onBackPress} />
@@ -427,7 +427,7 @@ const RegisterWithEmail = (props) => {
               type={'bold'}
               size={24}
               style={{ textAlign: 'center', marginVertical: 20 }}>
-              {"Create account"}
+              {appLabels.create_account}
             </AppText>
             <AuthInput
               label={appLabels.user_name}
@@ -439,7 +439,7 @@ const RegisterWithEmail = (props) => {
               icon={<ProfileIcon width={24} height={24} />}
             />
             <DatePicker
-              title={'Birthday'}
+              title={appLabels.birthday}
               error={birthDateError}
               value={birthDate}
               onChangeDate={(date) => setBirthDate(date)} />
@@ -454,10 +454,10 @@ const RegisterWithEmail = (props) => {
               style={{ marginTop: 20 }}
               color={Colors.greydark}
               size={16}>
-              {'Optional'}
+              {appLabels.optional}
             </AppText>
 
-            <AppText type={'bold'} size={16} style={{ marginTop: 10 }}>{"Passions " + `${userPassions.length}/${passionList.length}`}</AppText>
+            <AppText type={'bold'} size={16} style={{ marginTop: 10 }}>{appLabels.passions + " " + `${userPassions.length}/${passionList.length}`}</AppText>
 
             <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 10 }}>
               {userPassions.map((item, index) => {
@@ -466,13 +466,13 @@ const RegisterWithEmail = (props) => {
             </View>
 
             <AddItem
-              subtitle={'Add passions'}
+              subtitle={appLabels.add_passions}
               onAddPress={onShowAddPassionsModal}
             />
 
             <AppText type={'bold'} size={16} style={{ marginTop: 10, marginBottom: 5 }}>{"Sexual orientation"}</AppText>
             <AddItem
-              subtitle={'Add sexual orientation'}
+              subtitle={appLabels.add_sexual_orientation}
               onAddPress={onShowSexualOrientationModal}
             />
 
@@ -482,14 +482,14 @@ const RegisterWithEmail = (props) => {
 
             <AppButton
               // disabled={postalCode.trim() === ''}
-              title={'Continue'}
+              title={appLabels.continue}
               style={{ marginTop: "10%" }}
               onPress={onGoToSecondPosition}
               loading={loading}
             />
             <TextButton
               style={{ alignSelf: 'center' }}
-              title={'Back'}
+              title={appLabels.back}
               fontType={'bold'}
               titleColor={Colors.black}
               onPress={() => setStepPosition(0)} />
@@ -503,7 +503,7 @@ const RegisterWithEmail = (props) => {
               type={'bold'}
               size={24}
               style={{ textAlign: 'center', marginVertical: 20 }}>
-              {"Select profile picture"}
+              {appLabels.select_profile_picture}
             </AppText>
             <TouchableOpacity
               disabled={profileImage.uri === null ? false : true}
@@ -530,13 +530,13 @@ const RegisterWithEmail = (props) => {
             </TouchableOpacity>
             <View style={{ width: '100%', bottom: 20, position: 'absolute' }}>
               <AppButton
-                title={'Continue'}
+                title={appLabels.continue}
                 onPress={onRegisterUser}
                 loading={loading} />
 
               <TextButton
                 style={{ alignSelf: 'center' }}
-                title={'Back'}
+                title={appLabels.back}
                 fontType={'bold'}
                 titleColor={Colors.black}
                 onPress={() => setStepPosition(1)} />

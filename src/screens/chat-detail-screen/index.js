@@ -29,6 +29,7 @@ export default function ChatDetail(props) {
 
   const moderator = props.route.params.item;
 
+  const { appLabels } = useSelector((state) => state.appState);
   const { userData, authToken } = useSelector((state) => state.userState);
   const { conversation, isLoadingConversation } = useSelector((state) => state.chatState);
 
@@ -275,14 +276,14 @@ export default function ChatDetail(props) {
                 type={'bold'}
                 size={16}
                 color={Colors.ui_primary}
-                style={{ textDecorationLine: 'underline' }}>{"View profile"}</AppText>
+                style={{ textDecorationLine: 'underline' }}>{appLabels.view_profile}</AppText>
             </View>
             <TitleWithIcon
-              title={"Delete Conversation"}
+              title={appLabels.deleteconversation}
               icon={<DeleteBinIcon />}
               onPress={() => setIsDeleteConversationModalVisible(true)} />
             <TitleWithIcon
-              title={"Block User"}
+              title={appLabels.block_user}
               icon={<BlockIcon />}
               onPress={() => setIsBlockUserModalVisible(true)} />
           </View>
@@ -342,7 +343,7 @@ export default function ChatDetail(props) {
             )}
             <ChatInput
               value={messageText}
-              placeholder={'Type message...'}
+              placeholder={`${appLabels.type_message}...`}
               onSendPress={onSendTextMessage}
               onChangeMessage={(text) => setMessageText(text)}
               onSendItem={onSendItemToModerator}
@@ -374,21 +375,21 @@ export default function ChatDetail(props) {
         <AppAlertModal
           visible={isDeleteConversationModalVisible}
           onHideModal={() => setIsDeleteConversationModalVisible(false)}
-          title={"Delete Conversation"}
-          message={"Are you sure you want to delete?"}
-          button1Title={"Delete"}
+          title={appLabels.deleteconversation}
+          message={appLabels.deletealert}
+          button1Title={appLabels.delete}
           isButton1Loading={isDeletingConversation}
-          button2Title={"Cancel"}
+          button2Title={appLabels.cancel}
           onButton1Press={onDeleteConversation}
         />
         <AppAlertModal
           visible={isBlockUserModalVisible}
           onHideModal={() => setIsBlockUserModalVisible(false)}
-          title={"Block User"}
+          title={appLabels.block_user}
           message={"Are you sure you want to block?"}
-          button1Title={"Block"}
+          button1Title={appLabels.block}
           isButton1Loading={isBlockingUser}
-          button2Title={"Cancel"}
+          button2Title={appLabels.cancel}
           onButton1Press={onBlockUser}
         />
       </View>

@@ -162,9 +162,9 @@ export function ChatInput({
                     </View>
                 )}
                 <View style={styles.inputContainer}>
-                    <TouchableOpacity onPress={onAttachIconPress}>
+                    {/* <TouchableOpacity onPress={onAttachIconPress}>
                         <AttachIcon width={24} height={24} />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     <TextInput
                         {...props}
                         style={[
@@ -197,7 +197,7 @@ export function ChatInput({
                         onPress={() => onSendItemPress('heart')} />
                     {getGeneralSettingValueByName('prices_message') > 0 && (
                         <View style={{ flexDirection: 'row', alignItems: 'center', marginStart: 15 }}>
-                            <AppText size={12}>{`Send message for `}</AppText>
+                            <AppText size={12}>{`${appLabels.send_message_for} `}</AppText>
                             <AppText size={12} type={'bold'}>{`${getGeneralSettingValueByName('prices_message')} ${appLabels.Coins}`}</AppText>
                         </View>
                     )}

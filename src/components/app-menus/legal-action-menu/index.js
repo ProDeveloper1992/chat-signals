@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { useSelector } from 'react-redux';
 import { View, TouchableOpacity, Platform } from 'react-native';
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import PropTypes from 'prop-types';
@@ -25,6 +25,7 @@ function LegalActionMenu({ onSelectAction, actions }) {
 
     const [isVisible, setIsVisible] = useState(false);
 
+    const { appLabels } = useSelector(state => state.appState);
 
     const onSelectMenu = (option) => {
         onSelectAction(option);

@@ -43,14 +43,14 @@ export default function ModeratorListItem({ item, onPress, isBoosted }) {
           }}>
           <View style={styles.bottomContainer}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <AppText type={'bold'} color={Colors.white} size={20} style={styles.userName}>
+              <AppText numberOfLines={1} type={'bold'} color={Colors.white} size={14} style={styles.userName}>
                 {item.username}{item.dob ? `, ${moment().diff(moment(item.dob, 'YYYY-MM-DD'), 'years')}` : ''}
               </AppText>
               <OnlineStatusCircle isOnline={true} size={12} />
             </View>
             <AppText
-              size={16}
-              type={'regular'}
+              size={12}
+              type={'medium'}
               color={Colors.white}
               style={[styles.userName, { textTransform: 'capitalize' }]}>{item.city + ", " + item.country}</AppText>
           </View>
@@ -63,12 +63,12 @@ export default function ModeratorListItem({ item, onPress, isBoosted }) {
 export const ModeratorListItemLoader = () => (
   <ContentLoader
     speed={1}
-    width={SCREEN_WIDTH - 20}
-    height={310}
-    viewBox={`0 0 ${SCREEN_WIDTH} 310`}
+    width={(SCREEN_WIDTH / 2) - 20}
+    height={SCREEN_HEIGHT / 3.5}
+    viewBox={`0 0 ${SCREEN_WIDTH / 2} ${SCREEN_HEIGHT / 3.5}`}
     backgroundColor={Colors.ui_background}
     foregroundColor={Colors.grey}
   >
-    <Rect x="20" y="10" rx="20" ry="20" width={SCREEN_WIDTH - 20} height="310" />
+    <Rect x="20" y="10" rx="20" ry="20" width={(SCREEN_WIDTH / 2) - 20} height={SCREEN_HEIGHT / 3.5} />
   </ContentLoader>
 );

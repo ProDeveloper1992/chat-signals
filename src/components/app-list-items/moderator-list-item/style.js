@@ -2,7 +2,7 @@ import { Platform, StyleSheet } from 'react-native';
 import { Colors, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants';
 
 const listColums = 1;
-const listRows = Platform.OS == 'ios' ? 2.5 : 2;
+const listRows = 3.5;
 const listItemMargin = 20;
 const listItemWidth =
   (SCREEN_WIDTH - (listColums + 1) * listItemMargin);
@@ -12,12 +12,13 @@ const listItemHeight =
 export default StyleSheet.create({
   listItemContainer: {
     flex: 1,
-    marginLeft: listItemMargin,
+    // marginLeft: listItemMargin,
     marginTop: 20,
-    width: listItemWidth,
+    // width: listItemWidth / 2,
     height: listItemHeight,
     backgroundColor: Colors.grey,
     borderRadius: 20,
+    margin: 8
   },
   onlineStatusText: { color: Colors.black, fontSize: 12 },
   bottomContainer: {
@@ -27,7 +28,8 @@ export default StyleSheet.create({
     right: 0,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
-    padding: 28,
+    paddingBottom: 5,
+    paddingHorizontal: 15,
     alignItems: 'flex-start'
   },
   popupContainer: {
@@ -54,6 +56,7 @@ export default StyleSheet.create({
     resizeMode: 'contain',
   },
   userName: {
+    flex: 1,
     textTransform: 'capitalize',
     textShadowColor: 'rgba(0, 0, 0, 0.50)',
     textShadowOffset: { width: -1, height: 1 },
