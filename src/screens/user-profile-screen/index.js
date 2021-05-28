@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 
-import { AppText, GeneralHeader } from '../../components';
+import { AppText, CommonImage, GeneralHeader } from '../../components';
 import { Colors, DEFAULT_AVATAR_URL } from '../../constants';
 import styles from './style';
 import { AppAlertModal, DeleteAccountModal, ModeratorActivityModal } from '../../components/app-modals';
@@ -26,7 +26,7 @@ import {
   CoinGradientIcon,
   ArrowRightIcon
 } from '../../constants/svg-icons';
-import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
+import { toggleGallerySwiperModal, toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { getCustomerProfileDetail } from '../../redux/actions/user-actions';
 import moment from 'moment';
@@ -148,7 +148,9 @@ export default function UserProfile(props) {
         <View style={styles.container}>
           <View style={{ alignItems: 'center', marginTop: 30 }}>
             <View style={styles.profileImageContainer}>
-              <Image style={styles.profileImage} source={profileImage.uri ? profileImage : { uri: getUserProfilePicture() }} />
+              <TouchableOpacity onPress={() => dispatch(toggleGallerySwiperModal(true, [profileImage.uri ? profileImage : { uri: getUserProfilePicture() }]))}>
+                <Image style={styles.profileImage} source={profileImage.uri ? profileImage : { uri: getUserProfilePicture() }} />
+              </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => navigation.navigate('UserPhotos')}
                 style={styles.editPenContainer}>

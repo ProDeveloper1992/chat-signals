@@ -14,7 +14,7 @@ import {
 import { PagerTabIndicator, IndicatorViewPager, PagerTitleIndicator, PagerDotIndicator } from 'rn-viewpager';
 import HTML from "react-native-render-html";
 import FastImage from 'react-native-fast-image';
-import { Code } from 'react-content-loader/native'
+import { Code } from 'react-content-loader/native';
 
 import { NoListData, AppText, BackHeader, TagItem, OnlineStatusCircle, LegalActionMenu } from '../../components';
 import { Icons, Colors, DEFAULT_IMAGE_URL, SCREEN_HEIGHT, DEFAULT_AVATAR_URL } from '../../constants';
@@ -38,6 +38,7 @@ import {
 import { showToast } from '../../redux/actions/app-actions';
 import moment from 'moment';
 import { blockModerator, getModeratorProfileDetail, reportModerator } from '../../redux/actions/flirts-actions';
+import { toggleGallerySwiperModal } from '../../redux/actions/app-modals-actions';
 
 export default function ModeratorProfile(props) {
 
@@ -52,6 +53,7 @@ export default function ModeratorProfile(props) {
   const [activityType, setActivityType] = useState('kiss');
   const [activityModalVisible, setActivityModalVisible] = useState(false);
   const [loadingDetail, setLoadingDetail] = useState(true);
+  const [isImageSwiperModalVisible, setImageSwiperModalVisible] = useState(false);
 
   const [moderatorDetail, setModeratorDetail] = useState(null);
 
@@ -169,6 +171,10 @@ export default function ModeratorProfile(props) {
     }
   }
 
+  const onPressImage = (item, index) => {
+    dispatch(toggleGallerySwiperModal(true, [{ uri: getItemImage(item.picture) }]));
+  }
+
   return (
     <View style={styles.container}>
       <BackHeader title={appLabels.flirts} color={Colors.ui_primary} />
@@ -219,7 +225,8 @@ export default function ModeratorProfile(props) {
                         type={'black-italic'}
                         size={16}
                         style={{ marginTop: -10 }}
-                        color={Colors.white}>{appLabels.erotic_image}</AppText>
+                        color={Colors.white}
+                        uppercase>{appLabels.erotic_image}</AppText>
                       {/* <TouchableOpacity
                         onPress={onUnlockEroticImage}
                         style={styles.unlockEroticButtonContainer}>
@@ -232,15 +239,18 @@ export default function ModeratorProfile(props) {
                   </ImageBackground>)
                 }
                 return (
-                  <FastImage
-                    key={String(index)}
-                    style={styles.imgBackground}
-                    source={{
-                      uri: getItemImage(item.picture),
-                      priority: FastImage.priority.high,
-                    }}
-                    resizeMode={FastImage.resizeMode.cover}
-                  />
+                  <TouchableOpacity
+                    onPress={() => onPressImage(item, index)}>
+                    <FastImage
+                      key={String(index)}
+                      style={styles.imgBackground}
+                      source={{
+                        uri: getItemImage(item.picture),
+                        priority: FastImage.priority.high,
+                      }}
+                      resizeMode={FastImage.resizeMode.cover}
+                    />
+                  </TouchableOpacity>
                 )
               })}
             </IndicatorViewPager>
