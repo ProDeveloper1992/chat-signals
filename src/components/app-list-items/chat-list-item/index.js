@@ -8,6 +8,8 @@ import { AppText, CommonImage } from '../../index';
 import styles from './style';
 import ContentLoader, { Rect, Circle } from "react-content-loader/native";
 import LinearGradient from 'react-native-linear-gradient';
+import { useDispatch } from 'react-redux';
+import { toggleGallerySwiperModal } from '../../../redux/actions/app-modals-actions';
 
 export default function ChatListItem({
   onChatPress,
@@ -18,6 +20,7 @@ export default function ChatListItem({
   isActive,
   item
 }) {
+  const dispatch = useDispatch();
   return (
     <TouchableOpacity
       activeOpacity={0.8}
@@ -27,9 +30,11 @@ export default function ChatListItem({
       <View style={{ flex: 1, flexDirection: 'row' }}>
         <View style={styles.profileImageContainer}>
           <CommonImage
+            touchable={true}
             size={57}
             borderWidth={0}
-            source={profileImage} />
+            source={profileImage}
+            onPress={() => dispatch(toggleGallerySwiperModal(true, [profileImage]))} />
           <View style={styles.activeStatusCircle(isActive)} />
         </View>
         <View style={styles.userDetailContainer}>

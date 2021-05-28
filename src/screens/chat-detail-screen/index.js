@@ -17,6 +17,7 @@ import RNFetchBlob from 'rn-fetch-blob'
 import { apiRoot } from '../../services/api-service';
 import { blockModerator } from '../../redux/actions/flirts-actions';
 import moment from 'moment';
+import { toggleGallerySwiperModal } from '../../redux/actions/app-modals-actions';
 
 var RNFS = require('react-native-fs');
 
@@ -261,12 +262,13 @@ export default function ChatDetail(props) {
             />
             <View style={{ alignItems: 'center', justifyContent: 'center', padding: 20 }}>
               <CommonImage
-                touchable={false}
+                touchable={true}
                 size={90}
                 borderColor={Colors.white}
                 borderWidth={3}
                 isShadow={true}
-                source={{ uri: moderator.profile_picture }} />
+                source={{ uri: moderator.profile_picture }}
+                onPress={() => dispatch(toggleGallerySwiperModal(true, [{ uri: moderator.profile_picture }]))} />
               <AppText
                 type={'bold'}
                 size={20}
@@ -294,12 +296,13 @@ export default function ChatDetail(props) {
             />
             <View style={styles.userDetailHeader}>
               <CommonImage
-                touchable={false}
+                touchable={true}
                 size={45}
                 borderColor={Colors.white}
                 borderWidth={2}
                 isShadow={true}
-                source={{ uri: moderator.profile_picture }} />
+                source={{ uri: moderator.profile_picture }}
+                onPress={() => dispatch(toggleGallerySwiperModal(true, [{ uri: moderator.profile_picture }]))} />
               <View style={{ flex: 1, paddingHorizontal: 12 }}>
                 <AppText type={'bold'} size={18}>{moderator.user.username}</AppText>
                 <AppText type={'regular'} size={12} color={Colors.greydark}>{moderator.user.is_active * 1 == 1 ? "Online" : "Offline"}</AppText>
