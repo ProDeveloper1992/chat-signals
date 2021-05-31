@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/core';
 import React, { useState } from 'react';
-import { StyleSheet, View, TouchableOpacity, ScrollView } from 'react-native';
-import { useSelector } from 'react-redux';
+import { StyleSheet, View, TouchableOpacity, ScrollView, TextInput } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import {
     Collapse,
@@ -10,13 +10,16 @@ import {
 } from 'accordion-collapse-react-native';
 
 import { AppButton, AppText, BackHeader, TagItem } from '../../components';
-import { Colors } from '../../constants';
+import { Colors, SCREEN_WIDTH } from '../../constants';
 import { ArrowDownIcon, ArrowRightIcon, EditPenCircleIcon } from '../../constants/svg-icons';
 import styles from './style';
 import moment from 'moment';
+import { getFontFamily } from '../../utils/common';
+import { editAccountInfo } from '../../redux/actions/user-actions';
 
 export default function AccountDetail(props) {
 
+    const dispatch = useDispatch();
     const navigation = useNavigation();
 
     const { userData } = useSelector((state) => state.userState);
@@ -42,16 +45,21 @@ export default function AccountDetail(props) {
         return null;
     }
 
+    let first_name = userData && userData.first_name ? userData.first_name : '';
+    let last_name = userData && userData.last_name ? userData.last_name : '';
     let dob = userData && userData.dob ? userData.dob : null;
-    let user_gender = userData && userData.Gender ? getGenderById(userData.Gender) : null;
-    let sexual_orientation = userData && userData.sexual_orientation ? getSexualOrientationById(userData.sexual_orientation) : null;
+    let user_gender = userData && userData.Gender ? getGenderById(userData.Gender) : '';
+    let sexual_orientation = userData && userData.sexual_orientation ? getSexualOrientationById(userData.sexual_orientation) : '';
 
-    const [birhDate, setBirthDate] = useState(dob);
+    const [firstName, setFirstName] = useState(first_name);
+    const [lastName, setLastName] = useState(last_name);
+    const [birthDate, setBirthDate] = useState(dob);
     const [gender, setGender] = useState(user_gender);
     const [isEdited, setIsEdited] = useState(false);
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [selectedPassions, setSelectedPassions] = useState([]);
     const [selectedOrientation, setSelectedOrientation] = useState(sexual_orientation);
+    const [isSaving, setIsSaving] = useState(false);
 
     var USER_PASSIONS = selectedPassions;
 
@@ -114,10 +122,39 @@ export default function AccountDetail(props) {
         setIsEdited(true);
     }
 
+    //First Name
+    const onChangeFirstName = (text) => {
+        setFirstName(text);
+        setIsEdited(true);
+    }
+
+    //Last Name
+    const onChangeLastName = (text) => {
+        setLastName(text);
+        setIsEdited(true);
+    }
+
+    //Save Account Information
+    const onSaveInformation = async () => {
+        let requestData = {
+            first_name: firstName,
+            last_name: lastName,
+            dob: userData.dob,
+            Gender: userData.Gender,
+            description: '',
+            sexual_orientation: userData.sexual_orientation,
+            'passions[]': userData.passions,
+            profile_id: userData.id
+        }
+        setIsSaving(true);
+        await dispatch(editAccountInfo(requestData));
+        setIsSaving(false);
+    }
+
     return (
         <View style={styles.container}>
             <BackHeader
-                title={"Account Information"}
+                title={appLabels.account_info}
                 onBackPress={onBackPress}
                 color={Colors.ui_primary}
             />
@@ -134,10 +171,28 @@ export default function AccountDetail(props) {
                             />
                         )}
 
+                        {/* First Name */}
+                        {/* {userData.first_name && ( */}
+                        <AccountDetailInputItem
+                            label={appLabels.firstname}
+                            value={firstName}
+                            onChangeText={onChangeFirstName}
+                        />
+                        {/* )} */}
+
+                        {/* Last Name */}
+                        {/* {userData.last_name && ( */}
+                        <AccountDetailInputItem
+                            label={appLabels.lastname}
+                            value={lastName}
+                            onChangeText={onChangeLastName}
+                        />
+                        {/* )} */}
+
                         {/* Email */}
                         {userData.email && (
                             <AccountDetailItem
-                                label={"Email"}
+                                label={appLabels.email}
                                 title={userData.email}
                                 rightContent={<AppText type={'bold'} color={Colors.greydark}>{"Verified"}</AppText>}
                                 onPress={() => { }}
@@ -145,48 +200,48 @@ export default function AccountDetail(props) {
                         )}
 
                         {/* Birth Date */}
-                        {birhDate && (
-                            <AccountDetailItem
-                                label={"Birthday"}
-                                title={birhDate}
-                                rightContent={<View />}
-                                onPress={showDatePicker}
-                            />
-                        )}
+                        {/* {birthDate && ( */}
+                        <AccountDetailItem
+                            label={appLabels.birthday}
+                            title={birthDate}
+                            rightContent={<View />}
+                            onPress={showDatePicker}
+                        />
+                        {/* )} */}
 
                         {/* Gender */}
-                        {userData.Gender && getGenderById(userData.Gender) != null && (
-                            <Collapse
-                                onToggle={(isColl) => {
-                                    console.log("isColl", isColl)
-                                    setGenderCollapsed(isColl)
-                                }}
-                                isCollapsed={isGenderCollapsed}>
-                                <CollapseHeader>
-                                    <CollapseHeaderComponent
-                                        label={"Gender"}
-                                        title={gender ? gender.name : ""}
-                                        isCollapsed={isGenderCollapsed}
-                                    />
-                                </CollapseHeader>
-                                <CollapseBody>
-                                    <View style={styles.collapseBodyContainer(isGenderCollapsed)}>
-                                        {genderList.map((genderItem, genderIndex) => {
-                                            return <TouchableOpacity
-                                                key={String(genderIndex)}
-                                                onPress={() => onSelectGender(genderItem)}
-                                                style={{ borderBottomWidth: 0.5, borderColor: Colors.grey, marginBottom: 5, padding: 10 }}>
-                                                <AppText
-                                                    type={'medium'}
-                                                    size={16}
-                                                    color={genderItem.id == gender.id ? Colors.ui_primary : Colors.black}
-                                                >{genderItem.name}</AppText>
-                                            </TouchableOpacity>
-                                        })}
-                                    </View>
-                                </CollapseBody>
-                            </Collapse>
-                        )}
+                        {/* {userData.Gender && getGenderById(userData.Gender) != null && ( */}
+                        <Collapse
+                            onToggle={(isColl) => {
+                                console.log("isColl", isColl)
+                                setGenderCollapsed(isColl)
+                            }}
+                            isCollapsed={isGenderCollapsed}>
+                            <CollapseHeader>
+                                <CollapseHeaderComponent
+                                    label={appLabels.gender}
+                                    title={gender ? gender.name : ""}
+                                    isCollapsed={isGenderCollapsed}
+                                />
+                            </CollapseHeader>
+                            <CollapseBody>
+                                <View style={styles.collapseBodyContainer(isGenderCollapsed)}>
+                                    {genderList.map((genderItem, genderIndex) => {
+                                        return <TouchableOpacity
+                                            key={String(genderIndex)}
+                                            onPress={() => onSelectGender(genderItem)}
+                                            style={{ borderBottomWidth: 0.5, borderColor: Colors.grey, marginBottom: 5, padding: 10 }}>
+                                            <AppText
+                                                type={'medium'}
+                                                size={16}
+                                                color={genderItem.id == gender.id ? Colors.ui_primary : Colors.black}
+                                            >{genderItem.name}</AppText>
+                                        </TouchableOpacity>
+                                    })}
+                                </View>
+                            </CollapseBody>
+                        </Collapse>
+                        {/* )} */}
 
                         {/* Passions */}
                         {userData.passions && (
@@ -198,7 +253,7 @@ export default function AccountDetail(props) {
                                 isCollapsed={isPassionCollapsed}>
                                 <CollapseHeader>
                                     <CollapseHeaderComponent
-                                        label={"Passions"}
+                                        label={appLabels.passions}
                                         title={userData.passions}
                                         isCollapsed={isPassionCollapsed}
                                     />
@@ -221,38 +276,37 @@ export default function AccountDetail(props) {
                         )}
 
                         {/* Sexual Orientations */}
-                        {userData.sexual_orientation && (
-                            <Collapse
-                                onToggle={(isColl) => {
-                                    console.log("isColl", isColl)
-                                    setOrientationCollapsed(isColl)
-                                }}
-                                isCollapsed={isOrientationCollapsed}>
-                                <CollapseHeader>
-                                    <CollapseHeaderComponent
-                                        label={"Sexual Orientation"}
-                                        title={selectedOrientation ? selectedOrientation.name : ""}
-                                        isCollapsed={isOrientationCollapsed}
-                                    />
-                                </CollapseHeader>
-                                <CollapseBody>
-                                    <View style={styles.collapseBodyContainer(isPassionCollapsed)}>
-                                        {sexualOrientations.map((orientation, orientationIndex) => {
-                                            return <TouchableOpacity
-                                                key={String(orientationIndex)}
-                                                onPress={() => onSelectOrientation(orientation)}
-                                                style={{ borderBottomWidth: 0.5, borderColor: Colors.grey, marginBottom: 5, padding: 10 }}>
-                                                <AppText
-                                                    type={'medium'}
-                                                    size={16}
-                                                    color={selectedOrientation && orientation.id == selectedOrientation.id ? Colors.ui_primary : Colors.black}
-                                                >{orientation.name}</AppText>
-                                            </TouchableOpacity>
-                                        })}
-                                    </View>
-                                </CollapseBody>
-                            </Collapse>
-                        )}
+                        {/* {userData.sexual_orientation && ( */}
+                        <Collapse
+                            onToggle={(isColl) => {
+                                setOrientationCollapsed(isColl)
+                            }}
+                            isCollapsed={isOrientationCollapsed}>
+                            <CollapseHeader>
+                                <CollapseHeaderComponent
+                                    label={appLabels.sexual_orientation}
+                                    title={selectedOrientation ? selectedOrientation.name : ""}
+                                    isCollapsed={isOrientationCollapsed}
+                                />
+                            </CollapseHeader>
+                            <CollapseBody>
+                                <View style={styles.collapseBodyContainer(isPassionCollapsed)}>
+                                    {sexualOrientations.map((orientation, orientationIndex) => {
+                                        return <TouchableOpacity
+                                            key={String(orientationIndex)}
+                                            onPress={() => onSelectOrientation(orientation)}
+                                            style={{ borderBottomWidth: 0.5, borderColor: Colors.grey, marginBottom: 5, padding: 10 }}>
+                                            <AppText
+                                                type={'medium'}
+                                                size={16}
+                                                color={selectedOrientation && orientation.id == selectedOrientation.id ? Colors.ui_primary : Colors.black}
+                                            >{orientation.name}</AppText>
+                                        </TouchableOpacity>
+                                    })}
+                                </View>
+                            </CollapseBody>
+                        </Collapse>
+                        {/* )} */}
                     </View>
                 )}
             </ScrollView>
@@ -261,11 +315,13 @@ export default function AccountDetail(props) {
                     <AppButton
                         type={'light'}
                         style={{ flex: 1 }}
-                        title={"Cancel"}
+                        title={appLabels.cancel}
                         onPress={() => navigation.goBack()} />
                     <AppButton
                         style={{ flex: 1, marginStart: 10 }}
-                        title={"Save"} />
+                        title={appLabels.save}
+                        onPress={onSaveInformation}
+                        loading={isSaving} />
                 </View>
             )}
             <DateTimePickerModal
@@ -292,6 +348,22 @@ const AccountDetailItem = ({ label, title, onPress, rightContent, disabled }) =>
             </View>
             {rightContent}
         </TouchableOpacity>
+    )
+}
+
+const AccountDetailInputItem = ({ label, value, onChangeText }) => {
+    return (
+        <View
+            style={styles.accountDetailItemContainer}>
+            <View>
+                <AppText type={'regular'} size={14} color={Colors.black}>{label}</AppText>
+                <TextInput
+                    placeholder={label}
+                    value={value}
+                    onChangeText={onChangeText}
+                    style={{ width: SCREEN_WIDTH - 30, fontFamily: getFontFamily('bold'), color: Colors.black, fontSize: 18 }} />
+            </View>
+        </View>
     )
 }
 

@@ -25,9 +25,10 @@ import {
 } from '../screens';
 import BottomTabBar from '../components/BottomTabBar';
 import { Colors } from '../constants';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppGiftBadge, AppText } from '../components';
 import { getRemainingTime } from '../utils/common';
+import { getAppearanceAndInterests } from '../redux/actions/user-actions';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -87,7 +88,12 @@ function CoinPurchaseStack() {
 }
 
 const BottomTabNavigator = () => {
+  const dispatch = useDispatch();
   const { appLabels } = useSelector((state) => state.appState);
+
+  useEffect(() => {
+    dispatch(getAppearanceAndInterests());
+  }, []);
 
   return (
     <Tab.Navigator

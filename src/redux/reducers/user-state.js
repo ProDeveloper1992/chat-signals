@@ -18,7 +18,8 @@ import {
   GET_CUSTOMER_LIKES_SUCCESS,
   GET_CUSTOMER_KISSES_SUCCESS,
   GET_CUSTOMER_HEARTS_SUCCESS,
-  GET_HELP_TICKET_LIST_SUCCESS
+  GET_HELP_TICKET_LIST_SUCCESS,
+  GET_CUSTOMER_APPEARANCE_AND_INTERETS_SUCCESS
 } from '../actions/types';
 
 const initialState = {
@@ -33,6 +34,7 @@ const initialState = {
   customerKissesList: [],
   customerHeartsList: [],
   customerHelpTicketList: [],
+  customerAppearanceInterests: [],
   userSexualOrientation: {
     id: 1,
     deleted_at: null,
@@ -219,6 +221,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         customerHelpTicketList: action.payload
+      }
+
+    case GET_CUSTOMER_APPEARANCE_AND_INTERETS_SUCCESS:
+      console.log("GET_CUSTOMER_APPEARANCE_AND_INTERETS_SUCCESS", action.payload)
+      return {
+        ...state,
+        customerAppearanceInterests: action.payload
       }
 
     default:

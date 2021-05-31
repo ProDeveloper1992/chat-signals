@@ -68,7 +68,7 @@ export default function FlirtTab(props) {
     <View style={styles.container}>
       {flirtsLoading && flirtsList.length == 0 ? (
         <FlatList
-          data={[1, 2, 3, 4, 5]}
+          data={[1, 2, 3, 4, 5, 6]}
           numColumns={2}
           contentContainerStyle={{ flexGrow: 1, paddingBottom: 20, paddingHorizontal: 10 }}
           showsVerticalScrollIndicator={false}
