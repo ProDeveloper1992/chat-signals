@@ -25,6 +25,7 @@ import {
   GET_CUSTOMER_KISSES_SUCCESS,
   GET_CUSTOMER_HEARTS_SUCCESS,
   GET_HELP_TICKET_LIST_SUCCESS,
+  GET_CUSTOMER_APPEARANCE_AND_INTERETS_SUCCESS
 } from './types';
 import { client } from '../../services/api-service';
 import { showToast } from './app-actions';
@@ -548,6 +549,68 @@ export const deleteUserAccount = () => (dispatch, getState) =>
         if (res.meta.status) {
           dispatch(showToast('positive', res.meta.message));
           dispatch(logoutUser());
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } })
+        reject(err);
+      });
+  });
+
+//Edit Account Info
+export const editAccountInfo = (requestData) => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    client
+      .post(`/edit_profile`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+          dispatch(showToast('positive', res.meta.message));
+          dispatch(getCustomerProfileDetail());
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } })
+        reject(err);
+      });
+  });
+
+//Edit Customer Attributes
+export const updateCustomerAttributes = (requestData) => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    client
+      .post(`/customer_attributes_update`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+          dispatch(showToast('positive', res.meta.message));
+          dispatch(getAppearanceAndInterests());
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } })
+        reject(err);
+      });
+  });
+
+//Edit Customer Attributes
+export const getAppearanceAndInterests = () => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    const userData = getState().userState.userData;
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      profile_id: userId,
+      language: userData.language
+    }
+    client
+      .post(`/appearance_interests`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+          dispatch(ActionDispatcher(GET_CUSTOMER_APPEARANCE_AND_INTERETS_SUCCESS, res.data));
         }
         resolve(res);
       })

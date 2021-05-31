@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/core';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, TouchableOpacity, ScrollView } from 'react-native';
-import { useSelector } from 'react-redux';
+import { StyleSheet, View, TouchableOpacity, ScrollView, FlatList } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     Collapse,
     CollapseHeader,
@@ -12,201 +12,167 @@ import { AppButton, AppText, BackHeader } from '../../components';
 import { Colors } from '../../constants';
 import { ArrowDownIcon, ArrowRightIcon } from '../../constants/svg-icons';
 import styles from './style';
+import { getAppearanceAndInterests, updateCustomerAttributes } from '../../redux/actions/user-actions';
+import AppearanceListItem from '../../components/app-list-items/appearance-list-item';
 
 export default function AccountDetail(props) {
 
+    const dispatch = useDispatch();
     const navigation = useNavigation();
 
-    const { userData, friendsList } = useSelector((state) => state.userState);
+    const { userData, customerAppearanceInterests } = useSelector((state) => state.userState);
     const { appLabels } = useSelector((state) => state.appState);
 
-    const [isHeightCollapsed, setHeightCollapsed] = useState(false);
-    const [isHairColorCollapsed, setHairColorCollapsed] = useState(false);
-    const [isEyeColorCollapsed, setEyeColorCollapsed] = useState(false);
-    const [isSkinTyprCollapsed, setSkinTyprCollapsed] = useState(false);
+    const getAttributeValue = (attribute) => {
+        let height = '';
+        for (let appearance of customerAppearanceInterests) {
+            if (appearance.internal_name == attribute) {
+                height = appearance.attr_value;
+            }
+        }
+        return height;
+    }
 
-    let available_heights = ["150cm", "pl 1cm", "pl 2cm", "pl 3cm"];
-    let available_hair_colors = ["Brown", "Black", "Pink", "White"];
-    let available_eye_colors = ["Brown", "Black", "Dark blue"];
-    let available_skin_types = ["Medium"];
-
+    const [isSaving, setIsSaving] = useState(false);
+    //Selectable attributes
+    const [height, setHeight] = useState(getAttributeValue('height'));
+    const [hairColor, setHairColor] = useState(getAttributeValue('hair_color'));
+    const [eyeColor, setEyeColor] = useState(getAttributeValue('eye_color'));
+    const [skinType, setSkinType] = useState(getAttributeValue('skin_type'));
+    const [figure, setFigure] = useState(getAttributeValue('skin_type'));
+    //Textbox attributes
+    const [size, setSize] = useState(getAttributeValue('size'));
+    const [hairLength, setHairLength] = useState(getAttributeValue('Hair_Length'));
+    const [smoker, setSmoker] = useState(getAttributeValue('Smoker'));
+    const [children, setChildren] = useState(getAttributeValue('Children'));
+    const [relationshipStatus, setRelationshipStatus] = useState(getAttributeValue('Relationship_Status'));
+    const [job, setJob] = useState(getAttributeValue('Job'));
+    const [hobbies, setHobbies] = useState(getAttributeValue('Hobbies'));
 
     useEffect(() => {
         console.log("userData", userData)
+        dispatch(getAppearanceAndInterests());
     }, [])
 
     const onBackPress = () => {
         navigation.goBack();
     }
 
+    const onSaveAttributes = async () => {
+        let requestData = {
+            profile_id: userData.id,
+            language: userData.language,
+            height: height,
+            hair_color: hairColor,
+            eye_color: eyeColor,
+            skin_type: skinType,
+            size: size,
+            figure: figure,
+            Hair_Length: hairLength,
+            Smoker: smoker,
+            Children: children,
+            Relationship_Status: relationshipStatus,
+            Job: job,
+            Hobbies: hobbies
+        };
+        setIsSaving(true);
+        await dispatch(updateCustomerAttributes(requestData));
+        setIsSaving(false);
+        navigation.goBack();
+    }
+
+    const onSelectAttribute = (selectedAttribute, attributeitem) => {
+        switch (attributeitem.internal_name) {
+            case 'height':
+                setHeight(selectedAttribute.id);
+                break;
+
+            case 'hair_color':
+                setHairColor(selectedAttribute.id);
+                break;
+
+            case 'eye_color':
+                setEyeColor(selectedAttribute.id);
+                break;
+
+            case 'skin_type':
+                setSkinType(selectedAttribute.id);
+                break;
+
+            case 'figure':
+                setFigure(selectedAttribute.id);
+                break;
+            default:
+                break;
+        }
+    }
+
+    const onChangeTextBoxValue = (value, attributeitem) => {
+        switch (attributeitem.internal_name) {
+            case 'size':
+                setSize(value);
+                break;
+
+            case 'Hair_Length':
+                setHairLength(value);
+                break;
+
+            case 'Smoker':
+                setSmoker(value);
+                break;
+
+            case 'Children':
+                setChildren(value);
+                break;
+
+            case 'Relationship_Status':
+                setRelationshipStatus(value);
+                break;
+
+            case 'Job':
+                setJob(value);
+                break;
+
+            case 'Hobbies':
+                setHobbies(value);
+                break;
+            default:
+                break;
+        }
+    }
+
     return (
         <View style={styles.container}>
             <BackHeader
-                title={"Appearance & Interests"}
+                title={`${appLabels.appearance} & ${appLabels.interests}`}
                 onBackPress={onBackPress}
                 color={Colors.ui_primary}
             />
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
 
-                {/* Height */}
-                <Collapse
-                    onToggle={(isColl) => {
-                        setHeightCollapsed(isColl)
-                    }}
-                    isCollapsed={isHeightCollapsed}>
-                    <CollapseHeader>
-                        <AppearanceItem
-                            label={"Height"}
-                            title={"150cm"}
-                            isCollapsed={isHeightCollapsed}
-                        />
-                    </CollapseHeader>
-                    <CollapseBody>
-                        <View style={styles.collapseBodyContainer(isHeightCollapsed)}>
-                            {available_heights.map((heightItem, heightIndex) => {
-                                return <CollapsibleListItem
-                                    key={String(heightIndex)}
-                                    title={heightItem}
-                                    onPress={() => { }} />
-                            })}
-                        </View>
-                    </CollapseBody>
-                </Collapse>
+            <FlatList
+                data={customerAppearanceInterests}
+                renderItem={({ item, index }) => {
+                    return <AppearanceListItem
+                        key={String(index)}
+                        item={item}
+                        onSelectAttribute={onSelectAttribute}
+                        onChangeTextBoxValue={onChangeTextBoxValue} />
+                }}
+                contentContainerStyle={{ flexGrow: 1 }}
+            />
 
-                {/* Hair color */}
-                <Collapse
-                    onToggle={(isColl) => {
-                        setHairColorCollapsed(isColl)
-                    }}
-                    isCollapsed={isHairColorCollapsed}>
-                    <CollapseHeader>
-                        <AppearanceItem
-                            label={"Hair color"}
-                            title={"Brown"}
-                            isCollapsed={isHairColorCollapsed}
-                        />
-                    </CollapseHeader>
-                    <CollapseBody>
-                        <View style={styles.collapseBodyContainer(isHairColorCollapsed)}>
-                            {available_hair_colors.map((hairColor, hairColorIndex) => {
-                                return <CollapsibleListItem
-                                    key={String(hairColorIndex)}
-                                    title={hairColor}
-                                    onPress={() => { }} />
-                            })}
-                        </View>
-                    </CollapseBody>
-                </Collapse>
-
-                {/* Eye color */}
-                <Collapse
-                    onToggle={(isColl) => {
-                        setEyeColorCollapsed(isColl)
-                    }}
-                    isCollapsed={isEyeColorCollapsed}>
-                    <CollapseHeader>
-                        <AppearanceItem
-                            label={"Eye color"}
-                            title={"Dark blue"}
-                            isCollapsed={isEyeColorCollapsed}
-                        />
-                    </CollapseHeader>
-                    <CollapseBody>
-                        <View style={styles.collapseBodyContainer(isEyeColorCollapsed)}>
-                            {available_eye_colors.map((eyeColor, eyeColorIndex) => {
-                                return <CollapsibleListItem
-                                    key={String(eyeColorIndex)}
-                                    title={eyeColor}
-                                    onPress={() => { }} />
-                            })}
-                        </View>
-                    </CollapseBody>
-                </Collapse>
-
-                {/* Skin type */}
-                <Collapse
-                    onToggle={(isColl) => {
-                        setSkinTyprCollapsed(isColl)
-                    }}
-                    isCollapsed={isSkinTyprCollapsed}>
-                    <CollapseHeader>
-                        <AppearanceItem
-                            label={"Skin type"}
-                            title={"Medium"}
-                            isCollapsed={isSkinTyprCollapsed}
-                        />
-                    </CollapseHeader>
-                    <CollapseBody>
-                        <View style={styles.collapseBodyContainer(isSkinTyprCollapsed)}>
-                            {available_skin_types.map((item, index) => {
-                                return <CollapsibleListItem
-                                    key={String(index)}
-                                    title={item}
-                                    onPress={() => { }} />
-                            })}
-                        </View>
-                    </CollapseBody>
-                </Collapse>
-
-
-                <AppearanceItem
-                    label={"Eye color"}
-                    title={"Blue"}
-                />
-                <AppearanceItem
-                    label={"Skin type"}
-                    title={"Medium"}
-                />
-                <AppearanceItem
-                    label={"Figure"}
-                    title={"Athletic"}
-                />
-                <AppearanceItem
-                    label={"Hair length"}
-                    title={"20cm"}
-                />
-                <AppearanceItem
-                    label={"Smoker"}
-                    title={"No"}
-                />
-                <AppearanceItem
-                    label={"Drinker"}
-                    title={"Sometime"}
-                />
-            </ScrollView>
             <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10 }}>
                 <AppButton
                     type={'light'}
                     style={{ flex: 1 }}
-                    title={"Cancel"} />
+                    title={appLabels.cancel}
+                    onPress={() => navigation.goBack()} />
                 <AppButton
                     style={{ flex: 1, marginStart: 10 }}
-                    title={"Save"} />
+                    title={appLabels.save}
+                    onPress={onSaveAttributes}
+                    loading={isSaving} />
             </View>
         </View>
     )
-}
-
-const AppearanceItem = ({ label, title, isCollapsed }) => {
-    return (
-        <View style={[styles.accountDetailItemContainer, { borderBottomWidth: isCollapsed ? 0 : 1 }]}>
-            <View>
-                <AppText type={'regular'} size={14} color={Colors.black}>{label}</AppText>
-                <AppText type={'bold'} size={16} color={Colors.black}>{title}</AppText>
-            </View>
-            {isCollapsed ? <ArrowDownIcon width={18} height={18} /> : <ArrowRightIcon width={18} height={18} />}
-        </View>
-    )
-}
-
-const CollapsibleListItem = ({ title, onPress, isSelected }) => {
-    return <TouchableOpacity
-        onPress={onPress}
-        style={{ borderBottomWidth: 0.5, borderColor: Colors.grey, marginBottom: 5, padding: 10 }}>
-        <AppText
-            type={'medium'}
-            size={14}
-            color={isSelected ? Colors.ui_primary : Colors.black}
-        >{title}</AppText>
-    </TouchableOpacity>
 }
