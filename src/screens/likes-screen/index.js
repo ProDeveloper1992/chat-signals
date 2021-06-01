@@ -13,6 +13,7 @@ export default function LikesScreen(props) {
 
     const dispatch = useDispatch();
     const { userData, friendsList, customerLikesList } = useSelector((state) => state.userState);
+    const { appLabels } = useSelector((state) => state.appState);
 
     const [loading, setLoading] = useState(true);
 
@@ -28,7 +29,7 @@ export default function LikesScreen(props) {
 
     return (
         <View style={styles.container}>
-            <BackHeader title={'Likes'} color={Colors.ui_primary} />
+            <BackHeader title={appLabels.likes} color={Colors.ui_primary} />
             {loading && customerLikesList && customerLikesList.length == 0 ? (
                 <FlatList
                     data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}

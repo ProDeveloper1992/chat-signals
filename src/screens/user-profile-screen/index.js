@@ -160,7 +160,7 @@ export default function UserProfile(props) {
 
             <View style={{ padding: 15 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <AppText type={'bold'} size={16}>{`${userData && userData.username}${userData && userData.dob ? `, ${moment().diff(moment(userData.dob, 'YYYY-MM-DD'), 'years')}` : ''}`}</AppText>
+                <AppText type={'bold'} size={16}>{`${userData && userData.username}${userData && userData.dob ? `, ${moment().diff(moment(userData.dob, 'DD-MM-YYYY'), 'years')}` : ''}`}</AppText>
               </View>
             </View>
 

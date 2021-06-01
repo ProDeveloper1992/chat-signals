@@ -14,6 +14,7 @@ export default function HeartsScreen(props) {
     const dispatch = useDispatch();
 
     const { userData, friendsList, customerHeartsList } = useSelector((state) => state.userState);
+    const { appLabels } = useSelector((state) => state.appState);
 
     const [loading, setLoading] = useState(true);
 
@@ -29,7 +30,7 @@ export default function HeartsScreen(props) {
 
     return (
         <View style={styles.container}>
-            <BackHeader title={'Hearts'} color={Colors.ui_primary} />
+            <BackHeader title={appLabels.heart} color={Colors.ui_primary} />
             {loading && customerHeartsList && customerHeartsList.length == 0 ? (
                 <FlatList
                     data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}

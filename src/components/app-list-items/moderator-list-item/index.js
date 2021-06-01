@@ -7,6 +7,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import moment from 'moment';
 import FastImage from 'react-native-fast-image';
 import ContentLoader, { Rect, Circle } from "react-content-loader/native";
+import ScalableImage from '../../app-scalable-image';
 
 export default function ModeratorListItem({ item, onPress, isBoosted }) {
 
@@ -27,14 +28,10 @@ export default function ModeratorListItem({ item, onPress, isBoosted }) {
   }
 
   return (
-    <TouchableOpacity onPress={onPress} activeOpacity={0.8}>
-      <FastImage
-        style={styles.listItemContainer}
-        source={{
-          uri: getItemImage(item.profilepicture),
-          priority: FastImage.priority.high,
-        }}
-        resizeMode={FastImage.resizeMode.cover}
+    <TouchableOpacity onPress={onPress} activeOpacity={0.8} style={{ margin: 8, marginTop: 20 }}>
+      <ScalableImage
+        borderRadius={20}
+        src={getItemImage(item.profilepicture)}
       >
         <LinearGradient
           colors={getGradientColors()}
@@ -55,7 +52,7 @@ export default function ModeratorListItem({ item, onPress, isBoosted }) {
               style={[styles.userName, { textTransform: 'capitalize' }]}>{item.city + ", " + item.country}</AppText>
           </View>
         </LinearGradient>
-      </FastImage>
+      </ScalableImage>
     </TouchableOpacity>
   );
 }

@@ -27,19 +27,21 @@ export default function FlirtTab(props) {
 
   const [search, setSearch] = useState('');
   const { flirtsList, flirtsLoading, isLoadMoreFlirts } = useSelector((state) => state.flirtsState);
-  const { userData } = useSelector((state) => state.userState);
+  const { userData, authToken } = useSelector((state) => state.userState);
 
   const [pageNumber, setPageNumber] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    let requestData = {
-      page: pageNumber,
-      customer_id: userData.id,
-      gender: ''
-    };
-    dispatch(getFlirtsList(requestData));
-    dispatch(getCustomerProfileDetail());
+    if (authToken != null) {
+      let requestData = {
+        page: pageNumber,
+        customer_id: userData.id,
+        gender: ''
+      };
+      dispatch(getFlirtsList(requestData));
+      dispatch(getCustomerProfileDetail());
+    }
   }, []);
 
   const handleLoadMore = () => {

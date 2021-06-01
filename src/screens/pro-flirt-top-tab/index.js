@@ -22,18 +22,20 @@ export default function ProFlirtTab(props) {
   const navigation = useNavigation();
 
   const { spotLightsList, spotLightsLoading, isLoadMoreSpotlights } = useSelector((state) => state.flirtsState);
-  const { userData } = useSelector((state) => state.userState);
+  const { userData, authToken } = useSelector((state) => state.userState);
 
   const [pageNumber, setPageNumber] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    let requestData = {
-      page: pageNumber,
-      customer_id: userData.id,
-      gender: ''
-    };
-    dispatch(getProFlirtsList(requestData));
+    if (authToken != null) {
+      let requestData = {
+        page: pageNumber,
+        customer_id: userData.id,
+        gender: ''
+      };
+      dispatch(getProFlirtsList(requestData));
+    }
   }, []);
 
   const handleLoadMore = () => {

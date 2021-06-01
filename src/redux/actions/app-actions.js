@@ -37,10 +37,10 @@ export const getAppLanguages = () => (dispatch) =>
       });
   });
 
-export const getAppStrings = () => (dispatch, getState) =>
+export const getAppStrings = () => (dispatch) =>
   new Promise(function (resolve, reject) {
     dispatch(ActionDispatcher(GET_APP_STRINGS_REQUEST));
-    let state = getState();
+    let state = store.getState();
     let user_language = state.appState.selectedLanguage;
     client
       .get(`/appsettings/${user_language}`)
@@ -120,9 +120,9 @@ export const getSealUrl = (requestData) => (dispatch) =>
   });
 
 //Passions list
-export const getPassionList = (query = '') => (dispatch, getState) =>
+export const getPassionList = (query = '') => (dispatch) =>
   new Promise(function (resolve, reject) {
-    let state = getState();
+    let state = store.getState();
     let selectedLanguage = state.appState.selectedLanguage;
     let requestData = {
       language: selectedLanguage,
@@ -143,9 +143,9 @@ export const getPassionList = (query = '') => (dispatch, getState) =>
   });
 
 //Sexual orientations list
-export const getSexualOrientationList = () => (dispatch, getState) =>
+export const getSexualOrientationList = () => (dispatch) =>
   new Promise(function (resolve, reject) {
-    let state = getState();
+    let state = store.getState();
     let selectedLanguage = state.appState.selectedLanguage;
     let requestData = {
       language: selectedLanguage,
@@ -165,9 +165,9 @@ export const getSexualOrientationList = () => (dispatch, getState) =>
   });
 
 //Gender List
-export const getGenderList = () => (dispatch, getState) =>
+export const getGenderList = () => (dispatch) =>
   new Promise(function (resolve, reject) {
-    let state = getState();
+    let state = store.getState();
     let selectedLanguage = state.appState.selectedLanguage;
     let requestData = {
       language: selectedLanguage,
@@ -187,9 +187,9 @@ export const getGenderList = () => (dispatch, getState) =>
   });
 
 //Get Help Ticket Subjects List
-export const getHelpTicketSubjects = () => (dispatch, getState) =>
+export const getHelpTicketSubjects = () => (dispatch) =>
   new Promise(function (resolve, reject) {
-    let state = getState();
+    let state = store.getState();
     let selectedLanguage = state.appState.selectedLanguage;
     let requestData = {
       language: selectedLanguage,
