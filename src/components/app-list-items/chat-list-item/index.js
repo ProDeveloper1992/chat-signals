@@ -115,7 +115,7 @@ ChatListItem.propTypes = {
 ChatListItem.defaultProps = {
   isActive: false,
   loading: true,
-  profileImage: Images.forgot_heart_logo,
+  profileImage: Images.app_logo,
   userName: 'Username',
   lastMessage: 'Last Message',
   lastMessageTime: new Date(),

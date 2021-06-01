@@ -7,6 +7,6 @@ export default StyleSheet.create({
         margin: 8,
         height: SCREEN_HEIGHT / 4,
         backgroundColor: Colors.grey_light,
-        borderRadius: 4
+        borderRadius: 5
     }
 })

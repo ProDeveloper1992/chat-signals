@@ -96,7 +96,7 @@ NotificationItem.propTypes = {
 };
 
 NotificationItem.defaultProps = {
-    profileImage: Images.forgot_heart_logo,
+    profileImage: Images.app_logo,
     userName: 'Username',
     time: new Date(),
     type: 'like',

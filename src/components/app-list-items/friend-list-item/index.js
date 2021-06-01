@@ -71,7 +71,7 @@ FriendListItem.propTypes = {
 };
 
 FriendListItem.defaultProps = {
-    profileImage: Images.forgot_heart_logo,
+    profileImage: Images.app_logo,
     userName: 'Username',
     item: {},
     onChatPress: () => { },

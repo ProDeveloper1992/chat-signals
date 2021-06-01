@@ -31,7 +31,6 @@ const rootReducer = (state, action) => {
     Object.keys(state).forEach((key) => {
       AsyncStorage.removeItem(`persist:${key}`);
     });
-    AsyncStorage.removeItem('userToken');
     RootNavigation.navigate('auth-stack');
     state = undefined;
   }

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
-import { View, Text, TouchableOpacity, Platform } from 'react-native';
-import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
-import { AppDropDown, AppText } from '../..';
+import { View, TouchableOpacity, Platform } from 'react-native';
+import Menu, { MenuItem } from 'react-native-material-menu';
+import { useSelector } from 'react-redux';
+import { AppText } from '../..';
 import { Colors } from '../../../constants';
 import { DotsCircleTransparentIcon, CloseWhiteTransparentIcon } from '../../../constants/svg-icons';
 
@@ -21,6 +22,8 @@ function UserPhotoItemMenu({ onSelectOption }) {
         _menu.show();
     };
 
+    const { appLabels } = useSelector((state) => state.appState);
+
     const Options = [
         {
             type: 'set_profile',
@@ -28,7 +31,7 @@ function UserPhotoItemMenu({ onSelectOption }) {
         },
         {
             type: 'erotic',
-            title: "Erotic photo",
+            title: appLabels.erotic_image,
         },
         {
             type: 'private',
@@ -40,12 +43,10 @@ function UserPhotoItemMenu({ onSelectOption }) {
         }
     ];
 
-    const [selectedOption, setSelectedOption] = useState(Options[1]);
     const [isVisible, setIsVisible] = useState(false);
 
     const onSelectMenu = (option) => {
         onSelectOption(option);
-        setSelectedOption(option);
         hideMenu();
     }
 
@@ -60,7 +61,6 @@ function UserPhotoItemMenu({ onSelectOption }) {
                         <CloseWhiteTransparentIcon width={24} height={24} />
                     ) : (
                         <TouchableOpacity
-                            // style={{ padding: 10 }}
                             onPress={async () => {
                                 await showMenu();
                                 setIsVisible(true);
@@ -80,7 +80,6 @@ function UserPhotoItemMenu({ onSelectOption }) {
                         </View>
                     </MenuItem>
                     {optionIndex != Options.length - 1 && (
-                        // <MenuDivider color={Colors.grey} />
                         <View style={{ height: 1, backgroundColor: Colors.grey }} />
                     )}
                 </View>

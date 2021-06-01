@@ -68,6 +68,21 @@ export default function AccountDetail(props) {
     const [isPassionCollapsed, setPassionCollapsed] = useState(false);
     const [isOrientationCollapsed, setOrientationCollapsed] = useState(false);
 
+    const getUserPassions = () => {
+        let passionsToShow = [];
+        if (userData.passions) {
+            const PASSIONS = userData.passions.split(',');
+            for (let passionId of PASSIONS) {
+                for (let passion of passionList) {
+                    if (passion.id == passionId) {
+                        passionsToShow.push(passion.name);
+                    }
+                }
+            }
+
+        }
+        return passionsToShow.toString();
+    }
 
     const showDatePicker = () => {
         setDatePickerVisibility(true);
@@ -136,16 +151,22 @@ export default function AccountDetail(props) {
 
     //Save Account Information
     const onSaveInformation = async () => {
+        let PASSIONS = [];
+        for (let passion of selectedPassions) {
+            let id = passion.id
+            PASSIONS.push(id)
+        }
         let requestData = {
             first_name: firstName,
             last_name: lastName,
-            dob: userData.dob,
-            Gender: userData.Gender,
-            description: '',
-            sexual_orientation: userData.sexual_orientation,
-            'passions[]': userData.passions,
+            dob: birthDate,
+            Gender: gender ? gender.id : '',
+            description: userData.Description != null ? userData.Description : 'test',
+            sexual_orientation: selectedOrientation ? selectedOrientation.id : '',
+            'passions[]': '',
             profile_id: userData.id
         }
+        console.log("requestData", requestData)
         setIsSaving(true);
         await dispatch(editAccountInfo(requestData));
         setIsSaving(false);
@@ -172,22 +193,18 @@ export default function AccountDetail(props) {
                         )}
 
                         {/* First Name */}
-                        {/* {userData.first_name && ( */}
                         <AccountDetailInputItem
                             label={appLabels.firstname}
                             value={firstName}
                             onChangeText={onChangeFirstName}
                         />
-                        {/* )} */}
 
                         {/* Last Name */}
-                        {/* {userData.last_name && ( */}
                         <AccountDetailInputItem
                             label={appLabels.lastname}
                             value={lastName}
                             onChangeText={onChangeLastName}
                         />
-                        {/* )} */}
 
                         {/* Email */}
                         {userData.email && (
@@ -200,17 +217,14 @@ export default function AccountDetail(props) {
                         )}
 
                         {/* Birth Date */}
-                        {/* {birthDate && ( */}
                         <AccountDetailItem
                             label={appLabels.birthday}
                             title={birthDate}
                             rightContent={<View />}
                             onPress={showDatePicker}
                         />
-                        {/* )} */}
 
                         {/* Gender */}
-                        {/* {userData.Gender && getGenderById(userData.Gender) != null && ( */}
                         <Collapse
                             onToggle={(isColl) => {
                                 console.log("isColl", isColl)
@@ -241,42 +255,38 @@ export default function AccountDetail(props) {
                                 </View>
                             </CollapseBody>
                         </Collapse>
-                        {/* )} */}
 
                         {/* Passions */}
-                        {userData.passions && (
-                            <Collapse
-                                onToggle={(isColl) => {
-                                    console.log("isColl", isColl)
-                                    setPassionCollapsed(isColl)
-                                }}
-                                isCollapsed={isPassionCollapsed}>
-                                <CollapseHeader>
-                                    <CollapseHeaderComponent
-                                        label={appLabels.passions}
-                                        title={userData.passions}
-                                        isCollapsed={isPassionCollapsed}
-                                    />
-                                </CollapseHeader>
-                                <CollapseBody>
-                                    <View style={styles.collapseBodyContainer(isPassionCollapsed)}>
-                                        <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                                            {passionList.map((passion, passionIndex) => {
-                                                return <TagItem
-                                                    key={String(passionIndex)}
-                                                    title={passion.name}
-                                                    selected={isTagSelected(passion)}
-                                                    onPress={(isSelected) => onTagItemPress(isSelected, passion)}
-                                                />
-                                            })}
-                                        </View>
+                        <Collapse
+                            onToggle={(isColl) => {
+                                console.log("isColl", isColl)
+                                setPassionCollapsed(isColl)
+                            }}
+                            isCollapsed={isPassionCollapsed}>
+                            <CollapseHeader>
+                                <CollapseHeaderComponent
+                                    label={appLabels.passions}
+                                    title={getUserPassions()}
+                                    isCollapsed={isPassionCollapsed}
+                                />
+                            </CollapseHeader>
+                            <CollapseBody>
+                                <View style={styles.collapseBodyContainer(isPassionCollapsed)}>
+                                    <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                                        {passionList.map((passion, passionIndex) => {
+                                            return <TagItem
+                                                key={String(passionIndex)}
+                                                title={passion.name}
+                                                selected={isTagSelected(passion)}
+                                                onPress={(isSelected) => onTagItemPress(isSelected, passion)}
+                                            />
+                                        })}
                                     </View>
-                                </CollapseBody>
-                            </Collapse>
-                        )}
+                                </View>
+                            </CollapseBody>
+                        </Collapse>
 
                         {/* Sexual Orientations */}
-                        {/* {userData.sexual_orientation && ( */}
                         <Collapse
                             onToggle={(isColl) => {
                                 setOrientationCollapsed(isColl)
@@ -306,7 +316,6 @@ export default function AccountDetail(props) {
                                 </View>
                             </CollapseBody>
                         </Collapse>
-                        {/* )} */}
                     </View>
                 )}
             </ScrollView>
@@ -326,7 +335,7 @@ export default function AccountDetail(props) {
             )}
             <DateTimePickerModal
                 isVisible={isDatePickerVisible}
-                mode="date"
+                mode={"date"}
                 onConfirm={handleConfirm}
                 onCancel={hideDatePicker}
                 maximumDate={new Date()}

@@ -5,10 +5,6 @@ import * as RootNavigation from '../navigators/root-navigation'
 import { store } from '../redux/store';
 import { showToast } from '../redux/actions/app-actions';
 import { logoutUser } from '../redux/reducers';
-// import io from "socket.io-client";
-
-// export const socket = io("http://13.251.162.218:8080");
-// export const socket = io('http://192.168.1.57:8080');
 
 /* switch this for testing on staging or production */
 export const staging = true;
@@ -21,16 +17,15 @@ export const apiRoot = staging ? apiUrlStaging : apiUrlLive;
 export const client = axios.create({
   baseURL: apiRoot,
   timeout: 30000,
-  //   headers: { api_key: "JPcopEq16fyQGjnzY3QXVDnGDZrgQAs1" },
 });
 
 client.interceptors.request.use(
   async function (config) {
-    console.log("config", config.data)
-    var basicAuth = store.getState().userState.authToken;
-    console.log("Authentication Token... ", basicAuth)
-    if (basicAuth && basicAuth != null) {
-      config.headers.Authorization = `Bearer ${basicAuth}`;
+    // console.log("config", config.data)
+    const { authToken } = store.getState().userState;
+    console.log("Authentication Token... ", authToken)
+    if (authToken && authToken != null) {
+      config.headers.Authorization = `Bearer ${authToken}`;
     } else {
       RootNavigation.navigate('auth-stack');
     }

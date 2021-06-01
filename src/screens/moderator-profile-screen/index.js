@@ -39,6 +39,7 @@ import { showToast } from '../../redux/actions/app-actions';
 import moment from 'moment';
 import { blockModerator, getModeratorProfileDetail, reportModerator } from '../../redux/actions/flirts-actions';
 import { toggleGallerySwiperModal } from '../../redux/actions/app-modals-actions';
+import ScalableImage from '../../components/app-scalable-image';
 
 export default function ModeratorProfile(props) {
 
@@ -183,25 +184,25 @@ export default function ModeratorProfile(props) {
           {params && params.item && params.item.profilepicture && params.item.profilepicture.length > 0 && (
             <IndicatorViewPager
               style={{ height: SCREEN_HEIGHT / 2, backgroundColor: Colors.grey }}
-              indicator={_renderDotIndicator(params.item.profilepicture.length)}
+              indicator={_renderDotIndicator(params.item.profilepicture.length - 1)}
             >
               {getProfilePictures().map((item, index) => {
                 if (item.is_friend == "1") {
-                  return (<ImageBackground
-                    key={String(index)}
-                    blurRadius={Platform.OS == 'ios' ? 40 : 5}
-                    style={styles.imgBackground}
-                    resizeMode={'cover'}
-                    source={{ uri: getItemImage(item.picture) }}>
-                    <View style={styles.eroticContainer}>
-                      <XXXCoinIcon width={60} height={60} />
-                      <AppText
-                        type={'black-italic'}
-                        size={16}
-                        style={{ marginTop: -10 }}
-                        color={Colors.white}
-                        uppercase>{appLabels.only_for_friends}</AppText>
-                      {/* <TouchableOpacity
+                  return (
+                    <ScalableImage
+                      key={String(index)}
+                      src={getItemImage(item.picture)}
+                      blurRadius={Platform.OS == 'ios' ? 40 : 5}
+                    >
+                      <View style={styles.eroticContainer}>
+                        <XXXCoinIcon width={60} height={60} />
+                        <AppText
+                          type={'black-italic'}
+                          size={16}
+                          style={{ marginTop: -10 }}
+                          color={Colors.white}
+                          uppercase>{appLabels.only_for_friends}</AppText>
+                        {/* <TouchableOpacity
                         onPress={onUnlockEroticImage}
                         style={styles.unlockEroticButtonContainer}>
                         <View style={{ marginBottom: -5, marginTop: 5, marginStart: -10 }}>
@@ -209,25 +210,26 @@ export default function ModeratorProfile(props) {
                         </View>
                         <AppText type={'black-italic'} size={12} color={Colors.white} uppercase>{`Unlock for ${10} coins`}</AppText>
                       </TouchableOpacity> */}
-                    </View>
-                  </ImageBackground>)
+                      </View>
+                    </ScalableImage>
+                  )
                 }
                 if (item.is_erotic == "1") {
-                  return (<ImageBackground
-                    key={String(index)}
-                    blurRadius={Platform.OS == 'ios' ? 40 : 5}
-                    style={styles.imgBackground}
-                    resizeMode={'cover'}
-                    source={{ uri: getItemImage(item.picture) }}>
-                    <View style={styles.eroticContainer}>
-                      <XXXCoinIcon width={60} height={60} />
-                      <AppText
-                        type={'black-italic'}
-                        size={16}
-                        style={{ marginTop: -10 }}
-                        color={Colors.white}
-                        uppercase>{appLabels.erotic_image}</AppText>
-                      {/* <TouchableOpacity
+                  return (
+                    <ScalableImage
+                      key={String(index)}
+                      src={getItemImage(item.picture)}
+                      blurRadius={Platform.OS == 'ios' ? 40 : 5}
+                    >
+                      <View style={styles.eroticContainer}>
+                        <XXXCoinIcon width={60} height={60} />
+                        <AppText
+                          type={'black-italic'}
+                          size={16}
+                          style={{ marginTop: -10 }}
+                          color={Colors.white}
+                          uppercase>{appLabels.erotic_image}</AppText>
+                        {/* <TouchableOpacity
                         onPress={onUnlockEroticImage}
                         style={styles.unlockEroticButtonContainer}>
                         <View style={{ marginBottom: -5, marginTop: 5, marginStart: -10 }}>
@@ -235,13 +237,19 @@ export default function ModeratorProfile(props) {
                         </View>
                         <AppText type={'black-italic'} size={12} color={Colors.white} uppercase>{`Unlock for ${10} coins`}</AppText>
                       </TouchableOpacity> */}
-                    </View>
-                  </ImageBackground>)
+                      </View>
+                    </ScalableImage>
+                  )
                 }
                 return (
                   <TouchableOpacity
                     onPress={() => onPressImage(item, index)}>
-                    <FastImage
+                    <ScalableImage
+                      key={String(index)}
+                      src={getItemImage(item.picture)}
+                      blurRadius={0}
+                    />
+                    {/* <FastImage
                       key={String(index)}
                       style={styles.imgBackground}
                       source={{
@@ -249,7 +257,8 @@ export default function ModeratorProfile(props) {
                         priority: FastImage.priority.high,
                       }}
                       resizeMode={FastImage.resizeMode.cover}
-                    />
+                    /> */}
+
                   </TouchableOpacity>
                 )
               })}

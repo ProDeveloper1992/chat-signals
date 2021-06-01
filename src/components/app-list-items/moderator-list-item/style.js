@@ -15,7 +15,7 @@ export default StyleSheet.create({
     // marginLeft: listItemMargin,
     marginTop: 20,
     // width: listItemWidth / 2,
-    height: listItemHeight,
+    // height: listItemHeight,
     backgroundColor: Colors.grey,
     borderRadius: 20,
     margin: 8

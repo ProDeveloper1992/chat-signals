@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -23,7 +23,6 @@ function SexualOrientationMenu({ onSelectOrientation, label }) {
     };
 
     const { sexualOrientations, appLabels } = useSelector((state) => state.appState);
-    const { userSexualOrientation } = useSelector((state) => state.userState);
 
     const [selectedOrientation, setSelectedOrientation] = useState({ id: -1, name: appLabels.select_orientation });
 

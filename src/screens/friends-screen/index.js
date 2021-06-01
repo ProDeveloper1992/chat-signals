@@ -32,7 +32,7 @@ export default function FriendsScreen(props) {
 
     return (
         <View style={styles.container}>
-            <BackHeader title={'Friends'} color={Colors.ui_primary} />
+            <BackHeader title={appLabels.friends} color={Colors.ui_primary} />
             {loading && friends && friends.length == 0 ? (
                 <FlatList
                     data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
