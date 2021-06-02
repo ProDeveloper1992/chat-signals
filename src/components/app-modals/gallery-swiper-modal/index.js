@@ -4,8 +4,6 @@ import Modal from 'react-native-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import GallerySwiper from 'react-native-gallery-swiper';
 
-import { Colors } from '../../../constants';
-import { AppText } from '../../index';
 import styles from './style';
 import { CloseWhiteTransparentIcon } from '../../../constants/svg-icons';
 
@@ -17,18 +15,15 @@ export default function GallerySwiperModal({ visible, onHideModal }) {
   return (
     <Modal
       isVisible={visible}
-      animationIn={'zoomIn'}
-      animationOut={'zoomOut'}
+      animationIn={'slideInUp'}
+      animationOut={'slideOutDown'}
       backdropOpacity={0.7}
-      // animationInTiming={600}
-      // animationOutTiming={600}
       onBackdropPress={onHideModal}
       onBackButtonPress={onHideModal}
       style={styles.modalContainer}>
       <View style={styles.modalSubContainer}>
         <GallerySwiper
           images={gallerySwiperImages}
-          // initialNumToRender={4}
           initialPage={initialGalleryImageIndex}
           sensitiveScroll={true}
           enableScale={false}

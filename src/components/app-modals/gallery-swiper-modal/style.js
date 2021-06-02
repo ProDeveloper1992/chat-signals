@@ -6,16 +6,15 @@ export default StyleSheet.create({
         padding: 0,
         margin: 0,
         justifyContent: 'center',
+        backgroundColor: Colors.black,
     },
     modalSubContainer: {
         minHeight: '60%',
         width: '100%',
-        // backgroundColor: Colors.white,
     },
     modalTitle: {
         color: Colors.ui_primary_dark,
         fontSize: 18,
         fontWeight: 'bold',
-        // marginBottom: 10,
     }
 })
