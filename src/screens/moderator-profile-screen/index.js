@@ -11,13 +11,13 @@ import {
   Platform,
   useWindowDimensions,
 } from 'react-native';
-import { PagerTabIndicator, IndicatorViewPager, PagerTitleIndicator, PagerDotIndicator } from 'rn-viewpager';
+import { PagerTabIndicator, IndicatorViewPager, ViewPager, PagerTitleIndicator, PagerDotIndicator } from 'rn-viewpager';
 import HTML from "react-native-render-html";
 import FastImage from 'react-native-fast-image';
 import { Code } from 'react-content-loader/native';
 
 import { NoListData, AppText, BackHeader, TagItem, OnlineStatusCircle, LegalActionMenu } from '../../components';
-import { Icons, Colors, DEFAULT_IMAGE_URL, SCREEN_HEIGHT, DEFAULT_AVATAR_URL } from '../../constants';
+import { Icons, Colors, DEFAULT_IMAGE_URL, SCREEN_HEIGHT, DEFAULT_AVATAR_URL, Images } from '../../constants';
 import styles from './style';
 import { ModeratorIconLabel } from '../../components';
 import { ModeratorActivityModal } from '../../components/app-modals';
@@ -54,7 +54,7 @@ export default function ModeratorProfile(props) {
   const [activityType, setActivityType] = useState('kiss');
   const [activityModalVisible, setActivityModalVisible] = useState(false);
   const [loadingDetail, setLoadingDetail] = useState(true);
-  const [isImageSwiperModalVisible, setImageSwiperModalVisible] = useState(false);
+  const [swiperImages, setSwiperImages] = useState([]);
 
   const [moderatorDetail, setModeratorDetail] = useState(null);
 
@@ -63,6 +63,17 @@ export default function ModeratorProfile(props) {
   useEffect(() => {
     console.log("Mederator Detail...", params.item);
     getDetail();
+    if (params && params.item && params.item.profilepicture) {
+      let moderatorImages = [];
+      for (let image of params.item.profilepicture) {
+        let obj = { uri: getItemImage(image.picture) };
+        if (image.is_friend == '1' || image.is_erotic == '1') {
+          obj = { uri: DEFAULT_AVATAR_URL };
+        }
+        moderatorImages.push(obj);
+      }
+      setSwiperImages(moderatorImages);
+    }
   }, [])
 
   const getDetail = async () => {
@@ -173,7 +184,7 @@ export default function ModeratorProfile(props) {
   }
 
   const onPressImage = (item, index) => {
-    dispatch(toggleGallerySwiperModal(true, [{ uri: getItemImage(item.picture) }]));
+    dispatch(toggleGallerySwiperModal(true, swiperImages, index + 1));
   }
 
   return (
