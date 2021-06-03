@@ -67,8 +67,11 @@ export default function ModeratorProfile(props) {
       let moderatorImages = [];
       for (let image of params.item.profilepicture) {
         let obj = { uri: getItemImage(image.picture) };
-        if (image.is_friend == '1' || image.is_erotic == '1') {
-          obj = { uri: DEFAULT_AVATAR_URL };
+        if (image.is_erotic == '1') {
+          obj = { uri: 'https://dcassetcdn.com/design_img/368831/55332/55332_2984458_368831_image.jpg' };
+        }
+        if (image.is_friend == '1') {
+          obj = { uri: 'https://mafasworld.files.wordpress.com/2010/11/2294890654_aa2c97b771_o.jpg' };
         }
         moderatorImages.push(obj);
       }
@@ -143,9 +146,6 @@ export default function ModeratorProfile(props) {
   }
 
   const getProfilePictures = () => {
-    if (moderatorDetail != null) {
-      return moderatorDetail.profile_picture;
-    }
     return params.item.profilepicture;
   }
 

@@ -561,10 +561,13 @@ export const editAccountInfo = (requestData) => (dispatch, getState) =>
         if (res.meta.status) {
           dispatch(showToast('positive', res.meta.message));
           dispatch(getCustomerProfileDetail());
+        } else {
+          dispatch(showToast('negative', res.meta.message));
         }
         resolve(res);
       })
       .catch((err) => {
+        dispatch(showToast('negative', 'Something went wrong!'));
         resolve({ meta: { status: false } })
         reject(err);
       });

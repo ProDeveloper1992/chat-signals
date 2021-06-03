@@ -18,7 +18,7 @@ export default function NotificationsTab(props) {
     return (
         <View style={styles.container}>
             <FlatList
-                data={notifications}
+                data={[]}
                 contentContainerStyle={{ flexGrow: 1 }}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item, index }) => (

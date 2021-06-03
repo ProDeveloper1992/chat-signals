@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -67,6 +67,17 @@ export default function AccountDetail(props) {
     const [isGenderCollapsed, setGenderCollapsed] = useState(false);
     const [isPassionCollapsed, setPassionCollapsed] = useState(false);
     const [isOrientationCollapsed, setOrientationCollapsed] = useState(false);
+
+
+    useEffect(() => {
+        let user_passions = [];
+        const PASSIONS = userData.passions.split(',');
+        for (let passionId of PASSIONS) {
+            let obj = { id: passionId };
+            user_passions.push(obj);
+        }
+        setSelectedPassions(user_passions);
+    }, [])
 
     const getUserPassions = () => {
         let passionsToShow = [];
@@ -163,13 +174,14 @@ export default function AccountDetail(props) {
             Gender: gender ? gender.id : '',
             description: userData.Description != null ? userData.Description : 'test',
             sexual_orientation: selectedOrientation ? selectedOrientation.id : '',
-            'passions[]': '',
+            passions: PASSIONS.toString(),
             profile_id: userData.id
         }
         console.log("requestData", requestData)
         setIsSaving(true);
         await dispatch(editAccountInfo(requestData));
         setIsSaving(false);
+        navigation.goBack();
     }
 
     return (
