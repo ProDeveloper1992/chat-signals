@@ -32,6 +32,7 @@ export default class ScalableImage extends Component {
                 style={{
                     width: '100%',
                     aspectRatio: ratio,
+                    flex: 1
                 }}
                 resizeMode="contain"
                 borderRadius={borderRadius ? borderRadius : 0}

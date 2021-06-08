@@ -2,10 +2,12 @@ import React from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { useDispatch, useSelector } from 'react-redux';
-import GallerySwiper from 'react-native-gallery-swiper';
+import ImageViewer from 'react-native-image-zoom-viewer';
 
 import styles from './style';
 import { CloseWhiteTransparentIcon } from '../../../constants/svg-icons';
+import { AppText } from '../..';
+import { Colors, DEFAULT_AVATAR_URL } from '../../../constants';
 
 export default function GallerySwiperModal({ visible, onHideModal }) {
   const dispatch = useDispatch();
@@ -22,20 +24,24 @@ export default function GallerySwiperModal({ visible, onHideModal }) {
       onBackButtonPress={onHideModal}
       style={styles.modalContainer}>
       <View style={styles.modalSubContainer}>
-        <GallerySwiper
-          images={gallerySwiperImages}
-          initialPage={initialGalleryImageIndex}
-          sensitiveScroll={true}
-          enableScale={false}
-          pageMargin={10}
-          scrollViewStyle={{ flexGrow: 1 }}
-          resizeMode={'contain'}
-          style={{ flex: 1, backgroundColor: 'transparent' }}
+        <ImageViewer
+          style={{ flex: 1, backgroundColor: Colors.black }}
+          imageUrls={gallerySwiperImages}
+          enableSwipeDown
+          index={initialGalleryImageIndex}
+          swipeDownThreshold={150}
+          onSwipeDown={onHideModal}
+          renderIndicator={() => null}
+          loadingRender={() => (
+            <AppText color={Colors.ui_primary}>
+              {'Loading ...'}
+            </AppText>
+          )}
         />
       </View>
-      <TouchableOpacity style={{ alignSelf: 'center', marginTop: 20 }} onPress={onHideModal}>
+      {/* <TouchableOpacity style={{ alignSelf: 'center', marginTop: 20 }} onPress={onHideModal}>
         <CloseWhiteTransparentIcon width={30} height={30} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </Modal>
   );
 }

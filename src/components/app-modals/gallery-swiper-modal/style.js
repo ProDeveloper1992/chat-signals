@@ -9,8 +9,9 @@ export default StyleSheet.create({
         backgroundColor: Colors.black,
     },
     modalSubContainer: {
-        minHeight: '60%',
+        minHeight: '100%',
         width: '100%',
+        backgroundColor: Colors.black,
     },
     modalTitle: {
         color: Colors.ui_primary_dark,

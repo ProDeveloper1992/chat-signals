@@ -24,6 +24,7 @@ import SpotlightModal from './spotlight-modal';
 import CoinsEarningModal from './coins-earning-modal';
 import ModeratorChatDetailModal from './moderator-chat-detail-modal';
 import AppAlertModal from './app-alert-modal';
+import { DEFAULT_AVATAR_URL } from '../../constants';
 
 export {
   ModeratorActivityModal,
@@ -60,7 +61,7 @@ export default function AppModals(props) {
         dispatch(toggleLanguageModal(false));
         break;
       case GALLERY_SWIPER_MODAL:
-        dispatch(toggleGallerySwiperModal(false, []));
+        dispatch(toggleGallerySwiperModal(false, [{ url: DEFAULT_AVATAR_URL }]));
         break;
       case ADD_PASSIONS_MODAL:
         dispatch(toggleAddPassionsModal(false));
