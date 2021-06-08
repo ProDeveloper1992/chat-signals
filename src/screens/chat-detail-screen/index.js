@@ -268,7 +268,7 @@ export default function ChatDetail(props) {
                 borderWidth={3}
                 isShadow={true}
                 source={{ uri: moderator.profile_picture }}
-                onPress={() => dispatch(toggleGallerySwiperModal(true, [{ uri: moderator.profile_picture }]))} />
+                onPress={() => dispatch(toggleGallerySwiperModal(true, [{ url: moderator.profile_picture }]))} />
               <AppText
                 type={'bold'}
                 size={20}
@@ -302,7 +302,7 @@ export default function ChatDetail(props) {
                 borderWidth={2}
                 isShadow={true}
                 source={{ uri: moderator.profile_picture }}
-                onPress={() => dispatch(toggleGallerySwiperModal(true, [{ uri: moderator.profile_picture }]))} />
+                onPress={() => dispatch(toggleGallerySwiperModal(true, [{ url: moderator.profile_picture }]))} />
               <View style={{ flex: 1, paddingHorizontal: 12 }}>
                 <AppText type={'bold'} size={18}>{moderator.user.username}</AppText>
                 <AppText type={'regular'} size={12} color={Colors.greydark}>{moderator.user.is_active * 1 == 1 ? "Online" : "Offline"}</AppText>

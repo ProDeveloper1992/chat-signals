@@ -51,7 +51,7 @@ export default function UserPhotoItem({ item }) {
 
     return (
         <View style={styles.container} pointerEvents={loading ? 'none' : 'auto'}>
-            <TouchableOpacity onPress={() => dispatch(toggleGallerySwiperModal(true, [{ uri: item.picture }]))}>
+            <TouchableOpacity onPress={() => dispatch(toggleGallerySwiperModal(true, [{ url: item.picture }]))}>
                 <FastImage
                     style={{ height: '100%', width: '100%', borderRadius: 5 }}
                     source={{

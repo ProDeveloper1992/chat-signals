@@ -66,12 +66,12 @@ export default function ModeratorProfile(props) {
     if (params && params.item && params.item.profilepicture) {
       let moderatorImages = [];
       for (let image of params.item.profilepicture) {
-        let obj = { uri: getItemImage(image.picture) };
+        let obj = { url: getItemImage(image.picture) };
         if (image.is_erotic == '1') {
-          obj = { uri: 'https://dcassetcdn.com/design_img/368831/55332/55332_2984458_368831_image.jpg' };
+          obj = { url: 'https://dcassetcdn.com/design_img/368831/55332/55332_2984458_368831_image.jpg' };
         }
         if (image.is_friend == '1') {
-          obj = { uri: 'https://mafasworld.files.wordpress.com/2010/11/2294890654_aa2c97b771_o.jpg' };
+          obj = { url: 'https://mafasworld.files.wordpress.com/2010/11/2294890654_aa2c97b771_o.jpg' };
         }
         moderatorImages.push(obj);
       }
@@ -184,21 +184,49 @@ export default function ModeratorProfile(props) {
   }
 
   const onPressImage = (item, index) => {
-    dispatch(toggleGallerySwiperModal(true, swiperImages, index + 1));
+    dispatch(toggleGallerySwiperModal(true, swiperImages, index));
   }
 
   return (
     <View style={styles.container}>
       <BackHeader title={appLabels.flirts} color={Colors.ui_primary} />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         <View style={styles.container}>
           {params && params.item && params.item.profilepicture && params.item.profilepicture.length > 0 && (
             <IndicatorViewPager
-              style={{ height: SCREEN_HEIGHT / 2, backgroundColor: Colors.grey }}
-              indicator={_renderDotIndicator(params.item.profilepicture.length - 1)}
+              style={{ height: SCREEN_HEIGHT / 2, backgroundColor: Colors.grey, flex: 1, }}
+              indicator={_renderDotIndicator(params.item.profilepicture.length)}
             >
               {getProfilePictures().map((item, index) => {
                 if (item.is_friend == "1") {
+                  if (Platform.OS == 'ios') {
+                    return (
+                      <ImageBackground
+                        key={String(index)}
+                        style={styles.imgBackground}
+                        source={{ uri: getItemImage(item.picture) }}
+                        blurRadius={40}
+                      >
+                        <View style={styles.eroticContainer}>
+                          <XXXCoinIcon width={60} height={60} />
+                          <AppText
+                            type={'black-italic'}
+                            size={16}
+                            style={{ marginTop: -10 }}
+                            color={Colors.white}
+                            uppercase>{appLabels.only_for_friends}</AppText>
+                          {/* <TouchableOpacity
+                        onPress={onUnlockEroticImage}
+                        style={styles.unlockEroticButtonContainer}>
+                        <View style={{ marginBottom: -5, marginTop: 5, marginStart: -10 }}>
+                          <CoinGradientIcon width={40} height={40} />
+                        </View>
+                        <AppText type={'black-italic'} size={12} color={Colors.white} uppercase>{`Unlock for ${10} coins`}</AppText>
+                      </TouchableOpacity> */}
+                        </View>
+                      </ImageBackground>
+                    )
+                  }
                   return (
                     <ScalableImage
                       key={String(index)}
@@ -226,6 +254,26 @@ export default function ModeratorProfile(props) {
                   )
                 }
                 if (item.is_erotic == "1") {
+                  if (Platform.OS == 'ios') {
+                    return (
+                      <ImageBackground
+                        key={String(index)}
+                        source={{ uri: getItemImage(item.picture) }}
+                        style={styles.imgBackground}
+                        blurRadius={40}
+                      >
+                        <View style={styles.eroticContainer}>
+                          <XXXCoinIcon width={60} height={60} />
+                          <AppText
+                            type={'black-italic'}
+                            size={16}
+                            style={{ marginTop: -10 }}
+                            color={Colors.white}
+                            uppercase>{appLabels.erotic_image}</AppText>
+                        </View>
+                      </ImageBackground>
+                    )
+                  }
                   return (
                     <ScalableImage
                       key={String(index)}
@@ -260,16 +308,6 @@ export default function ModeratorProfile(props) {
                       src={getItemImage(item.picture)}
                       blurRadius={0}
                     />
-                    {/* <FastImage
-                      key={String(index)}
-                      style={styles.imgBackground}
-                      source={{
-                        uri: getItemImage(item.picture),
-                        priority: FastImage.priority.high,
-                      }}
-                      resizeMode={FastImage.resizeMode.cover}
-                    /> */}
-
                   </TouchableOpacity>
                 )
               })}

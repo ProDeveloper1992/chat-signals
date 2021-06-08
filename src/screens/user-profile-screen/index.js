@@ -148,7 +148,7 @@ export default function UserProfile(props) {
         <View style={styles.container}>
           <View style={{ alignItems: 'center', marginTop: 30 }}>
             <View style={styles.profileImageContainer}>
-              <TouchableOpacity onPress={() => dispatch(toggleGallerySwiperModal(true, [profileImage.uri ? profileImage : { uri: getUserProfilePicture() }]))}>
+              <TouchableOpacity onPress={() => dispatch(toggleGallerySwiperModal(true, [{ url: profileImage.uri ? profileImage.uri : getUserProfilePicture() }]))}>
                 <Image style={styles.profileImage} source={profileImage.uri ? profileImage : { uri: getUserProfilePicture() }} />
               </TouchableOpacity>
               <TouchableOpacity
