@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { ImageBackground, TouchableOpacity, View } from 'react-native';
 import { Colors, DEFAULT_IMAGE_URL, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants';
 import styles from './style';
 import { AppText, OnlineStatusCircle } from '../../index';
@@ -28,10 +28,11 @@ export default function ModeratorListItem({ item, onPress, isBoosted }) {
   }
 
   return (
-    <TouchableOpacity onPress={onPress} activeOpacity={0.8} style={{ margin: 8, marginTop: 20 }}>
-      <ScalableImage
-        borderRadius={20}
-        src={getItemImage(item.profilepicture)}
+    <TouchableOpacity onPress={onPress} activeOpacity={0.8}>
+      <ImageBackground
+        style={styles.listItemContainer}
+        imageStyle={{ borderRadius: 20 }}
+        source={{ uri: getItemImage(item.profilepicture) }}
       >
         <LinearGradient
           colors={getGradientColors()}
@@ -49,10 +50,11 @@ export default function ModeratorListItem({ item, onPress, isBoosted }) {
               size={12}
               type={'medium'}
               color={Colors.white}
+              numberOfLines={2}
               style={[styles.userName, { textTransform: 'capitalize' }]}>{item.city + ", " + item.country}</AppText>
           </View>
         </LinearGradient>
-      </ScalableImage>
+      </ImageBackground>
     </TouchableOpacity>
   );
 }

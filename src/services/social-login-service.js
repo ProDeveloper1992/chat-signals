@@ -187,6 +187,7 @@ export const onAppleLoginForAndroid = async () => {
 
         const response = await appleAuthAndroid.signIn();
         if (response) {
+            console.log("appleAuthAndroid... response", response)
             const code = response.code; // Present if selected ResponseType.ALL / ResponseType.CODE
             const id_token = response.id_token; // Present if selected ResponseType.ALL / ResponseType.ID_TOKEN
             const user = response.user; // Present when user first logs in using appleId
@@ -197,6 +198,7 @@ export const onAppleLoginForAndroid = async () => {
             console.log("Got state", state);
         }
     } catch (error) {
+        console.log("appleAuthAndroid... error", error)
         if (error && error.message) {
             switch (error.message) {
                 case appleAuthAndroid.Error.NOT_CONFIGURED:

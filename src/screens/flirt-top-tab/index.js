@@ -85,7 +85,7 @@ export default function FlirtTab(props) {
         <FlatList
           data={flirtsList}
           numColumns={2}
-          contentContainerStyle={{ flexGrow: 1, paddingBottom: 20, paddingHorizontal: 10 }}
+          contentContainerStyle={{ flexGrow: 1, padding: 10 }}
           showsVerticalScrollIndicator={false}
           renderItem={({ item, index }) => (
             <View key={String(index)} style={{ flex: 0.5 }}>
