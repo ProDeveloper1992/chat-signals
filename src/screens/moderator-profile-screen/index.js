@@ -199,38 +199,11 @@ export default function ModeratorProfile(props) {
             >
               {getProfilePictures().map((item, index) => {
                 if (item.is_friend == "1") {
-                  if (Platform.OS == 'ios') {
-                    return (
-                      <ImageBackground
-                        key={String(index)}
-                        style={styles.imgBackground}
-                        source={{ uri: getItemImage(item.picture) }}
-                        blurRadius={40}
-                      >
-                        <View style={styles.eroticContainer}>
-                          <XXXCoinIcon width={60} height={60} />
-                          <AppText
-                            type={'black-italic'}
-                            size={16}
-                            style={{ marginTop: -10 }}
-                            color={Colors.white}
-                            uppercase>{appLabels.only_for_friends}</AppText>
-                          {/* <TouchableOpacity
-                        onPress={onUnlockEroticImage}
-                        style={styles.unlockEroticButtonContainer}>
-                        <View style={{ marginBottom: -5, marginTop: 5, marginStart: -10 }}>
-                          <CoinGradientIcon width={40} height={40} />
-                        </View>
-                        <AppText type={'black-italic'} size={12} color={Colors.white} uppercase>{`Unlock for ${10} coins`}</AppText>
-                      </TouchableOpacity> */}
-                        </View>
-                      </ImageBackground>
-                    )
-                  }
                   return (
-                    <ScalableImage
+                    <ImageBackground
                       key={String(index)}
-                      src={getItemImage(item.picture)}
+                      style={styles.imgBackground}
+                      source={{ uri: getItemImage(item.picture) }}
                       blurRadius={Platform.OS == 'ios' ? 40 : 5}
                     >
                       <View style={styles.eroticContainer}>
@@ -250,34 +223,15 @@ export default function ModeratorProfile(props) {
                         <AppText type={'black-italic'} size={12} color={Colors.white} uppercase>{`Unlock for ${10} coins`}</AppText>
                       </TouchableOpacity> */}
                       </View>
-                    </ScalableImage>
+                    </ImageBackground>
                   )
                 }
                 if (item.is_erotic == "1") {
-                  if (Platform.OS == 'ios') {
-                    return (
-                      <ImageBackground
-                        key={String(index)}
-                        source={{ uri: getItemImage(item.picture) }}
-                        style={styles.imgBackground}
-                        blurRadius={40}
-                      >
-                        <View style={styles.eroticContainer}>
-                          <XXXCoinIcon width={60} height={60} />
-                          <AppText
-                            type={'black-italic'}
-                            size={16}
-                            style={{ marginTop: -10 }}
-                            color={Colors.white}
-                            uppercase>{appLabels.erotic_image}</AppText>
-                        </View>
-                      </ImageBackground>
-                    )
-                  }
                   return (
-                    <ScalableImage
+                    <ImageBackground
                       key={String(index)}
-                      src={getItemImage(item.picture)}
+                      style={styles.imgBackground}
+                      source={{ uri: getItemImage(item.picture) }}
                       blurRadius={Platform.OS == 'ios' ? 40 : 5}
                     >
                       <View style={styles.eroticContainer}>
@@ -297,16 +251,16 @@ export default function ModeratorProfile(props) {
                         <AppText type={'black-italic'} size={12} color={Colors.white} uppercase>{`Unlock for ${10} coins`}</AppText>
                       </TouchableOpacity> */}
                       </View>
-                    </ScalableImage>
+                    </ImageBackground>
                   )
                 }
                 return (
                   <TouchableOpacity
                     onPress={() => onPressImage(item, index)}>
-                    <ScalableImage
+                    <ImageBackground
                       key={String(index)}
-                      src={getItemImage(item.picture)}
-                      blurRadius={0}
+                      style={styles.imgBackground}
+                      source={{ uri: getItemImage(item.picture) }}
                     />
                   </TouchableOpacity>
                 )

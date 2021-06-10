@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -14,14 +14,16 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 import { getGeneralSettings, getPaymentModule } from '../../redux/actions/app-actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { Colors, Icons, SCREEN_WIDTH } from '../../constants';
+import { Colors, Icons, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants';
 import { AppIndicatorLoader, AppText, AppButton, OwnPurchaseCard } from '../../components';
 import { CoinGradientIcon } from '../../constants/svg-icons';
 import { ActionDispatcher } from '../../redux/actions';
 import { GET_PAYMENT_MODULE_SUCCESS } from '../../redux/actions/types';
-import { getGeneralSettingValueByName } from '../../utils/common';
+import { getGeneralSettingValueByName, wait } from '../../utils/common';
 
 const CoinPurchase = () => {
+  const scrollViewRef = useRef();
+
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
@@ -50,6 +52,12 @@ const CoinPurchase = () => {
     setSelectedPackage(paymentItem.packagemodules[0]);
     let price = paymentItem.packagemodules[0].price * 1;
     setOwnPackagePrice(price);
+    wait(600).then(() => {
+      scrollViewRef.current.scrollTo({
+        y: SCREEN_HEIGHT,
+        animated: true,
+      })
+    })
   }
 
   const onSelectPackageModule = (item) => {
@@ -70,7 +78,9 @@ const CoinPurchase = () => {
       <GeneralHeader
         label={"Buy coins"}
       />
-      <ScrollView contentContainerStyle={{ padding: 20 }}>
+      <ScrollView
+        ref={scrollViewRef}
+        contentContainerStyle={{ padding: 20 }}>
         <AppText type={'bold'} size={16}>{`${appLabels.step} 1 - ${appLabels.payment_method}`}</AppText>
         {loadingPaymentGateways && paymentGateways.length == 0 ? (
           <View>
