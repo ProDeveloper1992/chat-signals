@@ -35,7 +35,8 @@ import {
   UserPhotoItemMenu,
   LanguageSelectionMenu,
   SexualOrientationMenu,
-  LegalActionMenu
+  LegalActionMenu,
+  SearchCityMenu
 } from './app-menus';
 import AppRangeSlider from './app-range-slider'
 
@@ -88,5 +89,6 @@ export {
   UserPhotoItemMenu,
   LanguageSelectionMenu,
   SexualOrientationMenu,
-  LegalActionMenu
+  LegalActionMenu,
+  SearchCityMenu
 };

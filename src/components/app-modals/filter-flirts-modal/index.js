@@ -1,10 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
-import { View, TouchableOpacity, ScrollView } from 'react-native';
+import { View, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import Modal from 'react-native-modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { Colors } from '../../../constants';
-import { AppButton, AppDropDown, AppRangeSlider, AppText, AuthInput, GenderMenu, LanguageSelectionMenu, SexualOrientationMenu, TagItem } from '../../index';
+
+import { Colors, GOOGLE_MAP_API_KEY } from '../../../constants';
+import { AppButton, AppDropDown, AppRangeSlider, AppText, AuthInput, GenderMenu, LanguageSelectionMenu, SearchCityMenu, SexualOrientationMenu, TagItem } from '../../index';
 import styles from './style';
 
 import CloseIcon from '../../../assets/icons/close.svg';
@@ -130,11 +131,12 @@ export default function FlirtFilterModal({ visible, onHideModal }) {
                     </View>
                     <AppRangeSlider
                         onChangeValue={onChangeAgeRange} />
-                    <AuthInput
+                    {/* <AuthInput
                         label={appLabels.city}
                         placeholder={appLabels.city}
-                        onChangeText={(text) => setCity(text)}
-                        style={{ paddingHorizontal: 5, fontWeight: 'bold', fontSize: 16 }} />
+                        onChangeText={(text) => searchCityList(text)}
+                        style={{ paddingHorizontal: 5, fontWeight: 'bold', fontSize: 16 }} /> */}
+                    <SearchCityMenu onSelectCity={(selecteCity) => setCity(selecteCity)} />
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 10 }}>
                         <AppText style={{ flex: 1 }}>{appLabels.max_distance}</AppText>
                         <AppText>{`${maxDistance}km`}</AppText>

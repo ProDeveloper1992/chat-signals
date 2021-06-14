@@ -18,6 +18,8 @@ export default function AppearanceListItem({ item, onSelectAttribute, onChangeTe
 
     const { customerAppearanceInterests } = useSelector((state) => state.userState);
 
+    const [inputAttributeValue, setInputAttributeValue] = useState(item.attr_value ? item.attr_value : "");
+
     const getAttributeValue = () => {
         let value = '';
         for (let appearance of customerAppearanceInterests) {
@@ -32,7 +34,7 @@ export default function AppearanceListItem({ item, onSelectAttribute, onChangeTe
         return value;
     }
 
-    if (item.fieldtype_id == '1') {
+    if (item.fieldtype_id == '1' || item.fieldtype_id == '7') {
 
         const [isCollapsed, setIsCollapsed] = useState(false);
         const [selectedAttributeValue, setSelectedAttributeValue] = useState(item.attr_value ? getAttributeValue(item) : "Select Option");
@@ -67,14 +69,14 @@ export default function AppearanceListItem({ item, onSelectAttribute, onChangeTe
             </Collapse>
         )
     } else if (item.fieldtype_id == '3') {
-        const [inputAttributeValue, setInputAttributeValue] = useState(item.attr_value ? item.attr_value : "");
-
         const onChangeInputValue = (text) => {
             setInputAttributeValue(text);
             onChangeTextBoxValue(text, item);
         }
 
         return <AppearanceInputItem label={item.display_name} value={inputAttributeValue} onChangeText={onChangeInputValue} />
+    } else if (item.fieldtype_id == '8') {
+        return <AppearanceCollapsibleItem label={item.display_name} title={inputAttributeValue} isCollapsed={false} />;
     }
     return <View />;
 }

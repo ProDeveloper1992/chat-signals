@@ -1,6 +1,6 @@
 import React from 'react';
 import { ImageBackground, TouchableOpacity, View } from 'react-native';
-import { Colors, DEFAULT_IMAGE_URL, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants';
+import { Colors, DEFAULT_AVATAR_URL, DEFAULT_IMAGE_URL, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants';
 import styles from './style';
 import { AppText, OnlineStatusCircle } from '../../index';
 import LinearGradient from 'react-native-linear-gradient';
@@ -13,7 +13,13 @@ export default function ModeratorListItem({ item, onPress, isBoosted }) {
 
   const getItemImage = (imageUrls) => {
     if (imageUrls && imageUrls.length > 0) {
-      return imageUrls[0].picture;
+      let PROFILE_IMAGE = DEFAULT_AVATAR_URL;
+      for (let profile_image of imageUrls) {
+        if (profile_image.is_profile_photo == "1") {
+          PROFILE_IMAGE = profile_image.picture
+        }
+      }
+      return PROFILE_IMAGE;
     } else {
       return DEFAULT_IMAGE_URL;
     }
@@ -50,7 +56,7 @@ export default function ModeratorListItem({ item, onPress, isBoosted }) {
               size={12}
               type={'medium'}
               color={Colors.white}
-              numberOfLines={2}
+              numberOfLines={1}
               style={[styles.userName, { textTransform: 'capitalize' }]}>{item.city + ", " + item.country}</AppText>
           </View>
         </LinearGradient>
