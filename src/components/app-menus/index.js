@@ -5,6 +5,7 @@ import UserPhotoItemMenu from './user-photo-item-menu';
 import LanguageSelectionMenu from './language-selection-menu';
 import SexualOrientationMenu from './sexual-orientation-menu';
 import LegalActionMenu from './legal-action-menu';
+import SearchCityMenu from './search-city-menu';
 
 export {
     GenderMenu,
@@ -13,5 +14,6 @@ export {
     UserPhotoItemMenu,
     LanguageSelectionMenu,
     SexualOrientationMenu,
-    LegalActionMenu
+    LegalActionMenu,
+    SearchCityMenu
 };

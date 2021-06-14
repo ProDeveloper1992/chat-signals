@@ -13,6 +13,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { AppIndicatorLoader, AppText, ModeratorListItem, NoListData } from '../../components';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 import styles from './style';
 import { getFlirtsList } from '../../redux/actions/flirts-actions';

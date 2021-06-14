@@ -8,7 +8,7 @@ export default StyleSheet.create({
         justifyContent: 'flex-end',
     },
     modalSubContainer: {
-        height: '90%',
+        height: '95%',
         width: '100%',
         backgroundColor: Colors.white,
         borderTopLeftRadius: 20,

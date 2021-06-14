@@ -12,7 +12,7 @@ import { AppButton, AppText, BackHeader } from '../../components';
 import { Colors } from '../../constants';
 import { ArrowDownIcon, ArrowRightIcon } from '../../constants/svg-icons';
 import styles from './style';
-import { getAppearanceAndInterests, updateCustomerAttributes } from '../../redux/actions/user-actions';
+import { updateCustomerAttributes } from '../../redux/actions/user-actions';
 import AppearanceListItem from '../../components/app-list-items/appearance-list-item';
 
 export default function AccountDetail(props) {
@@ -51,7 +51,6 @@ export default function AccountDetail(props) {
 
     useEffect(() => {
         console.log("userData", userData)
-        dispatch(getAppearanceAndInterests());
     }, [])
 
     const onBackPress = () => {
@@ -82,6 +81,8 @@ export default function AccountDetail(props) {
     }
 
     const onSelectAttribute = (selectedAttribute, attributeitem) => {
+        console.log("selectedAttribute", selectedAttribute)
+        console.log("attributeitem", attributeitem)
         switch (attributeitem.internal_name) {
             case 'height':
                 setHeight(selectedAttribute.id);
