@@ -18,6 +18,7 @@ import { apiRoot } from '../../services/api-service';
 import { blockModerator } from '../../redux/actions/flirts-actions';
 import moment from 'moment';
 import { toggleGallerySwiperModal } from '../../redux/actions/app-modals-actions';
+import { getGeneralSettingValueByName } from '../../utils/common';
 
 var RNFS = require('react-native-fs');
 
@@ -103,92 +104,98 @@ export default function ChatDetail(props) {
   // };
 
   const onSendTextMessage = async () => {
-    if (attachedDoc != null) {
-      console.log("attachedDoc", attachedDoc)
+    if (userData && userData.credit * 1 < getGeneralSettingValueByName('prices_message') * 1) {
+      setActivityType('chat');
+      setActivityModalVisible(true);
 
-      // RNFetchBlob.fs.stat(attachedDoc.uri)
-      //   .then((stats) => {
-      //     console.log("PATH OF IMAGE...", stats)
-      //     let filePath = `file://${stats.path}`;
-      //     if (Platform.OS === 'ios') {
-      //       let arr = response.uri.split('/')
-      //       const dirs = RNFetchBlob.fs.dirs
-      //       filePath = `${dirs.DocumentDir}/${arr[arr.length - 1]}`
-      //     }
-      //     // setProfileImageFile(filePath);
-
-      //     console.log("filePath", filePath)
-      setIsSendingDocument(true);
-      RNFetchBlob.fetch('POST', `${apiRoot}/sendMessage`, {
-        Authorization: `Bearer ${authToken}`,
-        'Content-Type': 'multipart/form-data',
-      }, [
-        // element with property `filename` will be transformed into `file` in form data
-        {
-          name: 'file',
-          filename: attachedDoc.name,
-          type: attachedDoc.type,
-          data: RNFetchBlob.wrap(attachedDoc.uri)
-        },
-        { name: 'id', data: `${moderator.user.id}` },
-        { name: 'customer_id', data: `${userData.id}` },
-        { name: 'message', data: `${messageText}` },
-
-      ]).then(async (resp) => {
-        // let parsedData = await JSON.parse(resp.data);
-        console.log("resp", resp);
-        dispatch(getChatConversation(moderator.user.id));
-        setAttachedDocument(null);
-        setMessageText('')
-        setIsSendingDocument(false);
-      }).catch((err) => {
-        setAttachedDocument(null);
-        setIsSendingDocument(false);
-        setMessageText('')
-        console.log("err", err)
-        // ...
-      })
-
-      // })
-      // .catch((err) => {
-      //   console.log("PATH ERROR...", err)
-      // })
-
-      // await dispatch(sendMessage(messageToSend));
-      // const response = await dispatch(getChatConversation(moderator.user.id));
-      // if (response.meta.status) {
-      //   setMessages(response.data);
-      // }
     } else {
-      if (messageText != '') {
+      if (attachedDoc != null) {
+        console.log("attachedDoc", attachedDoc)
 
-        let updated_messages = messages;
+        // RNFetchBlob.fs.stat(attachedDoc.uri)
+        //   .then((stats) => {
+        //     console.log("PATH OF IMAGE...", stats)
+        //     let filePath = `file://${stats.path}`;
+        //     if (Platform.OS === 'ios') {
+        //       let arr = response.uri.split('/')
+        //       const dirs = RNFetchBlob.fs.dirs
+        //       filePath = `${dirs.DocumentDir}/${arr[arr.length - 1]}`
+        //     }
+        //     // setProfileImageFile(filePath);
 
-        let new_message = {
-          attachment: [null, null, null],
-          from_id: userData.id,
-          fullTime: new Date(),
-          id: Math.random(),
-          message: messageText,
-          seen: "0",
-          time: "1 seconds ago",
-          to_id: moderator.user.id,
-          viewType: "default",
-        }
+        //     console.log("filePath", filePath)
+        setIsSendingDocument(true);
+        RNFetchBlob.fetch('POST', `${apiRoot}/sendMessage`, {
+          Authorization: `Bearer ${authToken}`,
+          'Content-Type': 'multipart/form-data',
+        }, [
+          // element with property `filename` will be transformed into `file` in form data
+          {
+            name: 'file',
+            filename: attachedDoc.name,
+            type: attachedDoc.type,
+            data: RNFetchBlob.wrap(attachedDoc.uri)
+          },
+          { name: 'id', data: `${moderator.user.id}` },
+          { name: 'customer_id', data: `${userData.id}` },
+          { name: 'message', data: `${messageText}` },
 
-        updated_messages.push(new_message);
-        setMessages(updated_messages);
-        listViewRef.scrollToEnd({ animated: true })
-        setMessageText('');
-        let messageToSend = {
-          id: moderator.user.id,
-          customer_id: userData.id,
-          message: messageText,
-        };
-        await dispatch(sendMessage(messageToSend));
-        const response = await dispatch(getChatConversation(moderator.user.id));
-        if (response.meta.status) {
-          setMessages(response.data);
+        ]).then(async (resp) => {
+          // let parsedData = await JSON.parse(resp.data);
+          console.log("resp", resp);
+          dispatch(getChatConversation(moderator.user.id));
+          setAttachedDocument(null);
+          setMessageText('')
+          setIsSendingDocument(false);
+        }).catch((err) => {
+          setAttachedDocument(null);
+          setIsSendingDocument(false);
+          setMessageText('')
+          console.log("err", err)
+          // ...
+        })
+
+        // })
+        // .catch((err) => {
+        //   console.log("PATH ERROR...", err)
+        // })
+
+        // await dispatch(sendMessage(messageToSend));
+        // const response = await dispatch(getChatConversation(moderator.user.id));
+        // if (response.meta.status) {
+        //   setMessages(response.data);
+        // }
+      } else {
+        if (messageText != '') {
+
+          let updated_messages = messages;
+
+          let new_message = {
+            attachment: [null, null, null],
+            from_id: userData.id,
+            fullTime: new Date(),
+            id: Math.random(),
+            message: messageText,
+            seen: "0",
+            time: "1 seconds ago",
+            to_id: moderator.user.id,
+            viewType: "default",
+          }
+
+          updated_messages.push(new_message);
+          setMessages(updated_messages);
+          listViewRef.scrollToEnd({ animated: true })
+          setMessageText('');
+          let messageToSend = {
+            id: moderator.user.id,
+            customer_id: userData.id,
+            message: messageText,
+          };
+          await dispatch(sendMessage(messageToSend));
+          const response = await dispatch(getChatConversation(moderator.user.id));
+          if (response.meta.status) {
+            setMessages(response.data);
+          }
         }
       }
     }
@@ -206,7 +213,7 @@ export default function ChatDetail(props) {
 
   const onViewModeratorProfile = () => {
     // console.log("moderator user", moderator.user)
-    navigation.navigate('ModeratorProfile', { item: moderator.user })
+    navigation.navigate('ModeratorProfile', { item: moderator.user, isFromChat: true })
   }
 
   const onBuyCoinsPress = () => {

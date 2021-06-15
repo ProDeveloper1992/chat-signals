@@ -93,7 +93,7 @@ export default function FlirtTab(props) {
               <ModeratorListItem
                 item={item}
                 onPress={() =>
-                  navigation.navigate('ModeratorProfile', { item: item })
+                  navigation.navigate('ModeratorProfile', { item: item, isFromChat: false })
                 }
               />
             </View>

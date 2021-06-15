@@ -112,7 +112,13 @@ export default function ModeratorProfile(props) {
 
   const getModeratorProfileImage = () => {
     if (params.item.profilepicture && params.item.profilepicture.length > 0) {
-      return params.item.profilepicture[0].picture;
+      let PROFILE_IMAGE = DEFAULT_AVATAR_URL;
+      for (let profile_image of params.item.profilepicture) {
+        if (profile_image.is_profile_photo == "1") {
+          PROFILE_IMAGE = profile_image.picture
+        }
+      }
+      return PROFILE_IMAGE;
     } else {
       return DEFAULT_AVATAR_URL;
     }
@@ -192,29 +198,31 @@ export default function ModeratorProfile(props) {
       <BackHeader title={appLabels.flirts} color={Colors.ui_primary} />
       <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1 }}>
         <View style={styles.container}>
-          {params && params.item && params.item.profilepicture && params.item.profilepicture.length > 0 && (
-            <IndicatorViewPager
-              style={{ height: SCREEN_HEIGHT / 2, backgroundColor: Colors.grey, flex: 1, }}
-              indicator={_renderDotIndicator(params.item.profilepicture.length)}
-            >
-              {getProfilePictures().map((item, index) => {
-                if (item.is_friend == "1") {
-                  return (
-                    <ImageBackground
-                      key={String(index)}
-                      style={styles.imgBackground}
-                      source={{ uri: getItemImage(item.picture) }}
-                      blurRadius={Platform.OS == 'ios' ? 40 : 5}
-                    >
-                      <View style={styles.eroticContainer}>
-                        <XXXCoinIcon width={60} height={60} />
-                        <AppText
-                          type={'black-italic'}
-                          size={16}
-                          style={{ marginTop: -10 }}
-                          color={Colors.white}
-                          uppercase>{appLabels.only_for_friends}</AppText>
-                        {/* <TouchableOpacity
+          {params && params.isFromChat ? (
+            <View>
+              {moderatorDetail && moderatorDetail.profile_picture && moderatorDetail.profile_picture.length > 0 && (
+                <IndicatorViewPager
+                  style={{ height: SCREEN_HEIGHT / 2, backgroundColor: Colors.grey, flex: 1, }}
+                  indicator={_renderDotIndicator(moderatorDetail.profile_picture.length)}
+                >
+                  {moderatorDetail.profile_picture.map((item, index) => {
+                    if (item.is_friend == "1") {
+                      return (
+                        <ImageBackground
+                          key={String(index)}
+                          style={styles.imgBackground}
+                          source={{ uri: getItemImage(item.picture) }}
+                          blurRadius={Platform.OS == 'ios' ? 40 : 5}
+                        >
+                          <View style={styles.eroticContainer}>
+                            <XXXCoinIcon width={60} height={60} />
+                            <AppText
+                              type={'black-italic'}
+                              size={16}
+                              style={{ marginTop: -10 }}
+                              color={Colors.white}
+                              uppercase>{appLabels.only_for_friends}</AppText>
+                            {/* <TouchableOpacity
                         onPress={onUnlockEroticImage}
                         style={styles.unlockEroticButtonContainer}>
                         <View style={{ marginBottom: -5, marginTop: 5, marginStart: -10 }}>
@@ -222,27 +230,27 @@ export default function ModeratorProfile(props) {
                         </View>
                         <AppText type={'black-italic'} size={12} color={Colors.white} uppercase>{`Unlock for ${10} coins`}</AppText>
                       </TouchableOpacity> */}
-                      </View>
-                    </ImageBackground>
-                  )
-                }
-                if (item.is_erotic == "1") {
-                  return (
-                    <ImageBackground
-                      key={String(index)}
-                      style={styles.imgBackground}
-                      source={{ uri: getItemImage(item.picture) }}
-                      blurRadius={Platform.OS == 'ios' ? 40 : 5}
-                    >
-                      <View style={styles.eroticContainer}>
-                        <XXXCoinIcon width={60} height={60} />
-                        <AppText
-                          type={'black-italic'}
-                          size={16}
-                          style={{ marginTop: -10 }}
-                          color={Colors.white}
-                          uppercase>{appLabels.erotic_image}</AppText>
-                        {/* <TouchableOpacity
+                          </View>
+                        </ImageBackground>
+                      )
+                    }
+                    if (item.is_erotic == "1") {
+                      return (
+                        <ImageBackground
+                          key={String(index)}
+                          style={styles.imgBackground}
+                          source={{ uri: getItemImage(item.picture) }}
+                          blurRadius={Platform.OS == 'ios' ? 40 : 5}
+                        >
+                          <View style={styles.eroticContainer}>
+                            <XXXCoinIcon width={60} height={60} />
+                            <AppText
+                              type={'black-italic'}
+                              size={16}
+                              style={{ marginTop: -10 }}
+                              color={Colors.white}
+                              uppercase>{appLabels.erotic_image}</AppText>
+                            {/* <TouchableOpacity
                         onPress={onUnlockEroticImage}
                         style={styles.unlockEroticButtonContainer}>
                         <View style={{ marginBottom: -5, marginTop: 5, marginStart: -10 }}>
@@ -250,24 +258,117 @@ export default function ModeratorProfile(props) {
                         </View>
                         <AppText type={'black-italic'} size={12} color={Colors.white} uppercase>{`Unlock for ${10} coins`}</AppText>
                       </TouchableOpacity> */}
-                      </View>
-                    </ImageBackground>
-                  )
-                }
-                return (
-                  <TouchableOpacity
-                    onPress={() => onPressImage(item, index)}>
-                    <ImageBackground
-                      key={String(index)}
+                          </View>
+                        </ImageBackground>
+                      )
+                    }
+                    return (
+                      <TouchableOpacity
+                        activeOpacity={0.8}
+                        key={String(index)}
+                        onPress={() => onPressImage(item, index)}>
+                        <FastImage
+                          style={styles.imgBackground}
+                          source={{
+                            uri: getItemImage(item.picture),
+                            priority: FastImage.priority.high,
+                          }}
+                          resizeMode={FastImage.resizeMode.cover}
+                        />
+                      </TouchableOpacity>
+                    )
+                  })}
+                </IndicatorViewPager>
+              )}
+            </View>
+          ) : (
+            <View>
+              {params && params.item && params.item.profilepicture && params.item.profilepicture.length > 0 && (
+                <IndicatorViewPager
+                  style={{ height: SCREEN_HEIGHT / 2, backgroundColor: Colors.grey, flex: 1, }}
+                  indicator={_renderDotIndicator(params.item.profilepicture.length)}
+                >
+                  {getProfilePictures().map((item, index) => {
+                    if (item.is_friend == "1") {
+                      return (
+                        <ImageBackground
+                          key={String(index)}
+                          style={styles.imgBackground}
+                          source={{ uri: getItemImage(item.picture) }}
+                          blurRadius={Platform.OS == 'ios' ? 40 : 5}
+                        >
+                          <View style={styles.eroticContainer}>
+                            <XXXCoinIcon width={60} height={60} />
+                            <AppText
+                              type={'black-italic'}
+                              size={16}
+                              style={{ marginTop: -10 }}
+                              color={Colors.white}
+                              uppercase>{appLabels.only_for_friends}</AppText>
+                            {/* <TouchableOpacity
+                        onPress={onUnlockEroticImage}
+                        style={styles.unlockEroticButtonContainer}>
+                        <View style={{ marginBottom: -5, marginTop: 5, marginStart: -10 }}>
+                          <CoinGradientIcon width={40} height={40} />
+                        </View>
+                        <AppText type={'black-italic'} size={12} color={Colors.white} uppercase>{`Unlock for ${10} coins`}</AppText>
+                      </TouchableOpacity> */}
+                          </View>
+                        </ImageBackground>
+                      )
+                    }
+                    if (item.is_erotic == "1") {
+                      return (
+                        <ImageBackground
+                          key={String(index)}
+                          style={styles.imgBackground}
+                          source={{ uri: getItemImage(item.picture) }}
+                          blurRadius={Platform.OS == 'ios' ? 40 : 5}
+                        >
+                          <View style={styles.eroticContainer}>
+                            <XXXCoinIcon width={60} height={60} />
+                            <AppText
+                              type={'black-italic'}
+                              size={16}
+                              style={{ marginTop: -10 }}
+                              color={Colors.white}
+                              uppercase>{appLabels.erotic_image}</AppText>
+                            {/* <TouchableOpacity
+                        onPress={onUnlockEroticImage}
+                        style={styles.unlockEroticButtonContainer}>
+                        <View style={{ marginBottom: -5, marginTop: 5, marginStart: -10 }}>
+                          <CoinGradientIcon width={40} height={40} />
+                        </View>
+                        <AppText type={'black-italic'} size={12} color={Colors.white} uppercase>{`Unlock for ${10} coins`}</AppText>
+                      </TouchableOpacity> */}
+                          </View>
+                        </ImageBackground>
+                      )
+                    }
+                    return (
+                      <TouchableOpacity
+                        activeOpacity={0.8}
+                        key={String(index)}
+                        onPress={() => onPressImage(item, index)}>
+                        <FastImage
+                          style={styles.imgBackground}
+                          source={{
+                            uri: getItemImage(item.picture),
+                            priority: FastImage.priority.high,
+                          }}
+                          resizeMode={FastImage.resizeMode.cover}
+                        />
+                        {/* <ImageBackground
                       style={styles.imgBackground}
                       source={{ uri: getItemImage(item.picture) }}
-                    />
-                  </TouchableOpacity>
-                )
-              })}
-            </IndicatorViewPager>
+                    /> */}
+                      </TouchableOpacity>
+                    )
+                  })}
+                </IndicatorViewPager>
+              )}
+            </View>
           )}
-
           <View style={{ padding: 15 }}>
             <View style={styles.moderatorSwitchContainer}>
               <View style={{ flex: 1 }}>
@@ -313,6 +414,7 @@ export default function ModeratorProfile(props) {
                   Icon={<FriendGradientIcon />}
                 />
               )}
+
               <ModeratorIconLabel
                 onIconPress={() => showActivityModal('kiss')}
                 Icon={<KissGradientIcon />}

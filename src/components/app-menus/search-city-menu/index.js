@@ -28,7 +28,8 @@ function SearchCityMenu({ onSelectCity }) {
 
     const onSelectMenu = (cityItem) => {
         console.log("cityItem", cityItem)
-        setCity(cityItem.name)
+        setCity(cityItem.name);
+        onSelectCity(cityItem.name);
         hideMenu();
     }
 
@@ -42,10 +43,9 @@ function SearchCityMenu({ onSelectCity }) {
                 setSearchedCities(json.results)
                 console.log("Results", json.results)
             }
+        }).catch((error) => {
+            console.log("error", error);
         })
-            .catch((error) => {
-                console.log("error", error);
-            })
     };
 
     return (

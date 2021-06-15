@@ -85,7 +85,7 @@ export default function Home() {
 
   const onGoToSpotlightTab = () => {
     setSpolightModalVisible(false);
-    setIndex(1);
+    // setIndex(1);
   }
 
   return (

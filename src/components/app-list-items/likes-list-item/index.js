@@ -32,7 +32,7 @@ export default function LikesListItem({
                     {userName}
                 </AppText>
                 <AppText
-                    type={'medium'}
+                    type={'regular'}
                     size={14}
                     color={Colors.ui_primary}
                     numberOfLines={1}

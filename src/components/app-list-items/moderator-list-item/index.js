@@ -37,13 +37,13 @@ export default function ModeratorListItem({ item, onPress, isBoosted }) {
     <TouchableOpacity onPress={onPress} activeOpacity={0.8}>
       <ImageBackground
         style={styles.listItemContainer}
-        imageStyle={{ borderRadius: 20 }}
+        imageStyle={{ borderRadius: 10 }}
         source={{ uri: getItemImage(item.profilepicture) }}
       >
         <LinearGradient
           colors={getGradientColors()}
           style={{
-            flex: 1, borderRadius: 20,
+            flex: 1, borderRadius: 10,
           }}>
           <View style={styles.bottomContainer}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
