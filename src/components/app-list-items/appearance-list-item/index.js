@@ -8,6 +8,7 @@ import {
 import styles from './style'
 import { AppText } from '../..';
 import { Colors, SCREEN_WIDTH } from '../../../constants';
+import { TagItem } from '../../../components';
 import { ArrowDownIcon, ArrowRightIcon } from '../../../constants/svg-icons';
 import { useSelector } from 'react-redux';
 import { getFontFamily } from '../../../utils/common';
@@ -76,7 +77,39 @@ export default function AppearanceListItem({ item, onSelectAttribute, onChangeTe
 
         return <AppearanceInputItem label={item.display_name} value={inputAttributeValue} onChangeText={onChangeInputValue} />
     } else if (item.fieldtype_id == '8') {
-        return <AppearanceCollapsibleItem label={item.display_name} title={inputAttributeValue} isCollapsed={false} />;
+
+        const [isCollapsed, setIsCollapsed] = useState(false);
+        const [selectedAttributeValue, setSelectedAttributeValue] = useState(item.attr_value ? getAttributeValue(item) : "Select Option");
+
+        const onSelectAttributeValue = (attributeItem, isTrue) => {
+            setSelectedAttributeValue(attributeItem.value);
+            console.log("isTrue", isTrue)
+        }
+        return (
+            <Collapse
+                onToggle={(isColl) => setIsCollapsed(isColl)}
+                isCollapsed={isCollapsed}>
+                <CollapseHeader>
+                    <AppearanceCollapsibleItem
+                        label={item.display_name}
+                        title={inputAttributeValue}
+                        isCollapsed={false} />
+                </CollapseHeader>
+                <CollapseBody>
+                    <View style={[styles.collapseBodyContainer(isCollapsed), { flexDirection: 'row', flexWrap: 'wrap', paddingTop: 10 }]}>
+                        {item.attributes_value.map((attributeItem, attributeIndex) => {
+                            return <TagItem
+                                key={String(attributeIndex)}
+                                disabled={false}
+                                selected={attributeItem.value == selectedAttributeValue}
+                                title={attributeItem.value}
+                                onPress={(isTrue) => onSelectAttributeValue(attributeItem, isTrue)}
+                            />
+                        })}
+                    </View>
+                </CollapseBody>
+            </Collapse>
+        )
     }
     return <View />;
 }

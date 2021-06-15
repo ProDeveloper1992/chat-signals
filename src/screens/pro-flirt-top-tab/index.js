@@ -76,7 +76,7 @@ export default function ProFlirtTab(props) {
                 isBoosted
                 item={item}
                 onPress={() =>
-                  navigation.navigate('ModeratorProfile', { item: item })
+                  navigation.navigate('ModeratorProfile', { item: item, isFromChat: false })
                 }
               />
             </View>

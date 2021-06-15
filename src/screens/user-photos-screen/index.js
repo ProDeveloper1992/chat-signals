@@ -47,6 +47,7 @@ export default function UserPhotos(props) {
                 try {
 
                     let fileName = Platform.OS === 'android' ? response.fileName : moment().unix() + '.jpg'
+                    // let fileName = response.fileName
                     let PATH_TO_THE_FILE = Platform.OS == 'android' ? response.uri : response.origURL;
 
                     setUploading(true);

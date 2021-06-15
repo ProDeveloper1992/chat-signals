@@ -84,7 +84,7 @@ export default function ActivityModal({ visible, onHideModal, type, moderator, o
         return getGeneralSettingValueByName('prices_kiss');
 
       case 'chat':
-        return 0;
+        return getGeneralSettingValueByName('prices_message');
 
       case 'addfriend':
         return getGeneralSettingValueByName('prices_friend');
