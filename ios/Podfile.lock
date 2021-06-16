@@ -5,6 +5,28 @@ PODS:
   - AppAuth/Core (1.4.0)
   - AppAuth/ExternalUserAgent (1.4.0)
   - boost-for-react-native (1.63.0)
+  - Braintree (4.37.1):
+    - Braintree/Card (= 4.37.1)
+    - Braintree/Core (= 4.37.1)
+    - Braintree/PayPal (= 4.37.1)
+    - Braintree/UI (= 4.37.1)
+  - Braintree/Card (4.37.1):
+    - Braintree/Core
+  - Braintree/Core (4.37.1)
+  - Braintree/PayPal (4.37.1):
+    - Braintree/Core
+    - Braintree/PayPalOneTouch
+  - Braintree/PayPalDataCollector (4.37.1):
+    - Braintree/Core
+    - Braintree/PayPalUtils
+  - Braintree/PayPalOneTouch (4.37.1):
+    - Braintree/Core
+    - Braintree/PayPalDataCollector
+    - Braintree/PayPalUtils
+  - Braintree/PayPalUtils (4.37.1)
+  - Braintree/UI (4.37.1):
+    - Braintree/Card
+    - Braintree/Core
   - BVLinearGradient (2.5.6):
     - React
   - CocoaAsyncSocket (7.6.4)
@@ -387,6 +409,10 @@ PODS:
     - React-Core
   - react-native-netinfo (5.9.9):
     - React-Core
+  - react-native-payments (0.8.4):
+    - Braintree (~> 4)
+    - React
+    - Stripe (~> 19)
   - react-native-safe-area-context (3.1.1):
     - React
   - react-native-splash-screen (3.2.0):
@@ -499,6 +525,7 @@ PODS:
   - SDWebImageWebPCoder (0.6.1):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.7)
+  - Stripe (19.4.1)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -550,6 +577,7 @@ DEPENDENCIES:
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
+  - react-native-payments (from `../node_modules/react-native-payments`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - "react-native-viewpager (from `../node_modules/@react-native-community/viewpager`)"
@@ -586,6 +614,7 @@ SPEC REPOS:
   trunk:
     - AppAuth
     - boost-for-react-native
+    - Braintree
     - CocoaAsyncSocket
     - CocoaLibEvent
     - FBSDKCoreKit
@@ -618,6 +647,7 @@ SPEC REPOS:
     - PromisesObjC
     - SDWebImage
     - SDWebImageWebPCoder
+    - Stripe
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -665,6 +695,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-maps"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
+  react-native-payments:
+    :path: "../node_modules/react-native-payments"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-splash-screen:
@@ -731,6 +763,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
+  Braintree: 94a20907b70aeffb29c40380eec583d783a347b6
   BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
   CocoaLibEvent: 2fab71b8bd46dd33ddb959f7928ec5909f838e3f
@@ -783,6 +816,7 @@ SPEC CHECKSUMS:
   react-native-image-picker: 32d1ad2c0024ca36161ae0d5c2117e2d6c441f11
   react-native-maps: 2d405b4e8cee0282e4c02bac434d81450dfea877
   react-native-netinfo: 77d133105df525d4a11f10fcaa8d0b8883ea6429
+  react-native-payments: 0f931f321853790d20b773427faa9fd89824068f
   react-native-safe-area-context: 4c3249e4840225c61fcd215b136af0a737bccb79
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   react-native-viewpager: b84aa4fd267966c4eea604979f573e62e1cc3676
@@ -815,6 +849,7 @@ SPEC CHECKSUMS:
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   SDWebImage: 7acbb57630ac7db4a495547fb73916ff3e432f6b
   SDWebImageWebPCoder: d0dac55073088d24b2ac1b191a71a8f8d0adac21
+  Stripe: 5914399ac5878056b985d56b409cb4bb1e7fc7e8
   Yoga: 7740b94929bbacbddda59bf115b5317e9a161598
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 

@@ -152,7 +152,13 @@ export default function ModeratorProfile(props) {
   }
 
   const getProfilePictures = () => {
-    return params.item.profilepicture;
+    let pictures = [];
+    for (let picture of params.item.profilepicture) {
+      if (picture.is_active == '1') {
+        pictures.push(picture);
+      }
+    }
+    return pictures;
   }
 
   const contentWidth = useWindowDimensions().width;
@@ -286,7 +292,7 @@ export default function ModeratorProfile(props) {
               {params && params.item && params.item.profilepicture && params.item.profilepicture.length > 0 && (
                 <IndicatorViewPager
                   style={{ height: SCREEN_HEIGHT / 2, backgroundColor: Colors.grey, flex: 1, }}
-                  indicator={_renderDotIndicator(params.item.profilepicture.length)}
+                  indicator={_renderDotIndicator(getProfilePictures().length)}
                 >
                   {getProfilePictures().map((item, index) => {
                     if (item.is_friend == "1") {
@@ -391,9 +397,15 @@ export default function ModeratorProfile(props) {
                       onSelectAction={onSelectLegalAction} />
                   </View>
                 </View>
-                <AppText type={'regular'} size={16} style={{ textTransform: 'capitalize' }}>
-                  {params.item.city + ", " + params.item.country}
-                </AppText>
+                {params && params.isFromChat ? (
+                  <AppText type={'regular'} size={16} style={{ textTransform: 'capitalize' }}>
+                    {moderatorDetail.city + ", " + moderatorDetail.country}
+                  </AppText>
+                ) : (
+                  <AppText type={'regular'} size={16} style={{ textTransform: 'capitalize' }}>
+                    {params.item.city + ", " + params.item.country}
+                  </AppText>
+                )}
               </View>
             </View>
 
@@ -452,16 +464,31 @@ export default function ModeratorProfile(props) {
                 </>
               )}
             </View>
-            {params.item && params.item.dob && (
-              <ProfileItem
-                title={appLabels.dob}
-                value={moment(params.item.dob).format('DD/MM/YYYY')} />
+            {moderatorDetail ? (
+              <View>
+                <ProfileItem
+                  title={appLabels.dob}
+                  value={moment(moderatorDetail.dob).format('DD/MM/YYYY')} />
+                <ProfileItem
+                  title={appLabels.gender}
+                  value={getGenderFromId(moderatorDetail.Gender)} />
+              </View>
+            ) : (
+              <View>
+                {params.item && params.item.dob && (
+                  <ProfileItem
+                    title={appLabels.dob}
+                    value={moment(params.item.dob).format('DD/MM/YYYY')} />
+                )}
+                {params.item && params.item.Gender && (
+                  <ProfileItem
+                    title={appLabels.gender}
+                    value={getGenderFromId(params.item.Gender)} />
+                )}
+              </View>
             )}
-            {params.item && params.item.Gender && (
-              <ProfileItem
-                title={appLabels.gender}
-                value={getGenderFromId(params.item.Gender)} />
-            )}
+
+
           </View>
           <ModeratorActivityModal
             visible={activityModalVisible}
