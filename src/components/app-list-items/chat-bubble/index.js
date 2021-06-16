@@ -7,8 +7,12 @@ import { Colors, Icons } from '../../../constants';
 import { AppText } from '../../index';
 import styles from './style';
 import { MessageSeenIcon, MessageSentIcon } from '../../../constants/svg-icons';
+import { useDispatch } from 'react-redux';
+import { toggleGallerySwiperModal } from '../../../redux/actions/app-modals-actions';
 
 export default function ChatBubble({ item, isFromUser }) {
+
+  const dispatch = useDispatch();
 
   const getTickIcon = (seen) => {
     if (seen * 1 == 1) {
@@ -23,7 +27,9 @@ export default function ChatBubble({ item, isFromUser }) {
       return (
         <View>
           <TouchableOpacity
-            disabled
+            // disabled
+            activeOpacity={0.8}
+            onPress={() => dispatch(toggleGallerySwiperModal(true, [{ url: 'http://www.chat-signal.com/public/storage/attachments/' + item.attachment[0] }]))}
             style={[styles.container(isFromUser), { paddingVertical: 10, paddingHorizontal: 10 }]}>
             <FastImage
               style={styles.imageContainer}
@@ -31,7 +37,7 @@ export default function ChatBubble({ item, isFromUser }) {
                 uri: 'http://www.chat-signal.com/public/storage/attachments/' + item.attachment[0],
                 priority: FastImage.priority.high,
               }}
-              resizeMode={FastImage.resizeMode.cover}
+              resizeMode={FastImage.resizeMode.contain}
             />
             {item.message != '' && (
               <AppText color={isFromUser ? Colors.black : Colors.white}>{item.message}</AppText>

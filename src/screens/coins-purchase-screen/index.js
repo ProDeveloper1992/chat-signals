@@ -6,14 +6,18 @@ import {
   Image,
   FlatList,
   ScrollView,
+  Platform,
+  SafeAreaView
 } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import ContentLoader, { Rect, Circle } from "react-content-loader/native";
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { ApplePayButton, PaymentRequest } from 'react-native-payments';
+
 
 import { BackHeader, GeneralHeader } from '../../components/Headers';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 import { getGeneralSettings, getPaymentModule } from '../../redux/actions/app-actions';
-import { useDispatch, useSelector } from 'react-redux';
 import { Colors, Icons, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants';
 import { AppIndicatorLoader, AppText, AppButton, OwnPurchaseCard } from '../../components';
 import { CoinGradientIcon } from '../../constants/svg-icons';
@@ -71,6 +75,76 @@ const CoinPurchase = () => {
     let fixedValue = value.toFixed(0);
     setOwnPackagePrice(fixedValue * 1);
     setSelectedPackage(null);
+  }
+
+  if (Platform.OS == 'ios') {
+
+    const METHOD_DATA = [
+      {
+        supportedMethods: ['apple-pay'],
+        data: {
+          merchantIdentifier: 'merchant.com.chat.signal.org',
+          supportedNetworks: ['visa', 'mastercard', 'amex'],
+          countryCode: 'US',
+          currencyCode: 'USD',
+          // // uncomment this block to activate automatic Stripe tokenization.
+          // // try putting your key pk_test... in here and see how the token format changes.
+          // paymentMethodTokenizationParameters: {
+          // 	parameters: {
+          // 		gateway: 'stripe',
+          // 		'stripe:publishableKey': Config.STRIPE_KEY,
+          // 	},
+          // },
+        },
+      },
+    ];
+
+    const DETAILS = {
+      id: 'basic-example',
+      displayItems: [
+        {
+          label: 'Movie Ticket',
+          amount: { currency: 'USD', value: '15.00' },
+        },
+      ],
+      total: {
+        label: 'Freeman Industries',
+        amount: { currency: 'USD', value: '15.00' },
+      },
+    };
+
+    const showPaymentSheet = (succeed = true) => {
+      const paymentRequest = new PaymentRequest(METHOD_DATA, DETAILS);
+      paymentRequest.show().then(paymentResponse => {
+        console.log("paymentResponse", paymentResponse)
+        const card_token = paymentResponse.details.paymentToken;
+
+        if (succeed) {
+          paymentResponse.complete('success')
+          alert(`Payment request completed with card token ${card_token}`)
+          // this.debug(`Payment request completed with card token ${card_token}`);
+        } else {
+          paymentResponse.complete('failure')
+          alert('Payment request failed')
+          // this.debug('Payment request failed');
+        }
+      }).catch(error => {
+        if (error.message === 'AbortError') {
+          alert('Payment request was dismissed')
+          // this.debug('Payment request was dismissed');
+        }
+      });
+    };
+
+    return (
+      <SafeAreaView style={{ flex: 1, margin: 20, justifyContent: 'flex-end' }}>
+        <ApplePayButton
+          type="plain"
+          style="black"
+          onPress={() => showPaymentSheet(true)}
+        />
+      </SafeAreaView>
+    )
   }
 
   return (

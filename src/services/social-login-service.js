@@ -19,6 +19,7 @@ import * as RootNavigation from '../navigators/root-navigation'
 
 import { store } from "../redux/store";
 import { loginWithSocialMedia } from "../redux/actions/user-actions";
+import { DEFAULT_AVATAR_URL } from "../constants";
 
 //Google Login
 export const loginWithGoogle = async () => {
@@ -196,6 +197,32 @@ export const onAppleLoginForAndroid = async () => {
             console.log("Got id_token", id_token);
             console.log("Got user", user);
             console.log("Got state", state);
+
+            if (response.user) {
+                let requestData = {
+                    username: response.user.name.firstName,
+                    email: response.user.email,
+                    avatar: DEFAULT_AVATAR_URL,
+                    provider: 'apple',
+                    provider_id: response.code,
+                    access_token: response.id_token
+                }
+                const api_response = await store.dispatch(loginWithSocialMedia(requestData));
+                if (api_response.meta.status) {
+                    RootNavigation.navigate('main-stack');
+                }
+            } else {
+                let requestData = {
+                    avatar: DEFAULT_AVATAR_URL,
+                    provider: 'apple',
+                    provider_id: response.code,
+                    access_token: response.id_token
+                }
+                const api_response = await store.dispatch(loginWithSocialMedia(requestData));
+                if (api_response.meta.status) {
+                    RootNavigation.navigate('main-stack');
+                }
+            }
         }
     } catch (error) {
         console.log("appleAuthAndroid... error", error)

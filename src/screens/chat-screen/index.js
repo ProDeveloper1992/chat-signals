@@ -10,7 +10,7 @@ import { GeneralHeader } from '../../components/Headers';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { Colors, Icons, Images } from '../../constants';
+import { Colors, DEFAULT_AVATAR_URL, Icons, Images } from '../../constants';
 import { AppText } from '../../components/app-text';
 import styles from './style';
 import { ChatListItem } from '../../components/app-list-items';
@@ -84,6 +84,14 @@ const Chat = () => {
     navigation.navigate('ChatDetail', { item: customer });
   }
 
+  const getProfileImage = (imageUrl) => {
+    if (imageUrl) {
+      return imageUrl;
+    } else {
+      return DEFAULT_AVATAR_URL;
+    }
+  }
+
   return (
     <View style={styles.container}>
       <GeneralHeader
@@ -111,10 +119,10 @@ const Chat = () => {
               key={String(index)}
               item={item}
               onChatPress={() => onChatListItemPress(item)}
-              profileImage={{ uri: item.profile_picture }}
+              profileImage={{ uri: getProfileImage(item.profile_picture) }}
               userName={item.user.username}
-              lastMessage={item.lastMessage.body}
-              lastMessageTime={item.lastMessage.created_at}
+              lastMessage={item.lastMessage ? item.lastMessage.body : ''}
+              lastMessageTime={item.lastMessage ? item.lastMessage.created_at : new Date()}
               isActive={item.user.is_active * 1 == 1}
             />
           )}
