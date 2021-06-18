@@ -249,7 +249,7 @@ export default function UserProfile(props) {
             color={Colors.red}
             size={18}
             onPress={() => setDeleteAccountModalVisible(true)}
-            style={{ marginTop: 40, marginBottom: 10, textAlign: 'center' }}>{"Delete Account"}</AppText>
+            style={{ marginTop: 40, marginBottom: 10, textAlign: 'center' }}>{appLabels.delete_account}</AppText>
 
           <AppText
             onPress={() => setLogoutModalVisible(true)}
@@ -272,7 +272,7 @@ export default function UserProfile(props) {
         visible={isLogoutModalVisible}
         onHideModal={() => setLogoutModalVisible(false)}
         title={appLabels.logout}
-        message={"Are you sure you want to logout?"}
+        message={appLabels.are_you_sure_you_want_to_logout}
         button1Title={appLabels.logout}
         button2Title={appLabels.cancel}
         onButton1Press={onLogout}

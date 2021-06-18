@@ -48,7 +48,7 @@ export default function SpotlightModal({ visible, onHideModal, onContinue }) {
                     size={18}
                     color={Colors.black}
                     style={{ marginVertical: 10, marginHorizontal: '10%', textAlign: 'center' }}>
-                    {"Boost your profile and get into Spotlight list for "}<AppText type={'bold'} size={18}>{"500 Coins!"}</AppText>
+                    {`${appLabels.boost_your_profile_and_get_into_spotlight_list_for}`}<AppText type={'bold'} size={18}>{`500 ${appLabels.Coins}`}</AppText>
                 </AppText>
 
                 <AppButton
@@ -60,7 +60,7 @@ export default function SpotlightModal({ visible, onHideModal, onContinue }) {
                 />
 
                 <TextButton
-                    title={"No, thanks!"}
+                    title={appLabels.no_thanks}
                     fontType={'bold'}
                     fontSize={16}
                     titleColor={Colors.black}

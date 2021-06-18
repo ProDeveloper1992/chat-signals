@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { View, Text, TouchableOpacity, Platform } from 'react-native';
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
+import { useSelector } from 'react-redux';
 import { AppDropDown, AppText } from '../..';
 import { Colors } from '../../../constants';
 import { ThreeDotsIcon, UnfriendIcon, BlockIcon, CloseBlackIcon } from '../../../constants/svg-icons';
@@ -21,15 +22,17 @@ function FriendItemMenu({ onSelectOption }) {
         _menu.show();
     };
 
+    const { appLabels } = useSelector((state) => state.appState);
+
     const Options = [
         {
             id: 1,
-            title: "Unfriend",
+            title: appLabels.unfriend,
             icon: <UnfriendIcon />
         },
         {
             id: 2,
-            title: "Block",
+            title: appLabels.block,
             icon: <BlockIcon />
         }
     ];

@@ -20,7 +20,7 @@ export default function PrivacyPolicy(props) {
     return (
         <View style={styles.container}>
             <BackHeader
-                title={"Privacy Policy"}
+                title={appLabels.privacy_policy}
                 onBackPress={onBackPress}
                 color={Colors.ui_primary}
             />

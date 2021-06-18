@@ -41,7 +41,7 @@ export default function DeleteAccountModal({ visible, onHideModal }) {
                 </View>
                 <AppText
                     size={24}
-                    type={'bold'}>{"Delete Account"}</AppText>
+                    type={'bold'}>{appLabels.delete_account}</AppText>
 
                 <AppText
                     type={'regular'}

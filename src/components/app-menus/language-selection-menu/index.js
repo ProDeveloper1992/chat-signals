@@ -44,7 +44,7 @@ function LanguageSelectionMenu({ onSelectOption }) {
             ref={setMenuRef}
             style={{ width: '88%', marginTop: 100, marginStart: 2 }}
             button={
-                <AppDropDown title={"Select language"} value={selectedOption.lang} onPress={showMenu} />
+                <AppDropDown title={appLabels.select_language} value={selectedOption.lang} onPress={showMenu} />
             }
         >
             {languages.map((option, optionIndex) => {

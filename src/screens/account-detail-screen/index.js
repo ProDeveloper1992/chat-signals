@@ -223,7 +223,7 @@ export default function AccountDetail(props) {
                             <AccountDetailItem
                                 label={appLabels.email}
                                 title={userData.email}
-                                rightContent={<AppText type={'bold'} color={Colors.greydark}>{"Verified"}</AppText>}
+                                rightContent={<AppText type={'bold'} color={Colors.greydark}>{appLabels.verified}</AppText>}
                                 onPress={() => { }}
                             />
                         )}

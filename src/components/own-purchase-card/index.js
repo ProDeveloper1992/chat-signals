@@ -93,7 +93,7 @@ export default function OwnPurchaseCard({
                 onPress={onOrderPurchasePress}
                 loading={gettingSealUrl}
             />
-            <AppText size={12} style={{ marginVertical: 10, textAlign: 'center' }}>{`You will be credited ${sliderCount * creditPerCurrency} credits after purchase .`}</AppText>
+            <AppText size={12} style={{ marginVertical: 10, textAlign: 'center' }}>{`${appLabels.you_will_be_credited} ${sliderCount * creditPerCurrency} ${appLabels.credits_after_purchase}`}</AppText>
             <WebViewModal
                 paymentUrl={finalPaymentUrl}
                 visible={paymentWebViewVisible}

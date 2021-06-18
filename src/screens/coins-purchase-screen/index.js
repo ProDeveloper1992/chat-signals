@@ -150,7 +150,7 @@ const CoinPurchase = () => {
   return (
     <View style={styles.container}>
       <GeneralHeader
-        label={"Buy coins"}
+        label={appLabels.buy_coins}
       />
       <ScrollView
         ref={scrollViewRef}

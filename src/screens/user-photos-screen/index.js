@@ -94,16 +94,16 @@ export default function UserPhotos(props) {
     return (
         <View style={styles.container} pointerEvents={isUploading ? 'none' : 'auto'}>
             <BackHeader
-                title={"Photos"}
+                title={appLabels.photos}
                 onBackPress={onBackPress}
                 color={Colors.ui_primary}
             />
             <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, paddingTop: 15 }}>
                 <View style={{ flex: 1.2 }} >
-                    <AppText type={"bold"} size={18}>{"Photos"}</AppText>
+                    <AppText type={"bold"} size={18}>{appLabels.photos}</AppText>
                 </View>
                 <AppButton
-                    title={"+Upload new"}
+                    title={`+${appLabels.upload_new}`}
                     onPress={onUploadNewPress}
                     style={{ flex: 0.8, alignSelf: 'flex-end' }}
                     loading={isUploading}

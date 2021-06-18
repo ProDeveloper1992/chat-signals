@@ -18,7 +18,7 @@ import {
 import { sendMessage } from '../../../redux/actions/chat-actions'
 import { getGeneralSettingValueByName } from '../../../utils/common';
 
-export default function ActivityModal({ visible, onHideModal, type, moderator, onSentItem, onBuyCoins }) {
+export default function ActivityModal({ visible, onHideModal, type, moderator, onSentItem, onBuyCoins, selectedStickerItem }) {
 
   const dispatch = useDispatch();
 
@@ -37,16 +37,16 @@ export default function ActivityModal({ visible, onHideModal, type, moderator, o
         return appLabels.like;
 
       case 'addfriend':
-        return "Friend request";
+        return appLabels.friend_request;
 
       case 'sticker':
-        return "Sticker";
+        return appLabels.sticker;
 
       case 'heart':
-        return "Heart";
+        return appLabels.heart;
 
       default:
-        return 'Title';
+        return '';
     }
   };
 
@@ -197,7 +197,7 @@ export default function ActivityModal({ visible, onHideModal, type, moderator, o
           <View style={{ flexGrow: 1 }}>
             <View style={{ flex: 1, alignItems: 'center', marginTop: '5%', marginBottom: '20%' }}>
               <AppText type={'bold'} size={24} color={Colors.black}>
-                {type != 'chat' && 'Send '}{getTitle(type)}
+                {type != 'chat' && `${appLabels.send} `}{getTitle(type)}
               </AppText>
               {/* <Image
             style={{
@@ -208,27 +208,37 @@ export default function ActivityModal({ visible, onHideModal, type, moderator, o
             }}
             source={getActivityImage(type)}
           /> */}
-              {getActivityImage(type)}
+              {type == 'sticker' ? (
+                <View>
+                  {selectedStickerItem && (
+                    <Image style={{ width: 100, height: 100, resizeMode: 'contain' }} source={{ uri: selectedStickerItem.url }} />
+                  )}
+                </View>
+              ) : (
+                <>
+                  {getActivityImage(type)}
+                </>
+              )}
               {getTypeCost(type) * 1 > 0 && (
                 <AppText
                   type={'bold'}
                   size={16}
                   color={Colors.black}
-                  style={{ marginTop: -30 }}>
+                  style={{ marginTop: type != 'sticker' ? -30 : 0 }}>
                   <AppText>{'Cost '}</AppText>
                   {`${getTypeCost(type)} ${appLabels.Coins}`}
                 </AppText>
               )}
             </View>
             <AppButton
-              title={'Send'}
+              title={appLabels.send}
               style={{ marginVertical: 10 }}
               onPress={onSendPress}
               loading={isSending}
             />
             <AppButton
               type={'light'}
-              title={'Cancel'}
+              title={appLabels.cancel}
               onPress={onHideModal}
             />
           </View>
@@ -236,7 +246,7 @@ export default function ActivityModal({ visible, onHideModal, type, moderator, o
           <View style={{ flexGrow: 1 }}>
             <View style={{ flex: 1, alignItems: 'center', marginTop: '5%', marginBottom: '20%' }}>
               <AppText type={'bold'} size={24} color={Colors.black}>
-                {"Not enough coins"}
+                {appLabels.nocredits}
               </AppText>
               <View style={{ alignItems: 'center', justifyContent: 'center', maxWidth: '65%', marginTop: "10%" }}>
                 <CoinGradientIcon width={100} height={100} />
@@ -244,7 +254,7 @@ export default function ActivityModal({ visible, onHideModal, type, moderator, o
               </View>
             </View>
 
-            <AppButton title={"Buy coins now"} onPress={onBuyCoinsPress} />
+            <AppButton title={appLabels.buy_coins_now} onPress={onBuyCoinsPress} />
           </View>
         )}
       </View>

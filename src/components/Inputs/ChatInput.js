@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, Platform, View, TouchableOpacity, SafeAreaView, Keyboard, ActivityIndicator } from 'react-native';
+import { StyleSheet, TextInput, ScrollView, View, TouchableOpacity, SafeAreaView, Keyboard, ActivityIndicator, FlatList, Image } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import { useSelector } from 'react-redux';
 import FastImage from 'react-native-fast-image';
 
-import { Colors, Icons } from '../../constants';
+import { Colors, DEFAULT_AVATAR_URL, DEFAULT_IMAGE_URL, Icons } from '../../constants';
 import { AppText } from '../../components';
 import {
     SendMessageIcon,
@@ -34,6 +34,25 @@ export function ChatInput({
 
     const { userData } = useSelector((state) => state.userState);
     const { appLabels, generalSettings } = useSelector((state) => state.appState);
+
+    const [stickersVisible, setStickersVisible] = useState(false);
+
+    const stickers = [
+        { url: 'https://dotbadges.com/wp-content/uploads/2021/05/Stickerview1-106.webp' },
+        { url: 'https://www.redwolf.in/image/cache/catalog/stickers/panda-dab-sticker-india-700x700.jpg' },
+        { url: 'https://dejpknyizje2n.cloudfront.net/svgcustom/clipart/preview/cute-in-love-emoji-sticker-29759-300x300.png' },
+        { url: 'https://cdn3.louis.de/dynamic/articles/o_resize,w_1800,h_1800,m_limit,c_fff/4f.71.a3.10011122580FR10.JPG' },
+        { url: 'https://s3.getstickerpack.com/storage/uploads/sticker-pack/wsb-sticker-pack/tray_large.png?8a7edbeb9fafbd3c484b5d6a75a32a2c' },
+        { url: 'https://dotbadges.com/wp-content/uploads/2021/05/Stickerview1-152.webp' },
+        { url: 'https://img.stickers.cloud/packs/de2ee9d5-6531-4f6b-9d29-91e49d5f30da/webp/95483d0d-6d5d-4e16-b64d-3f2bcb3a42ef.webp' },
+        { url: 'https://n4.sdlcdn.com/imgs/j/p/z/Wallmatrix-Love-Sticker-50-x-SDL353097998-1-ff632.jpg' },
+        { url: 'https://play-lh.googleusercontent.com/Bmr87CDbdYhXQmAf6fRRhWwilBErsR9oFv01rGWiop3WxV8N3FkOjB9aW9nrMAQNW44' },
+        { url: 'https://images-eu.ssl-images-amazon.com/images/I/41Sb0GIl8JL.png' },
+        { url: 'https://images-na.ssl-images-amazon.com/images/I/81zN7E4NA6L.png' },
+        { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyz7Nj5uRq2Pko8XjFnIjhO_1_k-wGqbFIbQ&usqp=CAU' },
+        { url: 'https://i0.wp.com/toppng.com/public/uploads/preview/heart-with-wings-vinyl-die-cut-sticker-love-sticker-heart-11563075313i5oqy943yt.png' },
+        { url: 'https://img.stickers.cloud/packs/37ce9821-9a5f-437b-8d41-edcc8cf1fef3/webp/7bc50cd1-eaf7-4eb4-9c4d-a48c70b36d65.webp' },
+    ]
 
     const onSendItemPress = async (type) => {
         await Keyboard.dismiss();
@@ -80,6 +99,14 @@ export function ChatInput({
         onSendPress(attachedDocument);
     }
 
+    const onStickerIconPress = () => {
+        setStickersVisible(!stickersVisible);
+    }
+
+    const onStickerPress = (stickerItem) => {
+        onSendItem('sticker', stickerItem);
+    }
+
     const renderAttachedDocument = () => {
         switch (attachedDocument.type) {
             case "image/jpeg":
@@ -117,7 +144,7 @@ export function ChatInput({
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={{ margin: 14 }}>
+            <View style={{ marginHorizontal: 15, marginTop: 15 }}>
                 <View style={styles.topHorizontal}>
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                         <IconWithValue
@@ -182,27 +209,70 @@ export function ChatInput({
                         <SendMessageIcon width={24} height={24} />
                     </TouchableOpacity>
                 </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
-                    <TouchableIcon
-                        icon={<StickerGradientIcon32 />}
-                        onPress={() => onSendItemPress('sticker')} />
-                    <TouchableIcon
-                        icon={<KissGradientIcon32 />}
-                        onPress={() => onSendItemPress('kiss')} />
-                    <TouchableIcon
-                        icon={<LikeGradientIcon32 />}
-                        onPress={() => onSendItemPress('like')} />
-                    <TouchableIcon
-                        icon={<HeartGradientIcon32 />}
-                        onPress={() => onSendItemPress('heart')} />
-                    {getGeneralSettingValueByName('prices_message') > 0 && (
-                        <View style={{ flexDirection: 'row', alignItems: 'center', marginStart: 15 }}>
-                            <AppText size={12}>{`${appLabels.send_message_for} `}</AppText>
-                            <AppText size={12} type={'bold'}>{`${getGeneralSettingValueByName('prices_message')} ${appLabels.Coins}`}</AppText>
-                        </View>
-                    )}
-                </View>
             </View>
+
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
+                <TouchableIcon
+                    icon={<StickerGradientIcon32 />}
+                    onPress={() => onStickerIconPress()}
+                // onPress={() => onSendItemPress('sticker')}
+                />
+                <TouchableIcon
+                    icon={<KissGradientIcon32 />}
+                    onPress={() => onSendItemPress('kiss')} />
+                <TouchableIcon
+                    icon={<LikeGradientIcon32 />}
+                    onPress={() => onSendItemPress('like')} />
+                <TouchableIcon
+                    icon={<HeartGradientIcon32 />}
+                    onPress={() => onSendItemPress('heart')} />
+                {getGeneralSettingValueByName('prices_message') > 0 && (
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginStart: 15 }}>
+                        <AppText size={12}>{`${appLabels.send_message_for} `}</AppText>
+                        <AppText size={12} type={'bold'}>{`${getGeneralSettingValueByName('prices_message')} ${appLabels.Coins}`}</AppText>
+                    </View>
+                )}
+            </View>
+
+            {stickersVisible && (
+                <View>
+                    <ScrollView
+                        horizontal
+                    // showsHorizontalScrollIndicator={false}
+                    >
+                        <View>
+                            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                                {stickers.length
+                                    ? stickers.map((item, i) => {
+                                        if (i % 2 == 0) {
+                                            return null;
+                                        }
+                                        return (
+                                            <TouchableOpacity key={String(i)} onPress={() => onStickerPress(item)}>
+                                                <Image style={styles.stickerImage} source={{ uri: item.url }} />
+                                            </TouchableOpacity>
+                                        );
+                                    })
+                                    : null}
+                            </View>
+                            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                                {stickers.length
+                                    ? stickers.map((item, i) => {
+                                        if (i % 2 != 0) {
+                                            return null;
+                                        }
+                                        return (
+                                            <TouchableOpacity key={String(i)} onPress={() => onStickerPress(item)}>
+                                                <Image style={styles.stickerImage} source={{ uri: item.url }} />
+                                            </TouchableOpacity>
+                                        );
+                                    })
+                                    : null}
+                            </View>
+                        </View>
+                    </ScrollView>
+                </View>
+            )}
         </SafeAreaView>
     );
 }
@@ -281,5 +351,13 @@ const styles = StyleSheet.create({
         // shadowOpacity: 0.3,
         // shadowRadius: 10,
         // elevation: 4,
+    },
+    stickerImage: {
+        width: 50,
+        height: 50,
+        resizeMode: 'contain',
+        marginEnd: 10,
+        marginVertical: 10,
+        borderRadius: 10
     }
 });
