@@ -40,6 +40,7 @@ import moment from 'moment';
 import { blockModerator, getModeratorProfileDetail, reportModerator } from '../../redux/actions/flirts-actions';
 import { toggleGallerySwiperModal } from '../../redux/actions/app-modals-actions';
 import ScalableImage from '../../components/app-scalable-image';
+import { UnfriendIcon, BlockIcon } from '../../constants/svg-icons';
 
 export default function ModeratorProfile(props) {
 
@@ -394,6 +395,18 @@ export default function ModeratorProfile(props) {
                       )}
                     </TouchableOpacity>
                     <LegalActionMenu
+                      actions={[
+                        {
+                          id: 1,
+                          title: appLabels.report,
+                          icon: <UnfriendIcon />
+                        },
+                        {
+                          id: 2,
+                          title: appLabels.block,
+                          icon: <BlockIcon />
+                        }
+                      ]}
                       onSelectAction={onSelectLegalAction} />
                   </View>
                 </View>

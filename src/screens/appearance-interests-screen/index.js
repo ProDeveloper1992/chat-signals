@@ -160,6 +160,7 @@ export default function AccountDetail(props) {
                         onChangeTextBoxValue={onChangeTextBoxValue} />
                 }}
                 contentContainerStyle={{ flexGrow: 1 }}
+                keyExtractor={(item, index) => String(index)}
             />
 
             <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10 }}>

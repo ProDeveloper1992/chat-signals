@@ -47,16 +47,16 @@ export default function HelpAndSupport(props) {
         >
             <View style={styles.container}>
                 <BackHeader
-                    title={"Help & Support"}
+                    title={`${appLabels.help} & ${appLabels.support}`}
                     onBackPress={onBackPress}
                     color={Colors.ui_primary}
                 />
                 <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, paddingTop: 15 }}>
                     <View style={{ flex: 1.2 }} >
-                        <AppText type={"bold"} size={18}>{"Tickets"}</AppText>
+                        <AppText type={"bold"} size={18}>{appLabels.tickets}</AppText>
                     </View>
                     <AppButton
-                        title={"+ Add new"}
+                        title={`+ ${appLabels.add_new}`}
                         onPress={onAddNewTicketPress}
                         style={{ flex: 0.8, alignSelf: 'flex-end' }}
                     />
@@ -73,7 +73,7 @@ export default function HelpAndSupport(props) {
                                 index={index} />
                         )}
                         keyExtractor={(item, index) => String(index)}
-                        ListEmptyComponent={<NoListData title={"No tickets found!"} />}
+                        ListEmptyComponent={<NoListData title={appLabels.no_tickets_found} />}
                     />
                 )}
             </View>

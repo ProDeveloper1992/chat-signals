@@ -29,6 +29,7 @@ export default function FlirtTab(props) {
   const [search, setSearch] = useState('');
   const { flirtsList, flirtsLoading, isLoadMoreFlirts } = useSelector((state) => state.flirtsState);
   const { userData, authToken } = useSelector((state) => state.userState);
+  const { appLabels } = useSelector((state) => state.appState);
 
   const [pageNumber, setPageNumber] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
@@ -108,7 +109,7 @@ export default function FlirtTab(props) {
                 {flirtsLoading ? (
                   <ActivityIndicator size={'small'} color={Colors.white} style={{ width: 14, height: 14, marginVertical: 5 }} />
                 ) : (
-                  <AppText type={'medium'} color={Colors.white}>{"See more"}</AppText>
+                  <AppText type={'medium'} color={Colors.white}>{appLabels.see_more}</AppText>
                 )}
               </TouchableOpacity> : null
           }

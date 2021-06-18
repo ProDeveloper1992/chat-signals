@@ -48,6 +48,8 @@ export default function ChatDetail(props) {
   const [attachedDoc, setAttachedDocument] = useState(null);
   const [isSendingDocument, setIsSendingDocument] = useState(false);
 
+  const [selectedStickerItem, setSelectedStickerItem] = useState(null);
+
   const [isDeletingConversation, setIsDeletingConversation] = useState(false);
   const [isBlockingUser, setIsBlockingUser] = useState(false);
 
@@ -201,9 +203,12 @@ export default function ChatDetail(props) {
     }
   }
 
-  const onSendItemToModerator = (type) => {
+  const onSendItemToModerator = (type, stickerItem) => {
     setActivityType(type);
     setActivityModalVisible(true);
+    if (stickerItem) {
+      setSelectedStickerItem(stickerItem);
+    }
   }
 
   const onInfoButtonPress = () => {
@@ -312,7 +317,7 @@ export default function ChatDetail(props) {
                 onPress={() => dispatch(toggleGallerySwiperModal(true, [{ url: moderator.profile_picture }]))} />
               <View style={{ flex: 1, paddingHorizontal: 12 }}>
                 <AppText type={'bold'} size={18}>{moderator.user.username}</AppText>
-                <AppText type={'regular'} size={12} color={Colors.greydark}>{moderator.user.is_active * 1 == 1 ? "Online" : "Offline"}</AppText>
+                <AppText type={'regular'} size={12} color={Colors.greydark}>{moderator.user.is_active * 1 == 1 ? appLabels.online : appLabels.offline}</AppText>
               </View>
               <TouchableOpacity
                 onPress={onInfoButtonPress}
@@ -348,7 +353,7 @@ export default function ChatDetail(props) {
                 ListEmptyComponent={
                   <NoListData
                     icon={<ChatGradientIcon />}
-                    title={"Start Conversation!"} />}
+                    title={appLabels.start_conversation} />}
               />
             )}
             <ChatInput
@@ -375,6 +380,7 @@ export default function ChatDetail(props) {
           type={activityType}
           onSentItem={getChatMessages}
           onBuyCoins={onBuyCoinsPress}
+          selectedStickerItem={selectedStickerItem}
         />
         <ModeratorChatDetailModal
           visible={moderatorDetailModalVisible}
@@ -396,7 +402,7 @@ export default function ChatDetail(props) {
           visible={isBlockUserModalVisible}
           onHideModal={() => setIsBlockUserModalVisible(false)}
           title={appLabels.block_user}
-          message={"Are you sure you want to block?"}
+          message={appLabels.are_you_sure_you_want_to_block}
           button1Title={appLabels.block}
           isButton1Loading={isBlockingUser}
           button2Title={appLabels.cancel}

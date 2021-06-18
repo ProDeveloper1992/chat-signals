@@ -1,11 +1,14 @@
 import React from 'react';
 import { View } from 'react-native';
 import Modal from 'react-native-modal';
+import { useSelector } from 'react-redux';
 import { Colors } from '../../../constants';
 import { LanguagePicker, AppText } from '../../index';
 import styles from './style';
 
 export default function LanguageSelectionModal({ visible, onHideModal }) {
+
+  const { appLabels } = useSelector((state) => state.appState);
 
   const onChangeAppLanguage = () => {
     onHideModal();
@@ -22,7 +25,7 @@ export default function LanguageSelectionModal({ visible, onHideModal }) {
       style={styles.modalContainer}>
       <View style={styles.modalSubContainer}>
         <AppText type={'bold'} size={18} color={Colors.ui_primary_dark}>
-          {'Select your language'}
+          {appLabels.select_your_language}
         </AppText>
         <LanguagePicker onChangeLanguage={onChangeAppLanguage} />
       </View>
