@@ -71,7 +71,7 @@ export default function AccountDetail(props) {
 
     useEffect(() => {
         let user_passions = [];
-        const PASSIONS = userData.passions.split(',');
+        const PASSIONS = userData && userData.passions ? userData.passions.split(',') : [];
         for (let passionId of PASSIONS) {
             let obj = { id: passionId };
             user_passions.push(obj);

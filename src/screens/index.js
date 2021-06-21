@@ -22,6 +22,7 @@ import LikesScreen from './likes-screen'
 import KissesScreen from './kisses-screen'
 import HeartsScreen from './hearts-screen'
 import AppearanceScreen from './appearance-interests-screen'
+import EditLocationScreen from './edit-location-screen'
 
 export {
   Login,
@@ -47,5 +48,6 @@ export {
   LikesScreen,
   KissesScreen,
   HeartsScreen,
-  AppearanceScreen
+  AppearanceScreen,
+  EditLocationScreen
 };

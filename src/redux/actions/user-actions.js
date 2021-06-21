@@ -581,7 +581,7 @@ export const updateCustomerAttributes = (requestData) => (dispatch, getState) =>
       .then((res) => {
         if (res.meta.status) {
           dispatch(showToast('positive', res.meta.message));
-          dispatch(getAppearanceAndInterests());
+          dispatch(getCustomerAppearanceAndInterests());
         }
         resolve(res);
       })
@@ -592,7 +592,7 @@ export const updateCustomerAttributes = (requestData) => (dispatch, getState) =>
   });
 
 //Edit Customer Attributes
-export const getAppearanceAndInterests = () => (dispatch, getState) =>
+export const getCustomerAppearanceAndInterests = () => (dispatch, getState) =>
   new Promise(function (resolve, reject) {
     const userData = getState().userState.userData;
     let userId = null;
@@ -609,6 +609,25 @@ export const getAppearanceAndInterests = () => (dispatch, getState) =>
         if (res.meta.status) {
           dispatch(ActionDispatcher(GET_CUSTOMER_APPEARANCE_AND_INTERETS_SUCCESS, res.data));
         }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } })
+        reject(err);
+      });
+  });
+
+//Get Moderators Appearances
+export const getModeratorAppearances = (profileId) => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    const userData = getState().userState.userData;
+    let requestData = {
+      profile_id: profileId,
+      language: userData.language
+    }
+    client
+      .post(`/appearance_interests`, requestData)
+      .then((res) => {
         resolve(res);
       })
       .catch((err) => {

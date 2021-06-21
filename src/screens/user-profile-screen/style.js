@@ -20,7 +20,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginHorizontal: 10,
-    paddingVertical: 25,
+    paddingVertical: 20,
     paddingHorizontal: 10,
     borderRadius: 5,
     // borderTopWidth: 1,
