@@ -22,7 +22,7 @@ import styles from './style';
 import { ModeratorIconLabel } from '../../components';
 import { ModeratorActivityModal } from '../../components/app-modals';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToFavorite } from '../../redux/actions/user-actions';
+import { addToFavorite, getModeratorAppearances } from '../../redux/actions/user-actions';
 import {
   ChatGradientIcon,
   LikeGradientIcon,
@@ -49,21 +49,24 @@ export default function ModeratorProfile(props) {
   const { params } = props.route;
   const { navigation } = props;
 
-  const { appLabels } = useSelector((state) => state.appState);
+  const { appLabels, passionList } = useSelector((state) => state.appState);
 
   const [isFavorite, setIsFavorite] = useState(params.item.is_favorites);
   const [activityType, setActivityType] = useState('kiss');
   const [activityModalVisible, setActivityModalVisible] = useState(false);
   const [loadingDetail, setLoadingDetail] = useState(true);
   const [swiperImages, setSwiperImages] = useState([]);
+  const [appearances, setAppearances] = useState([]);
 
   const [moderatorDetail, setModeratorDetail] = useState(null);
 
   const PASSIONS = params && params.item && params.item.passions ? params.item.passions.split(',') : [];
 
   useEffect(() => {
+    console.log("passionList", passionList);
     console.log("Mederator Detail...", params.item);
     getDetail();
+    getAppearances();
     if (params && params.item && params.item.profilepicture) {
       let moderatorImages = [];
       for (let image of params.item.profilepicture) {
@@ -78,7 +81,15 @@ export default function ModeratorProfile(props) {
       }
       setSwiperImages(moderatorImages);
     }
-  }, [])
+  }, []);
+
+  const getAppearances = async () => {
+    const appearances_response = await dispatch(getModeratorAppearances(params.item.id));
+    console.log("appearances_response", appearances_response);
+    if (appearances_response.meta.status == true) {
+      setAppearances(appearances_response.data);
+    }
+  }
 
   const getDetail = async () => {
     setLoadingDetail(true);
@@ -198,6 +209,14 @@ export default function ModeratorProfile(props) {
 
   const onPressImage = (item, index) => {
     dispatch(toggleGallerySwiperModal(true, swiperImages, index));
+  }
+
+  const getPassionsById = (id) => {
+    for (let passion of passionList) {
+      if (passion.id == id) {
+        return passion.name;
+      }
+    }
   }
 
   return (
@@ -410,14 +429,18 @@ export default function ModeratorProfile(props) {
                       onSelectAction={onSelectLegalAction} />
                   </View>
                 </View>
-                {params && params.isFromChat ? (
+                {params && params.isFromChat && moderatorDetail ? (
                   <AppText type={'regular'} size={16} style={{ textTransform: 'capitalize' }}>
                     {moderatorDetail.city + ", " + moderatorDetail.country}
                   </AppText>
                 ) : (
-                  <AppText type={'regular'} size={16} style={{ textTransform: 'capitalize' }}>
-                    {params.item.city + ", " + params.item.country}
-                  </AppText>
+                  <View>
+                    {params && params.item && (
+                      <AppText type={'regular'} size={16} style={{ textTransform: 'capitalize' }}>
+                        {params.item.city + ", " + params.item.country}
+                      </AppText>
+                    )}
+                  </View>
                 )}
               </View>
             </View>
@@ -501,6 +524,20 @@ export default function ModeratorProfile(props) {
               </View>
             )}
 
+            {appearances && appearances.length > 0 && (
+              <View style={{ paddingHorizontal: 10 }}>
+                <AppText type={'bold'} size={16} style={{ marginBottom: 10 }}>{appLabels.appearance}</AppText>
+                {appearances.map((appearanceItem, appearanceIndex) => {
+                  return <View
+                    key={String(appearanceIndex)}
+                    style={styles.appearanceItem}
+                  >
+                    <AppText style={{ flex: 1 }}>{appearanceItem.display_name}</AppText>
+                    <AppText type={'bold'} style={{ flex: 1, textAlign: 'right' }}>{appearanceItem.attr_value || 'N/A'}</AppText>
+                  </View>
+                })}
+              </View>
+            )}
 
           </View>
           <ModeratorActivityModal

@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { StyleSheet, TextInput, Platform, View, TouchableOpacity } from 'react-native';
 import { Colors } from '../../constants';
 import { AppText } from '../../components';
+import { debounce } from "lodash";
 
-export function AuthInput({ style, label, icon, rightIcon, onRightIconPress, error, ...props }) {
+export function AuthInput({ style, label, icon, rightIcon, onRightIconPress, error, onChangeText, isDebounce, onDebounceText, ...props }) {
+
+  const handler = useCallback(debounce((text) => onDebounce(text), 1000), []);
+
+  const onChange = (text) => {
+    onChangeText(text);
+    handler(text);
+  }
+
+  const onDebounce = (text) => {
+    if (isDebounce) {
+      onDebounceText(text);
+    }
+  }
+
   return (
     <View>
       <View style={styles.labelContainer}>
@@ -39,6 +54,7 @@ export function AuthInput({ style, label, icon, rightIcon, onRightIconPress, err
           ]}
           placeholderTextColor={Colors.greydark}
           autoCapitalize={'none'}
+          onChangeText={onChange}
         />
         {rightIcon && (
           <TouchableOpacity onPress={onRightIconPress} style={{ padding: 5 }}>

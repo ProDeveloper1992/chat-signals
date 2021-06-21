@@ -28,7 +28,7 @@ import {
 } from '../../constants/svg-icons';
 import { toggleGallerySwiperModal, toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
-import { getAppearanceAndInterests, getCustomerProfileDetail } from '../../redux/actions/user-actions';
+import { getCustomerAppearanceAndInterests, getCustomerProfileDetail } from '../../redux/actions/user-actions';
 import moment from 'moment';
 import { logoutUser } from '../../redux/reducers';
 import { getUserProfilePicture } from '../../utils/common';
@@ -73,7 +73,7 @@ export default function UserProfile(props) {
     if (isFocused) {
       console.log("userData...", userData)
       dispatch(getCustomerProfileDetail());
-      dispatch(getAppearanceAndInterests());
+      dispatch(getCustomerAppearanceAndInterests());
     }
   }, [isFocused]);
 
@@ -215,6 +215,11 @@ export default function UserProfile(props) {
             title={appLabels.photos}
             onPress={() => navigation.navigate('UserPhotos')} />
 
+          <CardHeader
+            title={"Location"}
+            value={userData.location_name}
+            onPress={() => navigation.navigate('EditLocationScreen')}
+          />
 
           <CardHeader
             title={appLabels.account_info}
@@ -296,10 +301,15 @@ const CounterCard = ({ title, count, icon, onPress }) => {
   )
 }
 
-const CardHeader = ({ title, onPress }) => {
+const CardHeader = ({ title, value, onPress }) => {
   return (
     <TouchableOpacity activeOpacity={0.8} onPress={onPress} style={styles.cardHeaderContainer}>
-      <AppText type={'medium'} size={16} color={Colors.black}>{title}</AppText>
+      <View>
+        <AppText type={'medium'} size={16} color={Colors.black}>{title}</AppText>
+        {value && (
+          <AppText type={'light'} size={14} color={Colors.black}>{value}</AppText>
+        )}
+      </View>
       <ArrowRightIcon width={24} height={24} />
     </TouchableOpacity>
   )

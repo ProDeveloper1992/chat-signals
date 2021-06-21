@@ -21,14 +21,15 @@ import {
   KissesScreen,
   HeartsScreen,
   AppearanceScreen,
-  CreateTicket
+  CreateTicket,
+  EditLocationScreen
 } from '../screens';
 import BottomTabBar from '../components/BottomTabBar';
 import { Colors } from '../constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppGiftBadge, AppText } from '../components';
 import { getRemainingTime } from '../utils/common';
-import { getAppearanceAndInterests } from '../redux/actions/user-actions';
+import { getCustomerAppearanceAndInterests } from '../redux/actions/user-actions';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -92,7 +93,7 @@ const BottomTabNavigator = () => {
   const { appLabels } = useSelector((state) => state.appState);
 
   useEffect(() => {
-    dispatch(getAppearanceAndInterests());
+    dispatch(getCustomerAppearanceAndInterests());
   }, []);
 
   return (
@@ -207,6 +208,11 @@ export default function MainStackNavigator() {
       <Stack.Screen
         name="CreateTicket"
         component={CreateTicket}
+      />
+
+      <Stack.Screen
+        name="EditLocationScreen"
+        component={EditLocationScreen}
       />
     </Stack.Navigator>
   );

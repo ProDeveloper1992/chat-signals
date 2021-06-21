@@ -44,6 +44,7 @@ import MessageDeliveredIcon from '../assets/icons/message_delivered.svg';
 import EyeOpenIcon from '../assets/icons/eye_open.svg';
 import EyeCloseIcon from '../assets/icons/eye_close.svg';
 import AppleLogoIcon from '../assets/icons/apple-logo.svg';
+import LocationIcon from '../assets/icons/location.svg';
 
 import GiftBoxIcon from '../assets/images/gift_box.svg';
 
@@ -94,5 +95,6 @@ export {
     MessageDeliveredIcon,
     EyeOpenIcon,
     EyeCloseIcon,
-    AppleLogoIcon
+    AppleLogoIcon,
+    LocationIcon
 }
