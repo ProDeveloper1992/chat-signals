@@ -24,6 +24,7 @@ import SpotlightModal from './spotlight-modal';
 import CoinsEarningModal from './coins-earning-modal';
 import ModeratorChatDetailModal from './moderator-chat-detail-modal';
 import AppAlertModal from './app-alert-modal';
+import BoostProfileModal from './boost-profile-modal';
 import { DEFAULT_AVATAR_URL } from '../../constants';
 
 export {
@@ -34,6 +35,7 @@ export {
   DeleteAccountModal,
   SpotlightModal,
   AppAlertModal,
+  BoostProfileModal
 };
 
 export default function AppModals(props) {

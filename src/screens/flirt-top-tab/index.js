@@ -90,7 +90,7 @@ export default function FlirtTab(props) {
           contentContainerStyle={{ flexGrow: 1, padding: 10 }}
           showsVerticalScrollIndicator={false}
           renderItem={({ item, index }) => (
-            <View key={String(index)} style={{ flex: 0.5 }}>
+            <View key={String(index)} style={{ flex: index == flirtsList.length - 1 && index % 2 == 0 ? 0.5 : 1 }}>
               <ModeratorListItem
                 item={item}
                 onPress={() =>

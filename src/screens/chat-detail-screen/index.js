@@ -370,7 +370,8 @@ export default function ChatDetail(props) {
                 setTimeout(() => {
                   listViewRef.scrollToEnd({ animated: true })
                 }, 100);
-              }} />
+              }}
+              isStickerOpen={props.route.params.isSticker} />
           </View>
         )}
         <ModeratorActivityModal

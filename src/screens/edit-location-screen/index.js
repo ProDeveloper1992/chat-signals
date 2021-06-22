@@ -16,7 +16,7 @@ export default function EditLocation(props) {
 
     let customer_location = null;
 
-    if (userData.location_name != null) {
+    if (userData && userData.location_name != null) {
         customer_location = {
             name: userData.location_name,
             formatted_address: userData.location_name,

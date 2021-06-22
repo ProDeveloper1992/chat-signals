@@ -11,7 +11,8 @@ const listItemHeight =
 
 export default StyleSheet.create({
   listItemContainer: {
-    width: listItemWidth / 2,
+    flex: 1,
+    // width: listItemWidth / 2,
     height: listItemHeight,
     backgroundColor: Colors.grey,
     borderRadius: 20,

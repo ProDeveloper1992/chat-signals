@@ -30,12 +30,13 @@ export function ChatInput({
     isAttachingDocument,
     attachedDocument,
     onAttachDocument,
+    isStickerOpen,
     ...props }) {
 
     const { userData } = useSelector((state) => state.userState);
     const { appLabels, generalSettings } = useSelector((state) => state.appState);
 
-    const [stickersVisible, setStickersVisible] = useState(false);
+    const [stickersVisible, setStickersVisible] = useState(isStickerOpen ? isStickerOpen : false);
 
     const stickers = [
         { url: 'https://dotbadges.com/wp-content/uploads/2021/05/Stickerview1-106.webp' },

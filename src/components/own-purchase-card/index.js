@@ -120,7 +120,7 @@ var customStyles4 = StyleSheet.create({
         backgroundColor: Colors.ui_primary,
         borderColor: Colors.white,
         borderWidth: 2,
-        shadowColor: 'black',
+        shadowColor: Colors.black,
         shadowOffset: { width: 0, height: 2 },
         shadowRadius: 2,
         shadowOpacity: 0.35,
