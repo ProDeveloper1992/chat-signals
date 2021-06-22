@@ -77,7 +77,9 @@ export default function ModeratorProfile(props) {
         if (image.is_friend == '1') {
           obj = { url: 'https://mafasworld.files.wordpress.com/2010/11/2294890654_aa2c97b771_o.jpg' };
         }
-        moderatorImages.push(obj);
+        if (image.is_active == '1') {
+          moderatorImages.push(obj);
+        }
       }
       setSwiperImages(moderatorImages);
     }
@@ -147,6 +149,18 @@ export default function ModeratorProfile(props) {
       profile_picture: getModeratorProfileImage()
     }
     navigation.navigate('ChatDetail', { item: customer });
+  }
+
+  const onStckerPress = () => {
+    let customer = {
+      user: {
+        id: params.item.id,
+        username: params.item.username,
+        is_active: "1"  //Will Need to set dynamic value for it.
+      },
+      profile_picture: getModeratorProfileImage()
+    }
+    navigation.navigate('ChatDetail', { item: customer, isSticker: true });
   }
 
   const _renderDotIndicator = (pages) => {
@@ -403,7 +417,7 @@ export default function ModeratorProfile(props) {
                     <AppText type={'bold'} size={18} style={{ textTransform: 'capitalize', marginEnd: 10 }}>
                       {params.item.username}{params.item.dob ? `, ${moment().diff(moment(params.item.dob, 'YYYY-MM-DD'), 'years')}` : ''}
                     </AppText>
-                    <OnlineStatusCircle isOnline={true} size={12} />
+                    <OnlineStatusCircle isOnline={moderatorDetail && moderatorDetail.is_active == '1' ? true : false} size={14} />
                   </View>
                   <View style={[styles.moderatorNameContainer, { justifyContent: 'flex-end', marginEnd: 15 }]}>
                     <TouchableOpacity onPress={toggleSwitch} style={{ marginHorizontal: 10 }}>
@@ -469,7 +483,7 @@ export default function ModeratorProfile(props) {
               />
 
               <ModeratorIconLabel
-                onIconPress={() => showActivityModal('sticker')}
+                onIconPress={onStckerPress}
                 Icon={<StickerGradientIcon />}
               />
             </View>

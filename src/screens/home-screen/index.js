@@ -17,7 +17,7 @@ import { getGeneralSettings } from '../../redux/actions/app-actions';
 
 import FilterIcon from '../../assets/icons/filter.svg';
 import { BoostIcon, KissGradientIcon32 } from '../../constants/svg-icons';
-import { SpotlightModal } from '../../components/app-modals';
+import { SpotlightModal, BoostProfileModal } from '../../components/app-modals';
 
 const initialLayout = { width: Dimensions.get('window').width };
 
@@ -27,7 +27,7 @@ export default function Home() {
   const isFocused = useIsFocused();
 
   const { appLabels } = useSelector((state) => state.appState);
-  const { authToken } = useSelector((state) => state.userState);
+  const { authToken, userData } = useSelector((state) => state.userState);
 
   const [isSpotlightModalVisible, setSpolightModalVisible] = useState(false);
   const [index, setIndex] = useState(0);
@@ -76,16 +76,15 @@ export default function Home() {
   }
 
   const onChangeTab = (index) => {
-    if (index === 1) {
-      setSpolightModalVisible(true);
+    if (userData && userData.is_boosted == '1') {
+      setIndex(index);
     } else {
-      setIndex(index)
+      if (index != 1) {
+        setIndex(index);
+      } else {
+        setSpolightModalVisible(true);
+      }
     }
-  }
-
-  const onGoToSpotlightTab = () => {
-    setSpolightModalVisible(false);
-    // setIndex(1);
   }
 
   return (
@@ -101,7 +100,7 @@ export default function Home() {
         navigationState={{ index, routes }}
         renderScene={renderScene}
         onIndexChange={onChangeTab}
-        swipeEnabled={false}
+        swipeEnabled={userData && userData.is_boosted == '1' ? true : false}
         initialLayout={initialLayout}
         renderTabBar={(props) => (
           <TabBar
@@ -125,9 +124,8 @@ export default function Home() {
           />
         )}
       />
-      <SpotlightModal
+      <BoostProfileModal
         visible={isSpotlightModalVisible}
-        onContinue={onGoToSpotlightTab}
         onHideModal={() => setSpolightModalVisible(false)} />
     </View>
   );

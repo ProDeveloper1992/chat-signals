@@ -11,7 +11,7 @@ import ImagePicker from 'react-native-image-picker';
 import { AppText, CommonImage, GeneralHeader } from '../../components';
 import { Colors, DEFAULT_AVATAR_URL } from '../../constants';
 import styles from './style';
-import { AppAlertModal, DeleteAccountModal, ModeratorActivityModal } from '../../components/app-modals';
+import { AppAlertModal, BoostProfileModal, DeleteAccountModal, ModeratorActivityModal } from '../../components/app-modals';
 import { useDispatch, useSelector } from 'react-redux';
 import { GoogleSignin } from 'react-native-google-signin';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -47,6 +47,7 @@ export default function UserProfile(props) {
   const [cuurentTab, setCurrentTab] = useState(1);
   const [deleteAccountModalVisible, setDeleteAccountModalVisible] = useState(false);
   const [isLogoutModalVisible, setLogoutModalVisible] = useState(false);
+  const [isBoostModalVisible, setBoostModalVisible] = useState(false);
 
   const getUserProfileImage = () => {
     let image_url = null;
@@ -159,21 +160,24 @@ export default function UserProfile(props) {
               </TouchableOpacity>
             </View>
 
-            <View style={{ padding: 15 }}>
+            <View style={{ paddingHorizontal: 15, paddingTop: 10 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <AppText type={'bold'} size={16}>{`${userData && userData.username}${userData && userData.dob ? `, ${moment().diff(moment(userData.dob, 'DD-MM-YYYY'), 'years')}` : ''}`}</AppText>
               </View>
             </View>
-
-            <TouchableOpacity style={styles.boostButton}>
-              <View style={styles.boostIconContainer}>
-                <BoostIcon />
-              </View>
-              <AppText type={'bold'} size={12} uppercase>{`${appLabels.boost} ${appLabels.profile}`}</AppText>
-            </TouchableOpacity>
+            {userData && userData.is_boosted == '0' && (
+              <TouchableOpacity
+                onPress={() => setBoostModalVisible(true)}
+                style={styles.boostButton}>
+                <View style={styles.boostIconContainer}>
+                  <BoostIcon />
+                </View>
+                <AppText type={'bold'} size={12} uppercase>{`${appLabels.boost} ${appLabels.profile}`}</AppText>
+              </TouchableOpacity>
+            )}
           </View>
 
-          <View style={{ flex: 1, padding: 15 }}>
+          <View style={{ flex: 1, paddingHorizontal: 15, paddingBottom: 15 }}>
             <View style={{ flexDirection: 'row' }}>
               <CounterCard
                 onPress={() => { }}
@@ -217,7 +221,7 @@ export default function UserProfile(props) {
 
           <CardHeader
             title={"Location"}
-            value={userData.location_name}
+            value={userData && userData.location_name}
             onPress={() => navigation.navigate('EditLocationScreen')}
           />
 
@@ -281,6 +285,10 @@ export default function UserProfile(props) {
         button1Title={appLabels.logout}
         button2Title={appLabels.cancel}
         onButton1Press={onLogout}
+      />
+      <BoostProfileModal
+        visible={isBoostModalVisible}
+        onHideModal={() => setBoostModalVisible(false)}
       />
     </View>
   );

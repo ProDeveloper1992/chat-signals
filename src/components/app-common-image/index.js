@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
             shadowOpacity: 0.1,
             shadowRadius: isShadow ? 10 : 0,
             elevation: isShadow ? 8 : 0,
+            backgroundColor: Colors.grey
         }
     },
     imageStyle: function (size) {

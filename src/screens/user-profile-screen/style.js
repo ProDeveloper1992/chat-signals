@@ -98,7 +98,8 @@ export default StyleSheet.create({
     paddingHorizontal: 15,
     borderWidth: 1,
     borderColor: Colors.grey,
-    borderRadius: 46
+    borderRadius: 46,
+    marginVertical: 10
   },
 
   boostIconContainer: {

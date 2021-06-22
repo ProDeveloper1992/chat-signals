@@ -635,3 +635,31 @@ export const getModeratorAppearances = (profileId) => (dispatch, getState) =>
         reject(err);
       });
   });
+
+//Boost Profile
+export const boostCustomerProfile = () => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    const userData = getState().userState.userData;
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      customer_id: userId,
+    }
+    client
+      .post(`/customer_boost`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+          dispatch(showToast('positive', res.meta.message));
+          dispatch(getCustomerProfileDetail());
+        } else {
+          dispatch(showToast('negative', res.meta.message));
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } })
+        reject(err);
+      });
+  });

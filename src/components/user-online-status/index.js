@@ -20,8 +20,13 @@ const styles = StyleSheet.create({
             height: size,
             borderRadius: size / 2,
             borderWidth: 2,
-            backgroundColor: isOnline ? Colors.ui_user_active : Colors.ui_user_away,
-            borderColor: Colors.white
+            backgroundColor: isOnline ? Colors.ui_user_active : Colors.red,
+            borderColor: Colors.white,
+            shadowColor: Colors.black,
+            shadowOffset: { width: 0, height: 2 },
+            shadowRadius: 2,
+            shadowOpacity: 0.35,
+            elevation: 2,
         }
     },
     title: {
