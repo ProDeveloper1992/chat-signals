@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, ScrollView, View, TouchableOpacity, SafeAreaView, Keyboard, ActivityIndicator, FlatList, Image } from 'react-native';
+import { StyleSheet, TextInput, ScrollView, View, TouchableOpacity, SafeAreaView, Keyboard, ActivityIndicator, FlatList, Image, Platform } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import { useSelector } from 'react-redux';
 import FastImage from 'react-native-fast-image';
@@ -56,10 +56,14 @@ export function ChatInput({
     ]
 
     const onSendItemPress = async (type) => {
-        await Keyboard.dismiss();
-        setTimeout(() => {
+        if (Platform.OS == 'ios') {
+            await Keyboard.dismiss();
+            setTimeout(() => {
+                onSendItem(type);
+            }, 500);
+        } else {
             onSendItem(type);
-        }, 500);
+        }
     }
 
     const onAttachIconPress = async () => {
