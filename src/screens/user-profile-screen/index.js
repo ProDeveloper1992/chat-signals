@@ -160,7 +160,7 @@ export default function UserProfile(props) {
               </TouchableOpacity>
             </View>
 
-            <View style={{ paddingHorizontal: 15, paddingTop: 10 }}>
+            <View style={{ paddingHorizontal: 15, paddingVertical: 10 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <AppText type={'bold'} size={16}>{`${userData && userData.username}${userData && userData.dob ? `, ${moment().diff(moment(userData.dob, 'DD-MM-YYYY'), 'years')}` : ''}`}</AppText>
               </View>

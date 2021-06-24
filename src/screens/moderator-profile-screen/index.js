@@ -225,10 +225,14 @@ export default function ModeratorProfile(props) {
     dispatch(toggleGallerySwiperModal(true, swiperImages, index));
   }
 
-  const getPassionsById = (id) => {
-    for (let passion of passionList) {
-      if (passion.id == id) {
-        return passion.name;
+  const getIsOnline = () => {
+    if (moderatorDetail && moderatorDetail.is_active == '1') {
+      return true;
+    } else {
+      if (params.item.is_active == '1') {
+        return true;
+      } else {
+        return false;
       }
     }
   }
@@ -417,7 +421,7 @@ export default function ModeratorProfile(props) {
                     <AppText type={'bold'} size={18} style={{ textTransform: 'capitalize', marginEnd: 10 }}>
                       {params.item.username}{params.item.dob ? `, ${moment().diff(moment(params.item.dob, 'YYYY-MM-DD'), 'years')}` : ''}
                     </AppText>
-                    <OnlineStatusCircle isOnline={moderatorDetail && moderatorDetail.is_active == '1' ? true : false} size={14} />
+                    <OnlineStatusCircle isOnline={getIsOnline()} size={14} />
                   </View>
                   <View style={[styles.moderatorNameContainer, { justifyContent: 'flex-end', marginEnd: 15 }]}>
                     <TouchableOpacity onPress={toggleSwitch} style={{ marginHorizontal: 10 }}>

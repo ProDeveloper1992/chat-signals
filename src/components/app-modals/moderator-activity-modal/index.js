@@ -93,7 +93,7 @@ export default function ActivityModal({ visible, onHideModal, type, moderator, o
         return getGeneralSettingValueByName('prices_kiss');
 
       case 'heart':
-        return getGeneralSettingValueByName('prices_kiss');
+        return getGeneralSettingValueByName('prices_heart');
 
       default:
         return 0;
@@ -151,6 +151,17 @@ export default function ActivityModal({ visible, onHideModal, type, moderator, o
         break;
 
       case 'heart':
+        let heartMessageToSend = {
+          id: moderator.id,
+          customer_id: userData.id,
+          message: `💖 You sent a heart.`,
+          send_heart: 4
+        };
+        console.log("heartMessageToSend", heartMessageToSend)
+        setIsSending(true);
+        await dispatch(sendMessage(heartMessageToSend));
+        setIsSending(false);
+        onSentItem();
         onHideModal();
         break;
 
@@ -195,7 +206,7 @@ export default function ActivityModal({ visible, onHideModal, type, moderator, o
         </View>
         {isEnoughCredit() ? (
           <View style={{ flexGrow: 1 }}>
-            <View style={{ flex: 1, alignItems: 'center', marginTop: '5%', marginBottom: '20%' }}>
+            <View style={{ flexGrow: 1, alignItems: 'center', marginTop: '5%', marginBottom: '20%' }}>
               <AppText type={'bold'} size={24} color={Colors.black}>
                 {type != 'chat' && `${appLabels.send} `}{getTitle(type)}
               </AppText>
@@ -209,7 +220,7 @@ export default function ActivityModal({ visible, onHideModal, type, moderator, o
             source={getActivityImage(type)}
           /> */}
               {type == 'sticker' ? (
-                <View>
+                <View style={{ marginVertical: 10 }}>
                   {selectedStickerItem && (
                     <Image style={{ width: 100, height: 100, resizeMode: 'contain' }} source={{ uri: selectedStickerItem.url }} />
                   )}
