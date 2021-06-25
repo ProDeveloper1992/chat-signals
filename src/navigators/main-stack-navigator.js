@@ -30,6 +30,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppGiftBadge, AppText } from '../components';
 import { getRemainingTime } from '../utils/common';
 import { getCustomerAppearanceAndInterests } from '../redux/actions/user-actions';
+import { getAppStrings } from '../redux/actions/app-actions';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -94,6 +95,7 @@ const BottomTabNavigator = () => {
 
   useEffect(() => {
     dispatch(getCustomerAppearanceAndInterests());
+    dispatch(getAppStrings());
   }, []);
 
   return (

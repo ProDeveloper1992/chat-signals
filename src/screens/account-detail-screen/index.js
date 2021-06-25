@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/core';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, TouchableOpacity, ScrollView, TextInput } from 'react-native';
+import { SafeAreaView, View, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import {
@@ -352,6 +352,7 @@ export default function AccountDetail(props) {
                 onCancel={hideDatePicker}
                 maximumDate={new Date()}
             />
+            <SafeAreaView />
         </View>
     )
 }

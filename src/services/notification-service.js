@@ -2,6 +2,11 @@
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
 import PushNotification from "react-native-push-notification";
 import messaging from '@react-native-firebase/messaging';
+import { store } from "../redux/store";
+import { ActionDispatcher } from "../redux/actions";
+import { STORE_FCM_TOKEN } from "../redux/actions/types";
+import { getFriendsList, getHeartsList, getKissesList, getLikesList, getNotificationsList } from "../redux/actions/user-actions";
+import { getUserChatList } from "../redux/actions/chat-actions";
 
 const requestUserPermission = async () => {
     /**
@@ -107,8 +112,11 @@ export const configureFirebaseNotification = () => {
 export const configurePushNotification = () => {
     PushNotification.configure({
         // (optional) Called when Token is generated (iOS and Android)
-        onRegister: function (token) {
-            console.log('TOKEN:', token);
+        onRegister: function (tokenData) {
+            console.log('TOKEN:', tokenData);
+            if (tokenData) {
+                store.dispatch(ActionDispatcher(STORE_FCM_TOKEN, tokenData.token));
+            }
         },
 
         onRemoteFetch: function (data) {
@@ -122,9 +130,43 @@ export const configurePushNotification = () => {
             //     console.log("reply_text", notification.reply_text);
             // } else {
             if (notification.userInteraction) {
-                console.log("userInteraction", notification.userInteraction)
+                console.log("userInteraction", notification.userInteraction);
+                if (store.getState().userState.userData) {
+                    store.dispatch(getNotificationsList());
+                }
             } else {
                 PushNotification.localNotification(notification);
+                if (store.getState().userState.userData) {
+                    switch (notification.data.type) {
+                        case 'send_kiss':
+                            store.dispatch(getNotificationsList());
+                            store.dispatch(getKissesList());
+                            break;
+
+                        case 'send_like':
+                            store.dispatch(getNotificationsList());
+                            store.dispatch(getLikesList());
+                            break;
+
+                        case 'send_heart':
+                            store.dispatch(getNotificationsList());
+                            store.dispatch(getHeartsList());
+                            break;
+
+                        case 'send_message':
+                            store.dispatch(getUserChatList());
+                            break;
+
+                        case 'send_friend_request':
+                            store.dispatch(getNotificationsList());
+                            store.dispatch(getFriendsList());
+                            break;
+
+                        default:
+                            store.dispatch(getNotificationsList());
+                            break;
+                    }
+                }
             }
 
             // }

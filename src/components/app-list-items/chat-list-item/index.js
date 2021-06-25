@@ -34,7 +34,8 @@ export default function ChatListItem({
             size={57}
             borderWidth={0}
             source={profileImage}
-            onPress={() => dispatch(toggleGallerySwiperModal(true, [profileImage]))} />
+          // onPress={() => dispatch(toggleGallerySwiperModal(true, [profileImage]))}
+          />
           <View style={styles.activeStatusCircle(isActive)} />
         </View>
         <View style={styles.userDetailContainer}>
@@ -70,7 +71,7 @@ export default function ChatListItem({
                   style={styles.unSeenBadgeContainer}>
                   <AppText
                     type={'bold'}
-                    size={12}
+                    size={11}
                     color={Colors.white}>
                     {item.unseenCounter}
                   </AppText>

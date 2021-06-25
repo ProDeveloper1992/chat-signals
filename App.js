@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { ActivityIndicator, Alert, View } from 'react-native';
 import messaging from '@react-native-firebase/messaging';
+import DeviceInfo from 'react-native-device-info';
 
 import { store, persistor } from './src/redux/store';
 import Navigator from './src/navigators';
@@ -15,7 +16,8 @@ const App = (props) => {
 
   useEffect(() => {
     launchApp();
-
+    let uniqueId = DeviceInfo.getUniqueId();
+    console.log("uniqueId", uniqueId)
     // const unsubscribe = messaging().onMessage(
     //   async (remoteMessage) => {
     //     // alert('A new FCM message arrived!');

@@ -1,37 +1,63 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, FlatList } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useIsFocused } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
 import { NoListData, NotificationItem } from '../../../components';
+import { getNotificationsList } from '../../../redux/actions/user-actions';
+import { ChatListItemLoader } from '../../../components/app-list-items/chat-list-item';
 import styles from './style';
+
 
 export default function NotificationsTab(props) {
 
-    const { appLabels } = useSelector((state) => state.appState);
+    const isFocused = useIsFocused();
+    const dispatch = useDispatch();
 
-    const notifications = [
-        { username: "Jenifer", image_url: 'https://i.pinimg.com/originals/25/a6/41/25a641e2075eca74e84a6f1dc720a518.jpg', type: 'like' },
-        { username: "Cristine", image_url: 'https://papers.co/wallpaper/papers.co-hq89-miranda-kerr-girl-model-face-34-iphone6-plus-wallpaper.jpg', type: 'kiss' },
-        { username: "Dolores", image_url: 'https://www.face-agency.co.uk/images/uploads/models/large/1548678753-21.jpg', type: 'heart' },
-        { username: "Jenifer", image_url: 'https://i.pinimg.com/originals/25/a6/41/25a641e2075eca74e84a6f1dc720a518.jpg', type: 'sticker' },
-    ]
+    const { appLabels } = useSelector((state) => state.appState);
+    const { customerNotifications } = useSelector((state) => state.userState);
+
+    const [loading, setLoading] = useState(true);
+
+
+    useEffect(() => {
+        if (isFocused) {
+            getNotifications();
+        }
+    }, [isFocused]);
+
+    const getNotifications = async () => {
+        setLoading(true);
+        await dispatch(getNotificationsList());
+        setLoading(false);
+    }
 
     return (
         <View style={styles.container}>
-            <FlatList
-                data={[]}
-                contentContainerStyle={{ flexGrow: 1 }}
-                showsVerticalScrollIndicator={false}
-                renderItem={({ item, index }) => (
-                    <NotificationItem
-                        key={String(index)}
-                        userName={item.username}
-                        profileImage={{ uri: item.image_url }}
-                        type={item.type}
-                    />
-                )}
-                ListEmptyComponent={<NoListData title={appLabels.no_notifications_found} />}
-                keyExtractor={(item, index) => index.toString()}
-            />
+            {loading && customerNotifications.length == 0 ? (
+                <FlatList
+                    data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+                    contentContainerStyle={{ flexGrow: 1 }}
+                    showsVerticalScrollIndicator={false}
+                    renderItem={({ item, index }) => (
+                        <ChatListItemLoader key={String(index)} />
+                    )}
+                    keyExtractor={(item, index) => String(index)}
+                />
+            ) : (
+                <FlatList
+                    data={customerNotifications}
+                    contentContainerStyle={{ flexGrow: 1 }}
+                    showsVerticalScrollIndicator={false}
+                    renderItem={({ item, index }) => (
+                        <NotificationItem
+                            key={String(index)}
+                            item={item}
+                        />
+                    )}
+                    ListEmptyComponent={<NoListData title={appLabels.no_notifications_found} />}
+                    keyExtractor={(item, index) => index.toString()}
+                />
+            )}
         </View>
     );
 }

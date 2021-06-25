@@ -19,18 +19,21 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="OCs-WB-dqf">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="app_logo" translatesAutoresizingMaskIntoConstraints="NO" id="KRo-VK-IvL">
-                                <rect key="frame" x="106" y="424" width="203" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" image="app_logo" translatesAutoresizingMaskIntoConstraints="NO" id="KRo-VK-IvL">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="heX-JN-Aa8"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="OCs-WB-dqf" secondAttribute="bottom" id="KSC-bT-rag"/>
+                            <constraint firstItem="heX-JN-Aa8" firstAttribute="bottom" secondItem="KRo-VK-IvL" secondAttribute="bottom" id="RE1-3u-hZU"/>
+                            <constraint firstItem="heX-JN-Aa8" firstAttribute="trailing" secondItem="KRo-VK-IvL" secondAttribute="trailing" id="Sej-ar-c8k"/>
                             <constraint firstItem="OCs-WB-dqf" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="aDE-oa-1PP"/>
+                            <constraint firstItem="KRo-VK-IvL" firstAttribute="top" secondItem="heX-JN-Aa8" secondAttribute="top" id="fOZ-9y-n03"/>
                             <constraint firstItem="OCs-WB-dqf" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="hab-uW-X8H"/>
                             <constraint firstAttribute="trailing" secondItem="OCs-WB-dqf" secondAttribute="trailing" id="iow-9J-dqb"/>
+                            <constraint firstItem="KRo-VK-IvL" firstAttribute="leading" secondItem="heX-JN-Aa8" secondAttribute="leading" id="vYl-J5-WFV"/>
                         </constraints>
                     </view>
                 </viewController>

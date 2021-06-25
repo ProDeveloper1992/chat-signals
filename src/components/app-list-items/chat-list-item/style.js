@@ -47,9 +47,9 @@ export default StyleSheet.create({
   },
 
   unSeenBadgeContainer: {
-    width: 22,
-    height: 22,
-    borderRadius: 22 / 2,
+    width: 20,
+    height: 20,
+    borderRadius: 20 / 2,
     alignItems: 'center',
     justifyContent: 'center'
   }

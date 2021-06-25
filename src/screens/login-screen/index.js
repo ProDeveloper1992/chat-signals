@@ -33,6 +33,7 @@ const LoginScreen = (props) => {
   const dispatch = useDispatch();
 
   const { appLabels } = useSelector((state) => state.appState);
+  const { fcmToken } = useSelector((state) => state.userState);
 
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState(null);
@@ -89,6 +90,8 @@ const LoginScreen = (props) => {
         let requestData = {
           email: email,
           password: password,
+          device_type: Platform.OS,
+          device_token: fcmToken
         };
         setLoading(true);
         const response = await dispatch(loginUser(requestData));

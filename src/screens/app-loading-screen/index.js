@@ -23,9 +23,7 @@ const AppLoading = (props) => {
   }, []);
 
   async function getAppData() {
-    let app_strings_response = await dispatch(getAppStrings());
-    if (app_strings_response.data) {
-    }
+    dispatch(getAppStrings());
   }
 
   return (

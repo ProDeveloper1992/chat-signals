@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/core';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, TouchableOpacity, ScrollView, FlatList } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, SafeAreaView, FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     Collapse,
@@ -175,6 +175,7 @@ export default function AccountDetail(props) {
                     onPress={onSaveAttributes}
                     loading={isSaving} />
             </View>
+            <SafeAreaView />
         </View>
     )
 }
