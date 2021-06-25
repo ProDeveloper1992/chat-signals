@@ -1,51 +1,55 @@
 import moment from 'moment';
 import React from 'react';
-import { View, Image, TouchableHighlight } from 'react-native';
+import { View, Image, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
-import { Colors, Images } from '../../../constants';
+import { Colors, DEFAULT_AVATAR_URL, Images } from '../../../constants';
 import { AppText } from '../../index';
 import styles from './style';
-import { HeartGradientIcon32, KissGradientIcon32, LikeGradientIcon32, StickerGradientIcon32 } from '../../../constants/svg-icons';
+import { FriendGradientIcon32, HeartGradientIcon32, KissGradientIcon32, LikeGradientIcon32, StickerGradientIcon32 } from '../../../constants/svg-icons';
+import { navigate } from '../../../navigators/root-navigation';
+import { useDispatch } from 'react-redux';
+import { readNotification } from '../../../redux/actions/user-actions';
 
-export default function NotificationItem({
-    onChatPress,
-    profileImage,
-    userName,
-    time,
-    type
-}) {
+export default function NotificationItem({ item }) {
+
+    const dispatch = useDispatch();
+
+    const user = item.extra_data ? JSON.parse(item.extra_data) : null;
 
     const getIconByType = () => {
-        switch (type) {
-            case 'like':
+        switch (item.type) {
+            case 'send_like':
                 return <LikeGradientIcon32 width={40} height={40} />
 
-            case 'kiss':
+            case 'send_kiss':
                 return <KissGradientIcon32 width={40} height={40} />
 
-            case 'heart':
+            case 'send_heart':
                 return <HeartGradientIcon32 width={40} height={40} />
 
-            case 'sticker':
+            case 'send_sticker':
                 return <StickerGradientIcon32 width={40} height={40} />
 
+            case 'send_friend_request':
+                return <FriendGradientIcon32 width={40} height={40} />
+
             default:
-                return null;
+                return <></>;
         }
     }
 
     const getNotificationMessage = () => {
-        switch (type) {
-            case 'like':
+        switch (item.type) {
+            case 'send_like':
                 return 'liked you!'
 
-            case 'kiss':
+            case 'send_kiss':
                 return 'kissed you!'
 
-            case 'heart':
+            case 'send_heart':
                 return 'sent you a heart!'
 
-            case 'sticker':
+            case 'send_sticker':
                 return 'sent you a sticker!'
 
             default:
@@ -53,37 +57,90 @@ export default function NotificationItem({
         }
     }
 
+    const getNotificationImage = () => {
+        if (item.profile_details != null && item.profile_details.profile_picture && item.profile_details.profile_picture.length > 0) {
+            return item.profile_details.profile_picture[0].picture;
+        }
+        return DEFAULT_AVATAR_URL;
+    }
+
+    const onItemPress = () => {
+        dispatch(readNotification(item.id));
+        if (item.profile_details != null) {
+            let moderator = {
+                id: item.profile_details.id,
+                profilepicture: item.profile_details.profile_picture,
+                username: item.profile_details.username,
+                dob: item.profile_details.dob,
+                city: item.profile_details.city,
+                country: item.profile_details.country
+            }
+            navigate('ModeratorProfile', { item: moderator, isFromChat: true })
+        }
+        // switch (item.type) {
+        //     case 'send_like':
+        //         navigate('LikesScreen');
+        //         break;
+
+        //     case 'send_kiss':
+        //         navigate('KissesScreen');
+        //         break;
+
+        //     case 'send_heart':
+        //         navigate('HeartsScreen');
+        //         break;
+
+        //     case 'send_sticker':
+        //         break;
+
+        //     default:
+        //         break;
+        // }
+    }
+
     return (
-        <TouchableHighlight
+        <TouchableOpacity
             underlayColor={Colors.ui_background}
             style={styles.container}
-            onPress={onChatPress}>
+            onPress={onItemPress}>
             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                 <View style={styles.profileImageContainer}>
-                    <Image style={styles.profileImg} source={profileImage} />
+                    <Image style={styles.profileImg} source={{ uri: getNotificationImage() }} />
                     <View style={styles.activeStatusCircle}>
                         {getIconByType()}
                     </View>
                 </View>
                 <View style={styles.userDetailContainer}>
-                    <AppText
-                        type={'medium'}
-                        size={15}
-                        color={Colors.black}
-                        numberOfLines={1}
-                    >
-                        {`${userName} ${getNotificationMessage()}`}
-                    </AppText>
+                    {user && user.user_name ? (
+                        <AppText
+                            type={'bold'}
+                            size={14}
+                            color={Colors.black}
+                            numberOfLines={1}
+                        >
+                            {`${user.user_name}`}
+                        </AppText>
+                    ) : null}
+                    {user && user.title ? (
+                        <AppText
+                            type={'regular'}
+                            size={13}
+                            color={Colors.greydark}
+                            numberOfLines={1}
+                        >
+                            {`${user.title}`}
+                        </AppText>
+                    ) : null}
                     <AppText
                         type={'medium'}
                         size={12}
                         color={Colors.ui_primary}
                     >
-                        {moment(time).fromNow()}
+                        {moment(item.created_at).fromNow()}
                     </AppText>
                 </View>
             </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
     );
 }
 
@@ -92,7 +149,6 @@ NotificationItem.propTypes = {
     userName: PropTypes.string,
     time: PropTypes.any,
     type: PropTypes.string,
-    onChatPress: PropTypes.func,
 };
 
 NotificationItem.defaultProps = {
@@ -100,5 +156,4 @@ NotificationItem.defaultProps = {
     userName: 'Username',
     time: new Date(),
     type: 'like',
-    onChatPress: () => { },
 };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, View, FlatList, ActivityIndicator } from 'react-native';
+import { TouchableOpacity, View, FlatList, ActivityIndicator, SafeAreaView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppText, BackHeader, AuthInput, AppButton } from '../../components';
 import { Colors, GOOGLE_MAP_API_KEY } from '../../constants';
@@ -127,6 +127,7 @@ export default function EditLocation(props) {
                     style={{ marginVertical: 10 }}
                     loading={isSaving} />
             </View>
+            <SafeAreaView />
         </View>
     )
 }

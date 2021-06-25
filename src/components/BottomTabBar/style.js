@@ -33,4 +33,17 @@ export default StyleSheet.create({
       tintColor: isFocused ? Colors.black : Colors.black_30,
     };
   },
+
+  unSeenBadgeContainer: {
+    position: 'absolute',
+    top: -10,
+    right: 15,
+    width: 20,
+    height: 20,
+    borderRadius: 20 / 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    zIndex: 1
+  }
 });

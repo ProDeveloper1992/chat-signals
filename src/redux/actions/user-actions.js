@@ -19,7 +19,8 @@ import {
   GET_CUSTOMER_KISSES_SUCCESS,
   GET_CUSTOMER_HEARTS_SUCCESS,
   GET_HELP_TICKET_LIST_SUCCESS,
-  GET_CUSTOMER_APPEARANCE_AND_INTERETS_SUCCESS
+  GET_CUSTOMER_APPEARANCE_AND_INTERETS_SUCCESS,
+  GET_NOTIFICATIONS_LIST_SUCCESS
 } from './types';
 import { client } from '../../services/api-service';
 import { showToast } from './app-actions';
@@ -655,6 +656,51 @@ export const boostCustomerProfile = () => (dispatch, getState) =>
           dispatch(getCustomerProfileDetail());
         } else {
           dispatch(showToast('negative', res.meta.message));
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } })
+        reject(err);
+      });
+  });
+
+//Get Notification List
+export const getNotificationsList = () => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    const userData = getState().userState.userData;
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      customer_id: userId,
+    }
+    client
+      .post(`/user_notification`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+          dispatch(ActionDispatcher(GET_NOTIFICATIONS_LIST_SUCCESS, res.data))
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } })
+        reject(err);
+      });
+  });
+
+//Read Notification
+export const readNotification = (notificationId) => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    let requestData = {
+      id: notificationId,
+    }
+    client
+      .post(`/user_notification_read`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+          dispatch(getNotificationsList());
         }
         resolve(res);
       })

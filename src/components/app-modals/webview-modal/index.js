@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ActivityIndicator, TouchableOpacity } from 'react-native';
+import { View, ActivityIndicator, TouchableOpacity, SafeAreaView } from 'react-native';
 import Modal from 'react-native-modal';
 import { WebView } from 'react-native-webview';
 
@@ -23,7 +23,7 @@ export default function WebViewModal({ visible, paymentUrl, onHideModal }) {
             onBackdropPress={onHideModal}
             onBackButtonPress={onHideModal}
             style={styles.modalContainer}>
-            <View style={styles.modalSubContainer}>
+            <SafeAreaView style={styles.modalSubContainer}>
                 <View style={styles.header}>
                     <AppText type={"bold"}>{"Make a payment"}</AppText>
                     <TouchableOpacity
@@ -37,7 +37,7 @@ export default function WebViewModal({ visible, paymentUrl, onHideModal }) {
                     source={{ uri: paymentUrl }}
                     renderLoading={LoadingIndicatorView}
                     startInLoadingState={true} />
-            </View>
+            </SafeAreaView>
         </Modal>
     );
 }

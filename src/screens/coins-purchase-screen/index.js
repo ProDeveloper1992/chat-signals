@@ -77,75 +77,75 @@ const CoinPurchase = () => {
     setSelectedPackage(null);
   }
 
-  if (Platform.OS == 'ios') {
+  // if (Platform.OS == 'ios') {
 
-    const METHOD_DATA = [
-      {
-        supportedMethods: ['apple-pay'],
-        data: {
-          merchantIdentifier: 'merchant.com.chat.signal.org',
-          supportedNetworks: ['visa', 'mastercard', 'amex'],
-          countryCode: 'US',
-          currencyCode: 'USD',
-          // // uncomment this block to activate automatic Stripe tokenization.
-          // // try putting your key pk_test... in here and see how the token format changes.
-          // paymentMethodTokenizationParameters: {
-          // 	parameters: {
-          // 		gateway: 'stripe',
-          // 		'stripe:publishableKey': Config.STRIPE_KEY,
-          // 	},
-          // },
-        },
-      },
-    ];
+  //   const METHOD_DATA = [
+  //     {
+  //       supportedMethods: ['apple-pay'],
+  //       data: {
+  //         merchantIdentifier: 'merchant.com.chat.signal.org',
+  //         supportedNetworks: ['visa', 'mastercard', 'amex'],
+  //         countryCode: 'US',
+  //         currencyCode: 'USD',
+  //         // // uncomment this block to activate automatic Stripe tokenization.
+  //         // // try putting your key pk_test... in here and see how the token format changes.
+  //         // paymentMethodTokenizationParameters: {
+  //         // 	parameters: {
+  //         // 		gateway: 'stripe',
+  //         // 		'stripe:publishableKey': Config.STRIPE_KEY,
+  //         // 	},
+  //         // },
+  //       },
+  //     },
+  //   ];
 
-    const DETAILS = {
-      id: 'basic-example',
-      displayItems: [
-        {
-          label: 'Movie Ticket',
-          amount: { currency: 'USD', value: '15.00' },
-        },
-      ],
-      total: {
-        label: 'Freeman Industries',
-        amount: { currency: 'USD', value: '15.00' },
-      },
-    };
+  //   const DETAILS = {
+  //     id: 'basic-example',
+  //     displayItems: [
+  //       {
+  //         label: 'Movie Ticket',
+  //         amount: { currency: 'USD', value: '15.00' },
+  //       },
+  //     ],
+  //     total: {
+  //       label: 'Freeman Industries',
+  //       amount: { currency: 'USD', value: '15.00' },
+  //     },
+  //   };
 
-    const showPaymentSheet = (succeed = true) => {
-      const paymentRequest = new PaymentRequest(METHOD_DATA, DETAILS);
-      paymentRequest.show().then(paymentResponse => {
-        console.log("paymentResponse", paymentResponse)
-        const card_token = paymentResponse.details.paymentToken;
+  //   const showPaymentSheet = (succeed = true) => {
+  //     const paymentRequest = new PaymentRequest(METHOD_DATA, DETAILS);
+  //     paymentRequest.show().then(paymentResponse => {
+  //       console.log("paymentResponse", paymentResponse)
+  //       const card_token = paymentResponse.details.paymentToken;
 
-        if (succeed) {
-          paymentResponse.complete('success')
-          alert(`Payment request completed with card token ${card_token}`)
-          // this.debug(`Payment request completed with card token ${card_token}`);
-        } else {
-          paymentResponse.complete('failure')
-          alert('Payment request failed')
-          // this.debug('Payment request failed');
-        }
-      }).catch(error => {
-        if (error.message === 'AbortError') {
-          alert('Payment request was dismissed')
-          // this.debug('Payment request was dismissed');
-        }
-      });
-    };
+  //       if (succeed) {
+  //         paymentResponse.complete('success')
+  //         alert(`Payment request completed with card token ${card_token}`)
+  //         // this.debug(`Payment request completed with card token ${card_token}`);
+  //       } else {
+  //         paymentResponse.complete('failure')
+  //         alert('Payment request failed')
+  //         // this.debug('Payment request failed');
+  //       }
+  //     }).catch(error => {
+  //       if (error.message === 'AbortError') {
+  //         alert('Payment request was dismissed')
+  //         // this.debug('Payment request was dismissed');
+  //       }
+  //     });
+  //   };
 
-    return (
-      <SafeAreaView style={{ flex: 1, margin: 20, justifyContent: 'flex-end' }}>
-        <ApplePayButton
-          type="plain"
-          style="black"
-          onPress={() => showPaymentSheet(true)}
-        />
-      </SafeAreaView>
-    )
-  }
+  //   return (
+  //     <SafeAreaView style={{ flex: 1, margin: 20, justifyContent: 'flex-end' }}>
+  //       <ApplePayButton
+  //         type="plain"
+  //         style="black"
+  //         onPress={() => showPaymentSheet(true)}
+  //       />
+  //     </SafeAreaView>
+  //   )
+  // }
 
   return (
     <View style={styles.container}>

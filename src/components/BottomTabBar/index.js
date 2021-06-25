@@ -1,12 +1,24 @@
 import React from 'react';
 import { View, TouchableOpacity, Image } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import { useSelector } from 'react-redux';
+
 import { Colors, DEFAULT_AVATAR_URL, Icons } from '../../constants';
 import { AppText } from '../../components';
 import styles from './style';
-import { useSelector } from 'react-redux';
 import { getUserProfilePicture } from '../../utils/common';
 
 export default function BottomTabBar({ state, descriptors, navigation }) {
+
+  const { userChatList } = useSelector((state) => state.chatState);
+
+  let unseenMessages = 0;
+
+  if (userChatList.length > 0) {
+    for (let chatItem of userChatList) {
+      unseenMessages = unseenMessages + chatItem.unseenCounter;
+    }
+  }
 
   return (
     <View style={styles.tabBarContainer}>
@@ -59,6 +71,37 @@ export default function BottomTabBar({ state, descriptors, navigation }) {
           }
         };
 
+        const getBadgeCount = () => {
+          switch (route.name) {
+            case 'HomeTabStack':
+              return null;
+
+            case 'NotificationTabStack':
+              return null;
+
+            case 'ChatTabStack':
+              if (unseenMessages > 0) {
+                return <LinearGradient
+                  colors={[Colors.ui_counter_badge_gradient_1, Colors.ui_counter_badge_gradient_2]}
+                  style={styles.unSeenBadgeContainer}>
+                  <AppText
+                    type={'bold'}
+                    size={11}
+                    color={Colors.white}>
+                    {unseenMessages}
+                  </AppText>
+                </LinearGradient>;
+              }
+              return null;
+
+            case 'BuyCoinsTabStack':
+              return null;
+
+            default:
+              return null;
+          }
+        }
+
         return (
           <TouchableOpacity
             key={String(index)}
@@ -70,6 +113,7 @@ export default function BottomTabBar({ state, descriptors, navigation }) {
             onPress={onPress}
             onLongPress={onLongPress}
             style={{ flex: 1, alignItems: 'center' }}>
+            {getBadgeCount()}
             {route.name === 'UserProfileTabStack' ? (
               <Image
                 source={{ uri: getUserProfilePicture() }}
@@ -77,7 +121,6 @@ export default function BottomTabBar({ state, descriptors, navigation }) {
             ) : (
               <Image style={styles.tabIcon(isFocused)} source={getTabIcon()} />
             )}
-
             {/* <AppText
               size={isFocused ? 13 : 12}
               color={isFocused ? Colors.black : Colors.greydark}>

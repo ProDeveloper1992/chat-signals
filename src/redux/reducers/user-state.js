@@ -19,7 +19,9 @@ import {
   GET_CUSTOMER_KISSES_SUCCESS,
   GET_CUSTOMER_HEARTS_SUCCESS,
   GET_HELP_TICKET_LIST_SUCCESS,
-  GET_CUSTOMER_APPEARANCE_AND_INTERETS_SUCCESS
+  GET_CUSTOMER_APPEARANCE_AND_INTERETS_SUCCESS,
+  GET_NOTIFICATIONS_LIST_SUCCESS,
+  STORE_FCM_TOKEN
 } from '../actions/types';
 
 const initialState = {
@@ -27,6 +29,7 @@ const initialState = {
   selectedLanguage: 'en',
   userData: null,
   authToken: null,
+  fcmToken: null,
   userProfileDetailList: null,
   userPassions: [],
   friendsList: [],
@@ -35,6 +38,7 @@ const initialState = {
   customerHeartsList: [],
   customerHelpTicketList: [],
   customerAppearanceInterests: [],
+  customerNotifications: [],
   userSexualOrientation: {
     id: 1,
     deleted_at: null,
@@ -230,6 +234,19 @@ export default function (state = initialState, action) {
         customerAppearanceInterests: action.payload
       }
 
+    case GET_NOTIFICATIONS_LIST_SUCCESS:
+      console.log("GET_NOTIFICATIONS_LIST_SUCCESS", action.payload)
+      return {
+        ...state,
+        customerNotifications: action.payload
+      }
+
+    case STORE_FCM_TOKEN:
+      console.log("STORE_FCM_TOKEN", action.payload)
+      return {
+        ...state,
+        fcmToken: action.payload
+      }
     default:
       return state;
   }

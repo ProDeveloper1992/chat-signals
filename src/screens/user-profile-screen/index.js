@@ -32,6 +32,7 @@ import { getCustomerAppearanceAndInterests, getCustomerProfileDetail } from '../
 import moment from 'moment';
 import { logoutUser } from '../../redux/reducers';
 import { getUserProfilePicture } from '../../utils/common';
+import { configurePushNotification } from '../../services/notification-service';
 
 var RNFS = require('react-native-fs');
 
@@ -129,6 +130,7 @@ export default function UserProfile(props) {
 
   const onLogout = async () => {
     await dispatch(logoutUser());
+    configurePushNotification();
     try {
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();

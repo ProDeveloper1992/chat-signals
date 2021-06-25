@@ -10,8 +10,8 @@ import messaging from '@react-native-firebase/messaging';
 
 
 // console.disableYellowBox = true;
-LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
-LogBox.ignoreAllLogs();//Ignore all log notifications
+// LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+// LogBox.ignoreAllLogs();//Ignore all log notifications
 
 // Register background handler
 messaging().setBackgroundMessageHandler(async remoteMessage => {

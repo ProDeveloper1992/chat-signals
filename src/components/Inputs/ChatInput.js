@@ -239,7 +239,7 @@ export function ChatInput({
                 )}
             </View>
 
-            {stickersVisible && (
+            {/* {stickersVisible && (
                 <View>
                     <ScrollView
                         horizontal
@@ -277,7 +277,7 @@ export function ChatInput({
                         </View>
                     </ScrollView>
                 </View>
-            )}
+            )} */}
         </SafeAreaView>
     );
 }
