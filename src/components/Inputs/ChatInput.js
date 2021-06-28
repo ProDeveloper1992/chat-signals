@@ -4,7 +4,7 @@ import DocumentPicker from 'react-native-document-picker';
 import { useSelector } from 'react-redux';
 import FastImage from 'react-native-fast-image';
 
-import { Colors, DEFAULT_AVATAR_URL, DEFAULT_IMAGE_URL, Icons } from '../../constants';
+import { Colors, DEFAULT_AVATAR_URL, DEFAULT_IMAGE_URL, Icons, IMAGE_BASE_URL } from '../../constants';
 import { AppText } from '../../components';
 import {
     SendMessageIcon,
@@ -33,27 +33,12 @@ export function ChatInput({
     isStickerOpen,
     ...props }) {
 
-    const { userData } = useSelector((state) => state.userState);
+    const { userData, stickersList } = useSelector((state) => state.userState);
     const { appLabels, generalSettings } = useSelector((state) => state.appState);
 
     const [stickersVisible, setStickersVisible] = useState(isStickerOpen ? isStickerOpen : false);
-
-    const stickers = [
-        { url: 'https://dotbadges.com/wp-content/uploads/2021/05/Stickerview1-106.webp' },
-        { url: 'https://www.redwolf.in/image/cache/catalog/stickers/panda-dab-sticker-india-700x700.jpg' },
-        { url: 'https://dejpknyizje2n.cloudfront.net/svgcustom/clipart/preview/cute-in-love-emoji-sticker-29759-300x300.png' },
-        { url: 'https://cdn3.louis.de/dynamic/articles/o_resize,w_1800,h_1800,m_limit,c_fff/4f.71.a3.10011122580FR10.JPG' },
-        { url: 'https://s3.getstickerpack.com/storage/uploads/sticker-pack/wsb-sticker-pack/tray_large.png?8a7edbeb9fafbd3c484b5d6a75a32a2c' },
-        { url: 'https://dotbadges.com/wp-content/uploads/2021/05/Stickerview1-152.webp' },
-        { url: 'https://img.stickers.cloud/packs/de2ee9d5-6531-4f6b-9d29-91e49d5f30da/webp/95483d0d-6d5d-4e16-b64d-3f2bcb3a42ef.webp' },
-        { url: 'https://n4.sdlcdn.com/imgs/j/p/z/Wallmatrix-Love-Sticker-50-x-SDL353097998-1-ff632.jpg' },
-        { url: 'https://play-lh.googleusercontent.com/Bmr87CDbdYhXQmAf6fRRhWwilBErsR9oFv01rGWiop3WxV8N3FkOjB9aW9nrMAQNW44' },
-        { url: 'https://images-eu.ssl-images-amazon.com/images/I/41Sb0GIl8JL.png' },
-        { url: 'https://images-na.ssl-images-amazon.com/images/I/81zN7E4NA6L.png' },
-        { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyz7Nj5uRq2Pko8XjFnIjhO_1_k-wGqbFIbQ&usqp=CAU' },
-        { url: 'https://i0.wp.com/toppng.com/public/uploads/preview/heart-with-wings-vinyl-die-cut-sticker-love-sticker-heart-11563075313i5oqy943yt.png' },
-        { url: 'https://img.stickers.cloud/packs/37ce9821-9a5f-437b-8d41-edcc8cf1fef3/webp/7bc50cd1-eaf7-4eb4-9c4d-a48c70b36d65.webp' },
-    ]
+    const [minimumMessageCount, setMinimumMessageCount] = useState(0);
+    const [maximumMessageCount, setMaximumMessageCount] = useState(6);
 
     const onSendItemPress = async (type) => {
         if (Platform.OS == 'ios') {
@@ -102,6 +87,7 @@ export function ChatInput({
 
     const onSendIconPress = () => {
         onSendPress(attachedDocument);
+        setMinimumMessageCount(0);
     }
 
     const onStickerIconPress = () => {
@@ -147,6 +133,21 @@ export function ChatInput({
         }
     }
 
+    const onChangeInputText = (text) => {
+        onChangeMessage(text);
+        if (text.length == 0) {
+            setMinimumMessageCount(0);
+        }
+        if (text.length > 0 && text.length <= (getGeneralSettingValueByName('charecters_billed'))) {
+            setMinimumMessageCount(1);
+        }
+        for (let i = 0; i < maximumMessageCount; i++) {
+            if (text.length > 0 && text.length > (getGeneralSettingValueByName('charecters_billed') * i)) {
+                setMinimumMessageCount(i + 1);
+            }
+        }
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={{ marginHorizontal: 15, marginTop: 15 }}>
@@ -154,13 +155,13 @@ export function ChatInput({
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                         <IconWithValue
                             icon={<EmailIcon width={18} height={18} />}
-                            minimumValue={0}
-                            maximumValue={6}
+                            minimumValue={minimumMessageCount}
+                            maximumValue={maximumMessageCount}
                         />
                         <IconWithValue
                             icon={<AppText type={'bold'} size={16}>{"Aa"}</AppText>}
                             minimumValue={value.length}
-                            maximumValue={250}
+                            maximumValue={getGeneralSettingValueByName('charecters_billed') * maximumMessageCount}
                         />
                     </View>
                     <View style={{ flex: 1 }}>
@@ -206,9 +207,10 @@ export function ChatInput({
                         value={value}
                         placeholderTextColor={'darkgray'}
                         autoCapitalize={'none'}
-                        maxLength={250}
-                        onChangeText={onChangeMessage}
+                        maxLength={getGeneralSettingValueByName('charecters_billed') * maximumMessageCount}
+                        onChangeText={onChangeInputText}
                         returnKeyType={'send'}
+                        onSubmitEditing={onSendIconPress}
                     />
                     <TouchableOpacity activeOpacity={0.8} style={styles.sendIconContainer} onPress={onSendIconPress}>
                         <SendMessageIcon width={24} height={24} />
@@ -234,41 +236,41 @@ export function ChatInput({
                 {getGeneralSettingValueByName('prices_message') > 0 && (
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginStart: 15 }}>
                         <AppText size={12}>{`${appLabels.send_message_for} `}</AppText>
-                        <AppText size={12} type={'bold'}>{`${getGeneralSettingValueByName('prices_message')} ${appLabels.Coins}`}</AppText>
+                        <AppText size={12} type={'bold'}>{`${minimumMessageCount > 0 ? minimumMessageCount * getGeneralSettingValueByName('prices_message') : getGeneralSettingValueByName('prices_message')} ${appLabels.Coins}`}</AppText>
                     </View>
                 )}
             </View>
 
-            {/* {stickersVisible && (
-                <View>
+            {stickersVisible && (
+                <View style={{ paddingHorizontal: 10 }}>
                     <ScrollView
                         horizontal
                     // showsHorizontalScrollIndicator={false}
                     >
                         <View>
                             <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                                {stickers.length
-                                    ? stickers.map((item, i) => {
+                                {stickersList.length
+                                    ? stickersList.map((item, i) => {
                                         if (i % 2 == 0) {
                                             return null;
                                         }
                                         return (
                                             <TouchableOpacity key={String(i)} onPress={() => onStickerPress(item)}>
-                                                <Image style={styles.stickerImage} source={{ uri: item.url }} />
+                                                <Image style={styles.stickerImage} source={{ uri: IMAGE_BASE_URL + item.picture }} />
                                             </TouchableOpacity>
                                         );
                                     })
                                     : null}
                             </View>
                             <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                                {stickers.length
-                                    ? stickers.map((item, i) => {
+                                {stickersList.length
+                                    ? stickersList.map((item, i) => {
                                         if (i % 2 != 0) {
                                             return null;
                                         }
                                         return (
                                             <TouchableOpacity key={String(i)} onPress={() => onStickerPress(item)}>
-                                                <Image style={styles.stickerImage} source={{ uri: item.url }} />
+                                                <Image style={styles.stickerImage} source={{ uri: IMAGE_BASE_URL + item.picture }} />
                                             </TouchableOpacity>
                                         );
                                     })
@@ -277,7 +279,7 @@ export function ChatInput({
                         </View>
                     </ScrollView>
                 </View>
-            )} */}
+            )}
         </SafeAreaView>
     );
 }
@@ -330,12 +332,12 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.1,
         shadowRadius: 4,
-        elevation: 200,
+        elevation: 4,
     },
     input: {
         flex: 1,
         paddingStart: 10,
-        paddingVertical: 15,
+        paddingVertical: 12,
         color: Colors.black,
         fontSize: 14,
         fontFamily: 'Poppins-Regular',

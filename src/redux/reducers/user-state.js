@@ -6,9 +6,6 @@ import {
   GET_USER_PROFILE_SUCCESS,
   GET_USER_PROFILE_FAIL,
   GET_USER_PROFILE_REQUEST,
-  GET_USER_CHAT_LIST_REQUEST,
-  GET_USER_CHAT_LIST_SUCCESS,
-  GET_USER_CHAT_LIST_FAIL,
   SET_SELECTED_USER_GENDER,
   SET_SELECTED_LOOKING_GENDER,
   SET_USER_COUNTRY,
@@ -21,7 +18,8 @@ import {
   GET_HELP_TICKET_LIST_SUCCESS,
   GET_CUSTOMER_APPEARANCE_AND_INTERETS_SUCCESS,
   GET_NOTIFICATIONS_LIST_SUCCESS,
-  STORE_FCM_TOKEN
+  STORE_FCM_TOKEN,
+  GET_STICKERS_LIST_SUCCESS
 } from '../actions/types';
 
 const initialState = {
@@ -39,6 +37,7 @@ const initialState = {
   customerHelpTicketList: [],
   customerAppearanceInterests: [],
   customerNotifications: [],
+  stickersList: [],
   userSexualOrientation: {
     id: 1,
     deleted_at: null,
@@ -247,6 +246,14 @@ export default function (state = initialState, action) {
         ...state,
         fcmToken: action.payload
       }
+
+    case GET_STICKERS_LIST_SUCCESS:
+      console.log("GET_STICKERS_LIST_SUCCESS", action.payload)
+      return {
+        ...state,
+        stickersList: action.payload
+      }
+
     default:
       return state;
   }

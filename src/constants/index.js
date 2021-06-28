@@ -60,7 +60,7 @@ export const SCREEN_HEIGHT = height > width ? height : width;
 //Default Image
 export const DEFAULT_IMAGE_URL = 'https://rimatour.com/wp-content/uploads/2017/09/No-image-found.jpg';
 export const DEFAULT_AVATAR_URL = 'https://www.oneworldplayproject.com/wp-content/uploads/2016/03/avatar-1024x1024.jpg';
-export const IMAGE_BASE_URL = 'http://www.chat-signal.com/public/storage/attachments/';
+export const IMAGE_BASE_URL = 'http://www.chat-signal.com/public/storage/';
 
 //Google Map API key
 export const GOOGLE_MAP_API_KEY = Platform.OS == 'android' ? 'AIzaSyAWxne9S7GDVTArdq5qQXVVmYcWBB1G858' : 'AIzaSyADLmKywscyOHC0LYxTwKD-R6eEJdHV7Wo';

@@ -37,12 +37,6 @@ export default function Home() {
   ];
 
   useEffect(() => {
-    if (authToken) {
-      dispatch(getGeneralSettings());
-    }
-  }, []);
-
-  useEffect(() => {
     SplashScreen.hide();
     if (isFocused) {
       const backAction = () => {
