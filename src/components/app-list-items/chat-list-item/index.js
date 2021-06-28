@@ -8,19 +8,34 @@ import { AppText, CommonImage } from '../../index';
 import styles from './style';
 import ContentLoader, { Rect, Circle } from "react-content-loader/native";
 import LinearGradient from 'react-native-linear-gradient';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toggleGallerySwiperModal } from '../../../redux/actions/app-modals-actions';
+import { MessageSeenIcon, MessageDeliveredIcon } from '../../../constants/svg-icons';
 
 export default function ChatListItem({
   onChatPress,
   profileImage,
   userName,
-  lastMessage,
   lastMessageTime,
   isActive,
   item
 }) {
   const dispatch = useDispatch();
+
+  const { userData } = useSelector((state) => state.userState);
+
+  const getLastMessage = () => {
+    if (item.lastMessage != null) {
+      if (item.lastMessage.attachment) {
+        return "Attachment";
+      } else {
+        return item.lastMessage.body;
+      }
+    } else {
+      return "";
+    }
+  }
+
   return (
     <TouchableOpacity
       activeOpacity={0.8}
@@ -50,20 +65,29 @@ export default function ChatListItem({
             >
               {userName}
             </AppText>
-            <AppText size={12} type={item.unseenCounter * 1 > 0 ? 'bold' : 'regular'}>{moment(lastMessageTime).fromNow()}</AppText>
+            <AppText size={12} type={item.unseenCounter * 1 > 0 ? 'bold' : 'regular'}>{moment(lastMessageTime ? lastMessageTime : new Date()).fromNow()}</AppText>
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <AppText
-              type={item.unseenCounter * 1 > 0 ? 'bold' : 'regular'}
-              size={14}
-              color={Colors.black}
-              numberOfLines={1}
-              style={{
-                flex: 1.2,
-                marginTop: 5,
-              }}>
-              {lastMessage != "" ? lastMessage : "Attachment"}
-            </AppText>
+            <View style={{ flex: 1.2, flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
+              {userData && item.lastMessage && item.lastMessage.from_id == userData.id && item.lastMessage.seen == '0' && (
+                <View style={{ marginEnd: 5 }}>
+                  <MessageDeliveredIcon />
+                </View>
+              )}
+              {userData && item.lastMessage && item.lastMessage.from_id == userData.id && item.lastMessage.seen == '1' && (
+                <View style={{ marginEnd: 5 }}>
+                  <MessageSeenIcon />
+                </View>
+              )}
+              <AppText
+                type={item.unseenCounter * 1 > 0 ? 'bold' : 'regular'}
+                size={14}
+                color={Colors.black}
+                numberOfLines={1}
+              >
+                {getLastMessage()}
+              </AppText>
+            </View>
             <View style={{ flex: 0.8, alignItems: 'flex-end' }}>
               {item.unseenCounter * 1 > 0 && (
                 <LinearGradient

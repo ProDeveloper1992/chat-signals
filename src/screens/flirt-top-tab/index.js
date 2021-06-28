@@ -42,7 +42,6 @@ export default function FlirtTab(props) {
         gender: ''
       };
       dispatch(getFlirtsList(requestData));
-      dispatch(getCustomerProfileDetail());
     }
   }, []);
 

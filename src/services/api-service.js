@@ -21,7 +21,7 @@ export const client = axios.create({
 
 client.interceptors.request.use(
   async function (config) {
-    // console.log("config", config.data)
+    console.log("config", config.data)
     const { authToken } = store.getState().userState;
     console.log("Authentication Token... ", authToken)
     if (authToken && authToken != null) {

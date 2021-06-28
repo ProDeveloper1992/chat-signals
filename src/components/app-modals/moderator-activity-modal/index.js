@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { Colors, Icons } from '../../../constants';
+import { Colors, Icons, IMAGE_BASE_URL } from '../../../constants';
 import { AppButton, AppText } from '../../index';
 import styles from './style';
 import {
@@ -89,9 +89,6 @@ export default function ActivityModal({ visible, onHideModal, type, moderator, o
       case 'addfriend':
         return getGeneralSettingValueByName('prices_friend');
 
-      case 'sticker':
-        return getGeneralSettingValueByName('prices_kiss');
-
       case 'heart':
         return getGeneralSettingValueByName('prices_heart');
 
@@ -147,6 +144,16 @@ export default function ActivityModal({ visible, onHideModal, type, moderator, o
         break;
 
       case 'sticker':
+        let stickerMessageToSend = {
+          id: moderator.id,
+          customer_id: userData.id,
+          gift_id: selectedStickerItem.id
+        };
+        console.log("stickerMessageToSend", stickerMessageToSend)
+        setIsSending(true);
+        await dispatch(sendMessage(stickerMessageToSend));
+        setIsSending(false);
+        onSentItem();
         onHideModal();
         break;
 
@@ -174,10 +181,18 @@ export default function ActivityModal({ visible, onHideModal, type, moderator, o
   const isEnoughCredit = () => {
     if (userData && userData.credit * 1 > 0) {
       let userCredit = userData.credit * 1;
-      if (userCredit >= getTypeCost(type) * 1) {
-        return true;
+      if (type == 'sticker') {
+        if (userCredit >= selectedStickerItem.price * 1) {
+          return true;
+        } else {
+          return false;
+        }
       } else {
-        return false;
+        if (userCredit >= getTypeCost(type) * 1) {
+          return true;
+        } else {
+          return false;
+        }
       }
     } else {
       return false;
@@ -222,24 +237,35 @@ export default function ActivityModal({ visible, onHideModal, type, moderator, o
               {type == 'sticker' ? (
                 <View style={{ marginVertical: 10 }}>
                   {selectedStickerItem && (
-                    <Image style={{ width: 100, height: 100, resizeMode: 'contain' }} source={{ uri: selectedStickerItem.url }} />
+                    <View>
+                      <Image style={{ width: 100, height: 100, resizeMode: 'contain' }} source={{ uri: IMAGE_BASE_URL + selectedStickerItem.picture }} />
+                      <AppText
+                        type={'bold'}
+                        size={16}
+                        color={Colors.black}
+                        style={{ marginTop: type != 'sticker' ? -30 : 0 }}>
+                        <AppText>{'Cost '}</AppText>
+                        {`${selectedStickerItem.price} ${appLabels.Coins}`}
+                      </AppText>
+                    </View>
                   )}
                 </View>
               ) : (
                 <>
                   {getActivityImage(type)}
+                  {getTypeCost(type) * 1 > 0 && (
+                    <AppText
+                      type={'bold'}
+                      size={16}
+                      color={Colors.black}
+                      style={{ marginTop: type != 'sticker' ? -30 : 0 }}>
+                      <AppText>{'Cost '}</AppText>
+                      {`${getTypeCost(type)} ${appLabels.Coins}`}
+                    </AppText>
+                  )}
                 </>
               )}
-              {getTypeCost(type) * 1 > 0 && (
-                <AppText
-                  type={'bold'}
-                  size={16}
-                  color={Colors.black}
-                  style={{ marginTop: type != 'sticker' ? -30 : 0 }}>
-                  <AppText>{'Cost '}</AppText>
-                  {`${getTypeCost(type)} ${appLabels.Coins}`}
-                </AppText>
-              )}
+
             </View>
             <AppButton
               title={appLabels.send}

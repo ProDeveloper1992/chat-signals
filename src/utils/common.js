@@ -72,7 +72,7 @@ export const getGeneralSettingValueByName = (name) => {
     let value = 0;
     for (let setting of generalSettings) {
       if (setting.name === name) {
-        value = setting.value;
+        value = setting.value * 1;
       }
     }
     return value;

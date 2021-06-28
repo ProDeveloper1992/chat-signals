@@ -29,8 +29,9 @@ import { Colors } from '../constants';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppGiftBadge, AppText } from '../components';
 import { getRemainingTime } from '../utils/common';
-import { getCustomerAppearanceAndInterests } from '../redux/actions/user-actions';
-import { getAppStrings } from '../redux/actions/app-actions';
+import { getCustomerAppearanceAndInterests, getCustomerProfileDetail, getStickersList } from '../redux/actions/user-actions';
+import { getAppStrings, getGeneralSettings } from '../redux/actions/app-actions';
+import { getUserChatList } from '../redux/actions/chat-actions';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -92,10 +93,17 @@ function CoinPurchaseStack() {
 const BottomTabNavigator = () => {
   const dispatch = useDispatch();
   const { appLabels } = useSelector((state) => state.appState);
+  const { userData } = useSelector((state) => state.userState);
 
   useEffect(() => {
-    dispatch(getCustomerAppearanceAndInterests());
-    dispatch(getAppStrings());
+    if (userData) {
+      dispatch(getAppStrings());
+      dispatch(getGeneralSettings());
+      dispatch(getCustomerAppearanceAndInterests());
+      dispatch(getUserChatList());
+      dispatch(getCustomerProfileDetail());
+      dispatch(getStickersList());
+    }
   }, []);
 
   return (

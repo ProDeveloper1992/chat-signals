@@ -19,6 +19,7 @@ import { blockModerator } from '../../redux/actions/flirts-actions';
 import moment from 'moment';
 import { toggleGallerySwiperModal } from '../../redux/actions/app-modals-actions';
 import { getGeneralSettingValueByName } from '../../utils/common';
+import { getStickersList } from '../../redux/actions/user-actions';
 
 var RNFS = require('react-native-fs');
 
@@ -58,7 +59,7 @@ export default function ChatDetail(props) {
   useEffect(() => {
     dispatch(ActionDispatcher(GET_CHAT_CONVERSATION_SUCCESS, []));
     getChatMessages();
-
+    dispatch(getStickersList());
     console.log("moderator", moderator)
   }, []);
 
@@ -341,7 +342,11 @@ export default function ChatDetail(props) {
                 ref={(ref) => {
                   listViewRef = ref;
                 }}
-                onContentSizeChange={() => listViewRef.scrollToEnd({ animated: true })}
+                onContentSizeChange={() => {
+                  if (messages.length > 0) {
+                    listViewRef.scrollToEnd({ animated: true })
+                  }
+                }}
                 data={messages}
                 extraData={messages}
                 contentContainerStyle={{ flexGrow: 1, paddingTop: 20 }}
@@ -366,11 +371,15 @@ export default function ChatDetail(props) {
               isAttachingDocument={isSendingDocument}
               onAttachDocument={(docFile) => setAttachedDocument(docFile)}
               onSubmitEditing={onSendTextMessage}
-              onFocus={() => {
-                setTimeout(() => {
-                  listViewRef.scrollToEnd({ animated: true })
-                }, 100);
-              }}
+              // onFocus={() => {
+              //   if (Platform.OS == 'ios') {
+              //     setTimeout(() => {
+              //       if (messages.length > 0) {
+              //         listViewRef.scrollToEnd({ animated: true })
+              //       }
+              //     }, 100);
+              //   }
+              // }}
               isStickerOpen={props.route.params.isSticker} />
           </View>
         )}
