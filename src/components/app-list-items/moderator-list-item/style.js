@@ -1,8 +1,15 @@
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { Colors, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+
+import { isTablet } from 'react-native-device-info';
+
 
 const listColums = 1;
-const listRows = Platform.OS == 'ios' ? 4 : 3.5;
+const listRows = isTablet() ? 3 : Platform.OS == 'ios' ? 4 : 3.5;
 const listItemMargin = 20;
 const listItemWidth =
   (SCREEN_WIDTH - (listColums + 1) * listItemMargin);
@@ -12,11 +19,10 @@ const listItemHeight =
 export default StyleSheet.create({
   listItemContainer: {
     flex: 1,
-    // width: listItemWidth / 2,
     height: listItemHeight,
     backgroundColor: Colors.grey,
     borderRadius: 20,
-    margin: 6
+    margin: wp(1.5)
   },
   onlineStatusText: { color: Colors.black, fontSize: 12 },
   bottomContainer: {
@@ -26,8 +32,8 @@ export default StyleSheet.create({
     right: 0,
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
-    paddingBottom: 5,
-    paddingHorizontal: 15,
+    paddingBottom: wp(2),
+    paddingHorizontal: wp(4),
     alignItems: 'flex-start'
   },
   popupContainer: {

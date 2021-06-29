@@ -1,15 +1,22 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { Colors } from '../../constants';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+
+const tabIconSize = Platform.OS == 'ios' ? hp(3.5) : hp(4);
+const profileIconSize = Platform.OS == 'ios' ? hp(5.5) : hp(6);
 
 export default StyleSheet.create({
   tabBarContainer: {
     flexDirection: 'row',
     backgroundColor: Colors.white,
     // height: 70,
-    borderTopLeftRadius: 28,
-    borderTopRightRadius: 28,
-    paddingVertical: 20,
-    paddingHorizontal: 24,
+    borderTopLeftRadius: hp(4),
+    borderTopRightRadius: hp(4),
+    paddingVertical: hp(1.5),
+    paddingHorizontal: hp(4),
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: Colors.black,
@@ -19,19 +26,23 @@ export default StyleSheet.create({
     elevation: 8,
   },
 
-  activeTabIconContainer: {
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
   tabIcon: function (isFocused) {
     return {
-      width: 28,
-      height: 28,
+      width: tabIconSize,
+      height: tabIconSize,
       tintColor: isFocused ? Colors.black : Colors.black_30,
     };
+  },
+
+  profileImage: function (isFocused) {
+    return {
+      width: profileIconSize,
+      height: profileIconSize,
+      borderRadius: profileIconSize / 2,
+      backgroundColor: Colors.grey,
+      borderWidth: 2,
+      borderColor: isFocused ? Colors.black : Colors.white
+    }
   },
 
   unSeenBadgeContainer: {

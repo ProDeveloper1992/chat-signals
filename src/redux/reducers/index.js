@@ -54,8 +54,8 @@ const rootReducer = (state, action) => {
     Object.keys(state).forEach((key) => {
       AsyncStorage.removeItem(`persist:${key}`);
     });
-    // state = undefined;
     navigate('auth-stack');
+    state = undefined;
   }
   return allReducers(state, action);
 };
