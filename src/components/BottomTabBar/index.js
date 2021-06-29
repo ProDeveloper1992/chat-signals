@@ -117,7 +117,7 @@ export default function BottomTabBar({ state, descriptors, navigation }) {
             {route.name === 'UserProfileTabStack' ? (
               <Image
                 source={{ uri: getUserProfilePicture() }}
-                style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: Colors.grey, borderWidth: 2, borderColor: isFocused ? Colors.black : Colors.white }} />
+                style={styles.profileImage(isFocused)} />
             ) : (
               <Image style={styles.tabIcon(isFocused)} source={getTabIcon()} />
             )}

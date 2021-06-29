@@ -3,6 +3,10 @@ import { StyleSheet, TextInput, ScrollView, View, TouchableOpacity, SafeAreaView
 import DocumentPicker from 'react-native-document-picker';
 import { useSelector } from 'react-redux';
 import FastImage from 'react-native-fast-image';
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 import { Colors, DEFAULT_AVATAR_URL, DEFAULT_IMAGE_URL, Icons, IMAGE_BASE_URL } from '../../constants';
 import { AppText } from '../../components';
@@ -20,6 +24,7 @@ import {
     VideoIcon
 } from '../../constants/svg-icons';
 import { getGeneralSettingValueByName } from '../../utils/common';
+import CommonImage from '../app-common-image';
 
 export function ChatInput({
     style,
@@ -150,136 +155,148 @@ export function ChatInput({
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={{ marginHorizontal: 15, marginTop: 15 }}>
-                <View style={styles.topHorizontal}>
-                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                        <IconWithValue
-                            icon={<EmailIcon width={18} height={18} />}
-                            minimumValue={minimumMessageCount}
-                            maximumValue={maximumMessageCount}
-                        />
-                        <IconWithValue
-                            icon={<AppText type={'bold'} size={16}>{"Aa"}</AppText>}
-                            minimumValue={value.length}
-                            maximumValue={getGeneralSettingValueByName('charecters_billed') * maximumMessageCount}
-                        />
-                    </View>
-                    <View style={{ flex: 1 }}>
-                        {userData && (
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <View style={{ marginBottom: -5, marginStart: -15 }}>
-                                    <CoinGradientIcon width={40} height={40} />
-                                </View>
-                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                    <AppText type={'bold'} size={14}>{userData.credit}</AppText>
-                                    <AppText type={'regular'} size={14}>{` ${appLabels.Coins}`}</AppText>
-                                </View>
-                            </View>
-                        )}
-                    </View>
-                </View>
-                {attachedDocument && (
-                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <View style={{ height: 80, width: 80, backgroundColor: Colors.grey, borderRadius: 5, marginBottom: 10 }}>
-                            <TouchableOpacity onPress={onCloseIconPress} style={{ position: 'absolute', top: -5, right: -5, overflow: 'hidden', zIndex: 1000 }}>
-                                <CloseWhiteTransparentIcon width={20} height={20} fill={Colors.black} />
-                            </TouchableOpacity>
-                            {renderAttachedDocument()}
+            <View style={{ paddingHorizontal: wp(3) }}>
+                <View style={{ marginTop: wp(4) }}>
+                    <View style={styles.topHorizontal}>
+                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                            <IconWithValue
+                                icon={<EmailIcon width={18} height={18} />}
+                                minimumValue={minimumMessageCount}
+                                maximumValue={maximumMessageCount}
+                            />
+                            <IconWithValue
+                                icon={<AppText type={'bold'} size={16}>{"Aa"}</AppText>}
+                                minimumValue={value.length}
+                                maximumValue={getGeneralSettingValueByName('charecters_billed') * maximumMessageCount}
+                            />
                         </View>
-                        {isAttachingDocument ? (
-                            <View style={{ flexDirection: 'row', alignItems: "center", marginStart: 20 }}>
-                                <ActivityIndicator color={Colors.ui_primary} size={'small'} />
-                                <AppText style={{ flex: 1, marginHorizontal: 20 }}>{"Uploading..."}</AppText>
-                            </View>
-                        ) : <AppText style={{ flex: 1, marginHorizontal: 20 }}>{attachedDocument.name}</AppText>}
+                        <View style={{ flex: 1 }}>
+                            {userData && (
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <View style={{ marginBottom: -5, marginStart: -15 }}>
+                                        <CoinGradientIcon width={40} height={40} />
+                                    </View>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                        <AppText type={'bold'} size={14}>{userData.credit}</AppText>
+                                        <AppText type={'regular'} size={14}>{` ${appLabels.Coins}`}</AppText>
+                                    </View>
+                                </View>
+                            )}
+                        </View>
                     </View>
-                )}
-                <View style={styles.inputContainer}>
-                    {/* <TouchableOpacity onPress={onAttachIconPress}>
+                    {attachedDocument && (
+                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            <View style={{ height: 80, width: 80, backgroundColor: Colors.grey, borderRadius: 5, marginBottom: 10 }}>
+                                <TouchableOpacity onPress={onCloseIconPress} style={{ position: 'absolute', top: -5, right: -5, overflow: 'hidden', zIndex: 1000 }}>
+                                    <CloseWhiteTransparentIcon width={20} height={20} fill={Colors.black} />
+                                </TouchableOpacity>
+                                {renderAttachedDocument()}
+                            </View>
+                            {isAttachingDocument ? (
+                                <View style={{ flexDirection: 'row', alignItems: "center", marginStart: 20 }}>
+                                    <ActivityIndicator color={Colors.ui_primary} size={'small'} />
+                                    <AppText style={{ flex: 1, marginHorizontal: 20 }}>{"Uploading..."}</AppText>
+                                </View>
+                            ) : <AppText style={{ flex: 1, marginHorizontal: 20 }}>{attachedDocument.name}</AppText>}
+                        </View>
+                    )}
+                    <View style={styles.inputContainer}>
+                        {/* <TouchableOpacity onPress={onAttachIconPress}>
                         <AttachIcon width={24} height={24} />
                     </TouchableOpacity> */}
-                    <TextInput
-                        {...props}
-                        style={[
-                            styles.input,
-                            style
-                        ]}
-                        value={value}
-                        placeholderTextColor={'darkgray'}
-                        autoCapitalize={'none'}
-                        maxLength={getGeneralSettingValueByName('charecters_billed') * maximumMessageCount}
-                        onChangeText={onChangeInputText}
-                        returnKeyType={'send'}
-                        onSubmitEditing={onSendIconPress}
-                    />
-                    <TouchableOpacity activeOpacity={0.8} style={styles.sendIconContainer} onPress={onSendIconPress}>
-                        <SendMessageIcon width={24} height={24} />
-                    </TouchableOpacity>
+                        <TextInput
+                            {...props}
+                            style={[
+                                styles.input,
+                                style
+                            ]}
+                            value={value}
+                            placeholderTextColor={'darkgray'}
+                            autoCapitalize={'none'}
+                            maxLength={getGeneralSettingValueByName('charecters_billed') * maximumMessageCount}
+                            onChangeText={onChangeInputText}
+                            returnKeyType={'send'}
+                            onSubmitEditing={onSendIconPress}
+                        />
+                        <TouchableOpacity activeOpacity={0.8} style={styles.sendIconContainer} onPress={onSendIconPress}>
+                            <SendMessageIcon width={24} height={24} />
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
 
-            <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
-                <TouchableIcon
-                    icon={<StickerGradientIcon32 />}
-                    onPress={() => onStickerIconPress()}
-                // onPress={() => onSendItemPress('sticker')}
-                />
-                <TouchableIcon
-                    icon={<KissGradientIcon32 />}
-                    onPress={() => onSendItemPress('kiss')} />
-                <TouchableIcon
-                    icon={<LikeGradientIcon32 />}
-                    onPress={() => onSendItemPress('like')} />
-                <TouchableIcon
-                    icon={<HeartGradientIcon32 />}
-                    onPress={() => onSendItemPress('heart')} />
-                {getGeneralSettingValueByName('prices_message') > 0 && (
-                    <View style={{ flexDirection: 'row', alignItems: 'center', marginStart: 15 }}>
-                        <AppText size={12}>{`${appLabels.send_message_for} `}</AppText>
-                        <AppText size={12} type={'bold'}>{`${minimumMessageCount > 0 ? minimumMessageCount * getGeneralSettingValueByName('prices_message') : getGeneralSettingValueByName('prices_message')} ${appLabels.Coins}`}</AppText>
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
+                    <TouchableIcon
+                        icon={<StickerGradientIcon32 />}
+                        onPress={() => onStickerIconPress()}
+                    // onPress={() => onSendItemPress('sticker')}
+                    />
+                    <TouchableIcon
+                        icon={<KissGradientIcon32 />}
+                        onPress={() => onSendItemPress('kiss')} />
+                    <TouchableIcon
+                        icon={<LikeGradientIcon32 />}
+                        onPress={() => onSendItemPress('like')} />
+                    <TouchableIcon
+                        icon={<HeartGradientIcon32 />}
+                        onPress={() => onSendItemPress('heart')} />
+                    {getGeneralSettingValueByName('prices_message') > 0 && (
+                        <View style={{ flexDirection: 'row', alignItems: 'center', marginStart: 15 }}>
+                            <AppText size={12}>{`${appLabels.send_message_for} `}</AppText>
+                            <AppText size={12} type={'bold'}>{`${minimumMessageCount > 0 ? minimumMessageCount * getGeneralSettingValueByName('prices_message') : getGeneralSettingValueByName('prices_message')} ${appLabels.Coins}`}</AppText>
+                        </View>
+                    )}
+                </View>
+
+                {stickersVisible && (
+                    <View>
+                        <ScrollView
+                            horizontal
+                        // showsHorizontalScrollIndicator={false}
+                        >
+                            <View>
+                                <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                                    {stickersList.length
+                                        ? stickersList.map((item, i) => {
+                                            if (i % 2 == 0) {
+                                                return null;
+                                            }
+                                            return (
+                                                <TouchableOpacity
+                                                    key={String(i)}
+                                                    onPress={() => onStickerPress(item)}>
+                                                    <Image
+                                                        source={{ uri: IMAGE_BASE_URL + item.picture }}
+                                                        style={styles.stickerImage}
+                                                        borderRadius={10} />
+                                                </TouchableOpacity>
+                                            );
+                                        })
+                                        : null}
+                                </View>
+                                <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+                                    {stickersList.length
+                                        ? stickersList.map((item, i) => {
+                                            if (i % 2 != 0) {
+                                                return null;
+                                            }
+                                            return (
+                                                <TouchableOpacity
+                                                    key={String(i)}
+                                                    onPress={() => onStickerPress(item)}>
+                                                    <Image
+                                                        source={{ uri: IMAGE_BASE_URL + item.picture }}
+                                                        style={styles.stickerImage}
+                                                        borderRadius={10} />
+                                                </TouchableOpacity>
+                                            );
+                                        })
+                                        : null}
+                                </View>
+                            </View>
+                        </ScrollView>
                     </View>
                 )}
             </View>
-
-            {stickersVisible && (
-                <View style={{ paddingHorizontal: 10 }}>
-                    <ScrollView
-                        horizontal
-                    // showsHorizontalScrollIndicator={false}
-                    >
-                        <View>
-                            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                                {stickersList.length
-                                    ? stickersList.map((item, i) => {
-                                        if (i % 2 == 0) {
-                                            return null;
-                                        }
-                                        return (
-                                            <TouchableOpacity key={String(i)} onPress={() => onStickerPress(item)}>
-                                                <Image style={styles.stickerImage} source={{ uri: IMAGE_BASE_URL + item.picture }} />
-                                            </TouchableOpacity>
-                                        );
-                                    })
-                                    : null}
-                            </View>
-                            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                                {stickersList.length
-                                    ? stickersList.map((item, i) => {
-                                        if (i % 2 != 0) {
-                                            return null;
-                                        }
-                                        return (
-                                            <TouchableOpacity key={String(i)} onPress={() => onStickerPress(item)}>
-                                                <Image style={styles.stickerImage} source={{ uri: IMAGE_BASE_URL + item.picture }} />
-                                            </TouchableOpacity>
-                                        );
-                                    })
-                                    : null}
-                            </View>
-                        </View>
-                    </ScrollView>
-                </View>
-            )}
         </SafeAreaView>
     );
 }
@@ -360,11 +377,12 @@ const styles = StyleSheet.create({
         // elevation: 4,
     },
     stickerImage: {
-        width: 50,
-        height: 50,
+        width: hp(8),
+        height: hp(8),
         resizeMode: 'contain',
-        marginEnd: 10,
-        marginVertical: 10,
-        borderRadius: 10
+        marginEnd: hp(1),
+        marginVertical: hp(0.5),
+        borderRadius: 10,
+        backgroundColor: Colors.ui_primary_10,
     }
 });

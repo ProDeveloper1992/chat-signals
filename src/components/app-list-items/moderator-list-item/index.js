@@ -7,7 +7,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import moment from 'moment';
 import FastImage from 'react-native-fast-image';
 import ContentLoader, { Rect, Circle } from "react-content-loader/native";
-import ScalableImage from '../../app-scalable-image';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 export default function ModeratorListItem({ item, onPress, isBoosted }) {
 
@@ -35,10 +38,13 @@ export default function ModeratorListItem({ item, onPress, isBoosted }) {
 
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.8}>
-      <ImageBackground
+      <FastImage
         style={styles.listItemContainer}
-        imageStyle={{ borderRadius: 10 }}
-        source={{ uri: getItemImage(item.profilepicture) }}
+        source={{
+          uri: getItemImage(item.profilepicture),
+          priority: FastImage.priority.high,
+        }}
+        resizeMode={FastImage.resizeMode.cover}
       >
         <LinearGradient
           colors={getGradientColors()}
@@ -47,20 +53,20 @@ export default function ModeratorListItem({ item, onPress, isBoosted }) {
           }}>
           <View style={styles.bottomContainer}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <AppText numberOfLines={1} type={'bold'} color={Colors.white} size={14} style={styles.userName}>
+              <AppText numberOfLines={1} type={'bold'} color={Colors.white} size={wp(3.5)} style={styles.userName}>
                 {item.username}{item.dob ? `, ${moment().diff(moment(item.dob, 'YYYY-MM-DD'), 'years')}` : ''}
               </AppText>
-              <OnlineStatusCircle isOnline={item.is_active == '1' ? true : false} size={12} />
+              <OnlineStatusCircle isOnline={item.is_active == '1' ? true : false} size={wp(2.8)} />
             </View>
             <AppText
-              size={12}
+              size={wp(3.2)}
               type={'medium'}
               color={Colors.white}
               numberOfLines={1}
               style={[styles.userName, { textTransform: 'capitalize' }]}>{item.city + ", " + item.country}</AppText>
           </View>
         </LinearGradient>
-      </ImageBackground>
+      </FastImage>
     </TouchableOpacity>
   );
 }

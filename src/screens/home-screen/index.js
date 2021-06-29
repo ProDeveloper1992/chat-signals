@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Alert, Dimensions, View, BackHandler, TouchableOpacity } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { useDispatch, useSelector } from 'react-redux';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 import { Colors, Icons } from '../../constants';
 import { FlirtTab, ProFlirtTab } from '../index';
@@ -85,7 +89,7 @@ export default function Home() {
     <View style={styles.container}>
       <GeneralHeader
         rightIcon={<TouchableOpacity activeOpacity={0.8} onPress={onShowFlirtFilterModal}>
-          <FilterIcon width={24} height={24} />
+          <FilterIcon width={hp(3.5)} height={hp(3.5)} />
         </TouchableOpacity>}
         label={appLabels.flirts}
       />

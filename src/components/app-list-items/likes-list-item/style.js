@@ -1,5 +1,9 @@
 import { StyleSheet } from 'react-native';
 import { Colors } from '../../../constants';
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 export default StyleSheet.create({
     container: {
@@ -14,17 +18,17 @@ export default StyleSheet.create({
     },
 
     profileImageContainer: {
-        width: 54,
-        height: 54,
-        borderRadius: 28,
+        width: wp(15),
+        height: wp(15),
+        borderRadius: wp(15) / 2,
         backgroundColor: Colors.grey,
         alignItems: 'center',
         justifyContent: 'center'
     },
 
     activeStatusCircle: {
-        height: 24,
-        width: 24,
+        height: wp(5),
+        width: wp(5),
         alignItems: 'center',
         justifyContent: 'center',
         position: 'absolute',
@@ -35,9 +39,9 @@ export default StyleSheet.create({
     },
 
     profileImg: {
-        height: 54,
-        width: 54,
-        borderRadius: 28,
+        height: wp(15),
+        width: wp(15),
+        borderRadius: wp(15) / 2,
         alignSelf: 'center',
     },
 

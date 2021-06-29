@@ -2,6 +2,10 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, View, Image, SafeAreaView } from 'react-native';
 import { Colors, Images } from '../../constants';
 import { AppText } from '../../components';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 export function GeneralHeader({
   style,
@@ -13,7 +17,7 @@ export function GeneralHeader({
       <SafeAreaView style={{ backgroundColor: Colors.ui_primary }} />
       <View style={[styles.container, style]}>
         <View style={styles.flexOne}>
-          <AppText type={'bold'} size={16} color={Colors.white} style={styles.headerTitle}>
+          <AppText type={'bold'} size={hp(2.5)} color={Colors.white} style={styles.headerTitle}>
             {label}
           </AppText>
         </View>

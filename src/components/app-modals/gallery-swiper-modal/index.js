@@ -7,7 +7,7 @@ import ImageViewer from 'react-native-image-zoom-viewer';
 import styles from './style';
 import { CloseWhiteTransparentIcon } from '../../../constants/svg-icons';
 import { AppText } from '../..';
-import { Colors, DEFAULT_AVATAR_URL } from '../../../constants';
+import { Colors, DEFAULT_AVATAR_URL, DEFAULT_IMAGE_URL } from '../../../constants';
 
 export default function GallerySwiperModal({ visible, onHideModal }) {
   const dispatch = useDispatch();
@@ -25,15 +25,17 @@ export default function GallerySwiperModal({ visible, onHideModal }) {
       style={styles.modalContainer}>
       <View style={styles.modalSubContainer}>
         <ImageViewer
-          style={{ flex: 1, backgroundColor: Colors.black }}
+          style={{ flex: 1 }}
           imageUrls={gallerySwiperImages}
           enableSwipeDown
+          enablePreload
           index={initialGalleryImageIndex}
           swipeDownThreshold={150}
           onSwipeDown={onHideModal}
           renderIndicator={() => null}
+          failImageSource={{ url: DEFAULT_IMAGE_URL }}
           loadingRender={() => (
-            <AppText color={Colors.ui_primary}>
+            <AppText size={18} color={Colors.white}>
               {'Loading ...'}
             </AppText>
           )}

@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import {
   View,
-  Image,
   ImageBackground,
   ScrollView,
-  Switch,
   TouchableOpacity,
-  Text,
-  Dimensions,
   Platform,
   useWindowDimensions,
 } from 'react-native';
-import { PagerTabIndicator, IndicatorViewPager, ViewPager, PagerTitleIndicator, PagerDotIndicator } from 'rn-viewpager';
+import { IndicatorViewPager, PagerDotIndicator } from 'rn-viewpager';
 import HTML from "react-native-render-html";
 import FastImage from 'react-native-fast-image';
 import { Code } from 'react-content-loader/native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
-import { NoListData, AppText, BackHeader, TagItem, OnlineStatusCircle, LegalActionMenu } from '../../components';
-import { Icons, Colors, DEFAULT_IMAGE_URL, SCREEN_HEIGHT, DEFAULT_AVATAR_URL, Images } from '../../constants';
+import { AppText, BackHeader, TagItem, OnlineStatusCircle, LegalActionMenu } from '../../components';
+import { Colors, DEFAULT_IMAGE_URL, SCREEN_HEIGHT, DEFAULT_AVATAR_URL, SCREEN_WIDTH } from '../../constants';
 import styles from './style';
 import { ModeratorIconLabel } from '../../components';
 import { ModeratorActivityModal } from '../../components/app-modals';
@@ -31,9 +31,7 @@ import {
   StickerGradientIcon,
   StarOutlineIcon,
   StarFilledIcon,
-  DotsCircleIcon,
   XXXCoinIcon,
-  CoinGradientIcon
 } from '../../constants/svg-icons';
 import { showToast } from '../../redux/actions/app-actions';
 import moment from 'moment';
@@ -246,7 +244,7 @@ export default function ModeratorProfile(props) {
             <View>
               {moderatorDetail && moderatorDetail.profile_picture && moderatorDetail.profile_picture.length > 0 && (
                 <IndicatorViewPager
-                  style={{ height: SCREEN_HEIGHT / 2, backgroundColor: Colors.grey, flex: 1, }}
+                  style={{ height: hp(55), backgroundColor: Colors.grey, flex: 1, }}
                   indicator={_renderDotIndicator(moderatorDetail.profile_picture.length)}
                 >
                   {moderatorDetail.profile_picture.map((item, index) => {
@@ -329,7 +327,7 @@ export default function ModeratorProfile(props) {
             <View>
               {params && params.item && params.item.profilepicture && params.item.profilepicture.length > 0 && (
                 <IndicatorViewPager
-                  style={{ height: SCREEN_HEIGHT / 2, backgroundColor: Colors.grey, flex: 1, }}
+                  style={{ height: hp(55), backgroundColor: Colors.grey, flex: 1, }}
                   indicator={_renderDotIndicator(getProfilePictures().length)}
                 >
                   {getProfilePictures().map((item, index) => {
@@ -391,6 +389,7 @@ export default function ModeratorProfile(props) {
                     }
                     return (
                       <TouchableOpacity
+                        style={{ overflow: 'hidden' }}
                         activeOpacity={0.8}
                         key={String(index)}
                         onPress={() => onPressImage(item, index)}>
@@ -408,15 +407,6 @@ export default function ModeratorProfile(props) {
                             src={getItemImage(item.picture)}
                           />
                         )}
-
-                        {/* <FastImage
-                          style={styles.imgBackground}
-                          source={{
-                            uri: getItemImage(item.picture),
-                            priority: FastImage.priority.high,
-                          }}
-                          resizeMode={FastImage.resizeMode.cover}
-                        /> */}
                       </TouchableOpacity>
                     )
                   })}
