@@ -7,7 +7,9 @@ import appModalState from './app-modals-state';
 import bookmarkState from './bookmarks-state';
 import chatState from './chat-state';
 import { ActionDispatcher } from '../actions';
-import * as RootNavigation from '../../navigators/root-navigation'
+import { client } from '../../services/api-service';
+import { navigate } from '../../navigators/root-navigation';
+import { wait } from '../../utils/common';
 export const LOGOUT_USER = 'LOGOUT_USER';
 
 const allReducers = combineReducers({
@@ -21,18 +23,39 @@ const allReducers = combineReducers({
 
 export const logoutUser = () => (dispatch, getState) =>
   new Promise(function (resolve, reject) {
-    dispatch(ActionDispatcher(LOGOUT_USER, true));
-    resolve(true);
+    const { userData } = getState().userState;
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      customer_id: userId
+    }
+    client
+      .post(`/logout`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+          wait(500).then(() => {
+            dispatch(ActionDispatcher(LOGOUT_USER));
+          })
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } })
+        reject(err);
+      });
   });
 
 const rootReducer = (state, action) => {
   if (action.type === LOGOUT_USER) {
     console.log("LOGOUT_USER")
+    console.log("state", state)
     Object.keys(state).forEach((key) => {
       AsyncStorage.removeItem(`persist:${key}`);
     });
-    RootNavigation.navigate('auth-stack');
-    state = undefined;
+    // state = undefined;
+    navigate('auth-stack');
   }
   return allReducers(state, action);
 };

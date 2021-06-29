@@ -14,7 +14,8 @@ const persistConfig = {
   whitelist: [
     'userState',
     'appState',
-    'chatState'
+    'chatState',
+    'flirtsState'
   ],
 };
 
