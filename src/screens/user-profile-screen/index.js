@@ -49,6 +49,7 @@ export default function UserProfile(props) {
   const [deleteAccountModalVisible, setDeleteAccountModalVisible] = useState(false);
   const [isLogoutModalVisible, setLogoutModalVisible] = useState(false);
   const [isBoostModalVisible, setBoostModalVisible] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const getUserProfileImage = () => {
     let image_url = null;
@@ -129,7 +130,9 @@ export default function UserProfile(props) {
   };
 
   const onLogout = async () => {
+    setIsLoggingOut(true);
     await dispatch(logoutUser());
+    setIsLoggingOut(false);
     configurePushNotification();
     try {
       await GoogleSignin.revokeAccess();
@@ -209,7 +212,7 @@ export default function UserProfile(props) {
                 count={userData ? userData.totalfriends : 0}
                 icon={<FriendGradientIcon32 width={50} height={50} />} />
               <CounterCard
-                onPress={() => { }}
+                onPress={() => navigation.navigate('StickersScreen')}
                 title={appLabels.stickers}
                 count={userData ? userData.stickers : 0}
                 icon={<StickerGradientIcon32 width={50} height={50} />} />
@@ -286,6 +289,7 @@ export default function UserProfile(props) {
         message={appLabels.are_you_sure_you_want_to_logout}
         button1Title={appLabels.logout}
         button2Title={appLabels.cancel}
+        isButton1Loading={isLoggingOut}
         onButton1Press={onLogout}
       />
       <BoostProfileModal

@@ -22,7 +22,8 @@ import {
   HeartsScreen,
   AppearanceScreen,
   CreateTicket,
-  EditLocationScreen
+  EditLocationScreen,
+  StickersScreen
 } from '../screens';
 import BottomTabBar from '../components/BottomTabBar';
 import { Colors } from '../constants';
@@ -208,6 +209,11 @@ export default function MainStackNavigator() {
       <Stack.Screen
         name="HeartsScreen"
         component={HeartsScreen}
+      />
+
+      <Stack.Screen
+        name="StickersScreen"
+        component={StickersScreen}
       />
 
       <Stack.Screen

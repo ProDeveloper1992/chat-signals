@@ -27,10 +27,17 @@ export default function (state = initialState, action) {
       };
 
     case GET_FLIRTS_SUCCESS:
+      console.log("GET_FLIRTS_SUCCESS", action.payload)
       return {
         ...state,
         flirtsLoading: false,
         flirtsList: action.payload,
+      };
+
+    case GET_FLIRTS_FAILED:
+      return {
+        ...state,
+        flirtsLoading: false,
       };
 
     case IS_LOAD_MORE_FLIRTS:
@@ -44,12 +51,6 @@ export default function (state = initialState, action) {
         ...state,
         isLoadMoreSpotlights: action.payload
       }
-
-    case GET_FLIRTS_FAILED:
-      return {
-        ...state,
-        flirtsLoading: false,
-      };
 
     case GET_SPOT_LIGHTS_REQUEST:
       return {

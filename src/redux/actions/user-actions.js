@@ -21,12 +21,14 @@ import {
   GET_HELP_TICKET_LIST_SUCCESS,
   GET_CUSTOMER_APPEARANCE_AND_INTERETS_SUCCESS,
   GET_NOTIFICATIONS_LIST_SUCCESS,
-  GET_STICKERS_LIST_SUCCESS
+  GET_STICKERS_LIST_SUCCESS,
+  GET_CUSTOMER_STICKERS_SUCCESS
 } from './types';
 import { client } from '../../services/api-service';
 import { showToast } from './app-actions';
 import { toggleCoinsEarningModal } from './app-modals-actions';
 import { logoutUser } from '../reducers';
+import { Platform } from 'react-native';
 
 export const setSelectedGender = (genderData) => (dispatch) =>
   dispatch(ActionDispatcher(SET_SELECTED_USER_GENDER, genderData));
@@ -386,6 +388,31 @@ export const getHeartsList = () => (dispatch, getState) =>
       });
   });
 
+//Get Stickers list for customer
+export const getCustomerStickersList = () => (dispatch, getState) =>
+  new Promise(function (resolve, reject) {
+    const userData = getState().userState.userData;
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      customer_id: userId
+    }
+    client
+      .post(`/customer_sticker_list`, requestData)
+      .then((res) => {
+        if (res.meta.status) {
+          dispatch(ActionDispatcher(GET_CUSTOMER_STICKERS_SUCCESS, res.data));
+        }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } });
+        reject(err);
+      });
+  });
+
 //Set Photo as Profile photo
 export const customerPhotoUpdate = (photoId, type) => (dispatch, getState) =>
   new Promise(function (resolve, reject) {
@@ -696,6 +723,30 @@ export const getStickersList = () => (dispatch, getState) =>
         if (res.meta.status) {
           dispatch(ActionDispatcher(GET_STICKERS_LIST_SUCCESS, res.data))
         }
+        resolve(res);
+      })
+      .catch((err) => {
+        resolve({ meta: { status: false } })
+        reject(err);
+      });
+  });
+
+//Update Device token
+export const updateDeviceToken = (fcmToken) => (dispatch) =>
+  new Promise(function (resolve, reject) {
+    const userData = getState().userState.userData;
+    let userId = null;
+    if (userData) {
+      userId = userData.id;
+    }
+    let requestData = {
+      customer_id: userId,
+      device_token: fcmToken,
+      device_type: Platform.OS
+    }
+    client
+      .post(`/update_device_token`, requestData)
+      .then((res) => {
         resolve(res);
       })
       .catch((err) => {

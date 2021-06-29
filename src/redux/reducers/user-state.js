@@ -15,6 +15,7 @@ import {
   GET_CUSTOMER_LIKES_SUCCESS,
   GET_CUSTOMER_KISSES_SUCCESS,
   GET_CUSTOMER_HEARTS_SUCCESS,
+  GET_CUSTOMER_STICKERS_SUCCESS,
   GET_HELP_TICKET_LIST_SUCCESS,
   GET_CUSTOMER_APPEARANCE_AND_INTERETS_SUCCESS,
   GET_NOTIFICATIONS_LIST_SUCCESS,
@@ -34,6 +35,7 @@ const initialState = {
   customerLikesList: [],
   customerKissesList: [],
   customerHeartsList: [],
+  customerStickersList: [],
   customerHelpTicketList: [],
   customerAppearanceInterests: [],
   customerNotifications: [],
@@ -217,6 +219,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         customerHeartsList: action.payload
+      }
+
+    case GET_CUSTOMER_STICKERS_SUCCESS:
+      console.log("GET_CUSTOMER_STICKERS_SUCCESS", action.payload)
+      return {
+        ...state,
+        customerStickersList: action.payload
       }
 
     case GET_HELP_TICKET_LIST_SUCCESS:

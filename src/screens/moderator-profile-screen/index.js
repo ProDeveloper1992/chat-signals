@@ -394,18 +394,29 @@ export default function ModeratorProfile(props) {
                         activeOpacity={0.8}
                         key={String(index)}
                         onPress={() => onPressImage(item, index)}>
-                        <FastImage
+                        {Platform.OS == 'ios' ? (
+                          <FastImage
+                            style={styles.imgBackground}
+                            source={{
+                              uri: getItemImage(item.picture),
+                              priority: FastImage.priority.high,
+                            }}
+                            resizeMode={FastImage.resizeMode.cover}
+                          />
+                        ) : (
+                          <ScalableImage
+                            src={getItemImage(item.picture)}
+                          />
+                        )}
+
+                        {/* <FastImage
                           style={styles.imgBackground}
                           source={{
                             uri: getItemImage(item.picture),
                             priority: FastImage.priority.high,
                           }}
                           resizeMode={FastImage.resizeMode.cover}
-                        />
-                        {/* <ImageBackground
-                      style={styles.imgBackground}
-                      source={{ uri: getItemImage(item.picture) }}
-                    /> */}
+                        /> */}
                       </TouchableOpacity>
                     )
                   })}

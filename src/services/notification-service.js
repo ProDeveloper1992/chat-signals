@@ -5,7 +5,7 @@ import messaging from '@react-native-firebase/messaging';
 import { store } from "../redux/store";
 import { ActionDispatcher } from "../redux/actions";
 import { STORE_FCM_TOKEN } from "../redux/actions/types";
-import { getFriendsList, getHeartsList, getKissesList, getLikesList, getNotificationsList } from "../redux/actions/user-actions";
+import { getFriendsList, getHeartsList, getKissesList, getLikesList, getNotificationsList, updateDeviceToken } from "../redux/actions/user-actions";
 import { getUserChatList } from "../redux/actions/chat-actions";
 
 const requestUserPermission = async () => {
@@ -106,6 +106,8 @@ export const configureFirebaseNotification = () => {
     messaging().onTokenRefresh(fcmToken => {
         console.log('[FCMService] new token refresh: ', fcmToken);
         // onRegister(fcmToken);
+        store.dispatch(updateDeviceToken(fcmToken));
+        store.dispatch(ActionDispatcher(STORE_FCM_TOKEN, fcmToken));
     });
 }
 
