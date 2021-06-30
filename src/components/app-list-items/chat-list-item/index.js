@@ -4,6 +4,7 @@ import { View, TouchableHighlight, TouchableOpacity, Dimensions } from 'react-na
 import PropTypes from 'prop-types';
 
 import { Colors, Images, SCREEN_WIDTH } from '../../../constants';
+import { OnlineStatusCircle } from '../../../components';
 import { AppText, CommonImage } from '../../index';
 import styles from './style';
 import ContentLoader, { Rect, Circle } from "react-content-loader/native";
@@ -11,6 +12,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleGallerySwiperModal } from '../../../redux/actions/app-modals-actions';
 import { MessageSeenIcon, MessageDeliveredIcon } from '../../../constants/svg-icons';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 export default function ChatListItem({
   onChatPress,
@@ -46,18 +51,21 @@ export default function ChatListItem({
         <View style={styles.profileImageContainer}>
           <CommonImage
             touchable={true}
-            size={57}
+            size={wp(15)}
             borderWidth={0}
             source={profileImage}
           // onPress={() => dispatch(toggleGallerySwiperModal(true, [profileImage]))}
           />
-          <View style={styles.activeStatusCircle(isActive)} />
+          <View style={styles.activeStatusCircle}>
+            <OnlineStatusCircle isOnline={isActive} size={wp(3.3)} />
+          </View>
+
         </View>
         <View style={styles.userDetailContainer}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <AppText
               type={'bold'}
-              size={16}
+              size={hp(2.5)}
               color={Colors.black}
               numberOfLines={1}
               style={{ flex: 1, textTransform: 'capitalize' }}
@@ -65,7 +73,7 @@ export default function ChatListItem({
             >
               {userName}
             </AppText>
-            <AppText size={12} type={item.unseenCounter * 1 > 0 ? 'bold' : 'regular'}>{moment(lastMessageTime ? lastMessageTime : new Date()).fromNow()}</AppText>
+            <AppText size={hp(2)} type={item.unseenCounter * 1 > 0 ? 'bold' : 'regular'}>{moment(lastMessageTime ? lastMessageTime : Date.now()).fromNow()}</AppText>
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <View style={{ flex: 1.2, flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
@@ -81,7 +89,7 @@ export default function ChatListItem({
               )}
               <AppText
                 type={item.unseenCounter * 1 > 0 ? 'bold' : 'regular'}
-                size={14}
+                size={hp(2.2)}
                 color={Colors.black}
                 numberOfLines={1}
               >
@@ -95,7 +103,7 @@ export default function ChatListItem({
                   style={styles.unSeenBadgeContainer}>
                   <AppText
                     type={'bold'}
-                    size={11}
+                    size={hp(1.8)}
                     color={Colors.white}>
                     {item.unseenCounter}
                   </AppText>

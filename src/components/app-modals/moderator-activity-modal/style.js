@@ -1,4 +1,8 @@
 import { StyleSheet } from 'react-native';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import { Colors } from '../../../constants';
 
 export default StyleSheet.create({
@@ -8,16 +12,10 @@ export default StyleSheet.create({
     justifyContent: 'flex-end',
   },
   modalSubContainer: {
-    // height: '60%',
+    minHeight: '60%',
     backgroundColor: Colors.white,
-    borderRadius: 15,
-    padding: 20,
-    paddingBottom: 40,
-  },
-  modalTitle: {
-    color: Colors.ui_primary_dark,
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
+    borderTopRightRadius: hp(3),
+    borderTopLeftRadius: hp(3),
+    padding: hp(3),
   },
 });

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, TouchableOpacity, View } from 'react-native';
+import { Image, TouchableOpacity, View, SafeAreaView } from 'react-native';
 import Modal from 'react-native-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { Colors, Icons, IMAGE_BASE_URL } from '../../../constants';
@@ -294,6 +294,7 @@ export default function ActivityModal({ visible, onHideModal, type, moderator, o
             <AppButton title={appLabels.buy_coins_now} onPress={onBuyCoinsPress} />
           </View>
         )}
+        <SafeAreaView />
       </View>
     </Modal>
   );

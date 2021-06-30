@@ -56,7 +56,7 @@ export default function ModeratorListItem({ item, onPress, isBoosted }) {
               <AppText numberOfLines={1} type={'bold'} color={Colors.white} size={wp(3.5)} style={styles.userName}>
                 {item.username}{item.dob ? `, ${moment().diff(moment(item.dob, 'YYYY-MM-DD'), 'years')}` : ''}
               </AppText>
-              <OnlineStatusCircle isOnline={item.is_active == '1' ? true : false} size={wp(2.8)} />
+              <OnlineStatusCircle isOnline={item.is_active == '1' ? true : false} size={wp(3.3)} />
             </View>
             <AppText
               size={wp(3.2)}

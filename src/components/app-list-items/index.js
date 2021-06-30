@@ -7,8 +7,6 @@ import NotificationItem from './notification-item';
 import FriendRequestItem from './friend-request-item';
 import FriendListItem from './friend-list-item';
 import LikesListItem from './likes-list-item';
-import KissesListItem from './kisses-list-item';
-import HeartsListItem from './hearts-list-item';
 import UserPhotoItem from './user-photo-item';
 import HelpTicketListItem from './help-ticket-list-item';
 
@@ -22,8 +20,6 @@ export {
     FriendRequestItem,
     FriendListItem,
     LikesListItem,
-    KissesListItem,
-    HeartsListItem,
     UserPhotoItem,
     HelpTicketListItem
 };

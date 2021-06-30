@@ -3,6 +3,11 @@ import { useSelector } from 'react-redux';
 import { View, TouchableOpacity, Platform } from 'react-native';
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import PropTypes from 'prop-types';
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+
 
 import { AppText } from '../..';
 import { UnfriendIcon, BlockIcon, ThreeDotsIcon, CloseBlackIcon } from '../../../constants/svg-icons';
@@ -36,7 +41,7 @@ function LegalActionMenu({ onSelectAction, actions }) {
         <Menu
             ref={setMenuRef}
             onHidden={() => setIsVisible(false)}
-            style={{ marginTop: 30, borderRadius: 11 }}
+            style={{ marginTop: hp(5), borderRadius: hp(2) }}
             button={
                 <View>
                     {isVisible ? (
@@ -44,7 +49,7 @@ function LegalActionMenu({ onSelectAction, actions }) {
                             onPress={async () => {
                                 await hideMenu();
                                 setIsVisible(false);
-                            }} style={{ padding: 10, paddingHorizontal: 12 }}>
+                            }} style={{ padding: hp(2), paddingHorizontal: hp(2.2) }}>
                             <CloseBlackIcon />
                         </TouchableOpacity>
                     ) : (
@@ -53,7 +58,7 @@ function LegalActionMenu({ onSelectAction, actions }) {
                                 await showMenu();
                                 setIsVisible(true);
                             }}
-                            style={{ padding: 10 }}>
+                            style={{ padding: hp(2) }}>
                             <ThreeDotsIcon />
                         </TouchableOpacity>
                     )}
@@ -64,9 +69,9 @@ function LegalActionMenu({ onSelectAction, actions }) {
                 return <View key={String(optionIndex)}>
                     <MenuItem
                         onPress={() => onSelectMenu(option)}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', paddingStart: Platform.OS == 'ios' ? 10 : 0 }}>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', paddingStart: Platform.OS == 'ios' ? hp(2) : 0 }}>
                             {option.icon}
-                            <AppText type={'medium'} style={{ marginStart: 5 }}>{option.title}</AppText>
+                            <AppText type={'medium'} size={hp(2.3)} style={{ marginStart: hp(1.5) }}>{option.title}</AppText>
                         </View>
                     </MenuItem>
                     {optionIndex != actions.length - 1 && (

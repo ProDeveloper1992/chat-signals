@@ -9,6 +9,12 @@ import { FriendGradientIcon32, HeartGradientIcon32, KissGradientIcon32, LikeGrad
 import { navigate } from '../../../navigators/root-navigation';
 import { useDispatch } from 'react-redux';
 import { readNotification } from '../../../redux/actions/user-actions';
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+
+const ICON_SIZE = hp(6);
 
 export default function NotificationItem({ item }) {
 
@@ -19,19 +25,19 @@ export default function NotificationItem({ item }) {
     const getIconByType = () => {
         switch (item.type) {
             case 'send_like':
-                return <LikeGradientIcon32 width={40} height={40} />
+                return <LikeGradientIcon32 width={ICON_SIZE} height={ICON_SIZE} />
 
             case 'send_kiss':
-                return <KissGradientIcon32 width={40} height={40} />
+                return <KissGradientIcon32 width={ICON_SIZE} height={ICON_SIZE} />
 
             case 'send_heart':
-                return <HeartGradientIcon32 width={40} height={40} />
+                return <HeartGradientIcon32 width={ICON_SIZE} height={ICON_SIZE} />
 
             case 'send_sticker':
-                return <StickerGradientIcon32 width={40} height={40} />
+                return <StickerGradientIcon32 width={ICON_SIZE} height={ICON_SIZE} />
 
             case 'send_friend_request':
-                return <FriendGradientIcon32 width={40} height={40} />
+                return <FriendGradientIcon32 width={ICON_SIZE} height={ICON_SIZE} />
 
             default:
                 return <></>;
@@ -114,7 +120,7 @@ export default function NotificationItem({ item }) {
                     {user && user.user_name ? (
                         <AppText
                             type={'bold'}
-                            size={14}
+                            size={hp(2.2)}
                             color={Colors.black}
                             numberOfLines={1}
                         >
@@ -124,7 +130,7 @@ export default function NotificationItem({ item }) {
                     {user && user.title ? (
                         <AppText
                             type={'regular'}
-                            size={13}
+                            size={hp(2.1)}
                             color={Colors.greydark}
                             numberOfLines={1}
                         >
@@ -133,7 +139,7 @@ export default function NotificationItem({ item }) {
                     ) : null}
                     <AppText
                         type={'medium'}
-                        size={12}
+                        size={hp(2)}
                         color={Colors.ui_primary}
                     >
                         {moment(item.created_at).fromNow()}

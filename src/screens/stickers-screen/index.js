@@ -18,13 +18,13 @@ export default function StickersScreen(props) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        getCustomersStickers();
+        // getCustomersStickers();
     }, [])
 
     const getCustomersStickers = async () => {
-        // setLoading(true);
-        // await dispatch(getCustomerStickersList());
-        // setLoading(false);
+        setLoading(true);
+        await dispatch(getCustomerStickersList());
+        setLoading(false);
     }
 
     return (
@@ -48,9 +48,8 @@ export default function StickersScreen(props) {
                     renderItem={({ item, index }) => (
                         <LikesListItem
                             key={String(index)}
-                            item={item}
-                            userName={item.username}
-                            profileImage={{ uri: item.picture }} />
+                            type={'sticker'}
+                            item={item} />
                     )}
                     keyExtractor={(item, index) => String(index)}
                     ListEmptyComponent={

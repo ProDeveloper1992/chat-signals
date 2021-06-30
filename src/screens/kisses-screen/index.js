@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppText, BackHeader, KissesListItem, NoListData } from '../../components';
+import { AppText, BackHeader, LikesListItem, NoListData } from '../../components';
 import { ChatListItemLoader } from '../../components/app-list-items/chat-list-item';
 import { Colors } from '../../constants';
 import { KissGradientIcon } from '../../constants/svg-icons';
@@ -46,11 +46,10 @@ export default function KissesScreen(props) {
                     contentContainerStyle={{ flexGrow: 1 }}
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item, index }) => (
-                        <KissesListItem
+                        <LikesListItem
                             key={String(index)}
-                            item={item}
-                            userName={item.username}
-                            profileImage={{ uri: item.picture }} />
+                            type={'kiss'}
+                            item={item} />
                     )}
                     keyExtractor={(item, index) => String(index)}
                     ListEmptyComponent={

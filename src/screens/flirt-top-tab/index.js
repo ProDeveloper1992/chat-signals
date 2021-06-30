@@ -11,11 +11,15 @@ import {
   RefreshControl,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppIndicatorLoader, AppText, ModeratorListItem, NoListData } from '../../components';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 import styles from './style';
+import { AppIndicatorLoader, AppText, ModeratorListItem, NoListData } from '../../components';
 import { getFlirtsList } from '../../redux/actions/flirts-actions';
 import { getCustomerProfileDetail } from '../../redux/actions/user-actions';
 import { Colors, Icons } from '../../constants';
@@ -104,11 +108,11 @@ export default function FlirtTab(props) {
               <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={handleLoadMore}
-                style={{ alignSelf: 'center', paddingVertical: 5, paddingHorizontal: 10, backgroundColor: Colors.ui_primary, borderRadius: 15, marginTop: 10 }}>
+                style={{ alignSelf: 'center', paddingVertical: wp(1.5), paddingHorizontal: wp(4), backgroundColor: Colors.ui_primary, borderRadius: wp(10), marginTop: wp(2) }}>
                 {flirtsLoading ? (
-                  <ActivityIndicator size={'small'} color={Colors.white} style={{ width: 14, height: 14, marginVertical: 5 }} />
+                  <ActivityIndicator size={'small'} color={Colors.white} style={{ width: wp(4), height: wp(4), marginVertical: wp(2) }} />
                 ) : (
-                  <AppText type={'medium'} color={Colors.white}>{appLabels.see_more}</AppText>
+                  <AppText type={'medium'} size={wp(4)} color={Colors.white}>{appLabels.see_more}</AppText>
                 )}
               </TouchableOpacity> : null
           }

@@ -1,5 +1,4 @@
-import {BackHeader} from './BackHeader';
-import {GeneralHeader} from './GeneralHeader';
-import {ChatDetailHeader} from './ChatDetailHeader';
+import { BackHeader } from './BackHeader';
+import { GeneralHeader } from './GeneralHeader';
 
-export {BackHeader, GeneralHeader,ChatDetailHeader};
+export { BackHeader, GeneralHeader };
