@@ -1,5 +1,9 @@
 import { StyleSheet } from 'react-native';
 import { Colors } from '../../../constants';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 export default StyleSheet.create({
   container: {
@@ -18,18 +22,10 @@ export default StyleSheet.create({
     justifyContent: 'center'
   },
 
-  activeStatusCircle: function (isActive) {
-    return {
-      width: 12,
-      height: 12,
-      borderRadius: 6,
-      borderWidth: 2,
-      borderColor: Colors.white,
-      backgroundColor: isActive ? Colors.ui_user_active : Colors.ui_user_away,
-      position: 'absolute',
-      bottom: 0,
-      right: 5
-    }
+  activeStatusCircle: {
+    position: 'absolute',
+    bottom: 0,
+    right: 5
   },
 
   userDetailContainer: {

@@ -1,39 +1,62 @@
 import React from 'react';
 import { View, Image, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
-import { Colors, Images } from '../../../constants';
+import { Colors, DEFAULT_AVATAR_URL, Images } from '../../../constants';
 import { AppText, FriendItemMenu } from '../../index';
 import styles from './style';
-import { LikeGradientIcon32 } from '../../../constants/svg-icons';
+import { HeartGradientIcon32, KissGradientIcon32, LikeGradientIcon32, StickerGradientIcon32 } from '../../../constants/svg-icons';
 import moment from 'moment';
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+
+const ICON_SIZE = hp(6);
 
 export default function LikesListItem({
-    profileImage,
-    userName,
-    item
+    item,
+    type
 }) {
+
+    const getIconByType = () => {
+        switch (type) {
+            case 'like':
+                return <LikeGradientIcon32 width={ICON_SIZE} height={ICON_SIZE} />;
+
+            case 'kiss':
+                return <KissGradientIcon32 width={ICON_SIZE} height={ICON_SIZE} />;
+
+            case 'heart':
+                return <HeartGradientIcon32 width={ICON_SIZE} height={ICON_SIZE} />;
+
+            case 'sticker':
+                return <StickerGradientIcon32 width={ICON_SIZE} height={ICON_SIZE} />;
+            default:
+                return <></>;
+        }
+    }
 
     return (
         <View style={styles.container}>
             <View style={styles.profileImageContainer}>
-                <Image style={styles.profileImg} source={profileImage} />
+                <Image style={styles.profileImg} source={{ uri: item.picture }} />
                 <View style={styles.activeStatusCircle}>
-                    <LikeGradientIcon32 width={40} height={40} />
+                    {getIconByType()}
                 </View>
             </View>
             <View style={styles.userDetailContainer}>
                 <AppText
                     type={'bold'}
-                    size={16}
+                    size={hp(2.5)}
                     color={Colors.black}
                     numberOfLines={1}
                     style={{ textTransform: 'capitalize' }}
                 >
-                    {userName}
+                    {item && item.username}
                 </AppText>
                 <AppText
                     type={'regular'}
-                    size={14}
+                    size={hp(2.2)}
                     color={Colors.ui_primary}
                     numberOfLines={1}
                 >
@@ -45,15 +68,15 @@ export default function LikesListItem({
 }
 
 LikesListItem.propTypes = {
-    profileImage: PropTypes.any,
-    userName: PropTypes.string,
-    onChatPress: PropTypes.func,
-    item: PropTypes.object
+    item: PropTypes.object,
+    type: PropTypes.oneOf(['like', 'heart', 'kiss', 'sticker'])
 };
 
 LikesListItem.defaultProps = {
-    profileImage: Images.app_logo,
-    userName: 'Username',
-    item: {},
-    onChatPress: () => { },
+    item: {
+        created_at: Date.now(),
+        username: '',
+        picture: DEFAULT_AVATAR_URL
+    },
+    type: 'like',
 };

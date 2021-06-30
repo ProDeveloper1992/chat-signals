@@ -7,6 +7,12 @@ import styles from './style';
 import { FriendGradientIcon32 } from '../../../constants/svg-icons';
 import { useDispatch } from 'react-redux';
 import { acceptRejectFriendRequest } from '../../../redux/actions/user-actions';
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+
+const ICON_SIZE = hp(6);
 
 export default function FriendRequestItem({
     onChatPress,
@@ -38,12 +44,12 @@ export default function FriendRequestItem({
                 <View style={styles.profileImageContainer}>
                     <Image style={styles.profileImg} source={profileImage} />
                     <View style={styles.activeStatusCircle}>
-                        <FriendGradientIcon32 width={40} height={40} />
+                        <FriendGradientIcon32 width={ICON_SIZE} height={ICON_SIZE} />
                     </View>
                 </View>
                 {item.is_status * 1 == 1 && (
                     <View style={[styles.userDetailContainer, { alignSelf: 'center', marginEnd: 20 }]}>
-                        <AppText type={'medium'} size={14}>
+                        <AppText type={'medium'} size={hp(2.2)}>
                             {`You have sent friend request to `}
                             <AppText type={'bold'}>{userName}</AppText>
                         </AppText>
@@ -53,7 +59,7 @@ export default function FriendRequestItem({
                     <View style={styles.userDetailContainer}>
                         <AppText
                             type={'bold'}
-                            size={16}
+                            size={hp(2.5)}
                             color={Colors.black}
                             numberOfLines={1}
                             style={{ textTransform: 'capitalize' }}

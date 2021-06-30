@@ -212,7 +212,8 @@ export default function UserProfile(props) {
                 count={userData ? userData.totalfriends : 0}
                 icon={<FriendGradientIcon32 width={50} height={50} />} />
               <CounterCard
-                onPress={() => navigation.navigate('StickersScreen')}
+                onPress={() => { }}
+                // onPress={() => navigation.navigate('StickersScreen')}
                 title={appLabels.stickers}
                 count={userData ? userData.stickers : 0}
                 icon={<StickerGradientIcon32 width={50} height={50} />} />

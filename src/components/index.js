@@ -16,8 +16,6 @@ import {
   FriendRequestItem,
   FriendListItem,
   LikesListItem,
-  KissesListItem,
-  HeartsListItem,
   UserPhotoItem,
   HelpTicketListItem
 } from './app-list-items';
@@ -77,8 +75,6 @@ export {
   FriendRequestItem,
   FriendListItem,
   LikesListItem,
-  KissesListItem,
-  HeartsListItem,
   UserPhotoItem,
   HelpTicketListItem,
 

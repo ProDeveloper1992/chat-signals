@@ -48,9 +48,8 @@ export default function LikesScreen(props) {
                     renderItem={({ item, index }) => (
                         <LikesListItem
                             key={String(index)}
-                            item={item}
-                            userName={item.username}
-                            profileImage={{ uri: item.picture }} />
+                            type={'like'}
+                            item={item} />
                     )}
                     keyExtractor={(item, index) => String(index)}
                     ListEmptyComponent={

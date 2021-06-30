@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppText, BackHeader, HeartsListItem, NoListData } from '../../components';
+import { AppText, BackHeader, LikesListItem, NoListData } from '../../components';
 import { ChatListItemLoader } from '../../components/app-list-items/chat-list-item';
 import { Colors } from '../../constants';
 import { HeartGradientIcon32 } from '../../constants/svg-icons';
@@ -47,11 +47,10 @@ export default function HeartsScreen(props) {
                     contentContainerStyle={{ flexGrow: 1 }}
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item, index }) => (
-                        <HeartsListItem
+                        <LikesListItem
                             key={String(index)}
-                            item={item}
-                            userName={item.username}
-                            profileImage={{ uri: item.picture }} />
+                            type={'heart'}
+                            item={item} />
                     )}
                     keyExtractor={(item, index) => String(index)}
                     ListEmptyComponent={

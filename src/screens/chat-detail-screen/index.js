@@ -1,9 +1,13 @@
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import { Keyboard, View, TouchableWithoutFeedback, FlatList, TouchableOpacity, ScrollView, Platform, KeyboardAvoidingView, ActivityIndicator } from 'react-native';
-import { ChatDetailHeader } from '../../components/Headers';
+import { BackHeader } from '../../components';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import ContentLoader, { Rect, Circle } from "react-content-loader/native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 import styles from './style';
 import { AppIndicatorLoader, AppText, ChatBubble, ChatInput, CommonImage, NoListData } from '../../components';
@@ -270,13 +274,15 @@ export default function ChatDetail(props) {
       <View style={styles.container}>
         {moderatorDetailVisible ? (
           <View style={styles.container}>
-            <ChatDetailHeader
-              onLeftPress={() => setModeratorDetailVisible(false)}
+            <BackHeader
+              title={appLabels.messages}
+              color={Colors.ui_primary}
+              onBackPress={() => setModeratorDetailVisible(false)}
             />
-            <View style={{ alignItems: 'center', justifyContent: 'center', padding: 20 }}>
+            <View style={{ alignItems: 'center', justifyContent: 'center', padding: hp(3) }}>
               <CommonImage
                 touchable={true}
-                size={90}
+                size={wp(25)}
                 borderColor={Colors.white}
                 borderWidth={3}
                 isShadow={true}
@@ -284,12 +290,12 @@ export default function ChatDetail(props) {
                 onPress={() => dispatch(toggleGallerySwiperModal(true, [{ url: moderator.profile_picture }]))} />
               <AppText
                 type={'bold'}
-                size={20}
+                size={hp(3)}
                 style={{ marginBottom: -5, marginTop: 10 }}>{moderator.user.username}</AppText>
               <AppText
                 onPress={onViewModeratorProfile}
                 type={'bold'}
-                size={16}
+                size={hp(2.5)}
                 color={Colors.ui_primary}
                 style={{ textDecorationLine: 'underline' }}>{appLabels.view_profile}</AppText>
             </View>
@@ -304,26 +310,28 @@ export default function ChatDetail(props) {
           </View>
         ) : (
           <View style={styles.container}>
-            <ChatDetailHeader
-              onLeftPress={() => navigation.goBack()}
+            <BackHeader
+              title={appLabels.messages}
+              color={Colors.ui_primary}
+              onBackPress={() => navigation.goBack()}
             />
             <View style={styles.userDetailHeader}>
               <CommonImage
                 touchable={true}
-                size={45}
+                size={wp(15)}
                 borderColor={Colors.white}
                 borderWidth={2}
                 isShadow={true}
                 source={{ uri: moderator.profile_picture }}
                 onPress={() => dispatch(toggleGallerySwiperModal(true, [{ url: moderator.profile_picture }]))} />
               <View style={{ flex: 1, paddingHorizontal: 12 }}>
-                <AppText type={'bold'} size={18}>{moderator.user.username}</AppText>
-                <AppText type={'regular'} size={12} color={Colors.greydark}>{moderator.user.is_active * 1 == 1 ? appLabels.online : appLabels.offline}</AppText>
+                <AppText type={'bold'} size={hp(2.8)}>{moderator.user.username}</AppText>
+                <AppText type={'regular'} size={hp(2)} color={Colors.greydark}>{moderator.user.is_active * 1 == 1 ? appLabels.online : appLabels.offline}</AppText>
               </View>
               <TouchableOpacity
                 onPress={onInfoButtonPress}
-                style={{ marginBottom: -10 }}>
-                <InfoIcon width={40} height={40} />
+                style={{ marginBottom: -hp(2) }}>
+                <InfoIcon width={hp(6)} height={hp(6)} />
               </TouchableOpacity>
             </View>
             {isLoadingConversation && messages.length == 0 ? (
@@ -349,7 +357,7 @@ export default function ChatDetail(props) {
                 }}
                 data={messages}
                 extraData={messages}
-                contentContainerStyle={{ flexGrow: 1, paddingTop: 20 }}
+                contentContainerStyle={{ flexGrow: 1, paddingTop: hp(3) }}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item, index }) => (
                   <ChatBubble key={String(index)} item={item} isFromUser={isMessageFromUser(item)} />
