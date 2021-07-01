@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-
-import { View, Text } from 'react-native';
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import { useSelector } from 'react-redux';
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+
 import { AppDropDown, AppText } from '../..';
 
 function GenderMenu({ onSelectGender, label }) {
@@ -34,7 +37,7 @@ function GenderMenu({ onSelectGender, label }) {
     return (
         <Menu
             ref={setMenuRef}
-            style={{ width: '89%', marginTop: 100, borderRadius: 11 }}
+            style={{ width: '89%', marginTop: hp(15), borderRadius: 11 }}
             button={<AppDropDown
                 title={label}
                 value={selectedGender.name}
@@ -44,7 +47,7 @@ function GenderMenu({ onSelectGender, label }) {
                 return <MenuItem
                     key={String(genderIndex)}
                     onPress={() => onSelectMenu(genderItem)}>
-                    <AppText type={selectedGender.id == genderItem.id ? 'bold' : 'medium'}>{genderItem.name}</AppText>
+                    <AppText size={hp(2.2)} type={selectedGender.id == genderItem.id ? 'bold' : 'medium'}>{genderItem.name}</AppText>
                 </MenuItem>
             })}
         </Menu>

@@ -45,7 +45,7 @@ const initialState = {
       key: 'de',
       lang: 'Dutch',
       image:
-        'http://chat-signal.com/public/assets/images/flag-du.jpg',
+        'http://chat-signal.com/public/assets/images/flag-du1.jpg',
     },
 
     {

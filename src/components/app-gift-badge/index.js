@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ActivityIndicator, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import CountDown from 'react-native-countdown-component';
+import * as Animatable from 'react-native-animatable';
 
 import { AppText } from '..';
 import { Colors } from '../../constants';
@@ -42,9 +43,14 @@ export default function AppGiftBadge() {
                     activeOpacity={1}
                     onPress={onBadgePress}
                     style={styles.container(isOpened)}>
-                    <View style={{ paddingHorizontal: 10, paddingVertical: 8 }}>
+                    <Animatable.View
+                        iterationCount={'infinite'}
+                        animation={'swing'}
+                        direction={'alternate'}
+                        useNativeDriver={true}
+                        style={{ paddingHorizontal: 10, paddingVertical: 8 }}>
                         <GiftBoxIcon width={35} height={35} />
-                    </View>
+                    </Animatable.View>
                     {isOpened && (
                         <View style={{ flexDirection: 'row' }}>
                             <View>

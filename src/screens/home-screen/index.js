@@ -113,7 +113,7 @@ export default function Home() {
               if (route.key == 'proflirt') {
                 return (
                   <View style={{ marginBottom: -15, marginTop: -5 }}>
-                    <BoostIcon width={hp(7.5)} height={hp(7.5)} />
+                    <BoostIcon width={wp(13)} height={wp(13)} />
                   </View>
                 )
               }

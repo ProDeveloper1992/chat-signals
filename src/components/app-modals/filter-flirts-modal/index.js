@@ -3,6 +3,10 @@ import React, { useCallback, useState } from 'react';
 import { View, TouchableOpacity, ScrollView, TextInput } from 'react-native';
 import Modal from 'react-native-modal';
 import { useDispatch, useSelector } from 'react-redux';
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 import { Colors, GOOGLE_MAP_API_KEY } from '../../../constants';
 import { AppButton, AppDropDown, AppRangeSlider, AppText, AuthInput, GenderMenu, LanguageSelectionMenu, SearchCityMenu, SexualOrientationMenu, TagItem } from '../../index';
@@ -113,21 +117,21 @@ export default function FlirtFilterModal({ visible, onHideModal }) {
             <View style={styles.modalSubContainer}>
                 <View style={styles.closeIconContainer}>
                     <TouchableOpacity onPress={onHideModal}>
-                        <CloseIcon width={28} height={28} />
+                        <CloseIcon width={hp(4)} height={hp(4)} />
                     </TouchableOpacity>
                 </View>
                 <AppText
-                    size={24}
+                    size={hp(3.5)}
                     type={'bold'}
-                    style={{ marginBottom: 20, paddingHorizontal: 20 }}>{appLabels.filter_flirt_suggestions}</AppText>
+                    style={{ marginBottom: hp(3), paddingHorizontal: hp(3) }}>{appLabels.filter_flirt_suggestions}</AppText>
                 <ScrollView
                     contentContainerStyle={{ flexGrow: 1, paddingHorizontal: 20, paddingBottom: "50%" }}>
                     <GenderMenu
                         label={appLabels.i_am_looking_for}
                         onSelectGender={(genderItem) => setLookingFor(genderItem)} />
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
-                        <AppText style={{ flex: 1 }}>{appLabels.age_range}</AppText>
-                        <AppText>{`${lowAge}-${highAge}`}</AppText>
+                        <AppText size={hp(2.2)} style={{ flex: 1 }}>{appLabels.age_range}</AppText>
+                        <AppText size={hp(2.2)}>{`${lowAge}-${highAge}`}</AppText>
                     </View>
                     <AppRangeSlider
                         onChangeValue={onChangeAgeRange} />
@@ -138,15 +142,15 @@ export default function FlirtFilterModal({ visible, onHideModal }) {
                         style={{ paddingHorizontal: 5, fontWeight: 'bold', fontSize: 16 }} /> */}
                     <SearchCityMenu onSelectCity={(selecteCity) => setCity(selecteCity)} />
                     <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 10 }}>
-                        <AppText style={{ flex: 1 }}>{appLabels.max_distance}</AppText>
-                        <AppText>{`${maxDistance}km`}</AppText>
+                        <AppText size={hp(2.2)} style={{ flex: 1 }}>{appLabels.max_distance}</AppText>
+                        <AppText size={hp(2.2)}>{`${maxDistance}km`}</AppText>
                     </View>
                     <AppRangeSlider
                         disableRange
                         onChangeValue={onChangeMaxDistance} />
                     <LanguageSelectionMenu
                         onSelectOption={(language) => setLanguage(language.key)} />
-                    <AppText style={{ marginTop: 10, marginBottom: 5 }}>{appLabels.passions}</AppText>
+                    <AppText size={hp(2.2)} style={{ marginTop: 10, marginBottom: 5 }}>{appLabels.passions}</AppText>
                     <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                         {passionList.map((passion, passionIndex) => {
                             return <TagItem

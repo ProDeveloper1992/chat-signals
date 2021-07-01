@@ -2,16 +2,34 @@ import React from 'react';
 import { View, ActivityIndicator, TouchableOpacity, SafeAreaView } from 'react-native';
 import Modal from 'react-native-modal';
 import { WebView } from 'react-native-webview';
+import { useDispatch } from 'react-redux';
 
 import { Colors } from '../../../constants';
 import { CloseWhiteTransparentIcon } from '../../../constants/svg-icons';
+import { showToast } from '../../../redux/actions/app-actions';
+import { wait } from '../../../utils/common';
 import { AppText } from '../../index';
 import styles from './style';
 
 export default function WebViewModal({ visible, paymentUrl, onHideModal }) {
 
+    const dispatch = useDispatch();
+
     const LoadingIndicatorView = () => {
         return <ActivityIndicator color={Colors.black} size='large' />
+    }
+
+    const onWebViewStateChange = (navEvent) => {
+        if (navEvent.url) {
+            if (navEvent.url.includes('error')) {
+                wait(1000).then(() => {
+                    onHideModal();
+                    wait(800).then(() => {
+                        dispatch(showToast('negative', "Payment failed!! Please try again."))
+                    })
+                });
+            }
+        }
     }
 
     return (
@@ -36,6 +54,7 @@ export default function WebViewModal({ visible, paymentUrl, onHideModal }) {
                     style={{ height: "100%" }}
                     source={{ uri: paymentUrl }}
                     renderLoading={LoadingIndicatorView}
+                    onNavigationStateChange={onWebViewStateChange}
                     startInLoadingState={true} />
             </SafeAreaView>
         </Modal>

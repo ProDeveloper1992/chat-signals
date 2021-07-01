@@ -121,7 +121,7 @@ const Chat = () => {
               onChatPress={() => onChatListItemPress(item)}
               profileImage={{ uri: getProfileImage(item.profile_picture) }}
               userName={item.user.username}
-              lastMessageTime={item.lastMessage ? item.lastMessage.created_at : new Date()}
+              lastMessageTime={item.lastMessage ? item.lastMessage.created_at : Date.now()}
               isActive={item.user.is_active * 1 == 1}
             />
           )}

@@ -49,7 +49,7 @@ export default function FriendRequestItem({
                 </View>
                 {item.is_status * 1 == 1 && (
                     <View style={[styles.userDetailContainer, { alignSelf: 'center', marginEnd: 20 }]}>
-                        <AppText type={'medium'} size={hp(2.2)}>
+                        <AppText type={'medium'} size={wp(4.2)}>
                             {`You have sent friend request to `}
                             <AppText type={'bold'}>{userName}</AppText>
                         </AppText>
@@ -59,7 +59,7 @@ export default function FriendRequestItem({
                     <View style={styles.userDetailContainer}>
                         <AppText
                             type={'bold'}
-                            size={hp(2.5)}
+                            size={wp(4.5)}
                             color={Colors.black}
                             numberOfLines={1}
                             style={{ textTransform: 'capitalize' }}

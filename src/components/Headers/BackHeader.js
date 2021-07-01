@@ -30,10 +30,10 @@ export function BackHeader({
       <SafeAreaView style={{ backgroundColor: color || Colors.white }} />
       <View style={[styles.container, style, { backgroundColor: color || Colors.white }]}>
         <TouchableOpacity onPress={onBackPress ? onBackPress : _navigateToBack}>
-          <ArrowLeftIcon width={size || hp(4)} height={size || hp(4)} />
+          <ArrowLeftIcon width={size || wp(8)} height={size || hp(4)} />
         </TouchableOpacity>
         <View style={styles.titleContainer}>
-          <AppText type={'bold'} size={hp(2.5)} color={color ? Colors.white : Colors.black}>
+          <AppText type={'bold'} size={wp(4.5)} color={color ? Colors.white : Colors.black}>
             {title}
           </AppText>
         </View>

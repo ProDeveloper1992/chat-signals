@@ -47,7 +47,7 @@ export default function LikesListItem({
             <View style={styles.userDetailContainer}>
                 <AppText
                     type={'bold'}
-                    size={hp(2.5)}
+                    size={wp(4.5)}
                     color={Colors.black}
                     numberOfLines={1}
                     style={{ textTransform: 'capitalize' }}
@@ -56,7 +56,7 @@ export default function LikesListItem({
                 </AppText>
                 <AppText
                     type={'regular'}
-                    size={hp(2.2)}
+                    size={wp(3.5)}
                     color={Colors.ui_primary}
                     numberOfLines={1}
                 >

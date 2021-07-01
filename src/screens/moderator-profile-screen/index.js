@@ -257,7 +257,7 @@ export default function ModeratorProfile(props) {
                           blurRadius={Platform.OS == 'ios' ? 40 : 5}
                         >
                           <View style={styles.eroticContainer}>
-                            <XXXCoinIcon width={60} height={60} />
+                            <XXXCoinIcon width={hp(9)} height={hp(9)} />
                             <AppText
                               type={'black-italic'}
                               size={16}
@@ -285,7 +285,7 @@ export default function ModeratorProfile(props) {
                           blurRadius={Platform.OS == 'ios' ? 40 : 5}
                         >
                           <View style={styles.eroticContainer}>
-                            <XXXCoinIcon width={60} height={60} />
+                            <XXXCoinIcon width={hp(9)} height={hp(9)} />
                             <AppText
                               type={'black-italic'}
                               size={16}
@@ -309,14 +309,28 @@ export default function ModeratorProfile(props) {
                         activeOpacity={0.8}
                         key={String(index)}
                         onPress={() => onPressImage(item, index)}>
-                        <FastImage
+                        {Platform.OS == 'ios' ? (
+                          <FastImage
+                            style={styles.imgBackground}
+                            source={{
+                              uri: getItemImage(item.picture),
+                              priority: FastImage.priority.high,
+                            }}
+                            resizeMode={FastImage.resizeMode.cover}
+                          />
+                        ) : (
+                          <ScalableImage
+                            src={getItemImage(item.picture)}
+                          />
+                        )}
+                        {/* <FastImage
                           style={styles.imgBackground}
                           source={{
                             uri: getItemImage(item.picture),
                             priority: FastImage.priority.high,
                           }}
                           resizeMode={FastImage.resizeMode.cover}
-                        />
+                        /> */}
                       </TouchableOpacity>
                     )
                   })}
@@ -419,17 +433,17 @@ export default function ModeratorProfile(props) {
               <View style={{ flex: 1 }}>
                 <View style={styles.moderatorNameContainer}>
                   <View style={styles.moderatorNameContainer}>
-                    <AppText type={'bold'} size={hp(2.8)} style={{ textTransform: 'capitalize', marginEnd: hp(1.8) }}>
+                    <AppText type={'bold'} size={wp(4.5)} style={{ textTransform: 'capitalize', marginEnd: hp(1.8) }}>
                       {params.item.username}{params.item.dob ? `, ${moment().diff(moment(params.item.dob, 'YYYY-MM-DD'), 'years')}` : ''}
                     </AppText>
-                    <OnlineStatusCircle isOnline={getIsOnline()} size={hp(2)} />
+                    <OnlineStatusCircle isOnline={getIsOnline()} size={wp(4)} />
                   </View>
                   <View style={[styles.moderatorNameContainer, { justifyContent: 'flex-end', marginEnd: hp(2) }]}>
                     <TouchableOpacity onPress={toggleSwitch} style={{ marginHorizontal: hp(1.8) }}>
                       {isFavorite ? (
-                        <StarFilledIcon width={hp(4)} height={hp(4)} />
+                        <StarFilledIcon width={wp(7)} height={wp(7)} />
                       ) : (
-                        <StarOutlineIcon width={hp(4)} height={hp(4)} />
+                        <StarOutlineIcon width={wp(7)} height={wp(7)} />
                       )}
                     </TouchableOpacity>
                     <LegalActionMenu
@@ -449,13 +463,13 @@ export default function ModeratorProfile(props) {
                   </View>
                 </View>
                 {params && params.isFromChat && moderatorDetail ? (
-                  <AppText type={'regular'} size={hp(2.5)} style={{ textTransform: 'capitalize' }}>
+                  <AppText type={'regular'} size={wp(4)} style={{ textTransform: 'capitalize' }}>
                     {moderatorDetail.city + ", " + moderatorDetail.country}
                   </AppText>
                 ) : (
                   <View>
                     {params && params.item && (
-                      <AppText type={'regular'} size={hp(2.5)} style={{ textTransform: 'capitalize' }}>
+                      <AppText type={'regular'} size={wp(4)} style={{ textTransform: 'capitalize' }}>
                         {params.item.city + ", " + params.item.country}
                       </AppText>
                     )}
@@ -495,7 +509,7 @@ export default function ModeratorProfile(props) {
             <View style={{ marginHorizontal: hp(2) }}>
               {PASSIONS.length > 0 && (
                 <View>
-                  <AppText type={'bold'} size={hp(2.8)}>{appLabels.interests}</AppText>
+                  <AppText type={'bold'} size={wp(5)}>{appLabels.interests}</AppText>
                   <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: hp(2) }}>
                     {PASSIONS.map((item, index) => {
                       if (item == "") {
@@ -512,7 +526,7 @@ export default function ModeratorProfile(props) {
                 <>
                   {moderatorDetail && moderatorDetail.description && (
                     <View>
-                      <AppText type={'bold'} size={hp(2.8)}>{appLabels.details}</AppText>
+                      <AppText type={'bold'} size={wp(5)}>{appLabels.details}</AppText>
                       <HTML source={{ html: moderatorDetail.description }} contentWidth={contentWidth} />
                     </View>
                   )}
@@ -551,8 +565,8 @@ export default function ModeratorProfile(props) {
                     key={String(appearanceIndex)}
                     style={styles.appearanceItem}
                   >
-                    <AppText size={hp(2.2)} style={{ flex: 1 }}>{appearanceItem.display_name}</AppText>
-                    <AppText type={'bold'} size={hp(2.2)} style={{ flex: 1, textAlign: 'right' }}>{appearanceItem.attr_value || ''}</AppText>
+                    <AppText size={wp(4)} style={{ flex: 1 }}>{appearanceItem.display_name}</AppText>
+                    <AppText type={'bold'} size={wp(4)} style={{ flex: 1, textAlign: 'right' }}>{appearanceItem.attr_value || ''}</AppText>
                   </View>
                 })}
               </View>
@@ -576,8 +590,8 @@ export default function ModeratorProfile(props) {
 const ProfileItem = ({ title, value }) => {
   return <View style={{ padding: 10 }}>
     <View>
-      <AppText type={'regular'} size={14} color={Colors.black}>{title}</AppText>
-      <AppText type={'bold'} size={16} color={Colors.black}>{value}</AppText>
+      <AppText type={'regular'} size={wp(3.5)} color={Colors.black}>{title}</AppText>
+      <AppText type={'bold'} size={wp(4)} color={Colors.black}>{value}</AppText>
     </View>
   </View>
 }

@@ -52,7 +52,7 @@ export default function FriendListItem({
                 <View style={styles.userDetailContainer}>
                     <AppText
                         type={'bold'}
-                        size={hp(2.5)}
+                        size={wp(4.5)}
                         color={Colors.black}
                         numberOfLines={1}
                         style={{ flex: 1, textTransform: 'capitalize' }}
