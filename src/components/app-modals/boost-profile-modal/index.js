@@ -9,7 +9,7 @@ import styles from './style';
 
 import CloseIcon from '../../../assets/icons/close.svg';
 import { BoostIcon } from '../../../constants/svg-icons';
-import { getGeneralSettingValueByName } from '../../../utils/common';
+import { getGeneralSettingValueByName, wait } from '../../../utils/common';
 import { boostCustomerProfile } from '../../../redux/actions/user-actions';
 
 export default function BoostProfileModal({ visible, onHideModal }) {
@@ -24,7 +24,9 @@ export default function BoostProfileModal({ visible, onHideModal }) {
         setLoading(true);
         await dispatch(boostCustomerProfile());
         setLoading(false);
-        onHideModal();
+        wait(600).then(() => {
+            onHideModal();
+        })
     }
 
     return (
@@ -40,7 +42,7 @@ export default function BoostProfileModal({ visible, onHideModal }) {
                 <AppText
                     size={24}
                     type={'bold'}
-                    style={{ textAlign: 'center' }}>{"Boost Profile"}</AppText>
+                    style={{ textAlign: 'center' }}>{`${appLabels.boost} ${appLabels.profile}`}</AppText>
                 <View style={{ alignItems: 'center', marginTop: 10, marginBottom: -30 }}>
                     <BoostIcon width={100} height={100} />
                 </View>
@@ -54,7 +56,7 @@ export default function BoostProfileModal({ visible, onHideModal }) {
 
                 <AppButton
                     type={'primary'}
-                    title={'Boost'}
+                    title={appLabels.boost}
                     style={{ width: '90%', alignSelf: 'center', marginTop: "5%" }}
                     onPress={onBoostProfile}
                     loading={loading}

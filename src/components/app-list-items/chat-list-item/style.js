@@ -13,8 +13,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 15,
-    borderBottomWidth: 1,
-    borderColor: Colors.grey
   },
 
   profileImageContainer: {

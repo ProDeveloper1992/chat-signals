@@ -41,7 +41,7 @@ export default StyleSheet.create({
       borderRadius: profileIconSize / 2,
       backgroundColor: Colors.grey,
       borderWidth: 2,
-      borderColor: isFocused ? Colors.black : Colors.white
+      borderColor: isFocused ? Colors.black : Colors.grey
     }
   },
 

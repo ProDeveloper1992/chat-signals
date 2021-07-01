@@ -170,7 +170,14 @@ export default function UserProfile(props) {
                 <AppText type={'bold'} size={16}>{`${userData && userData.username}${userData && userData.dob ? `, ${moment().diff(moment(userData.dob, 'DD-MM-YYYY'), 'years')}` : ''}`}</AppText>
               </View>
             </View>
-            {userData && userData.is_boosted == '0' && (
+            {userData && userData.is_boosted == '1' ? (
+              <View style={[styles.boostButton, { borderColor: "#9D62FC", backgroundColor: 'rgba(100, 55, 215, 0.1)' }]}>
+                <View style={styles.boostIconContainer}>
+                  <BoostIcon />
+                </View>
+                <AppText type={'bold'} size={12} color={"#562CCD"} uppercase>{"Boost Activated"}</AppText>
+              </View>
+            ) : (
               <TouchableOpacity
                 onPress={() => setBoostModalVisible(true)}
                 style={styles.boostButton}>

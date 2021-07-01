@@ -290,12 +290,12 @@ export default function ChatDetail(props) {
                 onPress={() => dispatch(toggleGallerySwiperModal(true, [{ url: moderator.profile_picture }]))} />
               <AppText
                 type={'bold'}
-                size={hp(3)}
+                size={wp(5)}
                 style={{ marginBottom: -5, marginTop: 10 }}>{moderator.user.username}</AppText>
               <AppText
                 onPress={onViewModeratorProfile}
                 type={'bold'}
-                size={hp(2.5)}
+                size={wp(4.5)}
                 color={Colors.ui_primary}
                 style={{ textDecorationLine: 'underline' }}>{appLabels.view_profile}</AppText>
             </View>
@@ -325,13 +325,13 @@ export default function ChatDetail(props) {
                 source={{ uri: moderator.profile_picture }}
                 onPress={() => dispatch(toggleGallerySwiperModal(true, [{ url: moderator.profile_picture }]))} />
               <View style={{ flex: 1, paddingHorizontal: 12 }}>
-                <AppText type={'bold'} size={hp(2.8)}>{moderator.user.username}</AppText>
-                <AppText type={'regular'} size={hp(2)} color={Colors.greydark}>{moderator.user.is_active * 1 == 1 ? appLabels.online : appLabels.offline}</AppText>
+                <AppText type={'bold'} size={wp(4.5)}>{moderator.user.username}</AppText>
+                <AppText type={'regular'} size={wp(3.5)} color={Colors.greydark}>{moderator.user.is_active * 1 == 1 ? appLabels.online : appLabels.offline}</AppText>
               </View>
               <TouchableOpacity
                 onPress={onInfoButtonPress}
                 style={{ marginBottom: -hp(2) }}>
-                <InfoIcon width={hp(6)} height={hp(6)} />
+                <InfoIcon width={wp(10)} height={wp(10)} />
               </TouchableOpacity>
             </View>
             {isLoadingConversation && messages.length == 0 ? (

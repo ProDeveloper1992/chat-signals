@@ -12,8 +12,8 @@ export const getChatConversation = (moderatorId) => (dispatch, getState) =>
             userId = userData.id;
         }
         let requestData = {
-            profile_id: userId,
-            customer_id: moderatorId
+            profile_id: moderatorId,
+            customer_id: userId
         }
         dispatch(ActionDispatcher(GET_CHAT_CONVERSATION_REQUEST));
         client

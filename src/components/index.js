@@ -37,6 +37,7 @@ import {
   SearchCityMenu
 } from './app-menus';
 import AppRangeSlider from './app-range-slider'
+import SwipableRow from './app-swipable-row'
 
 export {
   AppText,
@@ -61,6 +62,7 @@ export {
   OnlineStatusCircle,
   AppGiftBadge,
   AppRangeSlider,
+  SwipableRow,
 
   //Loaders
   AppIndicatorLoader,

@@ -53,7 +53,7 @@ export default function OwnPurchaseCard({
             console.log("userId", userData.id);
             // console.log("paymentUrl", paymentUrl + `?project=${project_identifier_key}&title=Micropayment+immediately.&testmode=${testmode}&customer=${userData.id}&seal=&country=DE`);
             payment_amount = sliderCount * 100;
-            payment_url = paymentUrl + `?project=${project_identifier_key}&title=Micropayment+immediately.&amount=${payment_amount}&testmode=${testmode}&customer=${userData.id}&seal=&country=DE`;
+            payment_url = paymentUrl + `?project=${project_identifier_key}&title=Micropayment+immediately.&amount=${payment_amount}&testmode=${testmode}&customer=${userData.id}&seal=&country=IN`;
             // "https://directbanking.micropayment.de/sofort/event/?project=12t5-lgain-9dc0a1f7&title=Micropayment+immediately.&testmode=1&customer=20&seal=&country=DE"
             let sealRequestData = {
                 accessKey: access_key,

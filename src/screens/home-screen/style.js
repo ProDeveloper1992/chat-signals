@@ -21,7 +21,7 @@ export default StyleSheet.create({
     // borderRadius: 30,
   },
   topTabLabel: {
-    fontSize: hp(2),
+    fontSize: wp(4),
     fontFamily: getFontFamily('bold'),
     letterSpacing: 1,
     textTransform: 'capitalize'

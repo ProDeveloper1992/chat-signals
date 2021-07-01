@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList } from 'react-native';
+import { View, FlatList, Image } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
+import LinearGradient from 'react-native-linear-gradient';
+
 import { NoListData, NotificationItem } from '../../../components';
 import { getNotificationsList } from '../../../redux/actions/user-actions';
 import { ChatListItemLoader } from '../../../components/app-list-items/chat-list-item';
 import styles from './style';
+import { Colors, Icons } from '../../../constants';
 
 
 export default function NotificationsTab(props) {
@@ -54,7 +57,15 @@ export default function NotificationsTab(props) {
                             item={item}
                         />
                     )}
-                    ListEmptyComponent={<NoListData title={appLabels.no_notifications_found} />}
+                    ListEmptyComponent={
+                        <NoListData
+                            title={appLabels.no_notifications_found}
+                            icon={<LinearGradient
+                                colors={[Colors.ui_counter_badge_gradient_1, Colors.ui_counter_badge_gradient_2]}
+                                style={styles.iconContainer}>
+                                <Image source={Icons.notification} style={styles.icon} />
+                            </LinearGradient>} />
+                    }
                     keyExtractor={(item, index) => index.toString()}
                 />
             )}

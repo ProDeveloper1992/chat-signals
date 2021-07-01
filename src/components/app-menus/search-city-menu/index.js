@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-
-import { View, Text, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import { useSelector } from 'react-redux';
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+
 import { AppDropDown, AppText, AuthInput } from '../..';
 import { GOOGLE_MAP_API_KEY } from '../../../constants';
 
@@ -51,7 +55,7 @@ function SearchCityMenu({ onSelectCity }) {
     return (
         <Menu
             ref={setMenuRef}
-            style={{ width: '88%', borderRadius: 11 }}
+            style={{ width: '88%', borderRadius: hp(2) }}
             button={<AuthInput
                 value={city}
                 label={appLabels.city}
@@ -59,7 +63,7 @@ function SearchCityMenu({ onSelectCity }) {
                 onChangeText={(text) => {
                     setCity(text)
                 }}
-                style={{ paddingHorizontal: 5, fontWeight: 'bold', fontSize: 16 }}
+                style={{ paddingHorizontal: 5, fontWeight: 'bold', fontSize: hp(2.5) }}
                 onSubmitEditing={() => searchCityList(city)} />}
         >
             <ScrollView style={{ paddingBottom: '5%', paddingTop: '5%' }}>
@@ -67,7 +71,7 @@ function SearchCityMenu({ onSelectCity }) {
                     return <MenuItem
                         key={String(genderIndex)}
                         onPress={() => onSelectMenu(cityItem)}>
-                        <AppText>{cityItem.name}</AppText>
+                        <AppText size={hp(2.2)}>{cityItem.name}</AppText>
                     </MenuItem>
                 })}
             </ScrollView>

@@ -656,8 +656,12 @@ export const boostCustomerProfile = () => (dispatch, getState) =>
       .post(`/customer_boost`, requestData)
       .then((res) => {
         if (res.meta.status) {
-          dispatch(showToast('positive', res.meta.message));
-          dispatch(getCustomerProfileDetail());
+          if (res.data.errors) {
+            dispatch(showToast('negative', res.meta.message));
+          } else {
+            dispatch(showToast('positive', res.meta.message));
+            dispatch(getCustomerProfileDetail());
+          }
         } else {
           dispatch(showToast('negative', res.meta.message));
         }

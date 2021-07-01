@@ -29,7 +29,7 @@ export default function TagItem({ title, disabled, onPress, selected }) {
             disabled={disabled}
             onPress={onTagPress}
             style={styles.container(isSelected)}>
-            <AppText type={'medium'} size={hp(2.2)} color={isSelected ? Colors.white : Colors.ui_primary}>{title}</AppText>
+            <AppText type={'medium'} size={wp(4)} color={isSelected ? Colors.white : Colors.ui_primary}>{title}</AppText>
         </TouchableOpacity>
     );
 }
@@ -38,10 +38,10 @@ const styles = StyleSheet.create({
     container: function (isSelected) {
         return {
             backgroundColor: isSelected ? Colors.ui_primary : Colors.ui_primary_10,
-            paddingHorizontal: hp(3),
-            paddingVertical: hp(1.5),
+            paddingHorizontal: wp(5),
+            paddingVertical: wp(2.5),
             borderRadius: hp(5),
-            marginEnd: hp(2.2),
+            marginEnd: wp(3),
             marginBottom: hp(2.2)
         }
     }

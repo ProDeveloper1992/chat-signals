@@ -4,14 +4,14 @@ import { View, TouchableHighlight, TouchableOpacity, Dimensions } from 'react-na
 import PropTypes from 'prop-types';
 
 import { Colors, Images, SCREEN_WIDTH } from '../../../constants';
-import { OnlineStatusCircle } from '../../../components';
+import { OnlineStatusCircle, SwipableRow } from '../../../components';
 import { AppText, CommonImage } from '../../index';
 import styles from './style';
 import ContentLoader, { Rect, Circle } from "react-content-loader/native";
 import LinearGradient from 'react-native-linear-gradient';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleGallerySwiperModal } from '../../../redux/actions/app-modals-actions';
-import { MessageSeenIcon, MessageDeliveredIcon } from '../../../constants/svg-icons';
+import { MessageSeenIcon, MessageDeliveredIcon, StickerGradientIcon32 } from '../../../constants/svg-icons';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -41,79 +41,93 @@ export default function ChatListItem({
     }
   }
 
+  // const renderDelete = () => {
+  //   return <StickerGradientIcon32 />;
+  // }
+
   return (
-    <TouchableOpacity
-      activeOpacity={0.8}
-      // underlayColor={'rgba(15, 41, 55, 0.1)'}
-      style={[styles.container, { backgroundColor: item.unseenCounter * 1 > 0 ? 'rgba(15, 41, 55, 0.1)' : Colors.white }]}
-      onPress={onChatPress}>
-      <View style={{ flex: 1, flexDirection: 'row' }}>
-        <View style={styles.profileImageContainer}>
-          <CommonImage
-            touchable={true}
-            size={wp(15)}
-            borderWidth={0}
-            source={profileImage}
-          // onPress={() => dispatch(toggleGallerySwiperModal(true, [profileImage]))}
-          />
-          <View style={styles.activeStatusCircle}>
-            <OnlineStatusCircle isOnline={isActive} size={wp(3.3)} />
-          </View>
+    <View style={{
+      flex: 1,
+      borderBottomWidth: 1,
+      borderColor: Colors.grey
+    }}>
+      {/* <SwipableRow
+        width={wp(5)}
+        buttons={[renderDelete()]}
+      > */}
+      <TouchableOpacity
+        activeOpacity={0.6}
+        style={[styles.container, { backgroundColor: item.unseenCounter * 1 > 0 ? 'rgba(15, 41, 55, 0.1)' : Colors.white }]}
+        onPress={onChatPress}>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <View style={styles.profileImageContainer}>
+            <CommonImage
+              touchable={false}
+              size={wp(15)}
+              borderWidth={0}
+              source={profileImage}
+            // onPress={() => dispatch(toggleGallerySwiperModal(true, [profileImage]))}
+            />
+            <View style={styles.activeStatusCircle}>
+              <OnlineStatusCircle isOnline={isActive} size={wp(3.3)} />
+            </View>
 
-        </View>
-        <View style={styles.userDetailContainer}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <AppText
-              type={'bold'}
-              size={hp(2.5)}
-              color={Colors.black}
-              numberOfLines={1}
-              style={{ flex: 1, textTransform: 'capitalize' }}
-
-            >
-              {userName}
-            </AppText>
-            <AppText size={hp(2)} type={item.unseenCounter * 1 > 0 ? 'bold' : 'regular'}>{moment(lastMessageTime ? lastMessageTime : Date.now()).fromNow()}</AppText>
           </View>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <View style={{ flex: 1.2, flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
-              {userData && item.lastMessage && item.lastMessage.from_id == userData.id && item.lastMessage.seen == '0' && (
-                <View style={{ marginEnd: 5 }}>
-                  <MessageDeliveredIcon />
-                </View>
-              )}
-              {userData && item.lastMessage && item.lastMessage.from_id == userData.id && item.lastMessage.seen == '1' && (
-                <View style={{ marginEnd: 5 }}>
-                  <MessageSeenIcon />
-                </View>
-              )}
+          <View style={styles.userDetailContainer}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <AppText
-                type={item.unseenCounter * 1 > 0 ? 'bold' : 'regular'}
-                size={hp(2.2)}
+                type={'bold'}
+                size={wp(4.5)}
                 color={Colors.black}
                 numberOfLines={1}
+                style={{ flex: 1, textTransform: 'capitalize' }}
+
               >
-                {getLastMessage()}
+                {userName}
               </AppText>
+              <AppText size={wp(3.5)} type={item.unseenCounter * 1 > 0 ? 'bold' : 'regular'}>{moment(lastMessageTime).fromNow()}</AppText>
             </View>
-            <View style={{ flex: 0.8, alignItems: 'flex-end' }}>
-              {item.unseenCounter * 1 > 0 && (
-                <LinearGradient
-                  colors={[Colors.ui_counter_badge_gradient_1, Colors.ui_counter_badge_gradient_2]}
-                  style={styles.unSeenBadgeContainer}>
-                  <AppText
-                    type={'bold'}
-                    size={hp(1.8)}
-                    color={Colors.white}>
-                    {item.unseenCounter}
-                  </AppText>
-                </LinearGradient>
-              )}
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{ flex: 1.2, flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
+                {userData && item.lastMessage && item.lastMessage.from_id == userData.id && item.lastMessage.seen == '0' && (
+                  <View style={{ marginEnd: 5 }}>
+                    <MessageDeliveredIcon />
+                  </View>
+                )}
+                {userData && item.lastMessage && item.lastMessage.from_id == userData.id && item.lastMessage.seen == '1' && (
+                  <View style={{ marginEnd: 5 }}>
+                    <MessageSeenIcon />
+                  </View>
+                )}
+                <AppText
+                  type={item.unseenCounter * 1 > 0 ? 'bold' : 'regular'}
+                  size={wp(4)}
+                  color={Colors.black}
+                  numberOfLines={1}
+                >
+                  {getLastMessage()}
+                </AppText>
+              </View>
+              <View style={{ flex: 0.8, alignItems: 'flex-end' }}>
+                {item.unseenCounter * 1 > 0 && (
+                  <LinearGradient
+                    colors={[Colors.ui_counter_badge_gradient_1, Colors.ui_counter_badge_gradient_2]}
+                    style={styles.unSeenBadgeContainer}>
+                    <AppText
+                      type={'bold'}
+                      size={hp(1.8)}
+                      color={Colors.white}>
+                      {item.unseenCounter}
+                    </AppText>
+                  </LinearGradient>
+                )}
+              </View>
             </View>
           </View>
         </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+      {/* </SwipableRow> */}
+    </View>
   );
 }
 
@@ -151,7 +165,7 @@ ChatListItem.defaultProps = {
   profileImage: Images.app_logo,
   userName: 'Username',
   lastMessage: 'Last Message',
-  lastMessageTime: new Date(),
+  lastMessageTime: Date.now(),
   item: {},
   onChatPress: () => { },
 };

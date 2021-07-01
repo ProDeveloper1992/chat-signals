@@ -17,7 +17,7 @@ export function GeneralHeader({
       <SafeAreaView style={{ backgroundColor: Colors.ui_primary }} />
       <View style={[styles.container, style]}>
         <View style={styles.flexOne}>
-          <AppText type={'bold'} size={hp(2.5)} color={Colors.white} style={styles.headerTitle}>
+          <AppText type={'bold'} size={wp(4.5)} color={Colors.white} style={styles.headerTitle}>
             {label}
           </AppText>
         </View>
