@@ -12,7 +12,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.white,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 15,
+    padding: wp(4),
   },
 
   profileImageContainer: {
@@ -23,27 +23,19 @@ export default StyleSheet.create({
   activeStatusCircle: {
     position: 'absolute',
     bottom: 0,
-    right: 5
+    right: wp(1.5)
   },
 
   userDetailContainer: {
     flex: 1,
-    marginLeft: 15,
+    marginLeft: wp(4),
     justifyContent: 'center'
   },
 
-  arrowRight: {
-    height: 12,
-    width: 13,
-    resizeMode: 'cover',
-    marginTop: 10,
-    alignSelf: 'flex-end',
-  },
-
   unSeenBadgeContainer: {
-    width: 20,
-    height: 20,
-    borderRadius: 20 / 2,
+    width: wp(5),
+    height: wp(5),
+    borderRadius: wp(5) / 2,
     alignItems: 'center',
     justifyContent: 'center'
   }

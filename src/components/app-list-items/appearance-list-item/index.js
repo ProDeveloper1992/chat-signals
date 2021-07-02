@@ -5,6 +5,11 @@ import {
     CollapseHeader,
     CollapseBody,
 } from 'accordion-collapse-react-native';
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+
 import styles from './style'
 import { AppText } from '../..';
 import { Colors, SCREEN_WIDTH } from '../../../constants';
@@ -117,10 +122,10 @@ export default function AppearanceListItem({ item, onSelectAttribute, onChangeTe
 const CollapsibleListItem = ({ title, onPress, isSelected }) => {
     return <TouchableOpacity
         onPress={onPress}
-        style={{ borderBottomWidth: 0.5, borderColor: Colors.grey, marginBottom: 5, padding: 10 }}>
+        style={{ borderBottomWidth: 0.5, borderColor: Colors.grey, marginBottom: wp(2), padding: wp(3) }}>
         <AppText
             type={'medium'}
-            size={14}
+            size={wp(4)}
             color={isSelected ? Colors.ui_primary : Colors.black}
         >{title}</AppText>
     </TouchableOpacity>
@@ -130,10 +135,10 @@ const AppearanceCollapsibleItem = ({ label, title, isCollapsed }) => {
     return (
         <View style={[styles.accountDetailItemContainer, { borderBottomWidth: isCollapsed ? 0 : 1 }]}>
             <View style={{ flex: 1 }}>
-                <AppText type={'regular'} size={14} color={Colors.black}>{label}</AppText>
-                <AppText type={'bold'} size={16} color={Colors.black}>{title}</AppText>
+                <AppText type={'regular'} size={wp(4)} color={Colors.black}>{label}</AppText>
+                <AppText type={'bold'} size={wp(4.5)} color={Colors.black}>{title}</AppText>
             </View>
-            {isCollapsed ? <ArrowDownIcon width={18} height={18} /> : <ArrowRightIcon width={18} height={18} />}
+            {isCollapsed ? <ArrowDownIcon width={wp(5)} height={wp(5)} /> : <ArrowRightIcon width={wp(5)} height={wp(5)} />}
         </View>
     )
 }
@@ -142,19 +147,20 @@ const AppearanceInputItem = ({ label, value, onChangeText }) => {
     return (
         <View style={[styles.accountDetailItemContainer, { borderBottomWidth: 1 }]}>
             <View style={{ flex: 1 }}>
-                <AppText type={'regular'} size={14} color={Colors.black}>{label}</AppText>
+                <AppText type={'regular'} size={wp(4)} color={Colors.black}>{label}</AppText>
                 <TextInput
                     placeholder={label}
                     value={value}
                     onChangeText={onChangeText}
                     style={{
                         width: '100%',
-                        fontSize: 18,
+                        fontSize: wp(5),
                         fontFamily: getFontFamily('bold'),
-                        color: Colors.black
+                        color: Colors.black,
+                        paddingVertical: 0
                     }} />
             </View>
-            <ArrowRightIcon width={18} height={18} />
+            <ArrowRightIcon width={wp(5)} height={wp(5)} />
         </View>
     )
 }

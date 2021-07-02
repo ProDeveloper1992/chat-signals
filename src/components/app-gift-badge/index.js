@@ -3,6 +3,10 @@ import { ActivityIndicator, StyleSheet, TouchableOpacity, View } from 'react-nat
 import { useDispatch, useSelector } from 'react-redux';
 import CountDown from 'react-native-countdown-component';
 import * as Animatable from 'react-native-animatable';
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 import { AppText } from '..';
 import { Colors } from '../../constants';
@@ -48,8 +52,8 @@ export default function AppGiftBadge() {
                         animation={'swing'}
                         direction={'alternate'}
                         useNativeDriver={true}
-                        style={{ paddingHorizontal: 10, paddingVertical: 8 }}>
-                        <GiftBoxIcon width={35} height={35} />
+                        style={{ paddingHorizontal: wp(3), paddingVertical: wp(3) }}>
+                        <GiftBoxIcon width={wp(9)} height={wp(9)} />
                     </Animatable.View>
                     {isOpened && (
                         <View style={{ flexDirection: 'row' }}>
@@ -62,7 +66,7 @@ export default function AppGiftBadge() {
                                             color={Colors.ui_primary} />) : (
                                         <AppText
                                             type={'bold'}
-                                            size={14}
+                                            size={wp(4)}
                                             onPress={onOpenGiftBox}
                                             style={{ marginStart: 5 }}
                                             color={Colors.ui_primary}>{"Open Now!"}</AppText>
@@ -102,9 +106,14 @@ export default function AppGiftBadge() {
                 activeOpacity={1}
                 onPress={onBadgePress}
                 style={styles.container(isOpened)}>
-                <View style={{ paddingHorizontal: 10, paddingVertical: 8 }}>
-                    <GiftBoxIcon width={35} height={35} />
-                </View>
+                <Animatable.View
+                    iterationCount={'infinite'}
+                    animation={'swing'}
+                    direction={'alternate'}
+                    useNativeDriver={true}
+                    style={{ paddingHorizontal: wp(3), paddingVertical: wp(3) }}>
+                    <GiftBoxIcon width={wp(9)} height={wp(9)} />
+                </Animatable.View>
                 {isOpened && (
                     <View style={{ flexDirection: 'row' }}>
                         <View>
@@ -115,7 +124,7 @@ export default function AppGiftBadge() {
                                         color={Colors.ui_primary} />) : (
                                     <AppText
                                         type={'bold'}
-                                        size={14}
+                                        size={wp(4)}
                                         onPress={onOpenGiftBox}
                                         style={{ marginStart: 5 }}
                                         color={Colors.ui_primary}>{"Open Now!"}</AppText>
@@ -141,33 +150,27 @@ const styles = StyleSheet.create({
         return {
             flexDirection: 'row',
             alignItems: 'center',
-            // paddingVertical: 5,
-            // paddingStart: 10,
-            borderTopRightRadius: 8,
-            borderBottomRightRadius: 8,
+            borderTopRightRadius: wp(3),
+            borderBottomRightRadius: wp(3),
             backgroundColor: Colors.white,
             shadowColor: Colors.black,
             shadowOffset: { width: 0, height: 8 },
             shadowOpacity: 0.3,
             shadowRadius: 10,
             elevation: 8,
-            // borderEndWidth: isOpened ? 10 : 0,
             borderColor: Colors.ui_primary
         }
     },
     baseTop: {
-        marginStart: 10,
-        borderRightWidth: 15,
+        marginStart: wp(2.5),
+        borderRightWidth: wp(3.5),
         borderRightColor: Colors.ui_primary,
-        borderBottomWidth: 25,
+        borderBottomWidth: wp(7),
         borderBottomColor: "transparent",
-        borderTopWidth: 25,
+        borderTopWidth: wp(7),
         borderTopColor: "transparent",
         height: '100%',
         width: 0,
-        // left: 0,
-        // top: -35,
-        // position: "absolute",
     },
     baseRight: {
         width: 10,

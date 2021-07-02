@@ -47,6 +47,6 @@ export default StyleSheet.create({
 
     userDetailContainer: {
         flex: 1,
-        marginLeft: 15,
+        marginLeft: wp(4),
     },
 });

@@ -16,7 +16,9 @@ export default function BottomTabBar({ state, descriptors, navigation }) {
 
   if (userChatList.length > 0) {
     for (let chatItem of userChatList) {
-      unseenMessages = unseenMessages + chatItem.unseenCounter;
+      if (chatItem.unseenCounter * 1 > 0) {
+        unseenMessages = unseenMessages + 1;
+      }
     }
   }
 

@@ -47,23 +47,15 @@ export default StyleSheet.create({
 
     userDetailContainer: {
         flex: 1,
-        marginLeft: 15,
-    },
-
-    arrowRight: {
-        height: 12,
-        width: 13,
-        resizeMode: 'cover',
-        marginTop: 10,
-        alignSelf: 'flex-end',
+        marginLeft: wp(4),
     },
 
     buttonContainer: function (isAccept) {
         return {
-            paddingHorizontal: 22,
-            paddingVertical: 7,
-            borderRadius: 43,
-            marginEnd: 7,
+            paddingHorizontal: wp(6),
+            paddingVertical: wp(2),
+            borderRadius: wp(20),
+            marginEnd: wp(2),
             backgroundColor: isAccept ? Colors.ui_primary : Colors.ui_background
         }
     }

@@ -49,9 +49,9 @@ export default function FriendRequestItem({
                 </View>
                 {item.is_status * 1 == 1 && (
                     <View style={[styles.userDetailContainer, { alignSelf: 'center', marginEnd: 20 }]}>
-                        <AppText type={'medium'} size={wp(4.2)}>
+                        <AppText type={'medium'} size={wp(4)}>
                             {`You have sent friend request to `}
-                            <AppText type={'bold'}>{userName}</AppText>
+                            <AppText size={wp(4)} type={'bold'}>{userName}</AppText>
                         </AppText>
                     </View>
                 )}
@@ -94,7 +94,7 @@ const Button = ({ isAccept, title, onPress, loading }) => {
             {loading ? (
                 <ActivityIndicator size={'small'} color={isAccept ? Colors.white : Colors.black} />
             ) : (
-                <AppText color={isAccept ? Colors.white : Colors.black}>{title}</AppText>
+                <AppText size={wp(4)} color={isAccept ? Colors.white : Colors.black}>{title}</AppText>
             )}
         </TouchableOpacity>
     )

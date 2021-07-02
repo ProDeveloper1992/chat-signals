@@ -115,7 +115,7 @@ export default function ChatListItem({
                     style={styles.unSeenBadgeContainer}>
                     <AppText
                       type={'bold'}
-                      size={hp(1.8)}
+                      size={wp(3)}
                       color={Colors.white}>
                       {item.unseenCounter}
                     </AppText>

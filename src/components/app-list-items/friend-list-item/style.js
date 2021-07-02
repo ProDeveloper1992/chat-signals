@@ -12,8 +12,8 @@ export default StyleSheet.create({
         backgroundColor: Colors.white,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingVertical: 10,
-        paddingHorizontal: 15,
+        paddingVertical: wp(2.5),
+        paddingHorizontal: wp(4),
         borderBottomWidth: 0.5,
         borderColor: Colors.grey
     },
@@ -35,7 +35,7 @@ export default StyleSheet.create({
         position: 'absolute',
         bottom: 3,
         right: 0,
-        marginBottom: -10,
+        marginBottom: -wp(2),
         // marginEnd: -20
     },
 
@@ -50,24 +50,6 @@ export default StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
-        marginLeft: 15,
-    },
-
-    arrowRight: {
-        height: 12,
-        width: 13,
-        resizeMode: 'cover',
-        marginTop: 10,
-        alignSelf: 'flex-end',
-    },
-
-    buttonContainer: function (isAccept) {
-        return {
-            paddingHorizontal: 22,
-            paddingVertical: 7,
-            borderRadius: 43,
-            marginEnd: 7,
-            backgroundColor: isAccept ? Colors.ui_primary : Colors.ui_background
-        }
+        marginLeft: wp(4),
     }
 });

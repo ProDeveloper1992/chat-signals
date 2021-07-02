@@ -2,6 +2,10 @@ import moment from 'moment';
 import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 import { AppText } from '..';
 import { Colors } from '../../constants';
@@ -28,22 +32,22 @@ export default function DatePicker({ title, value, error, onChangeDate }) {
     return (
         <View style={{ marginVertical: 5 }}>
             {title && (
-                <AppText color={error ? Colors.ui_error : Colors.black} style={{ paddingBottom: 5, paddingTop: 5 }}>{title}</AppText>
+                <AppText color={error ? Colors.ui_error : Colors.black} style={{ paddingVertical: wp(1) }}>{title}</AppText>
             )}
             <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={showDatePicker}
                 style={[styles.container, { borderColor: error ? Colors.ui_error : Colors.grey }]}
             >
-                <CalenderIcon width={24} height={24} />
+                <CalenderIcon width={wp(6)} height={wp(6)} />
                 <View style={{ padding: 15 }}>
-                    <AppText>{value != null ? value : "Select date"}</AppText>
+                    <AppText size={wp(4)}>{value != null ? value : "Select date"}</AppText>
                 </View>
             </TouchableOpacity>
             {error && (
                 <AppText
                     type={'regular'}
-                    size={12}
+                    size={wp(3.5)}
                     color={Colors.ui_error}
                     style={styles.errorText}>
                     {error}
@@ -64,9 +68,9 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingStart: 15,
+        paddingStart: wp(4.5),
         borderWidth: 1,
-        borderRadius: 5,
+        borderRadius: wp(2),
         borderColor: Colors.grey,
     },
     errorText: {

@@ -29,6 +29,10 @@ export default function FriendsScreen(props) {
         getCutomerFriendsList();
     }, []);
 
+    useEffect(() => {
+        setCustomerFriends(friends);
+    }, [friendsList]);
+
     const getCutomerFriendsList = async () => {
         setLoading(true);
         await dispatch(getFriendsList());
