@@ -2,6 +2,10 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import FastImage from 'react-native-fast-image';
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 import { Colors, DEFAULT_AVATAR_URL } from '../../constants';
 
@@ -54,7 +58,7 @@ CommonImage.propTypes = {
 };
 
 CommonImage.defaultProps = {
-    size: 70,
+    size: wp(15),
     borderColor: Colors.transparent,
     borderWidth: 0,
     source: { uri: DEFAULT_AVATAR_URL },

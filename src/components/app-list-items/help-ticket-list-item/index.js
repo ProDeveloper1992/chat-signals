@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { View, Image, TouchableOpacity, TextInput, ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+
 import { Colors, DEFAULT_AVATAR_URL, Images } from '../../../constants';
 import { AppText, CommonImage } from '../../index';
 import styles from './style';
-import moment from 'moment';
-import { useDispatch, useSelector } from 'react-redux';
 import { getUserTicketResponse, sendUserTicketMessage } from '../../../redux/actions/user-actions';
 import { DropDownIcon, DropUpIcon, SendMessageIcon } from '../../../constants/svg-icons';
 import { getUserProfilePicture } from '../../../utils/common';
@@ -80,13 +84,13 @@ export default function HelpTicketListItem({ item, index }) {
             {index == 0 && (
                 <View style={[styles.header, { borderBottomWidth: 0.5, borderColor: Colors.grey }]}>
                     <View style={{ flex: 0.8 }}>
-                        <AppText type={'bold'}>{"Subject"}</AppText>
+                        <AppText size={wp(4)} type={'bold'}>{"Subject"}</AppText>
                     </View>
                     <View style={{ flex: 1.4 }}>
-                        <AppText type={'bold'}>{"Message"}</AppText>
+                        <AppText size={wp(4)} type={'bold'}>{"Message"}</AppText>
                     </View>
                     <View style={{ flex: 0.8, alignItems: 'flex-end' }}>
-                        <AppText type={'bold'}>{"Status"}</AppText>
+                        <AppText size={wp(4)} type={'bold'}>{"Status"}</AppText>
                     </View>
                 </View>
             )}
@@ -94,16 +98,16 @@ export default function HelpTicketListItem({ item, index }) {
                 activeOpacity={0.6}
                 onPress={onItemPress}
                 style={styles.header}>
-                <View style={{ flex: 0.8, marginEnd: 10 }}>
-                    <AppText size={13}>{item.ticket_categories.name}</AppText>
+                <View style={{ flex: 0.8, marginEnd: wp(2) }}>
+                    <AppText size={wp(3.5)}>{item.ticket_categories.name}</AppText>
                 </View>
-                <View style={{ flex: 1.4, marginEnd: 10 }}>
-                    <AppText size={13}>{item.message}</AppText>
+                <View style={{ flex: 1.4, marginEnd: wp(2) }}>
+                    <AppText size={wp(3.5)}>{item.message}</AppText>
                 </View>
                 <View style={styles.statusContainer}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <View style={[styles.statusDot, { backgroundColor: getStatusColor() }]} />
-                        <AppText size={13} color={getStatusColor()} style={{ marginEnd: 5 }}>{getStatus()}</AppText>
+                        <AppText size={wp(3.5)} color={getStatusColor()} style={{ marginEnd: wp(1) }}>{getStatus()}</AppText>
                         {isExpanded ? (
                             <DropUpIcon />
 
@@ -115,14 +119,14 @@ export default function HelpTicketListItem({ item, index }) {
             </TouchableOpacity>
 
             {isExpanded && (
-                <View style={{ paddingHorizontal: 15 }}>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingBottom: 10 }}>
+                <View style={{ paddingHorizontal: wp(4) }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingBottom: wp(2) }}>
                         <CommonImage touchable={false} size={45} source={{ uri: getUserProfilePicture() }} />
-                        <View style={{ flex: 1, borderWidth: 1, borderColor: Colors.grey, borderRadius: 15, paddingHorizontal: 15, marginHorizontal: 10 }}>
+                        <View style={{ flex: 1, borderWidth: 1, borderColor: Colors.grey, borderRadius: wp(3), paddingHorizontal: wp(3), marginHorizontal: wp(3) }}>
                             <TextInput
                                 value={messageText}
                                 placeholder={"Write message here..."}
-                                style={{ paddingVertical: 10 }}
+                                style={{ paddingVertical: wp(2) }}
                                 onChangeText={(text) => setMessageText(text)}
                                 onSubmitEditing={onSendIconPress}
                             />
@@ -131,26 +135,26 @@ export default function HelpTicketListItem({ item, index }) {
                             activeOpacity={0.8}
                             style={styles.sendIconContainer}
                             onPress={onSendIconPress}>
-                            <SendMessageIcon width={24} height={24} />
+                            <SendMessageIcon width={wp(6)} height={wp(6)} />
                         </TouchableOpacity>
                     </View>
-                    {loading && conversation.length == 0 ? (<ActivityIndicator size={'small'} color={Colors.ui_primary} style={{ marginBottom: 10 }} />) : (
-                        <View style={{ marginStart: '12%' }}>
+                    {loading && conversation.length == 0 ? (<ActivityIndicator size={'small'} color={Colors.ui_primary} style={{ marginBottom: wp(2) }} />) : (
+                        <View style={{ marginStart: wp(12) }}>
                             {conversation.map((item, index) => {
                                 return (
-                                    <View key={String(index)} style={{ flex: 1, flexDirection: 'row', padding: 10 }}>
-                                        <Image style={{ width: 45, height: 45, borderRadius: 45 / 2 }} source={{ uri: item.user ? getUserProfilePicture() : DEFAULT_AVATAR_URL }} />
+                                    <View key={String(index)} style={{ flex: 1, flexDirection: 'row', padding: wp(2) }}>
+                                        <Image style={{ width: wp(12), height: wp(12), borderRadius: wp(12) / 2 }} source={{ uri: item.user ? getUserProfilePicture() : DEFAULT_AVATAR_URL }} />
                                         {item.user ? (
-                                            <View style={{ flex: 1, marginHorizontal: 10 }}>
+                                            <View style={{ flex: 1, marginHorizontal: wp(2) }}>
                                                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                                                    <AppText type={'bold'} size={13} >{userData.username}</AppText>
+                                                    <AppText type={'bold'} size={wp(3.5)} >{userData.username}</AppText>
                                                 </View>
-                                                <AppText size={13} color={Colors.greydark}>{item.user}</AppText>
+                                                <AppText size={wp(3.5)} color={Colors.greydark}>{item.user}</AppText>
                                             </View>
                                         ) : (
-                                            <View style={{ flex: 1, marginHorizontal: 10 }}>
-                                                <AppText type={'bold'} size={13}>{"Support"}</AppText>
-                                                <AppText size={13} color={Colors.greydark}>{item.admin}</AppText>
+                                            <View style={{ flex: 1, marginHorizontal: wp(2) }}>
+                                                <AppText type={'bold'} size={wp(3.5)}>{"Support"}</AppText>
+                                                <AppText size={wp(3.5)} color={Colors.greydark}>{item.admin}</AppText>
                                             </View>
                                         )}
                                     </View>

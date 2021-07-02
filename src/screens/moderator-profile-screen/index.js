@@ -72,7 +72,7 @@ export default function ModeratorProfile(props) {
         if (image.is_erotic == '1') {
           obj = { url: 'https://dcassetcdn.com/design_img/368831/55332/55332_2984458_368831_image.jpg' };
         }
-        if (image.is_friend == '1') {
+        if (image.is_friend == '1' && !params.item.is_friend) {
           obj = { url: 'https://mafasworld.files.wordpress.com/2010/11/2294890654_aa2c97b771_o.jpg' };
         }
         if (image.is_active == '1') {
@@ -248,7 +248,7 @@ export default function ModeratorProfile(props) {
                   indicator={_renderDotIndicator(moderatorDetail.profile_picture.length)}
                 >
                   {moderatorDetail.profile_picture.map((item, index) => {
-                    if (item.is_friend == "1") {
+                    if (item.is_friend == "1" && !moderatorDetail.is_friend) {
                       return (
                         <ImageBackground
                           key={String(index)}
@@ -345,7 +345,7 @@ export default function ModeratorProfile(props) {
                   indicator={_renderDotIndicator(getProfilePictures().length)}
                 >
                   {getProfilePictures().map((item, index) => {
-                    if (item.is_friend == "1") {
+                    if (item.is_friend == "1" && !params.item.is_friend) {
                       return (
                         <ImageBackground
                           key={String(index)}

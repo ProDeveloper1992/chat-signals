@@ -59,7 +59,7 @@ export default function FriendListItem({
                     >
                         {userName}
                     </AppText>
-                    {loading ? (<ActivityIndicator size={'small'} color={Colors.ui_primary} style={{ padding: 10 }} />) : (
+                    {loading ? (<ActivityIndicator size={'small'} color={Colors.ui_primary} style={{ padding: wp(2) }} />) : (
                         <FriendItemMenu
                             onSelectOption={(menu) => onSelectMenuOption(menu)} />
                     )}

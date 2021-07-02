@@ -2,6 +2,10 @@ import React from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 import moment from 'moment';
 import FastImage from 'react-native-fast-image';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 import { Colors, Icons, IMAGE_BASE_URL } from '../../../constants';
 import { AppText } from '../../index';
@@ -30,7 +34,7 @@ export default function ChatBubble({ item, isFromUser }) {
             // disabled
             activeOpacity={0.8}
             onPress={() => dispatch(toggleGallerySwiperModal(true, [{ url: IMAGE_BASE_URL + 'attachments/' + item.attachment[0] }]))}
-            style={[styles.container(isFromUser), { paddingVertical: 10, paddingHorizontal: 10 }]}>
+            style={[styles.container(isFromUser), { paddingHorizontal: wp(2) }]}>
             <FastImage
               style={styles.imageContainer}
               source={{
@@ -40,13 +44,13 @@ export default function ChatBubble({ item, isFromUser }) {
               resizeMode={FastImage.resizeMode.contain}
             />
             {item.message != '' && (
-              <AppText color={isFromUser ? Colors.black : Colors.white}>{item.message}</AppText>
+              <AppText size={wp(4)} color={isFromUser ? Colors.black : Colors.white}>{item.message}</AppText>
             )}
           </TouchableOpacity>
           <View style={styles.seenTimeContainer(isFromUser)}>
-            <AppText size={12}>{moment(item.fullTime).format("HH:mm")}</AppText>
+            <AppText size={wp(3.5)}>{moment(item.fullTime).format("HH:mm")}</AppText>
             {isFromUser && (
-              <View style={{ marginStart: 5 }}>
+              <View style={{ marginStart: wp(2) }}>
                 {getTickIcon(item.seen)}
               </View>
             )}
@@ -63,14 +67,13 @@ export default function ChatBubble({ item, isFromUser }) {
         disabled
         style={styles.container(isFromUser)}>
         <View style={styles.textMsgContainer}>
-          <AppText type={'regular'} color={isFromUser ? Colors.black : Colors.white}>{item.message}</AppText>
+          <AppText size={wp(4)} type={'regular'} color={isFromUser ? Colors.black : Colors.white}>{item.message}</AppText>
         </View>
       </TouchableOpacity>
       <View style={styles.seenTimeContainer(isFromUser)}>
-        <AppText size={12}>{moment(item.fullTime).format("HH:mm")}</AppText>
+        <AppText size={wp(3.5)}>{moment(item.fullTime).format("HH:mm")}</AppText>
         {isFromUser && (
-          // <Image style={styles.seenIcon} source={getTickIcon(item.seen)} />
-          <View style={{ marginStart: 5 }}>
+          <View style={{ marginStart: wp(2) }}>
             {getTickIcon(item.seen)}
           </View>
         )}

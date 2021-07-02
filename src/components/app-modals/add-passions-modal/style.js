@@ -13,7 +13,7 @@ export default StyleSheet.create({
         backgroundColor: Colors.white,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
-        padding: 25,
+        padding: 20,
     },
     modalTitle: {
         color: Colors.ui_primary_dark,

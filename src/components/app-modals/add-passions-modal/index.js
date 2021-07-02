@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, ScrollView } from 'react-native';
 import Modal from 'react-native-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { Colors } from '../../../constants';
@@ -80,16 +80,18 @@ export default function AddPassionsModal({ visible, onHideModal }) {
                     icon={<SearchIcon width={24} height={24} />}
                     placeholder={"Search"}
                 />
-                <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', marginTop: 15 }}>
-                    {passionList && passionList.map((item, index) => {
-                        return <TagItem
-                            key={String(index)}
-                            title={item.name}
-                            selected={isTagSelected(item)}
-                            onPress={(isSelected) => onTagItemPress(isSelected, item)}
-                        />
-                    })}
-                </View>
+                <ScrollView style={{ flex: 1 }}>
+                    <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', marginTop: 15 }}>
+                        {passionList && passionList.map((item, index) => {
+                            return <TagItem
+                                key={String(index)}
+                                title={item.name}
+                                selected={isTagSelected(item)}
+                                onPress={(isSelected) => onTagItemPress(isSelected, item)}
+                            />
+                        })}
+                    </View>
+                </ScrollView>
                 <AppButton
                     type={'primary'}
                     title={'Save'}

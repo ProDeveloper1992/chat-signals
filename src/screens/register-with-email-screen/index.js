@@ -59,6 +59,10 @@ const RegisterWithEmail = (props) => {
 
   //First Position Page
   const [userName, setUserName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [firstNameError, setFirstNameError] = useState(null);
+  const [lastName, setLastName] = useState('');
+  const [lastNameError, setLastNameError] = useState(null);
   const [userNameError, setUsernameError] = useState(null);
   const [birthDate, setBirthDate] = useState(null);
   const [birthDateError, setBirthDateError] = useState(null);
@@ -90,104 +94,92 @@ const RegisterWithEmail = (props) => {
 
 
   const onRegisterUser = async () => {
-    if (stepPosition == 0) {
-      setStepPosition(1);
-    } else {
-      let isValid = true;
-      if (userName.trim() == 0) {
-        isValid = false;
-        setUsernameError(appLabels.user_name_error_1);
-        // setEmailError(appLabels.email_error_1);
-      } else {
-        setUsernameError(null);
-      }
+    let isValid = true;
 
-      if (profileImage.uri === null) {
-        isValid = false;
-        dispatch(showToast('negative', "Please select your profile image!"));
-      }
+    if (profileImage.uri === null) {
+      isValid = false;
+      dispatch(showToast('negative', "Please select your profile image!"));
+    }
 
 
-      if (isValid) {
-        let formatedBirthDate = moment(moment(birthDate, 'DD/MM/YYYY')).format('YYYY-MM-DD');
-        console.log("DOB", formatedBirthDate)
-        console.log("profileImage", profileImage)
-        try {
-          const cleanURL = profileImage.uri.replace("file://", "");
+    if (isValid) {
+      let formatedBirthDate = moment(moment(birthDate, 'DD/MM/YYYY')).format('YYYY-MM-DD');
+      console.log("DOB", formatedBirthDate)
+      console.log("profileImage", profileImage)
+      try {
+        const cleanURL = profileImage.uri.replace("file://", "");
 
-          // let requestData = {
-          //   language: selectedLanguage,
-          //   username: userName,
-          //   email: email,
-          //   password: password,
-          //   dob: formatedBirthDate,
-          //   gender: selectedUserGender.id,
-          //   sexual_orientation: userSexualOrientation.id,
-          //   picture: profileImageFile,
-          //   passions: 1
-          // };
+        // let requestData = {
+        //   language: selectedLanguage,
+        //   username: userName,
+        //   email: email,
+        //   password: password,
+        //   dob: formatedBirthDate,
+        //   gender: selectedUserGender.id,
+        //   sexual_orientation: userSexualOrientation.id,
+        //   picture: profileImageFile,
+        //   passions: 1
+        // };
 
-          let fileName = profileImage.fileName ? profileImage.fileName : moment().unix() + '.jpg'
-          let PATH_TO_THE_FILE = Platform.OS == 'android' ? profileImage.uri : profileImage.origURL;
+        let fileName = profileImage.fileName ? profileImage.fileName : moment().unix() + '.jpg'
+        let PATH_TO_THE_FILE = Platform.OS == 'android' ? profileImage.uri : profileImage.origURL;
 
-          setLoading(true);
-          RNFetchBlob.fetch('POST', `${apiRoot}/registration`, {
-            'Content-Type': 'multipart/form-data',
-          }, [
-            // element with property `filename` will be transformed into `file` in form data
-            {
-              name: 'picture',
-              filename: fileName,
-              type: profileImage.type,
-              data: RNFetchBlob.wrap(PATH_TO_THE_FILE)
-            },
-            { name: 'language', data: `${selectedLanguage}` },
-            { name: 'username', data: `${userName}` },
-            { name: 'email', data: `${email}` },
-            { name: 'password', data: `${password}` },
-            { name: 'dob', data: `${formatedBirthDate}` },
-            { name: 'gender', data: `${selectedUserGender.id}` },
-            { name: 'sexual_orientation', data: `${userSexualOrientation.id}` },
-            { name: 'passions[]', data: '1' },
-
-          ]).then(async (resp) => {
-            console.log("resp", resp);
-            if (resp && resp.data) {
-              let parsedData = await JSON.parse(resp.data);
-              console.log("parsedData", parsedData);
-              if (parsedData) {
-                if (parsedData.meta && parsedData.meta.status === true) {
-                  dispatch(showToast('positive', parsedData.meta.message));
-                  setStepPosition(0);
-                  navigation.navigate('Login');
-                } else {
-                  dispatch(showToast('negative', parsedData.meta.message));
-                }
-              } else {
-                dispatch(showToast('negative', "Something went wrong! Try again!"))
-              }
-
-            }
-            setLoading(false);
-            // // if (parsedData.meta.status == 2) {
-            // dispatch(showToast('negative', parsedData.meta.message))
-            // // }
-          }).catch((err) => {
-            setLoading(false);
-            console.log("err", err)
-          })
-
-          // setLoading(true);
-          // const response = await dispatch(registerUser(requestData));
-          // setLoading(false);
-          // if (response.meta.status) {
-          //   // navigation.navigate('main-stack');
-          // }
-
-        } catch (e) {
-          console.log("e", e)
-          setLoading(false);
+        let user_passions_ids = [];
+        for (let userpassion of userPassions) {
+          user_passions_ids.push(userpassion.id);
         }
+
+        setLoading(true);
+        RNFetchBlob.fetch('POST', `${apiRoot}/registration`, {
+          'Content-Type': 'multipart/form-data',
+        }, [
+          // element with property `filename` will be transformed into `file` in form data
+          {
+            name: 'picture',
+            filename: fileName,
+            type: profileImage.type,
+            data: RNFetchBlob.wrap(PATH_TO_THE_FILE)
+          },
+          { name: 'language', data: `${selectedLanguage}` },
+          { name: 'username', data: `${userName}` },
+          { name: 'first_name', data: `${firstName}` },
+          { name: 'last_name', data: `${lastName}` },
+          { name: 'email', data: `${email}` },
+          { name: 'password', data: `${password}` },
+          { name: 'dob', data: `${formatedBirthDate}` },
+          { name: 'gender', data: `${selectedUserGender.id}` },
+          { name: 'sexual_orientation', data: `${userSexualOrientation.id}` },
+          { name: 'passions[]', data: user_passions_ids.toString() },
+
+        ]).then(async (resp) => {
+          console.log("resp", resp);
+          if (resp && resp.data) {
+            let parsedData = await JSON.parse(resp.data);
+            console.log("parsedData", parsedData);
+            if (parsedData) {
+              if (parsedData.meta && parsedData.meta.status === true) {
+                dispatch(showToast('positive', parsedData.meta.message));
+                setStepPosition(0);
+                navigation.navigate('Login');
+              } else {
+                dispatch(showToast('negative', parsedData.meta.message));
+              }
+            } else {
+              dispatch(showToast('negative', "Something went wrong! Try again!"))
+            }
+          }
+          setLoading(false);
+          // // if (parsedData.meta.status == 2) {
+          // dispatch(showToast('negative', parsedData.meta.message))
+          // // }
+        }).catch((err) => {
+          setLoading(false);
+          console.log("err", err)
+        })
+
+      } catch (e) {
+        console.log("e", e)
+        setLoading(false);
       }
     }
   };
@@ -262,9 +254,23 @@ const RegisterWithEmail = (props) => {
     if (userName.trim() == 0) {
       isValid = false;
       setUsernameError(appLabels.user_name_error_1);
-      // setEmailError(appLabels.email_error_1);
     } else {
       setUsernameError(null);
+    }
+
+    if (firstName.trim() == 0) {
+      isValid = false;
+      setFirstNameError("First name must not be empty!");
+      // setEmailError(appLabels.first_name_error_1);
+    } else {
+      setFirstNameError(null);
+    }
+
+    if (lastName.trim() == 0) {
+      isValid = false;
+      setLastNameError("Last name must not be empty!");
+    } else {
+      setLastNameError(null);
     }
 
     if (birthDate === null) {
@@ -434,8 +440,26 @@ const RegisterWithEmail = (props) => {
               placeholder={appLabels.user_name}
               keyboardType={'email-address'}
               value={userName}
-              onChangeText={setUserName}
+              onChangeText={(text) => setUserName(text)}
               error={userNameError}
+              icon={<ProfileIcon width={24} height={24} />}
+            />
+            <AuthInput
+              label={'First name'}
+              placeholder={'First name'}
+              keyboardType={'email-address'}
+              value={firstName}
+              onChangeText={(text) => setFirstName(text)}
+              error={firstNameError}
+              icon={<ProfileIcon width={24} height={24} />}
+            />
+            <AuthInput
+              label={'Last name'}
+              placeholder={'Last name'}
+              keyboardType={'email-address'}
+              value={lastName}
+              onChangeText={(text) => setLastName(text)}
+              error={lastNameError}
               icon={<ProfileIcon width={24} height={24} />}
             />
             <DatePicker
