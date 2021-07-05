@@ -27,10 +27,13 @@ import { fetchAndUpdateCredentialState, loginWithFacebook, loginWithGoogle, onAp
 import { ForgotPasswordModal } from '../../components/app-modals';
 import { EmailIcon, PasswordIcon, EyeCloseIcon, EyeOpenIcon, AppleLogoIcon } from '../../constants/svg-icons';
 import { getFontFamily } from '../../utils/common';
+import { useIsFocused } from '@react-navigation/native';
+import { configurePushNotification } from '../../services/notification-service';
 
 const LoginScreen = (props) => {
   const { navigation } = props;
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
 
   const { appLabels } = useSelector((state) => state.appState);
   const { fcmToken } = useSelector((state) => state.userState);
@@ -46,6 +49,13 @@ const LoginScreen = (props) => {
   const [forgotPasswordModalVisible, setForgotPasswordModalVisible] = useState(false);
 
   const [credentialStateForUser, updateCredentialStateForUser] = useState(-1);
+
+  useEffect(() => {
+    if (isFocused) {
+      configurePushNotification();
+    }
+  }, [isFocused])
+
   useEffect(() => {
     if (!appleAuth.isSupported) return;
 

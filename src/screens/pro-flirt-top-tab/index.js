@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppIndicatorLoader, AppText, ModeratorListItem, NoListData } from '../../components';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 
 import styles from './style';
 import { Colors, Icons } from '../../constants';
@@ -19,6 +19,7 @@ import { getFlirtsList, getProFlirtsList } from '../../redux/actions/flirts-acti
 
 export default function ProFlirtTab(props) {
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
   const navigation = useNavigation();
 
   const { spotLightsList, spotLightsLoading, isLoadMoreSpotlights } = useSelector((state) => state.flirtsState);
@@ -29,15 +30,16 @@ export default function ProFlirtTab(props) {
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    if (authToken != null) {
+    if (authToken != null && isFocused) {
+      setPageNumber(1)
       let requestData = {
-        page: pageNumber,
+        page: 1,
         customer_id: userData.id,
         gender: ''
       };
       dispatch(getProFlirtsList(requestData));
     }
-  }, []);
+  }, [isFocused]);
 
   const handleLoadMore = () => {
     let requestData = {

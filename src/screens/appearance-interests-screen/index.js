@@ -24,13 +24,13 @@ export default function AccountDetail(props) {
     const { appLabels } = useSelector((state) => state.appState);
 
     const getAttributeValue = (attribute) => {
-        let height = '';
+        let attribute_value = '';
         for (let appearance of customerAppearanceInterests) {
             if (appearance.internal_name == attribute) {
-                height = appearance.attr_value;
+                attribute_value = appearance.attr_value;
             }
         }
-        return height;
+        return attribute_value;
     }
 
     const [isSaving, setIsSaving] = useState(false);

@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
 
 import { getGenderList, getPassionList, getSexualOrientationList } from '../../redux/actions/app-actions';
+import { configurePushNotification } from '../../services/notification-service';
 
 const LandingScreen = (props) => {
   const { navigation } = props;
@@ -29,6 +30,7 @@ const LandingScreen = (props) => {
   useEffect(() => {
     SplashScreen.hide();
     if (isFocused) {
+      configurePushNotification();
       dispatch(getPassionList());
       dispatch(getSexualOrientationList());
       dispatch(getGenderList());

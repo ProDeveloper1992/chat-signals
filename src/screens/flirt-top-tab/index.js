@@ -39,15 +39,16 @@ export default function FlirtTab(props) {
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    if (authToken != null) {
+    if (authToken != null && isFocused) {
+      setPageNumber(1);
       let requestData = {
-        page: pageNumber,
+        page: 1,
         customer_id: userData.id,
         gender: ''
       };
       dispatch(getFlirtsList(requestData));
     }
-  }, []);
+  }, [isFocused]);
 
   const handleLoadMore = () => {
     let requestData = {

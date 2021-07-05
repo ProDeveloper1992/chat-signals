@@ -12,8 +12,10 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import ContentLoader, { Rect, Circle } from "react-content-loader/native";
 import { useIsFocused, useNavigation } from '@react-navigation/native';
-import { ApplePayButton, PaymentRequest } from 'react-native-payments';
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 import { BackHeader, GeneralHeader } from '../../components/Headers';
 import { toggleLanguageModal } from '../../redux/actions/app-modals-actions';
@@ -39,14 +41,28 @@ const CoinPurchase = () => {
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [ownPackagePrice, setOwnPackagePrice] = useState(0);
 
+  let androidPaymentGateways = [];
+  let iosPaymentGateways = [];
+
+  if (paymentGateways && paymentGateways.length > 0) {
+    androidPaymentGateways = paymentGateways.filter((item, index) => item.payment_name != 'Apple pay');
+    iosPaymentGateways = paymentGateways.filter((item, index) => item.payment_name == 'Apple pay');
+  }
+
   useEffect(() => {
     if (isFocused) {
       dispatch(getGeneralSettings());
       dispatch(getPaymentModule());
       let perEuroCredit = getGeneralSettingValueByName('per_euro_credits');
       setPerEuroCredit(perEuroCredit);
+
+      if (Platform.OS == 'ios' && iosPaymentGateways && iosPaymentGateways.length > 0) {
+        onPaymentGatwayItemPress(iosPaymentGateways[0]);
+      }
     } else {
-      setSelectedPaymentGateway(null);
+      if (Platform.OS == 'android') {
+        setSelectedPaymentGateway(null);
+      }
     }
   }, [isFocused]);
 
@@ -77,93 +93,21 @@ const CoinPurchase = () => {
     setSelectedPackage(null);
   }
 
-  // if (Platform.OS == 'ios') {
-
-  //   const METHOD_DATA = [
-  //     {
-  //       supportedMethods: ['apple-pay'],
-  //       data: {
-  //         merchantIdentifier: 'merchant.com.chat.signal.org',
-  //         supportedNetworks: ['visa', 'mastercard', 'amex'],
-  //         countryCode: 'US',
-  //         currencyCode: 'USD',
-  //         // // uncomment this block to activate automatic Stripe tokenization.
-  //         // // try putting your key pk_test... in here and see how the token format changes.
-  //         // paymentMethodTokenizationParameters: {
-  //         // 	parameters: {
-  //         // 		gateway: 'stripe',
-  //         // 		'stripe:publishableKey': Config.STRIPE_KEY,
-  //         // 	},
-  //         // },
-  //       },
-  //     },
-  //   ];
-
-  //   const DETAILS = {
-  //     id: 'basic-example',
-  //     displayItems: [
-  //       {
-  //         label: 'Movie Ticket',
-  //         amount: { currency: 'USD', value: '15.00' },
-  //       },
-  //     ],
-  //     total: {
-  //       label: 'Freeman Industries',
-  //       amount: { currency: 'USD', value: '15.00' },
-  //     },
-  //   };
-
-  //   const showPaymentSheet = (succeed = true) => {
-  //     const paymentRequest = new PaymentRequest(METHOD_DATA, DETAILS);
-  //     paymentRequest.show().then(paymentResponse => {
-  //       console.log("paymentResponse", paymentResponse)
-  //       const card_token = paymentResponse.details.paymentToken;
-
-  //       if (succeed) {
-  //         paymentResponse.complete('success')
-  //         alert(`Payment request completed with card token ${card_token}`)
-  //         // this.debug(`Payment request completed with card token ${card_token}`);
-  //       } else {
-  //         paymentResponse.complete('failure')
-  //         alert('Payment request failed')
-  //         // this.debug('Payment request failed');
-  //       }
-  //     }).catch(error => {
-  //       if (error.message === 'AbortError') {
-  //         alert('Payment request was dismissed')
-  //         // this.debug('Payment request was dismissed');
-  //       }
-  //     });
-  //   };
-
-  //   return (
-  //     <SafeAreaView style={{ flex: 1, margin: 20, justifyContent: 'flex-end' }}>
-  //       <ApplePayButton
-  //         type="plain"
-  //         style="black"
-  //         onPress={() => showPaymentSheet(true)}
-  //       />
-  //     </SafeAreaView>
-  //   )
-  // }
-
   return (
     <View style={styles.container}>
       <GeneralHeader
         label={appLabels.buy_coins}
       />
       <ScrollView
-        ref={scrollViewRef}
-        contentContainerStyle={{ padding: 20 }}>
-        <AppText type={'bold'} size={16}>{`${appLabels.step} 1 - ${appLabels.payment_method}`}</AppText>
+        ref={scrollViewRef}>
+        <AppText type={'bold'} size={16} style={{ marginHorizontal: wp(4) }}>{`${appLabels.step} 1 - ${appLabels.payment_method}`}</AppText>
         {loadingPaymentGateways && paymentGateways.length == 0 ? (
-          <View>
+          <View style={{ padding: 10 }}>
             {/* <StepTitleLoader /> */}
             <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
               <FlatList
                 data={[1, 2, 3, 4, 5, 6]}
                 numColumns={3}
-                contentContainerStyle={{ paddingTop: 20 }}
                 renderItem={({ item, index }) => (
                   <PaymentMethodItemLoader key={String(index)} />
                 )}
@@ -172,33 +116,48 @@ const CoinPurchase = () => {
             </View>
           </View>
         ) : (
-          <View>
-            <FlatList
-              data={paymentGateways}
-              numColumns={3}
-              contentContainerStyle={{ paddingTop: 20 }}
-              renderItem={({ item, index }) => (
-                <PaymentGatwayItem
-                  key={String(index)}
-                  imageUrl={item.picture}
-                  onPress={() => onPaymentGatwayItemPress(item)}
-                  isSelected={item == selectedPaymentGateway ? true : false}
-                />
-              )}
-              keyExtractor={(item, index) => String(index)}
-            />
+          <View style={{ padding: 10 }}>
+            {Platform.OS == 'ios' ? (
+              <FlatList
+                data={iosPaymentGateways}
+                numColumns={3}
+                renderItem={({ item, index }) => (
+                  <PaymentGatwayItem
+                    key={String(index)}
+                    imageUrl={item.picture}
+                    onPress={() => onPaymentGatwayItemPress(item)}
+                    isSelected={item == selectedPaymentGateway ? true : false}
+                  />
+                )}
+                keyExtractor={(item, index) => String(index)}
+              />
+            ) : (
+              <FlatList
+                data={androidPaymentGateways}
+                numColumns={3}
+                renderItem={({ item, index }) => (
+                  <PaymentGatwayItem
+                    key={String(index)}
+                    imageUrl={item.picture}
+                    onPress={() => onPaymentGatwayItemPress(item)}
+                    isSelected={item == selectedPaymentGateway ? true : false}
+                  />
+                )}
+                keyExtractor={(item, index) => String(index)}
+              />
+            )}
           </View>
         )}
         {selectedPaymentGateway != null && (
           <>
             <View>
-              <AppText type={'bold'} size={16}>{`${appLabels.step} 2 - ${appLabels.choose_your_package_size}`}</AppText>
+              <AppText type={'bold'} size={16} style={{ marginHorizontal: wp(4) }}>{`${appLabels.step} 2 - ${appLabels.choose_your_package_size}`}</AppText>
               {selectedPaymentGateway.packagemodules && (
                 <>
                   <FlatList
-                    data={selectedPaymentGateway.packagemodules}
-                    contentContainerStyle={{ paddingTop: 20 }}
                     numColumns={3}
+                    data={selectedPaymentGateway.packagemodules}
+                    contentContainerStyle={{ padding: 10 }}
                     renderItem={({ item, index }) => (
                       <TouchableOpacity
                         activeOpacity={1}
@@ -310,8 +269,8 @@ const styles = StyleSheet.create({
     marginEnd: 5
   },
   packageListItem: {
-    width: 110,
-    height: 110,
+    // padding: 10,
+    width: '28%',
     alignItems: 'center',
     justifyContent: 'space-between',
     margin: 10,

@@ -133,7 +133,6 @@ export default function UserProfile(props) {
     setIsLoggingOut(true);
     await dispatch(logoutUser());
     setIsLoggingOut(false);
-    configurePushNotification();
     try {
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
