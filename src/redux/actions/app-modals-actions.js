@@ -28,5 +28,5 @@ export const toggleSexualOrientationModal = (visible) => (dispatch) =>
 export const toggleFlirtFilterModal = (visible) => (dispatch) =>
     dispatch(ActionDispatcher(TOGGLE_FLIRT_FILTER_MODAL, visible));
 
-export const toggleCoinsEarningModal = (visible) => (dispatch) =>
-    dispatch(ActionDispatcher(TOGGLE_COINS_EARNING_MODAL, visible));
+export const toggleCoinsEarningModal = (visible, coins) => (dispatch) =>
+    dispatch(ActionDispatcher(TOGGLE_COINS_EARNING_MODAL, { visible: visible, coins: coins }));

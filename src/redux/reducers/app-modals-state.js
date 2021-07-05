@@ -16,6 +16,7 @@ const initialState = {
     isSexualOrientationModalVisible: false,
     isFlirtFilterModalVisible: false,
     isCoinsEarningModalVisible: false,
+    dailyBonusCoins: 0,
     gallerySwiperImages: [],
     initialGalleryImageIndex: 0
 };
@@ -63,7 +64,8 @@ export default function (state = initialState, action) {
         case TOGGLE_COINS_EARNING_MODAL:
             return {
                 ...state,
-                isCoinsEarningModalVisible: action.payload
+                isCoinsEarningModalVisible: action.payload.visible,
+                dailyBonusCoins: action.payload.coins,
             }
 
         default:

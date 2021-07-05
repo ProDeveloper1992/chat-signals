@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, TouchableOpacity, Image, View } from 'react-native';
+import { StyleSheet, SafeAreaView, Image, View, Platform } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { ApplePayButton, PaymentRequest } from 'react-native-payments';
 
 import { AppText, AppButton } from '..';
 import { Colors } from '../../constants';
@@ -70,6 +71,63 @@ export default function OwnPurchaseCard({
         }
     }
 
+    const METHOD_DATA = [
+        {
+            supportedMethods: ['apple-pay'],
+            data: {
+                merchantIdentifier: 'merchant.com.chat.signal.org',
+                supportedNetworks: ['visa', 'mastercard', 'amex'],
+                countryCode: 'US',
+                currencyCode: 'USD',
+                // // uncomment this block to activate automatic Stripe tokenization.
+                // // try putting your key pk_test... in here and see how the token format changes.
+                // paymentMethodTokenizationParameters: {
+                // 	parameters: {
+                // 		gateway: 'stripe',
+                // 		'stripe:publishableKey': Config.STRIPE_KEY,
+                // 	},
+                // },
+            },
+        },
+    ];
+
+    const DETAILS = {
+        id: 'basic-example',
+        displayItems: [
+            {
+                label: 'Movie Ticket',
+                amount: { currency: 'USD', value: '15.00' },
+            },
+        ],
+        total: {
+            label: 'Freeman Industries',
+            amount: { currency: 'USD', value: '15.00' },
+        },
+    };
+
+    const showPaymentSheet = (succeed = true) => {
+        const paymentRequest = new PaymentRequest(METHOD_DATA, DETAILS);
+        paymentRequest.show().then(paymentResponse => {
+            console.log("paymentResponse", paymentResponse)
+            const card_token = paymentResponse.details.paymentToken;
+
+            if (succeed) {
+                paymentResponse.complete('success')
+                alert(`Payment request completed with card token ${card_token}`)
+                // this.debug(`Payment request completed with card token ${card_token}`);
+            } else {
+                paymentResponse.complete('failure')
+                alert('Payment request failed')
+                // this.debug('Payment request failed');
+            }
+        }).catch(error => {
+            if (error.message === 'AbortError') {
+                alert('Payment request was dismissed')
+                // this.debug('Payment request was dismissed');
+            }
+        });
+    };
+
     return (
         <>
             <View style={styles.container}>
@@ -85,14 +143,26 @@ export default function OwnPurchaseCard({
                     thumbTintColor={Colors.ui_primary}
                 />
             </View>
-            <AppButton
-                disabled={sliderCount === 0 ? true : false}
-                type={'primary'}
-                style={{ marginTop: 20 }}
-                title={appLabels.order_now}
-                onPress={onOrderPurchasePress}
-                loading={gettingSealUrl}
-            />
+            {Platform.OS == 'ios' ? (
+                <SafeAreaView style={{ marginHorizontal: 20, justifyContent: 'flex-end' }}>
+                    <ApplePayButton
+                        type="plain"
+                        style="black"
+                        onPress={() => showPaymentSheet(true)}
+                    />
+                </SafeAreaView>
+            ) : (
+                <SafeAreaView style={{ marginHorizontal: 20, justifyContent: 'flex-end' }}>
+                    <AppButton
+                        disabled={sliderCount === 0 ? true : false}
+                        type={'primary'}
+                        title={appLabels.order_now}
+                        onPress={onOrderPurchasePress}
+                        loading={gettingSealUrl}
+                    />
+                </SafeAreaView>
+
+            )}
             <AppText size={12} style={{ marginVertical: 10, textAlign: 'center' }}>{`${appLabels.you_will_be_credited} ${sliderCount * creditPerCurrency} ${appLabels.credits_after_purchase}`}</AppText>
             <WebViewModal
                 paymentUrl={finalPaymentUrl}

@@ -14,6 +14,7 @@ import { getGeneralSettingValueByName } from '../../../utils/common';
 export default function CoinsEarningModal({ visible, onHideModal, onContinue }) {
 
     const { appLabels } = useSelector((state) => state.appState);
+    const { dailyBonusCoins } = useSelector((state) => state.appModalState);
 
     return (
         <Modal
@@ -37,7 +38,7 @@ export default function CoinsEarningModal({ visible, onHideModal, onContinue }) 
                     size={18}
                     color={Colors.black}
                     style={{ marginVertical: 20, marginHorizontal: '10%', textAlign: 'center' }}>
-                    {"You earned "}<AppText type={'bold'} size={18}>{`${getGeneralSettingValueByName('bonus_coins')} Coins!`}</AppText>
+                    {"You earned "}<AppText type={'bold'} size={18}>{`${dailyBonusCoins} Coins!`}</AppText>
                 </AppText>
 
                 <AppButton

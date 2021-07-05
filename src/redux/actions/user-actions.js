@@ -280,7 +280,7 @@ export const openGiftBox = () => (dispatch, getState) =>
       .post(`/open_gift_box`, requestData)
       .then((res) => {
         if (res.meta.status) {
-          dispatch(toggleCoinsEarningModal(true));
+          dispatch(toggleCoinsEarningModal(true, res.data.coins_received));
           dispatch(getCustomerProfileDetail());
         } else {
           dispatch(showToast('negative', res.meta.message));

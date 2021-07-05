@@ -40,7 +40,7 @@ export default function AppearanceListItem({ item, onSelectAttribute, onChangeTe
         return value;
     }
 
-    if (item.fieldtype_id == '1' || item.fieldtype_id == '7') {
+    if (item.fieldtype.type == 'select') {
 
         const [isCollapsed, setIsCollapsed] = useState(false);
         const [selectedAttributeValue, setSelectedAttributeValue] = useState(item.attr_value ? getAttributeValue(item) : "Select Option");
@@ -74,14 +74,14 @@ export default function AppearanceListItem({ item, onSelectAttribute, onChangeTe
                 </CollapseBody>
             </Collapse>
         )
-    } else if (item.fieldtype_id == '3') {
+    } else if (item.fieldtype.type == 'textbox') {
         const onChangeInputValue = (text) => {
             setInputAttributeValue(text);
             onChangeTextBoxValue(text, item);
         }
 
         return <AppearanceInputItem label={item.display_name} value={inputAttributeValue} onChangeText={onChangeInputValue} />
-    } else if (item.fieldtype_id == '8') {
+    } else if (item.fieldtype.type == 'multiselect') {
 
         const [isCollapsed, setIsCollapsed] = useState(false);
         const [selectedAttributeValue, setSelectedAttributeValue] = useState(item.attr_value ? getAttributeValue(item) : "Select Option");

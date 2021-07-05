@@ -47,7 +47,8 @@ export default function AppModals(props) {
     isMoreGenderModalVisible,
     isSexualOrientationModalVisible,
     isFlirtFilterModalVisible,
-    isCoinsEarningModalVisible } = useSelector((state) => state.appModalState);
+    isCoinsEarningModalVisible,
+    dailyBonusCoins } = useSelector((state) => state.appModalState);
 
   const LANGUAGE_MODAL = 'LANGUAGE_MODAL';
   const GALLERY_SWIPER_MODAL = 'GALLERY_SWIPER_MODAL';
@@ -78,7 +79,7 @@ export default function AppModals(props) {
         dispatch(toggleFlirtFilterModal(false));
         break;
       case COINS_EARNING_MODAL:
-        dispatch(toggleCoinsEarningModal(false));
+        dispatch(toggleCoinsEarningModal(false, dailyBonusCoins));
         break;
       default:
         break;
