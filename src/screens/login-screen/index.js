@@ -54,7 +54,7 @@ const LoginScreen = (props) => {
     if (isFocused) {
       configurePushNotification();
     }
-  }, [isFocused])
+  }, [isFocused]);
 
   useEffect(() => {
     if (!appleAuth.isSupported) return;

@@ -20,6 +20,7 @@ import * as RootNavigation from '../navigators/root-navigation'
 import { store } from "../redux/store";
 import { loginWithSocialMedia } from "../redux/actions/user-actions";
 import { DEFAULT_AVATAR_URL } from "../constants";
+import { Platform } from "react-native";
 
 //Google Login
 export const loginWithGoogle = async () => {
@@ -39,7 +40,9 @@ export const loginWithGoogle = async () => {
                 avatar: userInfo.user.photo,
                 provider: 'google',
                 provider_id: userInfo.user.id,
-                access_token: userInfo.user.id
+                access_token: userInfo.user.id,
+                device_type: Platform.OS,
+                device_token: store.getState().userState.fcmToken
             }
             const response = await store.dispatch(loginWithSocialMedia(requestData));
             if (response.meta.status) {
@@ -68,7 +71,9 @@ export const loginWithGoogle = async () => {
                 avatar: userInfo.user.photo,
                 provider: 'google',
                 provider_id: userInfo.user.id,
-                access_token: userInfo.user.id
+                access_token: userInfo.user.id,
+                device_type: Platform.OS,
+                device_token: store.getState().userState.fcmToken
             }
             const response = await store.dispatch(loginWithSocialMedia(requestData));
             if (response.meta.status) {
@@ -136,7 +141,9 @@ const _responseInfoCallback = async (error, userInfo) => {
             avatar: userInfo.picture.data.url,
             provider: 'facebook',
             provider_id: userInfo.id,
-            access_token: userInfo.id
+            access_token: userInfo.id,
+            device_type: Platform.OS,
+            device_token: store.getState().userState.fcmToken
         }
         const response = await store.dispatch(loginWithSocialMedia(requestData));
         if (response.meta.status) {
@@ -205,7 +212,9 @@ export const onAppleLoginForAndroid = async () => {
                     avatar: DEFAULT_AVATAR_URL,
                     provider: 'apple',
                     provider_id: response.code,
-                    access_token: response.id_token
+                    access_token: response.id_token,
+                    device_type: Platform.OS,
+                    device_token: store.getState().userState.fcmToken
                 }
                 const api_response = await store.dispatch(loginWithSocialMedia(requestData));
                 if (api_response.meta.status) {
@@ -216,7 +225,9 @@ export const onAppleLoginForAndroid = async () => {
                     avatar: DEFAULT_AVATAR_URL,
                     provider: 'apple',
                     provider_id: response.code,
-                    access_token: response.id_token
+                    access_token: response.id_token,
+                    device_type: Platform.OS,
+                    device_token: store.getState().userState.fcmToken
                 }
                 const api_response = await store.dispatch(loginWithSocialMedia(requestData));
                 if (api_response.meta.status) {

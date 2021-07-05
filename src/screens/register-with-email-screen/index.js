@@ -35,10 +35,13 @@ import { fetchAndUpdateCredentialState, loginWithFacebook, loginWithGoogle, onAp
 import { apiRoot } from '../../services/api-service';
 import { showToast } from '../../redux/actions/app-actions';
 import { getFontFamily } from '../../utils/common';
+import { useIsFocused } from '@react-navigation/native';
+import { configurePushNotification } from '../../services/notification-service';
 
 const RegisterWithEmail = (props) => {
   const { navigation } = props;
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
 
   const { appLabels, passionList, genderList, selectedLanguage } = useSelector((state) => state.appState);
   const { userPassions, selectedUserGender, userSexualOrientation } = useSelector((state) => state.userState);
@@ -73,6 +76,13 @@ const RegisterWithEmail = (props) => {
 
 
   const [credentialStateForUser, updateCredentialStateForUser] = useState(-1);
+
+  useEffect(() => {
+    if (isFocused) {
+      configurePushNotification();
+    }
+  }, [isFocused]);
+
   useEffect(() => {
     if (!appleAuth.isSupported) return;
 
