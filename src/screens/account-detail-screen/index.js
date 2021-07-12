@@ -26,6 +26,7 @@ export default function AccountDetail(props) {
     const { appLabels, genderList, passionList, sexualOrientations } = useSelector((state) => state.appState);
 
     console.log("userData", userData)
+    console.log("genderList", genderList)
 
     const getGenderById = (genderId) => {
         for (let gender of genderList) {
@@ -48,13 +49,13 @@ export default function AccountDetail(props) {
     let first_name = userData && userData.first_name ? userData.first_name : '';
     let last_name = userData && userData.last_name ? userData.last_name : '';
     let dob = userData && userData.dob ? userData.dob : null;
-    let user_gender = userData && userData.Gender ? getGenderById(userData.Gender) : '';
+    let user_gender = userData && userData.Gender ? getGenderById(userData.Gender * 1) : '';
     let sexual_orientation = userData && userData.sexual_orientation ? getSexualOrientationById(userData.sexual_orientation) : '';
 
     const [firstName, setFirstName] = useState(first_name);
     const [lastName, setLastName] = useState(last_name);
     const [birthDate, setBirthDate] = useState(dob);
-    const [gender, setGender] = useState(user_gender);
+    const [gender, setGender] = useState({ id: user_gender, name: "" });
     const [isEdited, setIsEdited] = useState(false);
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [selectedPassions, setSelectedPassions] = useState([]);
@@ -252,7 +253,7 @@ export default function AccountDetail(props) {
                             </CollapseHeader>
                             <CollapseBody>
                                 <View style={styles.collapseBodyContainer(isGenderCollapsed)}>
-                                    {genderList.map((genderItem, genderIndex) => {
+                                    {genderList && genderList.map((genderItem, genderIndex) => {
                                         return <TouchableOpacity
                                             key={String(genderIndex)}
                                             onPress={() => onSelectGender(genderItem)}

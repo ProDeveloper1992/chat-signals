@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Image, ActivityIndicator } from 'react-native';
+import { View, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import { Colors, Images } from '../../../constants';
 import { AppText, FriendItemMenu } from '../../index';
@@ -12,6 +12,7 @@ import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import { navigate } from '../../../navigators/root-navigation';
 
 const ICON_SIZE = hp(6);
 
@@ -40,8 +41,23 @@ export default function FriendListItem({
         }
     }
 
+    const onItemPress = () => {
+        let moderator = {
+            id: item?.profile_id,
+            profilepicture: item?.picture,
+            username: item?.username,
+            dob: null,
+            city: '',
+            country: ''
+        }
+        navigate('ModeratorProfile', { item: moderator, isFromChat: true })
+    }
+
     return (
-        <View style={styles.container}>
+        <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={onItemPress}
+            style={styles.container}>
             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                 <View style={styles.profileImageContainer}>
                     <Image style={styles.profileImg} source={profileImage} />
@@ -65,7 +81,7 @@ export default function FriendListItem({
                     )}
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 }
 

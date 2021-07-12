@@ -39,7 +39,7 @@ export default function FlirtTab(props) {
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    if (authToken != null && isFocused) {
+    if (authToken != null) {
       setPageNumber(1);
       let requestData = {
         page: 1,
@@ -48,7 +48,7 @@ export default function FlirtTab(props) {
       };
       dispatch(getFlirtsList(requestData));
     }
-  }, [isFocused]);
+  }, []);
 
   const handleLoadMore = () => {
     let requestData = {
@@ -71,6 +71,13 @@ export default function FlirtTab(props) {
     await dispatch(getFlirtsList(requestData));
     setRefreshing(false);
   }
+
+  const onLoadMore = () => {
+    if (!isLoadMoreFlirts)
+      return;
+    handleLoadMore();
+  };
+
 
   return (
     <View style={styles.container}>
@@ -104,18 +111,14 @@ export default function FlirtTab(props) {
             </View>
           )}
           keyExtractor={(item, index) => String(index)}
+          onEndReachedThreshold={1}
+          onEndReached={onLoadMore}
           ListFooterComponent={
             isLoadMoreFlirts && flirtsList.length > 0 ?
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={handleLoadMore}
-                style={{ alignSelf: 'center', paddingVertical: wp(1.5), paddingHorizontal: wp(4), backgroundColor: Colors.ui_primary, borderRadius: wp(10), marginTop: wp(2) }}>
-                {flirtsLoading ? (
-                  <ActivityIndicator size={'small'} color={Colors.white} style={{ width: wp(4), height: wp(4), marginVertical: wp(2) }} />
-                ) : (
-                  <AppText type={'medium'} size={wp(4)} color={Colors.white}>{appLabels.see_more}</AppText>
-                )}
-              </TouchableOpacity> : null
+              <View
+                style={{ alignSelf: 'center', paddingVertical: wp(1.5), paddingHorizontal: wp(3.5), backgroundColor: Colors.ui_primary, borderRadius: wp(10), marginTop: wp(2) }}>
+                <ActivityIndicator size={'small'} color={Colors.white} style={{ width: wp(4), height: wp(4), marginVertical: wp(2) }} />
+              </View> : null
           }
           refreshControl={
             <RefreshControl
