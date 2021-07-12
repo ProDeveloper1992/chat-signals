@@ -306,31 +306,24 @@ export default function ModeratorProfile(props) {
                     }
                     return (
                       <TouchableOpacity
+                        style={{ overflow: 'hidden' }}
                         activeOpacity={0.8}
                         key={String(index)}
                         onPress={() => onPressImage(item, index)}>
-                        {Platform.OS == 'ios' ? (
-                          <FastImage
-                            style={styles.imgBackground}
-                            source={{
-                              uri: getItemImage(item.picture),
-                              priority: FastImage.priority.high,
-                            }}
-                            resizeMode={FastImage.resizeMode.cover}
-                          />
-                        ) : (
-                          <ScalableImage
-                            src={getItemImage(item.picture)}
-                          />
-                        )}
-                        {/* <FastImage
+                        {/* {Platform.OS == 'ios' ? ( */}
+                        <FastImage
                           style={styles.imgBackground}
                           source={{
                             uri: getItemImage(item.picture),
                             priority: FastImage.priority.high,
                           }}
                           resizeMode={FastImage.resizeMode.cover}
-                        /> */}
+                        />
+                        {/* ) : (
+                          <ScalableImage
+                            src={getItemImage(item.picture)}
+                          />
+                        )} */}
                       </TouchableOpacity>
                     )
                   })}
@@ -339,7 +332,7 @@ export default function ModeratorProfile(props) {
             </View>
           ) : (
             <View>
-              {params && params.item && params.item.profilepicture && params.item.profilepicture.length > 0 && (
+              {params && params.item && params.item.profilepicture && getProfilePictures().length > 0 && (
                 <IndicatorViewPager
                   style={{ height: hp(55), backgroundColor: Colors.grey, flex: 1, }}
                   indicator={_renderDotIndicator(getProfilePictures().length)}
@@ -407,20 +400,20 @@ export default function ModeratorProfile(props) {
                         activeOpacity={0.8}
                         key={String(index)}
                         onPress={() => onPressImage(item, index)}>
-                        {Platform.OS == 'ios' ? (
-                          <FastImage
-                            style={styles.imgBackground}
-                            source={{
-                              uri: getItemImage(item.picture),
-                              priority: FastImage.priority.high,
-                            }}
-                            resizeMode={FastImage.resizeMode.cover}
-                          />
-                        ) : (
+                        {/* {Platform.OS == 'ios' ? ( */}
+                        <FastImage
+                          style={styles.imgBackground}
+                          source={{
+                            uri: getItemImage(item.picture),
+                            priority: FastImage.priority.high,
+                          }}
+                          resizeMode={FastImage.resizeMode.cover}
+                        />
+                        {/* ) : (
                           <ScalableImage
                             src={getItemImage(item.picture)}
                           />
-                        )}
+                        )} */}
                       </TouchableOpacity>
                     )
                   })}

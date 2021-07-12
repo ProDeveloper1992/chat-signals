@@ -205,34 +205,19 @@ export const onAppleLoginForAndroid = async () => {
             console.log("Got user", user);
             console.log("Got state", state);
 
-            if (response.user) {
-                let requestData = {
-                    username: response.user.name.firstName,
-                    email: response.user.email,
-                    avatar: DEFAULT_AVATAR_URL,
-                    provider: 'apple',
-                    provider_id: response.code,
-                    access_token: response.id_token,
-                    device_type: Platform.OS,
-                    device_token: store.getState().userState.fcmToken
-                }
-                const api_response = await store.dispatch(loginWithSocialMedia(requestData));
-                if (api_response.meta.status) {
-                    RootNavigation.navigate('main-stack');
-                }
-            } else {
-                let requestData = {
-                    avatar: DEFAULT_AVATAR_URL,
-                    provider: 'apple',
-                    provider_id: response.code,
-                    access_token: response.id_token,
-                    device_type: Platform.OS,
-                    device_token: store.getState().userState.fcmToken
-                }
-                const api_response = await store.dispatch(loginWithSocialMedia(requestData));
-                if (api_response.meta.status) {
-                    RootNavigation.navigate('main-stack');
-                }
+            let requestData = {
+                username: response.user ? response.user.name.firstName : store.getState().userState.appleUsername,
+                email: response.user ? response.user.email : store.getState().userState.appleEmailId,
+                avatar: DEFAULT_AVATAR_URL,
+                provider: 'apple',
+                provider_id: response.code,
+                access_token: response.id_token,
+                device_type: Platform.OS,
+                device_token: store.getState().userState.fcmToken
+            }
+            const api_response = await store.dispatch(loginWithSocialMedia(requestData));
+            if (api_response.meta.status) {
+                RootNavigation.navigate('main-stack');
             }
         }
     } catch (error) {

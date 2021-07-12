@@ -20,7 +20,8 @@ import {
   GET_CUSTOMER_APPEARANCE_AND_INTERETS_SUCCESS,
   GET_NOTIFICATIONS_LIST_SUCCESS,
   STORE_FCM_TOKEN,
-  GET_STICKERS_LIST_SUCCESS
+  GET_STICKERS_LIST_SUCCESS,
+  SET_APPLE_USER_DETAIL
 } from '../actions/types';
 
 const initialState = {
@@ -40,6 +41,8 @@ const initialState = {
   customerAppearanceInterests: [],
   customerNotifications: [],
   stickersList: [],
+  appleUsername: '',
+  appleEmailId: '',
   userSexualOrientation: {
     id: 1,
     deleted_at: null,
@@ -261,6 +264,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         stickersList: action.payload
+      }
+
+    case SET_APPLE_USER_DETAIL:
+      return {
+        ...state,
+        appleUsername: action.payload.usename,
+        appleEmailId: action.payload.email,
       }
 
     default:

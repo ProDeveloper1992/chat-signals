@@ -10,6 +10,7 @@ import {
     widthPercentageToDP as wp,
     heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import { navigate } from '../../../navigators/root-navigation';
 
 const ICON_SIZE = hp(6);
 
@@ -36,10 +37,24 @@ export default function LikesListItem({
         }
     }
 
+    const onItemPress = () => {
+        let moderator = {
+            id: item?.profile_id,
+            profilepicture: item?.picture,
+            username: item?.username,
+            dob: null,
+            city: '',
+            country: ''
+        }
+        navigate('ModeratorProfile', { item: moderator, isFromChat: true })
+    }
+
     return (
-        <View style={styles.container}>
+        <TouchableOpacity
+            onPress={onItemPress}
+            style={styles.container}>
             <View style={styles.profileImageContainer}>
-                <Image style={styles.profileImg} source={{ uri: item.picture }} />
+                <Image style={styles.profileImg} source={{ uri: item?.picture }} />
                 <View style={styles.activeStatusCircle}>
                     {getIconByType()}
                 </View>
@@ -52,7 +67,7 @@ export default function LikesListItem({
                     numberOfLines={1}
                     style={{ textTransform: 'capitalize' }}
                 >
-                    {item && item.username}
+                    {item?.username}
                 </AppText>
                 <AppText
                     type={'regular'}
@@ -60,10 +75,10 @@ export default function LikesListItem({
                     color={Colors.ui_primary}
                     numberOfLines={1}
                 >
-                    {moment(item.created_at).fromNow()}
+                    {moment(item?.created_at).fromNow()}
                 </AppText>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 }
 
