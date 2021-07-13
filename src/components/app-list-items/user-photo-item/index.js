@@ -10,7 +10,7 @@ import { toggleGallerySwiperModal } from '../../../redux/actions/app-modals-acti
 import { customerPhotoUpdate } from '../../../redux/actions/user-actions';
 import styles from './style'
 
-export default function UserPhotoItem({ item }) {
+export default function UserPhotoItem({ item, onItemPress }) {
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
@@ -51,7 +51,7 @@ export default function UserPhotoItem({ item }) {
 
     return (
         <View style={styles.container} pointerEvents={loading ? 'none' : 'auto'}>
-            <TouchableOpacity onPress={() => dispatch(toggleGallerySwiperModal(true, [{ url: item.picture }]))}>
+            <TouchableOpacity onPress={onItemPress}>
                 <FastImage
                     style={{ height: '100%', width: '100%', borderRadius: 5 }}
                     source={{

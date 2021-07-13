@@ -8,6 +8,10 @@ import {
 import PropTypes from 'prop-types';
 import { Colors } from '../../constants';
 import { AppText } from '..';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 export function AppButton({ type, title, icon, style, onPress, loading, disabled, indicatorPadding, padding }) {
   function getBgColor() {
@@ -82,7 +86,7 @@ export function AppButton({ type, title, icon, style, onPress, loading, disabled
       {loading ? (
         <ActivityIndicator size={'small'} color={getTextColor()} style={{ padding: indicatorPadding, flex: 1 }} />
       ) : (
-        <AppText type={'medium'} color={getTextColor()} style={{ flex: 1, textAlign: 'center', padding: padding }} size={14}>
+        <AppText type={'medium'} color={getTextColor()} style={{ flex: 1, textAlign: 'center', padding: padding }} size={wp(2.5)}>
           {title}
         </AppText>
       )}
@@ -95,8 +99,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     alignItems: 'center',
-    paddingHorizontal: 15,
-    borderRadius: 43,
+    paddingHorizontal: wp(2),
+    borderRadius: wp(10),
   },
 });
 

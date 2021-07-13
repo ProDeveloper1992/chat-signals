@@ -11,16 +11,16 @@ export default StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: Colors.white,
-        paddingHorizontal: 15,
-        paddingVertical: 10,
+        paddingHorizontal: wp(2),
+        paddingVertical: wp(1.8),
         borderBottomWidth: 0.5,
         borderColor: Colors.grey
     },
 
     profileImageContainer: {
-        width: wp(15),
-        height: wp(15),
-        borderRadius: wp(15) / 2,
+        width: wp(12),
+        height: wp(12),
+        borderRadius: wp(12) / 2,
         backgroundColor: Colors.grey,
         alignItems: 'center',
         justifyContent: 'center'
@@ -34,14 +34,14 @@ export default StyleSheet.create({
         position: 'absolute',
         bottom: 3,
         right: 0,
-        marginBottom: -10,
+        marginBottom: -wp(2),
         // marginEnd: -20
     },
 
     profileImg: {
-        height: wp(15),
-        width: wp(15),
-        borderRadius: wp(15) / 2,
+        height: wp(12),
+        width: wp(12),
+        borderRadius: wp(12) / 2,
         alignSelf: 'center',
     },
 

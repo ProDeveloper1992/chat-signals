@@ -100,9 +100,9 @@ const CoinPurchase = () => {
       />
       <ScrollView
         ref={scrollViewRef}>
-        <AppText type={'bold'} size={16} style={{ marginHorizontal: wp(4) }}>{`${appLabels.step} 1 - ${appLabels.payment_method}`}</AppText>
+        <AppText type={'bold'} size={wp(2.5)} style={{ marginHorizontal: wp(4) }}>{`${appLabels.step} 1 - ${appLabels.payment_method}`}</AppText>
         {loadingPaymentGateways && paymentGateways.length == 0 ? (
-          <View style={{ padding: 10 }}>
+          <View style={{ padding: wp(2) }}>
             {/* <StepTitleLoader /> */}
             <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
               <FlatList
@@ -116,7 +116,7 @@ const CoinPurchase = () => {
             </View>
           </View>
         ) : (
-          <View style={{ padding: 10 }}>
+          <View style={{ padding: wp(2) }}>
             {Platform.OS == 'ios' ? (
               <FlatList
                 data={iosPaymentGateways}
@@ -151,13 +151,13 @@ const CoinPurchase = () => {
         {selectedPaymentGateway != null && (
           <>
             <View>
-              <AppText type={'bold'} size={16} style={{ marginHorizontal: wp(4) }}>{`${appLabels.step} 2 - ${appLabels.choose_your_package_size}`}</AppText>
+              <AppText type={'bold'} size={wp(2.5)} style={{ marginHorizontal: wp(4) }}>{`${appLabels.step} 2 - ${appLabels.choose_your_package_size}`}</AppText>
               {selectedPaymentGateway.packagemodules && (
                 <>
                   <FlatList
                     numColumns={3}
                     data={selectedPaymentGateway.packagemodules}
-                    contentContainerStyle={{ padding: 10 }}
+                    contentContainerStyle={{ padding: wp(2) }}
                     renderItem={({ item, index }) => (
                       <TouchableOpacity
                         activeOpacity={1}
@@ -170,7 +170,7 @@ const CoinPurchase = () => {
                           <CoinGradientIcon />
                           <AppText
                             type={'medium'}
-                            size={12}
+                            size={wp(2)}
                             color={Colors.black}>
                             {`${perEuroCredit * item.price} ${appLabels.Coins}`}
                           </AppText>
@@ -178,7 +178,7 @@ const CoinPurchase = () => {
                         <View>
                           <AppText
                             type={'bold'}
-                            size={14}
+                            size={wp(2.2)}
                             color={Colors.black}>
                             {`${item.price}€`}
                           </AppText>
@@ -217,7 +217,7 @@ const CoinPurchase = () => {
 const PaymentGatwayItem = ({ onPress, imageUrl, isSelected }) => {
   return (
     <TouchableOpacity
-      style={{ width: '28%', alignItems: 'center', margin: 10, padding: 10, borderWidth: isSelected ? 3 : 1, borderColor: isSelected ? Colors.ui_primary : Colors.grey, borderRadius: 15 }}
+      style={{ width: '28%', alignItems: 'center', margin: wp(2), padding: wp(2), borderWidth: isSelected ? 3 : 1, borderColor: isSelected ? Colors.ui_primary : Colors.grey, borderRadius: 15 }}
       onPress={onPress}>
       <Image style={styles.paymetGatewayImage} source={{ uri: imageUrl }} />
     </TouchableOpacity>
@@ -258,13 +258,13 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white
   },
   paymetGatewayImage: {
-    width: 70,
-    height: 70,
+    width: wp(20),
+    height: wp(20),
     resizeMode: 'contain'
   },
   coinIcon: {
-    width: 24,
-    height: 24,
+    width: wp(5),
+    height: wp(5),
     resizeMode: 'contain',
     marginEnd: 5
   },
