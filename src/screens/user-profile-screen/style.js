@@ -1,5 +1,9 @@
 import { StyleSheet } from 'react-native';
 import { Colors } from '../../constants';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 export default StyleSheet.create({
   container: {
@@ -19,18 +23,18 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginHorizontal: 10,
-    paddingVertical: 20,
-    paddingHorizontal: 10,
-    borderRadius: 5,
+    marginHorizontal: wp(2),
+    paddingVertical: wp(3),
+    paddingHorizontal: wp(2),
+    // borderRadius: 5,
     // borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: Colors.grey,
   },
   profileImageContainer: {
-    width: 100,
-    height: 100,
-    borderRadius: 100 / 2,
+    width: wp(20),
+    height: wp(20),
+    borderRadius: wp(20) / 2,
     shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -38,10 +42,10 @@ export default StyleSheet.create({
     elevation: 4,
   },
   profileImage: {
-    width: 100,
-    height: 100,
+    width: wp(20),
+    height: wp(20),
     backgroundColor: Colors.grey,
-    borderRadius: 100 / 2,
+    borderRadius: wp(20) / 2,
     borderWidth: 3,
     borderColor: Colors.white,
   },
@@ -76,15 +80,15 @@ export default StyleSheet.create({
   },
 
   editPenContainer: {
-    height: 27,
-    width: 27,
-    borderRadius: 27 / 2,
+    height: wp(5),
+    width: wp(5),
+    borderRadius: wp(5) / 2,
     backgroundColor: Colors.white,
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
     bottom: 0,
-    right: 5,
+    right: wp(1),
     shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -95,15 +99,15 @@ export default StyleSheet.create({
   boostButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 15,
+    paddingHorizontal: wp(3),
     borderWidth: 1,
     borderColor: Colors.grey,
-    borderRadius: 46,
-    marginVertical: 10
+    borderRadius: wp(10),
+    marginVertical: wp(2)
   },
 
   boostIconContainer: {
-    marginBottom: -10,
-    marginStart: -10
+    marginBottom: -wp(2),
+    marginStart: -wp(2)
   }
 });

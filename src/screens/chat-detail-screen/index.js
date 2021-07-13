@@ -282,7 +282,7 @@ export default function ChatDetail(props) {
             <View style={{ alignItems: 'center', justifyContent: 'center', padding: hp(3) }}>
               <CommonImage
                 touchable={true}
-                size={wp(25)}
+                size={wp(20)}
                 borderColor={Colors.white}
                 borderWidth={3}
                 isShadow={true}
@@ -290,12 +290,12 @@ export default function ChatDetail(props) {
                 onPress={() => dispatch(toggleGallerySwiperModal(true, [{ url: moderator.profile_picture }]))} />
               <AppText
                 type={'bold'}
-                size={wp(5)}
+                size={wp(4)}
                 style={{ marginBottom: -5, marginTop: 10 }}>{moderator.user.username}</AppText>
               <AppText
                 onPress={onViewModeratorProfile}
                 type={'bold'}
-                size={wp(4.5)}
+                size={wp(3.5)}
                 color={Colors.ui_primary}
                 style={{ textDecorationLine: 'underline' }}>{appLabels.view_profile}</AppText>
             </View>
@@ -324,9 +324,9 @@ export default function ChatDetail(props) {
                 isShadow={true}
                 source={{ uri: moderator.profile_picture }}
                 onPress={() => dispatch(toggleGallerySwiperModal(true, [{ url: moderator.profile_picture }]))} />
-              <View style={{ flex: 1, paddingHorizontal: 12 }}>
-                <AppText type={'bold'} size={wp(4.5)}>{moderator.user.username}</AppText>
-                <AppText type={'regular'} size={wp(3.5)} color={Colors.greydark}>{moderator.user.is_active * 1 == 1 ? appLabels.online : appLabels.offline}</AppText>
+              <View style={{ flex: 1, paddingHorizontal: wp(3) }}>
+                <AppText type={'bold'} size={wp(3.5)}>{moderator.user.username}</AppText>
+                <AppText type={'regular'} size={wp(3)} color={Colors.greydark}>{moderator.user.is_active * 1 == 1 ? appLabels.online : appLabels.offline}</AppText>
               </View>
               <TouchableOpacity
                 onPress={onInfoButtonPress}
@@ -456,7 +456,7 @@ const TitleWithIcon = ({ title, icon, onPress, loading }) => {
       <AppText
         numderOfLines={1}
         type={'medium'}
-        size={16}
+        size={wp(2.5)}
         style={{ flex: 1 }}>{title}</AppText>
       {icon && (
         <View>

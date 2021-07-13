@@ -12,6 +12,11 @@ import moment from 'moment';
 import { apiRoot } from '../../services/api-service';
 import { showToast } from '../../redux/actions/app-actions';
 import { getCustomerProfileDetail } from '../../redux/actions/user-actions';
+import { toggleGallerySwiperModal } from '../../redux/actions/app-modals-actions';
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 export default function UserPhotos(props) {
 
@@ -91,6 +96,17 @@ export default function UserPhotos(props) {
         })
     }
 
+    const onPhotoPress = (item, index) => {
+        let userPhotos = [];
+        for (let photo of userData.profilepictures) {
+            let photoObj = {
+                url: photo.picture
+            }
+            userPhotos.push(photoObj);
+        }
+        dispatch(toggleGallerySwiperModal(true, userPhotos, index))
+    }
+
     return (
         <View style={styles.container} pointerEvents={isUploading ? 'none' : 'auto'}>
             <BackHeader
@@ -98,9 +114,9 @@ export default function UserPhotos(props) {
                 onBackPress={onBackPress}
                 color={Colors.ui_primary}
             />
-            <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, paddingTop: 15 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: wp(4), paddingTop: wp(2) }}>
                 <View style={{ flex: 1.2 }} >
-                    <AppText type={"bold"} size={18}>{appLabels.photos}</AppText>
+                    <AppText type={"bold"} size={wp(3)}>{appLabels.photos}</AppText>
                 </View>
                 <AppButton
                     title={`+${appLabels.upload_new}`}
@@ -110,13 +126,13 @@ export default function UserPhotos(props) {
                 />
             </View>
             <FlatList
-                contentContainerStyle={{ flexGrow: 1, padding: 10 }}
+                contentContainerStyle={{ flexGrow: 1, padding: wp(3) }}
                 data={userData && userData.profilepictures && userData.profilepictures.length > 0 ? userData.profilepictures : []}
                 numColumns={2}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item, index }) => (
                     <View key={String(index)} style={{ flex: index == userData.profilepictures.length - 1 && index % 2 == 0 ? 0.5 : 1 }}>
-                        <UserPhotoItem item={item} />
+                        <UserPhotoItem item={item} onItemPress={() => onPhotoPress(item, index)} />
                     </View>
                 )}
                 keyExtractor={(item, index) => String(index)}

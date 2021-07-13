@@ -18,9 +18,9 @@ export default StyleSheet.create({
     },
 
     profileImageContainer: {
-        width: wp(15),
-        height: wp(15),
-        borderRadius: wp(15) / 2,
+        width: wp(12),
+        height: wp(12),
+        borderRadius: wp(12) / 2,
         backgroundColor: Colors.grey,
         alignItems: 'center',
         justifyContent: 'center'
@@ -39,9 +39,9 @@ export default StyleSheet.create({
     },
 
     profileImg: {
-        height: wp(15),
-        width: wp(15),
-        borderRadius: wp(15) / 2,
+        height: wp(12),
+        width: wp(12),
+        borderRadius: wp(12) / 2,
         alignSelf: 'center',
     },
 

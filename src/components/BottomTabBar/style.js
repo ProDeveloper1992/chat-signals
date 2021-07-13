@@ -47,11 +47,11 @@ export default StyleSheet.create({
 
   unSeenBadgeContainer: {
     position: 'absolute',
-    top: -10,
-    right: 15,
-    width: 20,
-    height: 20,
-    borderRadius: 20 / 2,
+    top: -wp(1),
+    right: wp(4),
+    width: wp(4),
+    height: wp(4),
+    borderRadius: wp(4) / 2,
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',

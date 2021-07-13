@@ -160,12 +160,12 @@ export function ChatInput({
                     <View style={styles.topHorizontal}>
                         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                             <IconWithValue
-                                icon={<EmailIcon width={18} height={18} />}
+                                icon={<EmailIcon width={wp(3)} height={wp(3)} />}
                                 minimumValue={minimumMessageCount}
                                 maximumValue={maximumMessageCount}
                             />
                             <IconWithValue
-                                icon={<AppText type={'bold'} size={16}>{"Aa"}</AppText>}
+                                icon={<AppText type={'bold'} size={wp(2.5)}>{"Aa"}</AppText>}
                                 minimumValue={value.length}
                                 maximumValue={getGeneralSettingValueByName('charecters_billed') * maximumMessageCount}
                             />
@@ -174,11 +174,11 @@ export function ChatInput({
                             {userData && (
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                     <View style={{ marginBottom: -5, marginStart: -15 }}>
-                                        <CoinGradientIcon width={40} height={40} />
+                                        <CoinGradientIcon width={wp(5)} height={wp(5)} />
                                     </View>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                        <AppText type={'bold'} size={14}>{userData.credit}</AppText>
-                                        <AppText type={'regular'} size={14}>{` ${appLabels.Coins}`}</AppText>
+                                        <AppText type={'bold'} size={wp(2)}>{userData.credit}</AppText>
+                                        <AppText type={'regular'} size={wp(2)}>{` ${appLabels.Coins}`}</AppText>
                                     </View>
                                 </View>
                             )}
@@ -197,7 +197,7 @@ export function ChatInput({
                                     <ActivityIndicator color={Colors.ui_primary} size={'small'} />
                                     <AppText style={{ flex: 1, marginHorizontal: 20 }}>{"Uploading..."}</AppText>
                                 </View>
-                            ) : <AppText style={{ flex: 1, marginHorizontal: 20 }}>{attachedDocument.name}</AppText>}
+                            ) : <AppText style={{ flex: 1, marginHorizontal: 20 }} size={wp(2.5)}>{attachedDocument.name}</AppText>}
                         </View>
                     )}
                     <View style={styles.inputContainer}>
@@ -219,7 +219,7 @@ export function ChatInput({
                             onSubmitEditing={onSendIconPress}
                         />
                         <TouchableOpacity activeOpacity={0.8} style={styles.sendIconContainer} onPress={onSendIconPress}>
-                            <SendMessageIcon width={24} height={24} />
+                            <SendMessageIcon width={wp(3)} height={wp(3)} />
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -241,8 +241,8 @@ export function ChatInput({
                         onPress={() => onSendItemPress('heart')} />
                     {getGeneralSettingValueByName('prices_message') > 0 && (
                         <View style={{ flexDirection: 'row', alignItems: 'center', marginStart: 15 }}>
-                            <AppText size={12}>{`${appLabels.send_message_for} `}</AppText>
-                            <AppText size={12} type={'bold'}>{`${minimumMessageCount > 0 ? minimumMessageCount * getGeneralSettingValueByName('prices_message') : getGeneralSettingValueByName('prices_message')} ${appLabels.Coins}`}</AppText>
+                            <AppText size={wp(2)}>{`${appLabels.send_message_for} `}</AppText>
+                            <AppText size={wp(2)} type={'bold'}>{`${minimumMessageCount > 0 ? minimumMessageCount * getGeneralSettingValueByName('prices_message') : getGeneralSettingValueByName('prices_message')} ${appLabels.Coins}`}</AppText>
                         </View>
                     )}
                 </View>
@@ -305,7 +305,7 @@ const IconWithValue = ({ icon, minimumValue, maximumValue }) => {
     return (
         <View style={{ flexDirection: 'row', alignItems: 'center', marginEnd: 20 }}>
             {icon}
-            <AppText color={Colors.greydark} style={{ marginStart: 5 }}>{`${minimumValue}/${maximumValue}`}</AppText>
+            <AppText color={Colors.greydark} size={wp(2)} style={{ marginStart: 5 }}>{`${minimumValue}/${maximumValue}`}</AppText>
         </View>
     )
 }
@@ -353,10 +353,10 @@ const styles = StyleSheet.create({
     },
     input: {
         flex: 1,
-        paddingStart: 10,
-        paddingVertical: 12,
+        paddingStart: wp(2),
+        paddingVertical: wp(2),
         color: Colors.black,
-        fontSize: 14,
+        fontSize: wp(2.5),
         fontFamily: 'Poppins-Regular',
         textDecorationLine: 'none',
     },
@@ -364,9 +364,9 @@ const styles = StyleSheet.create({
         textAlign: 'right',
     },
     sendIconContainer: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
+        width: wp(5),
+        height: wp(5),
+        borderRadius: wp(5) / 2,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: Colors.ui_primary,

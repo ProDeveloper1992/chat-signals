@@ -33,8 +33,14 @@ import moment from 'moment';
 import { logoutUser } from '../../redux/reducers';
 import { getUserProfilePicture } from '../../utils/common';
 import { configurePushNotification } from '../../services/notification-service';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 var RNFS = require('react-native-fs');
+
+const ICON_SIZE = wp(10);
 
 export default function UserProfile(props) {
   const { params } = props.route;
@@ -152,7 +158,7 @@ export default function UserProfile(props) {
       <GeneralHeader label={appLabels.profile} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
-          <View style={{ alignItems: 'center', marginTop: 30 }}>
+          <View style={{ alignItems: 'center', marginTop: wp(4) }}>
             <View style={styles.profileImageContainer}>
               <TouchableOpacity onPress={() => dispatch(toggleGallerySwiperModal(true, [{ url: profileImage.uri ? profileImage.uri : getUserProfilePicture() }]))}>
                 <Image style={styles.profileImage} source={profileImage.uri ? profileImage : { uri: getUserProfilePicture() }} />
@@ -160,30 +166,30 @@ export default function UserProfile(props) {
               <TouchableOpacity
                 onPress={() => navigation.navigate('UserPhotos')}
                 style={styles.editPenContainer}>
-                <EditPenCircleIcon width={18} height={18} />
+                <EditPenCircleIcon width={wp(3)} height={wp(3)} />
               </TouchableOpacity>
             </View>
 
             <View style={{ paddingHorizontal: 15, paddingVertical: 10 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <AppText type={'bold'} size={16}>{`${userData && userData.username}${userData && userData.dob ? `, ${moment().diff(moment(userData.dob, 'DD-MM-YYYY'), 'years')}` : ''}`}</AppText>
+                <AppText type={'bold'} size={wp(3)}>{`${userData && userData.username}${userData && userData.dob ? `, ${moment().diff(moment(userData.dob, 'DD-MM-YYYY'), 'years')}` : ''}`}</AppText>
               </View>
             </View>
             {userData && userData.is_boosted == '1' ? (
               <View style={[styles.boostButton, { borderColor: "#9D62FC", backgroundColor: 'rgba(100, 55, 215, 0.1)' }]}>
                 <View style={styles.boostIconContainer}>
-                  <BoostIcon />
+                  <BoostIcon width={ICON_SIZE} height={ICON_SIZE} />
                 </View>
-                <AppText type={'bold'} size={12} color={"#562CCD"} uppercase>{"Boost Activated"}</AppText>
+                <AppText type={'bold'} size={wp(2)} color={"#562CCD"} uppercase>{"Boost Activated"}</AppText>
               </View>
             ) : (
               <TouchableOpacity
                 onPress={() => setBoostModalVisible(true)}
                 style={styles.boostButton}>
                 <View style={styles.boostIconContainer}>
-                  <BoostIcon />
+                  <BoostIcon width={ICON_SIZE} height={ICON_SIZE} />
                 </View>
-                <AppText type={'bold'} size={12} uppercase>{`${appLabels.boost} ${appLabels.profile}`}</AppText>
+                <AppText type={'bold'} size={wp(2)} uppercase>{`${appLabels.boost} ${appLabels.profile}`}</AppText>
               </TouchableOpacity>
             )}
           </View>
@@ -194,35 +200,35 @@ export default function UserProfile(props) {
                 onPress={() => { }}
                 title={appLabels.Coins}
                 count={userData ? userData.credit : 0}
-                icon={<CoinGradientIcon width={50} height={50} />} />
+                icon={<CoinGradientIcon width={ICON_SIZE} height={ICON_SIZE} />} />
               <CounterCard
                 onPress={() => navigation.navigate('HeartsScreen')}
                 title={appLabels.heart}
                 count={userData ? userData.total_hearts : 0}
-                icon={<HeartGradientIcon32 width={50} height={50} />} />
+                icon={<HeartGradientIcon32 width={ICON_SIZE} height={ICON_SIZE} />} />
               <CounterCard
                 onPress={() => navigation.navigate('KissesScreen')}
                 title={appLabels.kisses}
                 count={userData ? userData.total_kiss : 0}
-                icon={<KissGradientIcon32 width={50} height={50} />} />
+                icon={<KissGradientIcon32 width={ICON_SIZE} height={ICON_SIZE} />} />
             </View>
             <View style={{ flexDirection: 'row' }}>
               <CounterCard
                 onPress={() => navigation.navigate('LikesScreen')}
                 title={appLabels.likes}
                 count={userData ? userData.total_likes : 0}
-                icon={<LikeGradientIcon32 width={50} height={50} />} />
+                icon={<LikeGradientIcon32 width={ICON_SIZE} height={ICON_SIZE} />} />
               <CounterCard
                 onPress={() => navigation.navigate('FriendsScreen')}
                 title={appLabels.friends}
                 count={userData ? userData.totalfriends : 0}
-                icon={<FriendGradientIcon32 width={50} height={50} />} />
+                icon={<FriendGradientIcon32 width={ICON_SIZE} height={ICON_SIZE} />} />
               <CounterCard
                 onPress={() => { }}
                 // onPress={() => navigation.navigate('StickersScreen')}
                 title={appLabels.stickers}
                 count={userData ? userData.stickers : 0}
-                icon={<StickerGradientIcon32 width={50} height={50} />} />
+                icon={<StickerGradientIcon32 width={ICON_SIZE} height={ICON_SIZE} />} />
             </View>
           </View>
 
@@ -268,14 +274,14 @@ export default function UserProfile(props) {
             onPress={onLogout}
             type={'bold'}
             color={Colors.red}
-            size={18}
+            size={wp(3)}
             onPress={() => setDeleteAccountModalVisible(true)}
             style={{ marginTop: 40, marginBottom: 10, textAlign: 'center' }}>{appLabels.delete_account}</AppText>
 
           <AppText
             onPress={() => setLogoutModalVisible(true)}
             type={'bold'}
-            size={18}
+            size={wp(3)}
             style={{ marginBottom: 20, textAlign: 'center' }}>{appLabels.logout}</AppText>
 
           <ModeratorActivityModal
@@ -313,11 +319,11 @@ const CounterCard = ({ title, count, icon, onPress }) => {
       activeOpacity={0.8}
       onPress={onPress}
       style={[styles.cardContainer, { flex: 1, margin: 5 }]}>
-      <View style={{ marginBottom: -10 }}>
+      <View style={{ marginBottom: -wp(2) }}>
         {icon}
       </View>
-      <AppText type={'bold'} size={16}>{count}</AppText>
-      <AppText type={'regular'} size={12} style={{ marginTop: -3 }}>{title}</AppText>
+      <AppText type={'bold'} size={wp(3)}>{count}</AppText>
+      <AppText type={'regular'} size={wp(2)} style={{ marginTop: -3 }}>{title}</AppText>
     </TouchableOpacity>
   )
 }
@@ -326,12 +332,12 @@ const CardHeader = ({ title, value, onPress }) => {
   return (
     <TouchableOpacity activeOpacity={0.8} onPress={onPress} style={styles.cardHeaderContainer}>
       <View>
-        <AppText type={'medium'} size={16} color={Colors.black}>{title}</AppText>
+        <AppText type={'medium'} size={wp(2.5)} color={Colors.black}>{title}</AppText>
         {value && (
-          <AppText type={'light'} size={14} color={Colors.black}>{value}</AppText>
+          <AppText type={'light'} size={wp(2.2)} color={Colors.black}>{value}</AppText>
         )}
       </View>
-      <ArrowRightIcon width={24} height={24} />
+      <ArrowRightIcon width={wp(3)} height={wp(3)} />
     </TouchableOpacity>
   )
 }

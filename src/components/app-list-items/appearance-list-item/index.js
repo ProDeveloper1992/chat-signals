@@ -135,8 +135,8 @@ const AppearanceCollapsibleItem = ({ label, title, isCollapsed }) => {
     return (
         <View style={[styles.accountDetailItemContainer, { borderBottomWidth: isCollapsed ? 0 : 1 }]}>
             <View style={{ flex: 1 }}>
-                <AppText type={'regular'} size={wp(4)} color={Colors.black}>{label}</AppText>
-                <AppText type={'bold'} size={wp(4.5)} color={Colors.black}>{title}</AppText>
+                <AppText type={'regular'} size={wp(3)} color={Colors.black}>{label}</AppText>
+                <AppText type={'bold'} size={wp(3.5)} color={Colors.black}>{title}</AppText>
             </View>
             {isCollapsed ? <ArrowDownIcon width={wp(5)} height={wp(5)} /> : <ArrowRightIcon width={wp(5)} height={wp(5)} />}
         </View>
@@ -147,14 +147,14 @@ const AppearanceInputItem = ({ label, value, onChangeText }) => {
     return (
         <View style={[styles.accountDetailItemContainer, { borderBottomWidth: 1 }]}>
             <View style={{ flex: 1 }}>
-                <AppText type={'regular'} size={wp(4)} color={Colors.black}>{label}</AppText>
+                <AppText type={'regular'} size={wp(3)} color={Colors.black}>{label}</AppText>
                 <TextInput
                     placeholder={label}
                     value={value}
                     onChangeText={onChangeText}
                     style={{
                         width: '100%',
-                        fontSize: wp(5),
+                        fontSize: wp(3),
                         fontFamily: getFontFamily('bold'),
                         color: Colors.black,
                         paddingVertical: 0

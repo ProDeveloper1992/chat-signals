@@ -63,13 +63,13 @@ export default function ChatListItem({
           <View style={styles.profileImageContainer}>
             <CommonImage
               touchable={false}
-              size={wp(15)}
+              size={wp(12)}
               borderWidth={0}
               source={profileImage}
             // onPress={() => dispatch(toggleGallerySwiperModal(true, [profileImage]))}
             />
             <View style={styles.activeStatusCircle}>
-              <OnlineStatusCircle isOnline={isActive} size={wp(3.3)} />
+              <OnlineStatusCircle isOnline={isActive} size={wp(2.5)} />
             </View>
 
           </View>
@@ -77,7 +77,7 @@ export default function ChatListItem({
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <AppText
                 type={'bold'}
-                size={wp(4.5)}
+                size={wp(3.5)}
                 color={Colors.black}
                 numberOfLines={1}
                 style={{ flex: 1, textTransform: 'capitalize' }}
@@ -85,23 +85,23 @@ export default function ChatListItem({
               >
                 {userName}
               </AppText>
-              <AppText size={wp(3.5)} type={item.unseenCounter * 1 > 0 ? 'bold' : 'regular'}>{moment(lastMessageTime).fromNow()}</AppText>
+              <AppText size={wp(2.5)} type={item.unseenCounter * 1 > 0 ? 'bold' : 'regular'}>{moment(lastMessageTime).fromNow()}</AppText>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <View style={{ flex: 1.2, flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
                 {userData && item.lastMessage && item.lastMessage.from_id == userData.id && item.lastMessage.seen == '0' && (
                   <View style={{ marginEnd: 5 }}>
-                    <MessageDeliveredIcon />
+                    <MessageDeliveredIcon width={wp(3)} height={wp(3)} />
                   </View>
                 )}
                 {userData && item.lastMessage && item.lastMessage.from_id == userData.id && item.lastMessage.seen == '1' && (
                   <View style={{ marginEnd: 5 }}>
-                    <MessageSeenIcon />
+                    <MessageSeenIcon width={wp(3)} height={wp(3)} />
                   </View>
                 )}
                 <AppText
                   type={item.unseenCounter * 1 > 0 ? 'bold' : 'regular'}
-                  size={wp(4)}
+                  size={wp(3)}
                   color={Colors.black}
                   numberOfLines={1}
                 >

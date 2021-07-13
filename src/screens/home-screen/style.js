@@ -17,11 +17,11 @@ export default StyleSheet.create({
   },
   topTabIndicator: {
     backgroundColor: Colors.ui_primary,
-    height: 2,
+    height: wp(0.3),
     // borderRadius: 30,
   },
   topTabLabel: {
-    fontSize: wp(4),
+    fontSize: wp(3),
     fontFamily: getFontFamily('bold'),
     letterSpacing: 1,
     textTransform: 'capitalize'

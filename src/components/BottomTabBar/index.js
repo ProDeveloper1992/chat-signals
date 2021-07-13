@@ -2,6 +2,10 @@ import React from 'react';
 import { View, TouchableOpacity, Image } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { useSelector } from 'react-redux';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 import { Colors, DEFAULT_AVATAR_URL, Icons } from '../../constants';
 import { AppText } from '../../components';
@@ -88,7 +92,7 @@ export default function BottomTabBar({ state, descriptors, navigation }) {
                   style={styles.unSeenBadgeContainer}>
                   <AppText
                     type={'bold'}
-                    size={11}
+                    size={wp(2.5)}
                     color={Colors.white}>
                     {unseenMessages}
                   </AppText>

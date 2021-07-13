@@ -8,6 +8,10 @@ import { Colors } from '../../constants';
 import { getSealUrl } from '../../redux/actions/app-actions';
 import OwnPackageSlider from '../own-package-slider'
 import { WebViewModal } from '../app-modals';
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 export default function OwnPurchaseCard({
     creditPerCurrency,
@@ -131,8 +135,8 @@ export default function OwnPurchaseCard({
     return (
         <>
             <View style={styles.container}>
-                <AppText type={'bold'} size={18} style={{ textAlign: 'center' }}>{appLabels.own_package}</AppText>
-                <AppText size={16} style={{ textAlign: 'center', marginVertical: 36 }}>{appLabels.own_package_description}</AppText>
+                <AppText type={'bold'} size={wp(2.8)} style={{ textAlign: 'center' }}>{appLabels.own_package}</AppText>
+                <AppText size={wp(2.5)} style={{ textAlign: 'center', marginVertical: 36 }}>{appLabels.own_package_description}</AppText>
                 <OwnPackageSlider
                     value={sliderCount}
                     minimumValue={minimumSliderCount}
@@ -144,7 +148,7 @@ export default function OwnPurchaseCard({
                 />
             </View>
             {Platform.OS == 'ios' ? (
-                <SafeAreaView style={{ marginHorizontal: 20, justifyContent: 'flex-end' }}>
+                <SafeAreaView style={{ marginHorizontal: wp(3), justifyContent: 'flex-end' }}>
                     <ApplePayButton
                         type="plain"
                         style="black"
@@ -152,7 +156,7 @@ export default function OwnPurchaseCard({
                     />
                 </SafeAreaView>
             ) : (
-                <SafeAreaView style={{ marginHorizontal: 20, justifyContent: 'flex-end' }}>
+                <SafeAreaView style={{ marginHorizontal: wp(3), justifyContent: 'flex-end' }}>
                     <AppButton
                         disabled={sliderCount === 0 ? true : false}
                         type={'primary'}
@@ -163,7 +167,7 @@ export default function OwnPurchaseCard({
                 </SafeAreaView>
 
             )}
-            <AppText size={12} style={{ marginVertical: 10, textAlign: 'center' }}>{`${appLabels.you_will_be_credited} ${sliderCount * creditPerCurrency} ${appLabels.credits_after_purchase}`}</AppText>
+            <AppText size={wp(2)} style={{ marginVertical: wp(2), textAlign: 'center' }}>{`${appLabels.you_will_be_credited} ${sliderCount * creditPerCurrency} ${appLabels.credits_after_purchase}`}</AppText>
             <WebViewModal
                 paymentUrl={finalPaymentUrl}
                 visible={paymentWebViewVisible}
