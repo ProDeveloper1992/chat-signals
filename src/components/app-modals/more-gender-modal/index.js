@@ -14,7 +14,7 @@ export default function MoreGenderModal({ visible, onHideModal }) {
 
     const { otherGenders } = useSelector((state) => state.userState);
 
-    const [selectedGender, setGenderItem] = useState(otherGenders[0]);
+    const [selectedGender, setGenderItem] = useState(otherGenders && otherGenders.length > 0 && otherGenders[0]);
 
     const onGenderItemPress = (item) => {
         setGenderItem(item);
@@ -44,7 +44,7 @@ export default function MoreGenderModal({ visible, onHideModal }) {
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{ flexGrow: 1 }}>
-                    {otherGenders.map((item, index) => {
+                    {otherGenders && otherGenders.map((item, index) => {
                         return <MoreGenderItem
                             key={String(index)}
                             gender={item.gender}

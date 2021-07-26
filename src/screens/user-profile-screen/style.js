@@ -24,7 +24,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginHorizontal: wp(2),
-    paddingVertical: wp(3),
+    paddingVertical: wp(4),
     paddingHorizontal: wp(2),
     // borderRadius: 5,
     // borderTopWidth: 1,
@@ -32,9 +32,9 @@ export default StyleSheet.create({
     borderColor: Colors.grey,
   },
   profileImageContainer: {
-    width: wp(20),
-    height: wp(20),
-    borderRadius: wp(20) / 2,
+    width: wp(25),
+    height: wp(25),
+    borderRadius: wp(25) / 2,
     shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
@@ -42,10 +42,10 @@ export default StyleSheet.create({
     elevation: 4,
   },
   profileImage: {
-    width: wp(20),
-    height: wp(20),
+    width: wp(25),
+    height: wp(25),
     backgroundColor: Colors.grey,
-    borderRadius: wp(20) / 2,
+    borderRadius: wp(25) / 2,
     borderWidth: 3,
     borderColor: Colors.white,
   },
@@ -80,9 +80,9 @@ export default StyleSheet.create({
   },
 
   editPenContainer: {
-    height: wp(5),
-    width: wp(5),
-    borderRadius: wp(5) / 2,
+    height: wp(7),
+    width: wp(7),
+    borderRadius: wp(7) / 2,
     backgroundColor: Colors.white,
     justifyContent: 'center',
     alignItems: 'center',
@@ -103,7 +103,7 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: Colors.grey,
     borderRadius: wp(10),
-    marginVertical: wp(2)
+    marginVertical: wp(3)
   },
 
   boostIconContainer: {

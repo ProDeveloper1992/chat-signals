@@ -20,9 +20,9 @@ export default function ChatBubble({ item, isFromUser }) {
 
   const getTickIcon = (seen) => {
     if (seen * 1 == 1) {
-      return <MessageSeenIcon width={wp(3)} height={wp(3)} />;
+      return <MessageSeenIcon width={wp(3.5)} height={wp(3.5)} />;
     } else {
-      return <MessageDeliveredIcon width={wp(3)} height={wp(3)} />;
+      return <MessageDeliveredIcon width={wp(3.5)} height={wp(3.5)} />;
     }
   }
 
@@ -44,11 +44,11 @@ export default function ChatBubble({ item, isFromUser }) {
               resizeMode={FastImage.resizeMode.contain}
             />
             {item.message != '' && (
-              <AppText size={wp(3)} color={isFromUser ? Colors.black : Colors.white}>{item.message}</AppText>
+              <AppText size={wp(3.5)} color={isFromUser ? Colors.black : Colors.white}>{item.message}</AppText>
             )}
           </TouchableOpacity>
           <View style={styles.seenTimeContainer(isFromUser)}>
-            <AppText size={wp(2.5)}>{moment(item.fullTime).format("HH:mm")}</AppText>
+            <AppText size={wp(2.8)}>{moment(item.fullTime).format("HH:mm")}</AppText>
             {isFromUser && (
               <View style={{ marginStart: wp(2) }}>
                 {getTickIcon(item.seen)}
@@ -67,11 +67,11 @@ export default function ChatBubble({ item, isFromUser }) {
         disabled
         style={styles.container(isFromUser)}>
         <View style={styles.textMsgContainer}>
-          <AppText size={wp(3)} type={'regular'} color={isFromUser ? Colors.black : Colors.white}>{item.message}</AppText>
+          <AppText size={wp(3.5)} type={'regular'} color={isFromUser ? Colors.black : Colors.white}>{item.message}</AppText>
         </View>
       </TouchableOpacity>
       <View style={styles.seenTimeContainer(isFromUser)}>
-        <AppText size={wp(2.5)}>{moment(item.fullTime).format("HH:mm")}</AppText>
+        <AppText size={wp(2.8)}>{moment(item.fullTime).format("HH:mm")}</AppText>
         {isFromUser && (
           <View style={{ marginStart: wp(2) }}>
             {getTickIcon(item.seen)}

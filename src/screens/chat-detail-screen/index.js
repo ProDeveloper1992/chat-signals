@@ -325,8 +325,8 @@ export default function ChatDetail(props) {
                 source={{ uri: moderator.profile_picture }}
                 onPress={() => dispatch(toggleGallerySwiperModal(true, [{ url: moderator.profile_picture }]))} />
               <View style={{ flex: 1, paddingHorizontal: wp(3) }}>
-                <AppText type={'bold'} size={wp(3.5)}>{moderator.user.username}</AppText>
-                <AppText type={'regular'} size={wp(3)} color={Colors.greydark}>{moderator.user.is_active * 1 == 1 ? appLabels.online : appLabels.offline}</AppText>
+                <AppText type={'bold'} size={wp(4)}>{moderator.user.username}</AppText>
+                <AppText type={'regular'} size={wp(3.5)} color={Colors.greydark}>{moderator.user.is_active * 1 == 1 ? appLabels.online : appLabels.offline}</AppText>
               </View>
               <TouchableOpacity
                 onPress={onInfoButtonPress}
@@ -456,7 +456,7 @@ const TitleWithIcon = ({ title, icon, onPress, loading }) => {
       <AppText
         numderOfLines={1}
         type={'medium'}
-        size={wp(2.5)}
+        size={wp(3.5)}
         style={{ flex: 1 }}>{title}</AppText>
       {icon && (
         <View>

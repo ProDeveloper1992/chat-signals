@@ -86,7 +86,7 @@ export function AppButton({ type, title, icon, style, onPress, loading, disabled
       {loading ? (
         <ActivityIndicator size={'small'} color={getTextColor()} style={{ padding: indicatorPadding, flex: 1 }} />
       ) : (
-        <AppText type={'medium'} color={getTextColor()} style={{ flex: 1, textAlign: 'center', padding: padding }} size={wp(2.5)}>
+        <AppText type={'medium'} color={getTextColor()} style={{ flex: 1, textAlign: 'center', padding: padding }} size={wp(4)}>
           {title}
         </AppText>
       )}

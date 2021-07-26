@@ -100,7 +100,7 @@ const CoinPurchase = () => {
       />
       <ScrollView
         ref={scrollViewRef}>
-        <AppText type={'bold'} size={wp(2.5)} style={{ marginHorizontal: wp(4) }}>{`${appLabels.step} 1 - ${appLabels.payment_method}`}</AppText>
+        <AppText type={'bold'} size={wp(3.5)} style={{ marginHorizontal: wp(4) }}>{`${appLabels.step} 1 - ${appLabels.payment_method}`}</AppText>
         {loadingPaymentGateways && paymentGateways.length == 0 ? (
           <View style={{ padding: wp(2) }}>
             {/* <StepTitleLoader /> */}
@@ -151,7 +151,7 @@ const CoinPurchase = () => {
         {selectedPaymentGateway != null && (
           <>
             <View>
-              <AppText type={'bold'} size={wp(2.5)} style={{ marginHorizontal: wp(4) }}>{`${appLabels.step} 2 - ${appLabels.choose_your_package_size}`}</AppText>
+              <AppText type={'bold'} size={wp(3.5)} style={{ marginHorizontal: wp(4) }}>{`${appLabels.step} 2 - ${appLabels.choose_your_package_size}`}</AppText>
               {selectedPaymentGateway.packagemodules && (
                 <>
                   <FlatList
@@ -170,7 +170,7 @@ const CoinPurchase = () => {
                           <CoinGradientIcon />
                           <AppText
                             type={'medium'}
-                            size={wp(2)}
+                            size={wp(3)}
                             color={Colors.black}>
                             {`${perEuroCredit * item.price} ${appLabels.Coins}`}
                           </AppText>
@@ -178,7 +178,7 @@ const CoinPurchase = () => {
                         <View>
                           <AppText
                             type={'bold'}
-                            size={wp(2.2)}
+                            size={wp(3.5)}
                             color={Colors.black}>
                             {`${item.price}€`}
                           </AppText>

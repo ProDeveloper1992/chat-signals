@@ -152,7 +152,7 @@ export default function FlirtFilterModal({ visible, onHideModal }) {
                         onSelectOption={(language) => setLanguage(language.key)} />
                     <AppText size={hp(2.2)} style={{ marginTop: 10, marginBottom: 5 }}>{appLabels.passions}</AppText>
                     <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                        {passionList.map((passion, passionIndex) => {
+                        {passionList && passionList.map((passion, passionIndex) => {
                             return <TagItem
                                 key={String(passionIndex)}
                                 title={passion.name}
