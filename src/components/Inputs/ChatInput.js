@@ -156,16 +156,16 @@ export function ChatInput({
     return (
         <SafeAreaView style={styles.container}>
             <View style={{ paddingHorizontal: wp(3) }}>
-                <View style={{ marginTop: wp(4) }}>
+                <View style={{ marginTop: wp(5) }}>
                     <View style={styles.topHorizontal}>
                         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                             <IconWithValue
-                                icon={<EmailIcon width={wp(3)} height={wp(3)} />}
+                                icon={<EmailIcon width={wp(4)} height={wp(4)} />}
                                 minimumValue={minimumMessageCount}
                                 maximumValue={maximumMessageCount}
                             />
                             <IconWithValue
-                                icon={<AppText type={'bold'} size={wp(2.5)}>{"Aa"}</AppText>}
+                                icon={<AppText type={'bold'} size={wp(3.5)}>{"Aa"}</AppText>}
                                 minimumValue={value.length}
                                 maximumValue={getGeneralSettingValueByName('charecters_billed') * maximumMessageCount}
                             />
@@ -174,11 +174,11 @@ export function ChatInput({
                             {userData && (
                                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                     <View style={{ marginBottom: -5, marginStart: -15 }}>
-                                        <CoinGradientIcon width={wp(5)} height={wp(5)} />
+                                        <CoinGradientIcon width={wp(8)} height={wp(8)} />
                                     </View>
                                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                        <AppText type={'bold'} size={wp(2)}>{userData.credit}</AppText>
-                                        <AppText type={'regular'} size={wp(2)}>{` ${appLabels.Coins}`}</AppText>
+                                        <AppText type={'bold'} size={wp(3.5)}>{userData.credit}</AppText>
+                                        <AppText type={'regular'} size={wp(3.5)}>{` ${appLabels.Coins}`}</AppText>
                                     </View>
                                 </View>
                             )}
@@ -219,7 +219,7 @@ export function ChatInput({
                             onSubmitEditing={onSendIconPress}
                         />
                         <TouchableOpacity activeOpacity={0.8} style={styles.sendIconContainer} onPress={onSendIconPress}>
-                            <SendMessageIcon width={wp(3)} height={wp(3)} />
+                            <SendMessageIcon width={wp(6)} height={wp(6)} />
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -241,8 +241,8 @@ export function ChatInput({
                         onPress={() => onSendItemPress('heart')} />
                     {getGeneralSettingValueByName('prices_message') > 0 && (
                         <View style={{ flexDirection: 'row', alignItems: 'center', marginStart: 15 }}>
-                            <AppText size={wp(2)}>{`${appLabels.send_message_for} `}</AppText>
-                            <AppText size={wp(2)} type={'bold'}>{`${minimumMessageCount > 0 ? minimumMessageCount * getGeneralSettingValueByName('prices_message') : getGeneralSettingValueByName('prices_message')} ${appLabels.Coins}`}</AppText>
+                            <AppText size={wp(3.5)}>{`${appLabels.send_message_for} `}</AppText>
+                            <AppText size={wp(3.5)} type={'bold'}>{`${minimumMessageCount > 0 ? minimumMessageCount * getGeneralSettingValueByName('prices_message') : getGeneralSettingValueByName('prices_message')} ${appLabels.Coins}`}</AppText>
                         </View>
                     )}
                 </View>
@@ -305,7 +305,7 @@ const IconWithValue = ({ icon, minimumValue, maximumValue }) => {
     return (
         <View style={{ flexDirection: 'row', alignItems: 'center', marginEnd: 20 }}>
             {icon}
-            <AppText color={Colors.greydark} size={wp(2)} style={{ marginStart: 5 }}>{`${minimumValue}/${maximumValue}`}</AppText>
+            <AppText color={Colors.greydark} size={wp(3.5)} style={{ marginStart: 5 }}>{`${minimumValue}/${maximumValue}`}</AppText>
         </View>
     )
 }
@@ -356,7 +356,7 @@ const styles = StyleSheet.create({
         paddingStart: wp(2),
         paddingVertical: wp(2),
         color: Colors.black,
-        fontSize: wp(2.5),
+        fontSize: wp(3.5),
         fontFamily: 'Poppins-Regular',
         textDecorationLine: 'none',
     },
@@ -364,9 +364,9 @@ const styles = StyleSheet.create({
         textAlign: 'right',
     },
     sendIconContainer: {
-        width: wp(5),
-        height: wp(5),
-        borderRadius: wp(5) / 2,
+        width: wp(9),
+        height: wp(9),
+        borderRadius: wp(9) / 2,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: Colors.ui_primary,

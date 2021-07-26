@@ -50,7 +50,7 @@ export default function SexualOrientationModal({ visible, onHideModal }) {
                             key={String(index)}
                             gender={item.name}
                             onPress={() => onGenderItemPress(item)}
-                            isSelected={selectedSexualOrientation.id == item.id} />
+                            isSelected={selectedSexualOrientation && selectedSexualOrientation.id == item.id} />
                     })}
                 </ScrollView>
                 <View style={styles.bottomButton}>

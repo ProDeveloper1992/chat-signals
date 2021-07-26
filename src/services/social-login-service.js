@@ -303,6 +303,21 @@ export const onAppleLoginForiOS = async (updateCredentialStateForUser) => {
         }
 
         console.log(`Apple Authentication Completed, ${user}, ${email}`);
+
+        let requestData = {
+            username: "",
+            email: email,
+            avatar: DEFAULT_AVATAR_URL,
+            provider: 'apple',
+            provider_id: 'response.code',
+            access_token: 'response.id_token',
+            device_type: Platform.OS,
+            device_token: store.getState().userState.fcmToken
+        }
+        const api_response = await store.dispatch(loginWithSocialMedia(requestData));
+        if (api_response.meta.status) {
+            RootNavigation.navigate('main-stack');
+        }
     } catch (error) {
         if (error.code === appleAuth.Error.CANCELED) {
             console.log('User canceled Apple Sign in.');

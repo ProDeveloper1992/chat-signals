@@ -68,7 +68,7 @@ export const getUserProfilePicture = () => {
 
 export const getGeneralSettingValueByName = (name) => {
   const { generalSettings } = store.getState().appState;
-  if (generalSettings.length > 0) {
+  if (generalSettings && generalSettings.length > 0) {
     let value = 0;
     for (let setting of generalSettings) {
       if (setting.name === name) {

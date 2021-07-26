@@ -3,6 +3,10 @@ import { Colors } from '../../constants';
 import PropTypes from 'prop-types';
 import { Platform } from 'react-native';
 import { getFontFamily } from '../../utils/common';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 export const AppText = styled.Text`
   font-size: ${(props) => props.size}px;
@@ -21,7 +25,7 @@ AppText.propTypes = {
 };
 
 AppText.defaultProps = {
-  size: 14,
+  size: wp(3.5),
   color: Colors.black,
   type: 'regular',
   uppercase: false

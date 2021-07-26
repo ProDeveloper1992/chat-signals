@@ -30,7 +30,7 @@ export default function OwnPurchaseCard({
     const [finalPaymentUrl, setFinalPaymentUrl] = useState(null);
 
     const onOrderPurchasePress = async () => {
-        if (generalSettings.length > 0) {
+        if (generalSettings && generalSettings.length > 0) {
 
             let project_identifier_key = '';
             let access_key = '';
@@ -135,8 +135,8 @@ export default function OwnPurchaseCard({
     return (
         <>
             <View style={styles.container}>
-                <AppText type={'bold'} size={wp(2.8)} style={{ textAlign: 'center' }}>{appLabels.own_package}</AppText>
-                <AppText size={wp(2.5)} style={{ textAlign: 'center', marginVertical: 36 }}>{appLabels.own_package_description}</AppText>
+                <AppText type={'bold'} size={wp(4)} style={{ textAlign: 'center' }}>{appLabels.own_package}</AppText>
+                <AppText size={wp(3.5)} style={{ textAlign: 'center', marginVertical: wp(4) }}>{appLabels.own_package_description}</AppText>
                 <OwnPackageSlider
                     value={sliderCount}
                     minimumValue={minimumSliderCount}
@@ -167,7 +167,7 @@ export default function OwnPurchaseCard({
                 </SafeAreaView>
 
             )}
-            <AppText size={wp(2)} style={{ marginVertical: wp(2), textAlign: 'center' }}>{`${appLabels.you_will_be_credited} ${sliderCount * creditPerCurrency} ${appLabels.credits_after_purchase}`}</AppText>
+            <AppText size={wp(3)} style={{ marginVertical: wp(2), textAlign: 'center' }}>{`${appLabels.you_will_be_credited} ${sliderCount * creditPerCurrency} ${appLabels.credits_after_purchase}`}</AppText>
             <WebViewModal
                 paymentUrl={finalPaymentUrl}
                 visible={paymentWebViewVisible}

@@ -286,7 +286,7 @@ export default function AccountDetail(props) {
                             <CollapseBody>
                                 <View style={styles.collapseBodyContainer(isPassionCollapsed)}>
                                     <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-                                        {passionList.map((passion, passionIndex) => {
+                                        {passionList && passionList.map((passion, passionIndex) => {
                                             return <TagItem
                                                 key={String(passionIndex)}
                                                 title={passion.name}

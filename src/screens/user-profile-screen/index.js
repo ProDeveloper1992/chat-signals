@@ -40,7 +40,7 @@ import {
 
 var RNFS = require('react-native-fs');
 
-const ICON_SIZE = wp(10);
+const ICON_SIZE = wp(12);
 
 export default function UserProfile(props) {
   const { params } = props.route;
@@ -166,13 +166,13 @@ export default function UserProfile(props) {
               <TouchableOpacity
                 onPress={() => navigation.navigate('UserPhotos')}
                 style={styles.editPenContainer}>
-                <EditPenCircleIcon width={wp(3)} height={wp(3)} />
+                <EditPenCircleIcon width={wp(5)} height={wp(5)} />
               </TouchableOpacity>
             </View>
 
             <View style={{ paddingHorizontal: 15, paddingVertical: 10 }}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <AppText type={'bold'} size={wp(3)}>{`${userData && userData.username}${userData && userData.dob ? `, ${moment().diff(moment(userData.dob, 'DD-MM-YYYY'), 'years')}` : ''}`}</AppText>
+                <AppText type={'bold'} size={wp(4)}>{`${userData && userData.username}${userData && userData.dob ? `, ${moment().diff(moment(userData.dob, 'DD-MM-YYYY'), 'years')}` : ''}`}</AppText>
               </View>
             </View>
             {userData && userData.is_boosted == '1' ? (
@@ -180,7 +180,7 @@ export default function UserProfile(props) {
                 <View style={styles.boostIconContainer}>
                   <BoostIcon width={ICON_SIZE} height={ICON_SIZE} />
                 </View>
-                <AppText type={'bold'} size={wp(2)} color={"#562CCD"} uppercase>{"Boost Activated"}</AppText>
+                <AppText type={'bold'} size={wp(3.5)} color={"#562CCD"} uppercase>{"Boost Activated"}</AppText>
               </View>
             ) : (
               <TouchableOpacity
@@ -189,7 +189,7 @@ export default function UserProfile(props) {
                 <View style={styles.boostIconContainer}>
                   <BoostIcon width={ICON_SIZE} height={ICON_SIZE} />
                 </View>
-                <AppText type={'bold'} size={wp(2)} uppercase>{`${appLabels.boost} ${appLabels.profile}`}</AppText>
+                <AppText type={'bold'} size={wp(3.5)} uppercase>{`${appLabels.boost} ${appLabels.profile}`}</AppText>
               </TouchableOpacity>
             )}
           </View>
@@ -274,14 +274,14 @@ export default function UserProfile(props) {
             onPress={onLogout}
             type={'bold'}
             color={Colors.red}
-            size={wp(3)}
+            size={wp(4)}
             onPress={() => setDeleteAccountModalVisible(true)}
             style={{ marginTop: 40, marginBottom: 10, textAlign: 'center' }}>{appLabels.delete_account}</AppText>
 
           <AppText
             onPress={() => setLogoutModalVisible(true)}
             type={'bold'}
-            size={wp(3)}
+            size={wp(4)}
             style={{ marginBottom: 20, textAlign: 'center' }}>{appLabels.logout}</AppText>
 
           <ModeratorActivityModal
@@ -322,8 +322,8 @@ const CounterCard = ({ title, count, icon, onPress }) => {
       <View style={{ marginBottom: -wp(2) }}>
         {icon}
       </View>
-      <AppText type={'bold'} size={wp(3)}>{count}</AppText>
-      <AppText type={'regular'} size={wp(2)} style={{ marginTop: -3 }}>{title}</AppText>
+      <AppText type={'bold'} size={wp(4)}>{count}</AppText>
+      <AppText type={'regular'} size={wp(3)} style={{ marginTop: -3 }}>{title}</AppText>
     </TouchableOpacity>
   )
 }
@@ -332,12 +332,12 @@ const CardHeader = ({ title, value, onPress }) => {
   return (
     <TouchableOpacity activeOpacity={0.8} onPress={onPress} style={styles.cardHeaderContainer}>
       <View>
-        <AppText type={'medium'} size={wp(2.5)} color={Colors.black}>{title}</AppText>
+        <AppText type={'medium'} size={wp(4)} color={Colors.black}>{title}</AppText>
         {value && (
-          <AppText type={'light'} size={wp(2.2)} color={Colors.black}>{value}</AppText>
+          <AppText type={'light'} size={wp(3)} color={Colors.black}>{value}</AppText>
         )}
       </View>
-      <ArrowRightIcon width={wp(3)} height={wp(3)} />
+      <ArrowRightIcon width={wp(5)} height={wp(5)} />
     </TouchableOpacity>
   )
 }

@@ -38,9 +38,11 @@ export default function AddPassionsModal({ visible, onHideModal }) {
     }
 
     const isTagSelected = (item) => {
-        for (let tag of userPassions) {
-            if (tag.id == item.id) {
-                return true;
+        if (userPassions) {
+            for (let tag of userPassions) {
+                if (tag.id == item.id) {
+                    return true;
+                }
             }
         }
         return false;
