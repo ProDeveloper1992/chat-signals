@@ -217,7 +217,6 @@ const LoginScreen = (props) => {
                     title={appLabels.login_with_apple}
                     icon={<AppleLogoIcon width={30} height={30} />}
                     onPress={onAppleLoginForAndroid}
-                  // loading={googleLoginLoading}
                   />
                 )}
               </View>
@@ -227,7 +226,6 @@ const LoginScreen = (props) => {
                 title={appLabels.login_with_apple}
                 icon={<AppleLogoIcon width={30} height={30} />}
                 onPress={() => onAppleLoginForiOS(updateCredentialStateForUser)}
-              // loading={googleLoginLoading}
               />
             )}
 

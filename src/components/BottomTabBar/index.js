@@ -92,7 +92,7 @@ export default function BottomTabBar({ state, descriptors, navigation }) {
                   style={styles.unSeenBadgeContainer}>
                   <AppText
                     type={'bold'}
-                    size={wp(2.5)}
+                    size={wp(3)}
                     color={Colors.white}>
                     {unseenMessages}
                   </AppText>

@@ -12,7 +12,7 @@ import {
 } from 'react-native-responsive-screen';
 import { navigate } from '../../../navigators/root-navigation';
 
-const ICON_SIZE = wp(8);
+const ICON_SIZE = wp(9);
 
 export default function LikesListItem({
     item,
