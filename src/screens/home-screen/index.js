@@ -12,16 +12,13 @@ import { FlirtTab, ProFlirtTab } from '../index';
 import { GeneralHeader } from '../../components/Headers';
 import styles from './style';
 
-import { toggleFlirtFilterModal, toggleLanguageModal } from '../../redux/actions/app-modals-actions';
-import { GoogleSignin, statusCodes } from 'react-native-google-signin';
+import { toggleFlirtFilterModal } from '../../redux/actions/app-modals-actions';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-community/async-storage';
 import SplashScreen from 'react-native-splash-screen';
-import { getGeneralSettings } from '../../redux/actions/app-actions';
 
 import FilterIcon from '../../assets/icons/filter.svg';
-import { BoostIcon, KissGradientIcon32 } from '../../constants/svg-icons';
-import { SpotlightModal, BoostProfileModal } from '../../components/app-modals';
+import { BoostIcon } from '../../constants/svg-icons';
+import { BoostProfileModal } from '../../components/app-modals';
 
 const initialLayout = { width: Dimensions.get('window').width };
 

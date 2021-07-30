@@ -18,30 +18,30 @@ export default StyleSheet.create({
     },
 
     profileImageContainer: {
-        width: wp(12),
-        height: wp(12),
-        borderRadius: wp(12) / 2,
+        width: wp(15),
+        height: wp(15),
+        borderRadius: wp(15) / 2,
         backgroundColor: Colors.grey,
         alignItems: 'center',
         justifyContent: 'center'
     },
 
     activeStatusCircle: {
-        height: wp(5),
-        width: wp(5),
+        height: wp(9),
+        width: wp(9),
         alignItems: 'center',
         justifyContent: 'center',
         position: 'absolute',
-        bottom: 3,
-        right: 0,
-        marginBottom: -wp(2),
+        bottom: 0,
+        right: -wp(2),
+        marginBottom: -wp(3),
         // marginEnd: -20
     },
 
     profileImg: {
-        height: wp(12),
-        width: wp(12),
-        borderRadius: wp(12) / 2,
+        height: wp(15),
+        width: wp(15),
+        borderRadius: wp(15) / 2,
         alignSelf: 'center',
     },
 

@@ -11,14 +11,12 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.white
   },
-  //Top Tab Bar
   topTabContainer: {
     backgroundColor: Colors.white,
   },
   topTabIndicator: {
     backgroundColor: Colors.ui_primary,
-    height: wp(0.3),
-    // borderRadius: 30,
+    height: wp(0.5),
   },
   topTabLabel: {
     fontSize: wp(3.5),
