@@ -173,7 +173,7 @@ export const onAppleLoginForAndroid = async () => {
             // Scope.ALL (DEFAULT) = 'email name'
             // Scope.Email = 'email';
             // Scope.Name = 'name';
-            scope: appleAuthAndroid.Scope.ALL,
+            scope: appleAuthAndroid.Scope.EMAIL,
 
             // [OPTIONAL]
             // ResponseType.ALL (DEFAULT) = 'code id_token';

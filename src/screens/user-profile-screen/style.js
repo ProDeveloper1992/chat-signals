@@ -24,7 +24,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginHorizontal: wp(2),
-    paddingVertical: wp(4),
+    paddingVertical: wp(5),
     paddingHorizontal: wp(2),
     // borderRadius: 5,
     // borderTopWidth: 1,

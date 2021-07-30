@@ -81,7 +81,7 @@ export default function FlirtTab(props) {
 
   return (
     <View style={styles.container}>
-      {flirtsLoading && flirtsList.length == 0 ? (
+      {flirtsLoading && flirtsList && flirtsList.length == 0 ? (
         <FlatList
           data={[1, 2, 3, 4, 5, 6]}
           numColumns={2}
@@ -114,7 +114,7 @@ export default function FlirtTab(props) {
           onEndReachedThreshold={1}
           onEndReached={onLoadMore}
           ListFooterComponent={
-            isLoadMoreFlirts && flirtsList.length > 0 ?
+            isLoadMoreFlirts && flirtsList && flirtsList.length > 0 ?
               <View
                 style={{ alignSelf: 'center', paddingVertical: wp(1.5), paddingHorizontal: wp(3.5), backgroundColor: Colors.ui_primary, borderRadius: wp(10), marginTop: wp(2) }}>
                 <ActivityIndicator size={'small'} color={Colors.white} style={{ width: wp(4), height: wp(4), marginVertical: wp(2) }} />

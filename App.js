@@ -2,14 +2,12 @@ import React, { Component, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { ActivityIndicator, Alert, View } from 'react-native';
-import messaging from '@react-native-firebase/messaging';
 import DeviceInfo from 'react-native-device-info';
 
 import { store, persistor } from './src/redux/store';
 import Navigator from './src/navigators';
 import AppModals from './src/components/app-modals';
-import { configurePushNotification, configureFirebaseNotification } from './src/services/notification-service';
-import { AppText } from './src/components';
+import { configurePushNotification } from './src/services/notification-service';
 import { Colors } from './src/constants';
 
 const App = (props) => {
@@ -18,21 +16,9 @@ const App = (props) => {
     launchApp();
     let uniqueId = DeviceInfo.getUniqueId();
     console.log("uniqueId", uniqueId)
-    // const unsubscribe = messaging().onMessage(
-    //   async (remoteMessage) => {
-    //     // alert('A new FCM message arrived!');
-    //     console.log(
-    //       'A new FCM message arrived!',
-    //       JSON.stringify(remoteMessage)
-    //     );
-    //   }
-    // );
-
-    // return unsubscribe;
   }, [])
 
   const launchApp = () => {
-    // configureFirebaseNotification();
     configurePushNotification();
   }
 

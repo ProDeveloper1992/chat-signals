@@ -100,7 +100,7 @@ export default function ProFlirtTab(props) {
           onEndReachedThreshold={1}
           onEndReached={onLoadMore}
           ListFooterComponent={
-            isLoadMoreSpotlights && spotLightsList.length > 0 ?
+            isLoadMoreSpotlights && spotLightsList && spotLightsList.length > 0 ?
               <View
                 style={{ alignSelf: 'center', paddingVertical: widthPercentageToDP(1.5), paddingHorizontal: wp(3.5), backgroundColor: Colors.ui_primary, borderRadius: wp(10), marginTop: wp(2) }}>
                 <ActivityIndicator size={'small'} color={Colors.white} style={{ width: wp(4), height: wp(4), marginVertical: wp(2) }} />

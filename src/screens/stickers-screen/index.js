@@ -30,7 +30,7 @@ export default function StickersScreen(props) {
     return (
         <View style={styles.container}>
             <BackHeader title={appLabels.likes} color={Colors.ui_primary} />
-            {loading && customerStickersList && customerStickersList.length == 0 ? (
+            {loading && customerStickersList.length == 0 ? (
                 <FlatList
                     data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
                     contentContainerStyle={{ flexGrow: 1 }}
