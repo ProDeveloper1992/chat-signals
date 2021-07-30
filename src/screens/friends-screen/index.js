@@ -14,13 +14,13 @@ export default function FriendsScreen(props) {
 
     const dispatch = useDispatch();
 
-    const { userData, friendsList } = useSelector((state) => state.userState);
+    const { friendsList } = useSelector((state) => state.userState);
     const { appLabels } = useSelector((state) => state.appState);
 
     const [loading, setLoading] = useState(true);
     const [searchText, setSearchText] = useState('');
 
-    let friends = friendsList.filter((friend, index) => (friend.is_status * 1) == 2 || (friend.is_status * 1) == 5);
+    let friends = friendsList && friendsList.filter((friend, index) => (friend.is_status * 1) == 2 || (friend.is_status * 1) == 5);
 
     const [customerFriends, setCustomerFriends] = useState(friends);
     let arrayholder = friends;
@@ -67,7 +67,7 @@ export default function FriendsScreen(props) {
                 />
             ) : (
                 <View style={{ flex: 1 }}>
-                    {friends.length > 0 && (
+                    {friends && friends.length > 0 && (
                         <View style={{ padding: 15 }}>
                             <AuthInput
                                 value={searchText}

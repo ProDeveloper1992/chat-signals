@@ -274,14 +274,14 @@ export default function UserProfile(props) {
             onPress={onLogout}
             type={'bold'}
             color={Colors.red}
-            size={wp(4)}
+            size={wp(4.5)}
             onPress={() => setDeleteAccountModalVisible(true)}
             style={{ marginTop: 40, marginBottom: 10, textAlign: 'center' }}>{appLabels.delete_account}</AppText>
 
           <AppText
             onPress={() => setLogoutModalVisible(true)}
             type={'bold'}
-            size={wp(4)}
+            size={wp(4.5)}
             style={{ marginBottom: 20, textAlign: 'center' }}>{appLabels.logout}</AppText>
 
           <ModeratorActivityModal

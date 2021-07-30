@@ -116,7 +116,7 @@ export default function UserPhotos(props) {
             />
             <View style={{ flexDirection: 'row', alignItems: 'center', paddingHorizontal: wp(4), paddingTop: wp(2) }}>
                 <View style={{ flex: 1.2 }} >
-                    <AppText type={"bold"} size={wp(3)}>{appLabels.photos}</AppText>
+                    <AppText type={"bold"} size={wp(4)}>{appLabels.photos}</AppText>
                 </View>
                 <AppButton
                     title={`+${appLabels.upload_new}`}
